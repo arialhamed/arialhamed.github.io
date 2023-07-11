@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+
+	{% include icon.html %}
+    
+    {% include imports.html %}
+
+
+	{% seo %}
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    {% include header.html %}
+
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+	  
+		<section id="main_content" class="inner">
+
+			<!-- <a class="btn btn-dark w-100" style="background-color:#333;" onclick="history.back()">back to all posts</a> -->
+			<a class="btn btn-dark w-100" style="background-color:#333;" href="/resources/apk#apk-gallery">back to all posts</a>
+			
+
+			<h1>{{ page.title }}</h1>
+			
+			<video controls muted autoplay onclick="this.paused ? this.play() : this.pause();" style="max-height: 100vh">
+				<source src="https://raw.githubusercontent.com/arialhamed/static/main/mp4{{ page.url }}.mp4" type="video/mp4"></source>
+				gameplay not available right now
+			</video>
+			<br>
+			<span style="font-size:75%;font-style:italic;">Click to pause video, click again to play</span><br><br>
+			{% if page.play-link %}
+			Play Store: <a href="{{ page.play-link }}" target="_blank"><i class='fab fa-google-play'></i></a><br>
+			{% endif %}
+			{% if page.ios-link %}
+				App Store: <a href="{{ page.ios-link }}" target="_blank"><i class="fab fa-apple"></i></a><br>
+			{% endif %}
+			{% if page.steam-link %}
+				Steam: <a href="{{ page.steam-link }}" target="_blank"><i class="fab fa-steam"></i></a><br>
+			{% endif %}
+			{% if page.itch-link %}
+				itch.io: <a href="{{ page.itch-link }}" target="_blank"><i class="fab fa-itch-io"></i></a><br>
+			{% endif %}
+			<!-- {% if page.switch-link %}
+				N. Switch: <a href="{{ page.switch-link }}" target="_blank"><i class="fab fa-nintendo-switch"></i></a><br>
+			{% endif %} -->
+			{{ content }}
+			
+			{% include comments.html url=page.url %}
+		</section>
+    </div>
+
+    <!-- FOOTER  -->
+    {% include footer.html %}
+  </body>
+</html>

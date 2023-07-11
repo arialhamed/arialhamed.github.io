@@ -1,0 +1,50 @@
+---
+title: "FYP Polytechnic"
+permalink: /blogs/poly-finalyear
+layout: default
+redirect_from: 
+ - /blogs/poly-finalyear/
+ - /blogs/poly-fyp
+ - /blogs/poly-fyp/
+ - /poly-finalyear
+ - /poly-finalyear/
+ - /poly-FYP
+ - /poly-fyp
+ - /poly-FYP/
+ - /poly-fyp/
+ - /fyp
+ - /fyp/
+ - /finalyear
+ - /finalyear/
+---
+
+{% capture poly-fyp-md %}
+{% include blogs-poly-fyp-inc.md %}
+{% endcapture %}
+{{ poly-fyp-md | markdownify }}
+
+<div class="container" id="poly-fyp-days">
+    <div class="row row-cols-5">
+        {% for post in site.categories.poly-finalyear reversed %}
+            {% if post.title == "Hari Raya Haji" %}
+                <a class="col btn btn-outline-dark" href="{{ site.baseurl }}{{ post.url }}">H.R. Haji</a>
+            {% elsif post.title == "IMH Appointment" %}
+                <a class="col btn btn-outline-dark" href="{{ site.baseurl }}{{ post.url }}">IMH Appt.</a>
+            {% elsif post.title == "National Day" %}
+                <a class="col btn btn-outline-dark" href="{{ site.baseurl }}{{ post.url }}">National Day</a>
+            {% elsif post.title == "Hari Raya Haji" %}
+                <a class="col btn btn-outline-dark" href="{{ site.baseurl }}{{ post.url }}">H.R. Haji</a>
+            {% elsif post.title == "Vesak Day" %}
+                <a class="col btn btn-outline-dark" href="{{ site.baseurl }}{{ post.url }}">Vesak Day</a>        
+            {% else %}
+                {% if post.disabled %}
+                    <a class="col btn btn-outline-dark disabled" role="button" aria-disabled="true" href="#"><s>{{ post.date | date: "%-d %B" }}</s></a>
+                {% else %}
+                    <a class="col btn btn-outline-dark" href="{{ site.baseurl }}{{ post.url }}">{{ post.date | date: "%-d %B" }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% include comments.html url=page.url %}

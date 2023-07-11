@@ -1,0 +1,21 @@
+---
+title: AAP Project
+layout: none
+permalink: /ai/housing_articles
+redirect_from:
+ - /ai/housing_articles/
+ - /housing_articles
+ - /housing_articles/
+ - /ai/housing
+ - /ai/housing/
+ - /housing
+ - /housing/
+---
+
+<div>test</div>
+<script>
+	import * as tf from '@tensorflow/tfjs';
+	const model = await tf.loadLayersModel('https://github.com/arialhamed/static/raw/main/others/aap_tfjs/model.json');
+	const prediction = model.predict(example);
+</script>
+

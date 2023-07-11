@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    {% if page.funky %}
+    <meta http-equiv="refresh" content="1800;url=https://arialhamed.github.io/funky">
+    {% endif %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    {% if page.boo %}
+    <script>
+      // credits to Samer Khatib who made the abomination that is "Giraffe Town"
+      function realfunky(){
+        // clear page and change background to black
+        document.body.innerHTML = ''; 
+        document.body.style.backgroundColor = "black";
+        // create an image element, and add all the styles needed for it
+        var gtfb_img = document.createElement("img");
+        gtfb_img.src = "https://raw.githubusercontent.com/arialhamed/static/main/images/giraffe-town-final-boss.png";
+        gtfb_img.style.display = "block";
+        gtfb_img.style.marginLeft = "auto";
+        gtfb_img.style.marginRight = "auto";
+        gtfb_img.style.marginTop = "auto";
+        gtfb_img.style.marginBottom = "auto";
+        gtfb_img.style.boxShadow = "none" ;
+        gtfb_img.style.webkitBoxShadow = "none";
+        gtfb_img.style.mozBoxShadow = "none";
+        gtfb_img.style.oBoxShadow = "none";
+        gtfb_img.style.border = "none";
+        gtfb_img.style.width = "100%";
+        // put in audio element. it will play as long as the user clicked on the funky mouse
+        document.body.innerHTML = '<audio id="suicidemouse" style="display:none;"><source src="https://raw.githubusercontent.com/arialhamed/static/main/mp3/suicidemouse.avi-sped-up-400-trimmed.mp3" type="audio/mpeg">Your browser does not support the audio element. </audio>'
+        document.body.appendChild(gtfb_img);
+        // create immersion
+        document.getElementsByTagName("body")[0].requestFullscreen();
+        // start the audio
+        var audio = document.getElementById("suicidemouse");
+        audio.play();
+        // the user gotta leave at some point, so give them an out for 10 seconds 
+        const e = document.createElement("meta");
+        e.setAttribute("http-equiv", "refresh"), e.setAttribute("content", "10");
+        document.getElementsByTagName("head")[0].appendChild(e)
+        // LOCK THEM UP!! MUAHHAHAHAHA!!!!
+        document.body.pointerEvents = "none";
+        document.onkeydown = function (e) {return false;};
+      }
+      // gosh i have a lot of time
+    </script>
+    {% endif %}
+    {% if page.farewell %}
+    <script>
+      function playFarewell(){
+        var audio = document.getElementById("farewell");
+        audio.play()
+      }
+    </script>
+    {% endif %}
+
+    {% if page.about %}
+    <!-- for showing pdf in about page -->
+    <script src="/static/pdf.js/build/pdf.js"></script>
+    <script src="/static/pdf.js/build/pdf.worker.js"></script>
+    <link rel="stylesheet" href="/static/pdf.js/web/pdf_viewer.css" />
+    <script>
+      // const viewer = new PDFViewer(document.getElementById('viewResume'));
+      // viewer.setDocument('https://github.com/arialhamed/static/blob/f6e9b935f6baa961854aed08fe6742d93a0a6807/pdf/cv-2023-06-07.pdf');
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '/static/pdf.js/build/pdf.worker.js';
+    </script>
+    <!-- end of about page exclusive tags -->
+    {% endif %}
+
+    {% if page.openscad %}
+    <!-- for showing openscad model in openscad page -->
+    <!-- <script language="javascript" src="https://unpkg.com/@jscad/regl-renderer"></script> -->
+    <script src="https://www.unpkg.com/jscad@1.1.0/csg.js"></script>
+    <script src="https://www.unpkg.com/jscad@1.1.0/openjscad.js"></script>
+    <!-- end of openscad page exclusive tags -->
+    {% endif %}
+
+    {% include icon.html %}
+    
+    {% include imports.html %}
+    
+    {% seo %}
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    {% include header.html %}
+
+    {% if page.browserOS %}
+      {{ content }}
+    {% endif %}
+    
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer" style="flex: 1;">
+	  
+      <section id="main_content" class="inner">
+        {% unless page.disable_nav %}
+        {% include nav.html %}
+        {% endunless %}
+        
+        <br>
+        
+        {% unless page.browserOS %}
+          {{ content }}
+        {% endunless %}      
+        <!-- <iframe src="https://www.cloudflare.com/cdn-cgi/trace"></iframe> -->
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    {% include footer.html %}
+  </body>
+</html>

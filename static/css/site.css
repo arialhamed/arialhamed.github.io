@@ -1,0 +1,261 @@
+/* main {
+    max-width: 38rem;
+    padding: 2rem;
+    margin: auto;
+} */
+
+* {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+figcaption {
+    font-size: 70%;
+    text-align: center;
+}
+
+.inner {
+    max-width: 800px !important;
+}
+
+#main_content {
+    padding-top: 15px!important;
+}
+
+.disable-selection {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    -o-user-select:none;
+    user-select:none;    
+}
+
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+img {
+    padding: 0 !important;
+    margin: 10px 0 0 0 !important;
+}
+
+.despair {
+    color:
+        aliceblue;
+    text-shadow: 
+        2px 2px 0 #222, 
+        4px 4px 0 #444, 
+        6px 6px 0 #666, 
+        8px 8px 0 #888, 
+        10px 10px 0 #aaa, 
+        12px 12px 0 #ccc, 
+        14px 14px 0 #eee,
+        -2px -2px 0 #222, 
+        -4px -4px 0 #444, 
+        -6px -6px 0 #666, 
+        -8px -8px 0 #888, 
+        -10px -10px 0 #aaa, 
+        -12px -12px 0 #ccc, 
+        -14px -14px 0 #eee
+    ;
+}
+
+.lag-echo {
+    text-shadow: 
+    1px 11px 0 #333,
+    2px 22px 1 #444,
+    3px 33px 2 #555,
+    4px 44px 3 #666,
+    5px 55px 4 #777,
+    6px 66px 5 #888,
+    7px 77px 6 #999,
+    8px 88px 7 #AAA,
+    9px 99px 8 #BBB;
+        
+}
+
+.abyssal {
+    text-shadow:
+        5px  10px 0 #333,
+        10px 20px 0 #666,
+        15px 30px 0 #999,
+        20px 40px 0 #ccc
+    ;
+}
+
+.hover-rotate-10:hover {
+    font-size: 4rem;
+    transform: rotate(10deg);
+    /* Legacy vendor prefixes that you probably don't need... */			
+    -webkit-transform: rotate(10deg); /* Safari */
+    -moz-transform: rotate(10deg); /* Firefox */		
+    -ms-transform: rotate(10deg); /* IE */			
+    -o-transform: rotate(10deg); /* Opera */			
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+    /* Legacy vendor prefixes that you probably don't need... */			
+    -webkit-transform: rotate(180deg); /* Safari */
+    -moz-transform: rotate(180deg); /* Firefox */		
+    -ms-transform: rotate(180deg); /* IE */			
+    -o-transform: rotate(180deg); /* Opera */			
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+}
+
+.PageNavigation {
+    font-size: 14px;
+    display: block;
+    width: auto;
+    overflow: hidden;
+  }
+
+.PageNavigation a {
+display: block;
+width: 50%;
+float: left;
+margin: 1em 0;
+font-size: 80%;
+}
+
+.timestamp {
+    color: #f2f2f2;
+    background-color: #333;
+    border-color: #333;
+    border-width: medium;
+    border-style: solid;
+    border-radius: 100px;
+    padding: 0px 10px 0px 10px
+}
+
+.active-dropdown {
+    color: #1e2125;
+    background-color: #e9ecef;
+}
+
+.caption-middle {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
+.social-bar {
+    position: fixed;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* Style the icon bar links */
+.social-bar a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 20px;
+    background: #333;
+}
+
+/* Style the social media icons with color, if you want */
+.social-bar a:hover {
+    background-color: #111;
+}
+
+.social-bar a i {
+    color: white;
+    background: white;
+}
+
+.android-icon {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+}
+.android-caption {
+    background-repeat: no-repeat;
+    background-size: fill;
+    margin-right: auto;
+}
+
+.project{
+    margin-bottom: 2rem; 
+    border-color: #333; 
+    border-style: solid;
+    border-width: medium;
+    border-radius: 1rem;
+}
+
+.text-secret{
+    width: 100%!important;
+    text-align: center!important;
+    background-color:#f2f2f2;
+    border:0px;
+    cursor:default;
+
+    display: block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+footer a:hover {
+    color: #888;
+}
+
+#back-to-top:hover {
+    background: #444;
+}
+
+/* for disabled posts in fyp */
+.btn.disabled, .btn:disabled, fieldset:disabled .btn {
+    pointer-events: none;
+    opacity: .35;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.captionedContainer {
+    position: relative;
+    max-width: 800px; /* Maximum width */
+    margin: 0 auto; /* Center it */
+}
+
+.captionedContainer .content {
+    position: absolute; /* Position the background text */
+    bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    color: #f1f1f1 !important; /* Grey text */
+    width: 100%; /* Full width */
+    padding: 20px; /* Some padding */
+}

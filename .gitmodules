@@ -1,0 +1,3 @@
+[submodule "tfjs-aap"]
+	path = tfjs-aap
+	url = https://github.com/arialhamed/tfjs-aap

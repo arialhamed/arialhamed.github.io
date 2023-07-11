@@ -1,0 +1,38 @@
+---
+title: "NIV Bible"
+layout: default
+permalink: /resources/bible
+redirect_from:
+ - /resources/bible/
+ - /resource/bible
+ - /resource/bible/
+ - /bible
+ - /bible/
+ - /resources/niv
+ - /resources/niv/
+ - /resource/niv
+ - /resource/niv/
+ - /niv
+ - /niv/
+---
+
+<h1>The Holy Bible</h1>
+
+<h3>New International Version</h3>
+
+<div class="container">
+    <div class="row row-cols-3">
+        {% for post in site.categories.niv reversed %}
+            <a class="btn btn-outline-dark" href="{{ site.baseurl }}{{ post.url }}">
+                <!-- <div class="captionedContainer">
+                    <img src="https://raw.githubusercontent.com/arialhamed/static/main/images{{ post.url }}.jpeg" onerror="this.src='https://raw.githubusercontent.com/arialhamed/static/main/images/missing.jpeg'" style="width:100%;">
+                    <div class="content">
+                        <h1 style="color: #f1f1f1; font-size: 1.5rem !important;">{{ post.title }}</h1>
+                        <p style="font-size: .8rem !important;">{{ post.subtitle }}</p>
+                    </div>
+                </div> -->
+                {{ post.title }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
