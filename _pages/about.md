@@ -8,6 +8,9 @@ about: true
 ---
 
 # About me 
+
+<div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="arif-hamed-6a7425201" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://sg.linkedin.com/in/ari-hamed?trk=profile-badge">Ari Hamed</a></div>
+
 A youth developer that currently<sup><a href="#1">[1]</a></sup> focuses on **process architecture**, **data analysis**, and **robotic process automation**.<br>
 As a fresh graduate from **NYP**'s <a href="https://www.nyp.edu.sg/schools/sit/full-time-courses/information-technology.html" target="_blank">Diploma of Information Technology</a> course, specializing in **Artificial Intelligence** (with Diploma Plus in _Machine Data Analytics and Operational Intelligence_), i'm also interested in Information Systems & Computer Science, and aiming for  **Machine Learning**, **RPA**, **A.I. R&D**, **Process Architecture** and/or **Data Analytics** as a career.
 
