@@ -28,6 +28,6 @@ Disclaimers aside, I call this setup overpowered because using a laptop or PC de
 
 [2023-07-12] Note that attempting to install .xapk files are a bit buggy (like it won't install and Pacman will be stuck at loading). I would definitely attempt to find if there is a different format in creating my .xapk files 
 
-
+[2023-08-04] I'll leave the .iso for ReviOS (Windows **_10_**) right over [here](https://pixeldrain.com/u/nuwAvC3M).
 
 
