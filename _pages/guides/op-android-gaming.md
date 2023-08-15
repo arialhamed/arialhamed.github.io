@@ -14,7 +14,7 @@ DISCLAIMER: <a href="https://arialhamed.github.io/">https://arialhamed.github.io
 
 Disclaimers aside, I call this setup overpowered because using a laptop or PC device, which has a laptop or PC CPU, is much more overpowered compared to phone CPU.
 
-1. Download Revision OS, Windows 11 Version, <a href="https://revi.cc/revios/download" target="_blank">here for their site</a> (or <a href="https://pixeldrain.com/u/u3sLzCSn" target="_blank">here for direct download</a>), install OS to PC.
+1. Download Revision OS, Windows 11 Version, <a href="https://revi.cc/revios/download" target="_blank">here for their site</a> (or <a href="https://pixeldrain.com/u/EtQ5TmBH" target="_blank">here for direct download</a>), install OS to PC.
 1. Install Firefox (optional but recommended)
 1. Go to <a href="https://store.rg-adguard.net/" target="_blank">rg-adguard</a>
 1. Select the **Productid** option, paste this ID: **9p3395vx91nr**, select the **Slow** option, and click the Check button.
