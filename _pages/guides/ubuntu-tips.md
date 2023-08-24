@@ -291,7 +291,7 @@ needs `sudo`
 
 the following are just **my** own commands that i run before taking a nap or have lunch after fresh installing a new ubuntu installation. It just downloads a pre-made shell script and runs it.
 <pre>
-wget https://github.com/arialhamed/static/raw/main/others/setup.sh && ./setup.sh
+curl -s -L https://github.com/arialhamed/static/raw/main/others/setup.sh | bash
 </pre>
 
 note for ari: the command above is configured for Kubuntu, where certain packages already exist as it's own version that belongs in KDE, such as _KDE Partition Manager_ that is the KDE version for _GParted_. This is also configured for if you're dual-booting with Windows, which would allow you to run Visual Studio instead of MonoDevelop.
