@@ -276,14 +276,35 @@ sudo dpkg --install --force-depends Minecraft.deb
 
 ---
 
-### Setting TDP without using GUI
+### Setting battery thresholds without using GUI
+
+This does it for 1 battery (likely internal battery is 0 then external is 1)
 
 ``` bash
-echo 90 | sudo tee /sys/class/power_supply/BAT0/charge_stop_threshold;
+echo 85 | sudo tee /sys/class/power_supply/BAT0/charge_stop_threshold;
+echo 75 | sudo tee /sys/class/power_supply/BAT0/charge_start_threshold;
 ```
 
-needs `sudo`
+These lines needs root access. Hypothetically, if you need to run this at startup without the need for root access authentication, I suggest you create your own `service` in your system 
 
+TODO: put threshold service walkthrough here
+
+<br><br><br>
+
+---
+
+### Is shutdown taking too long?
+
+Does `shutdown now` & `shutdown -P 0` still take ages and those weird characters appearing like @^@^@^@^@^@^@^@^@^ ? Well, I may or may not have found a way to fix that! 
+
+1. Create backups of `/etc/systemd/system.conf` & `/etc/systemd/user.conf` just in case, preferably outside of the system.
+1. Open both of those up with any text editor of your choice.
+1. Both with have this line, `#DefaultTimeoutStopSec=90s`.
+1. Change that to `DefaultTimeoutStopSec=3s`, or any amount, on both files. Note that I removed the comment char as well.
+1. `reboot`
+
+
+Source: [ItsFOSS](https://itsfoss.com/long-shutdown-linux/)
 
 ---
 
