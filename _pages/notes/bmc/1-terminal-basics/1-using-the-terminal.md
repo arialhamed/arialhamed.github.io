@@ -1,3 +1,11 @@
+---
+title: "BMC: Terminal Basics - Using the Terminal"
+layout: default
+permalink: /notes/bmc/terminal-basics/analyzing-the-market
+redirect_from:
+ - /notes/bmc/1/1
+---
+
 # Using the Terminal
 
 ### Logging in

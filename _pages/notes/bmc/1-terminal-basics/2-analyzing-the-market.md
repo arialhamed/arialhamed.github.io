@@ -1,3 +1,11 @@
+---
+title: "BMC: Terminal Basics - Analyzing the Market"
+layout: default
+permalink: /notes/bmc/terminal-basics/analyzing-the-market
+redirect_from:
+ - /notes/bmc/1/2
+---
+
 # Analyzing the Market
 
 Before interacting the market, you must analyze it. There is a lot to it, like political turmoil & natural disasters and whatnot. 
