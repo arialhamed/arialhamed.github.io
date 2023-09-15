@@ -9,41 +9,41 @@ back: /resources/lyrics
 layout: post-lyrics
 ---
 
-<span style="text-decoration:underline;"><em>Verse 1</em></span><br>
-Every night in my dreams<br>
-I see you, I feel you<br>
-That is how I know you go on<br>
+<span style="text-decoration:underline;"><em>Verse 1</em></span>  
+Every night in my dreams  
+I see you, I feel you  
+That is how I know you go on  
 
-Far across the distance<br>
-And spaces between us<br>
-You have come to show you go on<br>
+Far across the distance  
+And spaces between us  
+You have come to show you go on  
 
-<span style="text-decoration:underline;"><em>Chorus</em></span><br>
-Near, far, wherever you are<br>
-I believe that the heart does go on<br>
-Once more, you open the door<br>
-And you're here in my heart<br>
-And my heart will go on and on<br>
+<span style="text-decoration:underline;"><em>Chorus</em></span>  
+Near, far, wherever you are  
+I believe that the heart does go on  
+Once more, you open the door  
+And you're here in my heart  
+And my heart will go on and on  
 
-<span style="text-decoration:underline;"><em>Verse 2</em></span><br>
-Love can touch us one time<br>
-And last for a lifetime<br>
-And never let go 'til we're gone<br>
+<span style="text-decoration:underline;"><em>Verse 2</em></span>  
+Love can touch us one time  
+And last for a lifetime  
+And never let go 'til we're gone  
 
-Love was when I loved you<br>
-One true time I'd hold to<br>
-In my life, we'll always go on<br>
+Love was when I loved you  
+One true time I'd hold to  
+In my life, we'll always go on  
 
-<span style="text-decoration:underline;"><em>Chorus</em></span><br>
-Near, far, wherever you are<br>
-I believe that the heart does go on<br>
-Once more, you open the door<br>
-And you're here in my heart<br>
-And my heart will go on and on<br>
+<span style="text-decoration:underline;"><em>Chorus</em></span>  
+Near, far, wherever you are  
+I believe that the heart does go on  
+Once more, you open the door  
+And you're here in my heart  
+And my heart will go on and on  
 
-<span style="text-decoration:underline;"><em>Outro</em></span><br>
-You're here, there's nothing I fear<br>
-And I know that my heart will go on<br>
-We'll stay forever this way<br>
-You are safe in my heart and<br>
-My heart will go on and on<br>
+<span style="text-decoration:underline;"><em>Outro</em></span>  
+You're here, there's nothing I fear  
+And I know that my heart will go on  
+We'll stay forever this way  
+You are safe in my heart and  
+My heart will go on and on  

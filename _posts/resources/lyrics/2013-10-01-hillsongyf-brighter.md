@@ -10,85 +10,85 @@ layout: post-lyrics
 published: false
 ---
 
-<span style="text-decoration:underline;"><em>Verse</em></span><br>
-You shine brighter<br>
-Than any star in the sky<br>
-Your light shining<br>
-Through the dark of the night<br>
-Jesus forever<br>
-I find all that I am<br>
-In Your love, love, love<br>
+<span style="text-decoration:underline;"><em>Verse</em></span>  
+You shine brighter  
+Than any star in the sky  
+Your light shining  
+Through the dark of the night  
+Jesus forever  
+I find all that I am  
+In Your love, love, love  
 
-You are with me<br>
-In every step that I take<br>
-Your love for me<br>
-You have called me by name<br>
-Jesus forever<br>
-I find all that I am<br>
-In Your love, love, love<br>
+You are with me  
+In every step that I take  
+Your love for me  
+You have called me by name  
+Jesus forever  
+I find all that I am  
+In Your love, love, love  
 
-<span style="text-decoration:underline;"><em>Chorus 1</em></span><br>
-Let the music play<br>
-Hear us praise Your name<br>
-See the darkness fade<br>
-Dance the night away<br>
-We have found our place<br>
-In the Savior's grace<br>
-Dance the night away<br>
-Your light is taking over me<br>
+<span style="text-decoration:underline;"><em>Chorus 1</em></span>  
+Let the music play  
+Hear us praise Your name  
+See the darkness fade  
+Dance the night away  
+We have found our place  
+In the Savior's grace  
+Dance the night away  
+Your light is taking over me  
 
-<span style="text-decoration:underline;"><em>Verse 2</em></span><br>
-I find freedom<br>
-In the light of Your love<br>
-Everlasting<br>
-You are more than enough<br>
-Jesus forever<br>
-I find all that I am<br>
-In Your love, love, love<br>
+<span style="text-decoration:underline;"><em>Verse 2</em></span>  
+I find freedom  
+In the light of Your love  
+Everlasting  
+You are more than enough  
+Jesus forever  
+I find all that I am  
+In Your love, love, love  
 
-<span style="text-decoration:underline;"><em>Chorus 2</em></span><br>
-Let the music play<br>
-Hear us praise Your name<br>
-See the darkness fade<br>
-Dance the night away<br>
-We have found our place<br>
-In the Savior's grace<br>
+<span style="text-decoration:underline;"><em>Chorus 2</em></span>  
+Let the music play  
+Hear us praise Your name  
+See the darkness fade  
+Dance the night away  
+We have found our place  
+In the Savior's grace  
 
-Dance the night away<br>
-Your light is taking o-o-over me<br>
-Your light is taking o-o-over me<br>
-I'm dancing cuz<br>
-Your love has set me free<br>
-Your light is taking o-o-over me<br>
+Dance the night away  
+Your light is taking o-o-over me  
+Your light is taking o-o-over me  
+I'm dancing cuz  
+Your love has set me free  
+Your light is taking o-o-over me  
 
-<span style="text-decoration:underline;"><em>Bridge</em></span><br>
-All of my heart and soul<br>
-To You alone<br>
-You are the one I want now<br>
-Forever<br>
-All of my heart is Yours<br>
-Forevermore<br>
-You are the one I want now<br>
-Forever<br>
-All of my heart and soul<br>
-To You alone<br>
-You are the one I want now<br>
-Forever<br>
-All of my h<br>eart is Yours
-Forevermore<br>
-You are the one I want<br>
+<span style="text-decoration:underline;"><em>Bridge</em></span>  
+All of my heart and soul  
+To You alone  
+You are the one I want now  
+Forever  
+All of my heart is Yours  
+Forevermore  
+You are the one I want now  
+Forever  
+All of my heart and soul  
+To You alone  
+You are the one I want now  
+Forever  
+All of my h  eart is Yours
+Forevermore  
+You are the one I want  
 
-<span style="text-decoration:underline;"><em>Chorus 2</em></span><br>
-Let the music play<br>
-Hear us praise Your name<br>
-See the darkness fade<br>
-Dance the night away<br>
-We have found our place<br>
-In the Savior's grace<br>
-Dance the night away<br>
+<span style="text-decoration:underline;"><em>Chorus 2</em></span>  
+Let the music play  
+Hear us praise Your name  
+See the darkness fade  
+Dance the night away  
+We have found our place  
+In the Savior's grace  
+Dance the night away  
 
-Your light is taking o-o-over me<br>
-Your light is taking o-o-over me<br>
-I'm dancing cuz<br>
-Your love has set me free<br>
-Your light is taking o-o-over me<br>
+Your light is taking o-o-over me  
+Your light is taking o-o-over me  
+I'm dancing cuz  
+Your love has set me free  
+Your light is taking o-o-over me  

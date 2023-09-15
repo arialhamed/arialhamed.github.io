@@ -10,4 +10,4 @@ layout: post-lyrics
 published: false
 ---
 
-<span style="text-decoration:underline;"><em>Verse</em></span><br>
+<span style="text-decoration:underline;"><em>Verse</em></span>  

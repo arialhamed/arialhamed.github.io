@@ -9,46 +9,46 @@ back: /resources/lyrics
 layout: post-lyrics
 ---
 
-<span style="text-decoration:underline;"><em>Verse</em></span><br><br>
-Now sometimes these thoughts in my head speak so loud<br>
-Every little thing that I think about<br>
-Just builds on top of the pain and doubt<br>
-Even though I wanna just let it out<br>
-I try to act like I don't mind it, try to keep my mouth so quiet<br>
-But sittin' there in my silence just seems to amplify it<br>
-<br>
-When I thought that keepin' this inside would make it better<br>
-I never thought that I would end up ruining it forever<br>
-But every time I think I got everything put back together<br>
-I end up making more regrets, making more regrets<br>
-<br>
-<span style="text-decoration:underline;"><em>Chorus</em></span><br><br>
-Falling from grace, I watch it all come apart<br>
-Knowing I could've changed it all from the start<br>
-Fighting myself, I always lose<br>
-Fighting myself, I always lose<br>
-<br>
-<span style="text-decoration:underline;"><em>Verse 2</em></span><br><br>
-I didn't want you to think I'm worn out so easily<br>
-I wish I'd held it in so you never knew what built up inside of me<br>
-Now I don't know how it overflowed, spilled out unwillingly<br>
-But now everything that I learned to hate came out for you to see<br>
-<br>
-I don't want you to promise you can change everything and make it better<br>
-'Cause you can bet I'm gonna end up ruining it forever<br>
-And every time you think you got everything put back together<br>
-I end up making more regrets, making more regrets<br>
-<br>
-<span style="text-decoration:underline;"><em>Chorus (x2)</em></span><br><br>
-<br>
-<span style="text-decoration:underline;"><em>Bridge 1 (x2)</em></span><br><br>
-I can't run with this weight on my back<br>
-I can't see 'cause I'm focused on the past<br>
-I can't breathe, I need to break free<br>
-From the anger that is constantly inside me (inside of me)<br>
-<br>
-<span style="text-decoration:underline;"><em>Bridge 2 (x2)</em></span><br><br>
-Falling from grace, I watch it all come apart<br>
-Knowing I could've changed it all from the start<br>
-I can't breathe, I need to break free<br>
+<span style="text-decoration:underline;"><em>Verse</em></span>  
+Now sometimes these thoughts in my head speak so loud  
+Every little thing that I think about  
+Just builds on top of the pain and doubt  
+Even though I wanna just let it out  
+I try to act like I don't mind it, try to keep my mouth so quiet  
+But sittin' there in my silence just seems to amplify it  
+  
+When I thought that keepin' this inside would make it better  
+I never thought that I would end up ruining it forever  
+But every time I think I got everything put back together  
+I end up making more regrets, making more regrets  
+  
+<span style="text-decoration:underline;"><em>Chorus</em></span>  
+Falling from grace, I watch it all come apart  
+Knowing I could've changed it all from the start  
+Fighting myself, I always lose  
+Fighting myself, I always lose  
+  
+<span style="text-decoration:underline;"><em>Verse 2</em></span>  
+I didn't want you to think I'm worn out so easily  
+I wish I'd held it in so you never knew what built up inside of me  
+Now I don't know how it overflowed, spilled out unwillingly  
+But now everything that I learned to hate came out for you to see  
+  
+I don't want you to promise you can change everything and make it better  
+'Cause you can bet I'm gonna end up ruining it forever  
+And every time you think you got everything put back together  
+I end up making more regrets, making more regrets  
+  
+<span style="text-decoration:underline;"><em>Chorus (x2)</em></span>    
+  
+<span style="text-decoration:underline;"><em>Bridge 1 (x2)</em></span>    
+I can't run with this weight on my back  
+I can't see 'cause I'm focused on the past  
+I can't breathe, I need to break free  
+From the anger that is constantly inside me (inside of me)  
+  
+<span style="text-decoration:underline;"><em>Bridge 2 (x2)</em></span>    
+Falling from grace, I watch it all come apart  
+Knowing I could've changed it all from the start  
+I can't breathe, I need to break free  
 From the anger that is constantly inside of me 
