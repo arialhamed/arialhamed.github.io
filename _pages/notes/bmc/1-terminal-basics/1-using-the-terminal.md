@@ -1,7 +1,7 @@
 ---
 title: "BMC: Terminal Basics - Using the Terminal"
 layout: default
-permalink: /notes/bmc/terminal-basics/analyzing-the-market
+permalink: /notes/bmc/terminal-basics/using-the-terminal
 redirect_from:
  - /notes/bmc/1/1
 ---
