@@ -14,7 +14,7 @@ Finance professionals rely on Bloomberg to help them outperform the market
 
 ### Equity Functions 
 
-image 1
+image 1 
 
 ### `EQS` - Stock Screening
 
