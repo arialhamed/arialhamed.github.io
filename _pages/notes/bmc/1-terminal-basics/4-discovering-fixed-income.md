@@ -19,47 +19,47 @@ redirect_from:
             <td>
             <b>Screen for stocks</b>
             <ul>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#eqs---stock-screening">EQS</a>: Stock Screening</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#watc---watchlist-analytics">WATC</a>: Watchlist Analytics</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#eqs---stock-screening">EQS</a>: Stock Screening</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#watc---watchlist-analytics">WATC</a>: Watchlist Analytics</li>
             </ul>
             <b>Investigate company overviews</b>
             <ul>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#des---security-description">DES</a>: Security Description</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#cp---company-profile">CP</a>: Company Profile</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#des---security-description">DES</a>: Security Description</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#cp---company-profile">CP</a>: Company Profile</li>
             </ul>
             <b>Research a company</b>
             <ul>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#bico---bloomberg-intelligence-company-primer">BICO</a>: Bloomberg Intelligence Company Primer</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#ki---key-insights">KI</a>: Key Insights</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#bico---bloomberg-intelligence-company-primer">BICO</a>: Bloomberg Intelligence Company Primer</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#ki---key-insights">KI</a>: Key Insights</li>
                 <li>CN: Company News</li>
             </ul>
             <b>Explore fundamentals and estimates</b>
             <ul>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#fa---financial-analysis">FA</a>: Financial Analysis</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#fa---financial-analysis">FA</a>: Financial Analysis</li>
             </ul>
             </td>
             <td>
             <b>Compare a company to peers</b>
             <ul>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#rv---relative-valuation">RV</a>: Relative Valuation</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#eqrv---equity-relative-valuation">EQRV</a>: Equity Relative Valuation</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#comp---comparative-returns">COMP</a>: Comparative Returns</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#gp---graph-price">GP</a>: Graph Price</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#rv---relative-valuation">RV</a>: Relative Valuation</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#eqrv---equity-relative-valuation">EQRV</a>: Equity Relative Valuation</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#comp---comparative-returns">COMP</a>: Comparative Returns</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#gp---graph-price">GP</a>: Graph Price</li>
             </ul>
             <b>Examine analyst recommendations</b>
             <ul>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#anr---analyst-recommendations-pbar---peer-ratings">ANR</a>: Analyst Recommendations</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#anr---analyst-recommendations-pbar---peer-ratings">ANR</a>: Analyst Recommendations</li>
             </ul>
             <b>Perform technical analysis</b>
             <ul>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#tech---technical-analysis">TECH</a>: Technical Analysis</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#btst---basic-backtesting">BTST</a>: Basic Backtesting</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#bt---backtesting--optimization">BT</a>: Backtesting & Optimization</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#tech---technical-analysis">TECH</a>: Technical Analysis</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#btst---basic-backtesting">BTST</a>: Basic Backtesting</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#bt---backtesting--optimization">BT</a>: Backtesting & Optimization</li>
             </ul>
             <b>Download data</b>
             <ul>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#xltp---excel-template-library-dapi---desktop-api">XLTP</a>: Excel Template Library</li>
-                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/discovering-fixed-income#xltp---excel-template-library-dapi---desktop-api">DAPI</a>: Overview of Desktop API</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#xltp---excel-template-library-dapi---desktop-api">XLTP</a>: Excel Template Library</li>
+                <li><a href="https://arialhamed.github.io/notes/bmc/terminal-basics/exploring-the-equity-market#xltp---excel-template-library-dapi---desktop-api">DAPI</a>: Overview of Desktop API</li>
             </ul>
             </td>
         </tr>
