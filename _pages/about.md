@@ -14,7 +14,7 @@ about: true
 A youth developer that currently<sup><a href="#1">[1]</a></sup> focuses on **process architecture**, **data analysis**, and **robotic process automation**.<br>
 As a fresh graduate from **NYP**'s <a href="https://www.nyp.edu.sg/schools/sit/full-time-courses/information-technology.html" target="_blank">Diploma of Information Technology</a> course, specializing in **Artificial Intelligence** (with Diploma Plus in _Machine Data Analytics and Operational Intelligence_), i'm also interested in Information Systems & Computer Science, and aiming for  **Machine Learning**, **RPA**, **A.I. R&D**, **Process Architecture** and/or **Data Analytics** as a career.
 
-<a href="/resume" target="_blank" id="pdfjsResume"><img src="https://raw.githubusercontent.com/arialhamed/static/main/images/cv/cv-2023-09-13.png"></a>
+<a href="https://docs.google.com/viewer?embedded=true&url=https%3A%2F%2Fraw.githubusercontent.com%2Farialhamed%2Fstatic%2Fmain%2Fpdf%2Fcv-2023-09-13.pdf" target="_blank" id="pdfjsResume"><img src="https://raw.githubusercontent.com/arialhamed/static/main/images/cv/cv-2023-09-13.png"></a>
 
 <!-- <br><br>
 
