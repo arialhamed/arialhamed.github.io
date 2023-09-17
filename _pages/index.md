@@ -47,7 +47,7 @@ think this homepage could be better? same. in fact, you can just leave comments 
         const zeroPad = (num, places) => String(num).padStart(places, '0');
         document.getElementById('time').innerHTML = "this website was last updated in "+bruh.getDate()+" "+["January","February","March","April","May","June","July","August","September","October","November","December"][bruh.getMonth()]+" "+bruh.getFullYear()+", "+zeroPad(parseInt(bruh.getHours()),2)+":"+zeroPad(parseInt(bruh.getMinutes()),2)+":"+zeroPad(parseInt(bruh.getSeconds()),2)+" (GMT+8, Singapore Time).";
         if (document.getElementById('time').innerHTML.includes("NaN")){
-            document.getElementById('time').innerHTML = "you could be on mobile right now, yeah i see you, your soul looks delicious";
+            document.getElementById('time').innerHTML = "you could be on mobile right now, yeah i see you. OwO";
         }
     }
 </script>
@@ -55,4 +55,4 @@ think this homepage could be better? same. in fact, you can just leave comments 
 
 {% include comments.html url=page.url %}
 <br><br>
-<a href="https://raw.githubusercontent.com/arialhamed/static/main/images/trans-in-transformers.jpg" style="text-decoration:none;color:#f2f2f2;width:100%;">test</a>
+<a href="https://raw.githubusercontent.com/arialhamed/static/main/images/trans-in-transformers.jpg" style="text-decoration:none;color:#202020;width:100%;">test</a>
