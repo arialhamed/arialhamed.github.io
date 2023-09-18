@@ -34,7 +34,7 @@ redirect_from:
         </h2>
         <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#resume-accordion">
             <div class="accordion-body">
-                <table>
+                <table style="border: none!important;">
                     <tbody>
                         <tr>
                             <td style="text-align: left;"><b>TomoWork Ltd, Singapore</b><br><i>Participant</i></td>
@@ -72,7 +72,7 @@ redirect_from:
         </h2>
         <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#resume-accordion">
             <div class="accordion-body">
-                <table>
+                <table style="border: none!important;">
                     <tbody>
                         <tr>
                             <td style="text-align: left;"><b>Pathlight School - Student Council</b><br><i>Vice-President (EXCO)</i></td>
@@ -130,7 +130,7 @@ redirect_from:
         </h2>
         <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#resume-accordion">
             <div class="accordion-body">
-                <table>
+                <table style="border: none!important;">
                     <tbody>
                         <tr>
                             <td style="text-align: left;"><b>Diploma in Information Technology</b>, School of Information Technology, Nanyang Polytechnic, Singapore</td>
