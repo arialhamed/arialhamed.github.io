@@ -3,7 +3,7 @@ title: "BMC: Terminal Basics - Discovering Fixed Income"
 layout: default
 permalink: /notes/bmc/terminal-basics/discovering-fixed-income
 redirect_from:
- - /notes/bmc/1/4
+ - /notes/bmc/5/4
 ---
 
 # Discovering Fixed Income

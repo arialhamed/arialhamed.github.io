@@ -3,7 +3,7 @@ title: "BMC: Terminal Basics - Analyzing the Market"
 layout: default
 permalink: /notes/bmc/terminal-basics/analyzing-the-market
 redirect_from:
- - /notes/bmc/1/2
+ - /notes/bmc/5/2
 ---
 
 # Analyzing the Market
@@ -11,13 +11,13 @@ redirect_from:
 Before interacting the market, you must analyze it. There is a lot to it, like political turmoil & natural disasters and whatnot. 
 
 ### `GMM` - Global Macro Movers
-![](https://github.com/arialhamed/static/blob/main/images/notes/bmc/1-2-1.png?raw=true)
+![](https://github.com/arialhamed/static/blob/main/images/notes/bmc/5-2-1.png?raw=true)
 An election is a macro event.  
 Typing MACRO in the cmd will show the biggest moves in a specific time-span (amber fields here).  
 Remember these dates  
 
 ### `COUN` - Country Guide, `GP` - Price Chart, `GCT` - Graph Curve Tenors
-![](https://github.com/arialhamed/static/blob/main/images/notes/bmc/1-2-2.png?raw=true)
+![](https://github.com/arialhamed/static/blob/main/images/notes/bmc/5-2-2.png?raw=true)
 Right clicking on a country's stock market, and selecting COUN will pull up an overview of the country's financial markets
 - The left shows Asset Class sections
 - The bottom is top news for the country
