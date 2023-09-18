@@ -19,9 +19,9 @@ My only gripe with this course is that there is no way for me to actually use th
 I'm just gonna say this: this course unveiled a huge nerd inside of me, one who loves market, finance & analysis of market & finance.  
 
 1. Terminal Basics
-    1. [Using the Terminal](/notes/1/1)
-    1. [Analyzing the Market](/notes/1/2)
-    1. [Exploring the Equity Market](/notes/1/3)
-    1. [Discovering Fixed Income](/notes/1/4)
-    1. [Building an Equity Portfolio](/notes/1/5)
+    1. [Using the Terminal](/notes/bmc/1/1)
+    1. [Analyzing the Market](/notes/bmc/1/2)
+    1. [Exploring the Equity Market](/notes/bmc/1/3)
+    1. [Discovering Fixed Income](/notes/bmc/1/4)
+    1. [Building an Equity Portfolio](/notes/bmc/1/5)
 1. 4nd chap
