@@ -117,3 +117,6 @@ You've also learned how to analyze the market:
 - `BI`: Bloomberg Intelligence
 
 The narrator here be like "is there political turmoil?" like sure pineapples are flying off the shelves but hey better than staying in the closet.
+
+<br><br><br><br><br>
+[Click here to go back](..)

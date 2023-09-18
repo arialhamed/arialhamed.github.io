@@ -8,6 +8,10 @@ redirect_from:
  - /cv/
 ---
 
+resume page still wip
+
+<img src="https://github.com/arialhamed/static/blob/main/images/cv/nasa-t-shirt.jpg?raw=true" width=150 style="text-align: center;" title=":3">
+
 <div class="accordion" id="resume-accordion">
     <div class="accordion-item">
         <h2 class="accordion-header" id="heading1">

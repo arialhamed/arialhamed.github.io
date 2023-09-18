@@ -85,3 +85,6 @@ If you still have questions, press <span style="color:#50A120;">F1</span> twice 
 You can review basic navigation by typing <span style="color:#50A120;">HELP</span> in the commandline and pressing Go.  
 
 
+
+<br><br><br><br><br>
+[Click here to go back](..)

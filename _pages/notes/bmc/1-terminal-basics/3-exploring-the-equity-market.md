@@ -159,3 +159,6 @@ Excel is everywhere with the Desktop API (`DAPI`)
 
 ### Summary
 Exploring the Equity Market, here are the functions thought. These are not all though, there are more related to further aspects of a company if you want to find out more!
+
+<br><br><br><br><br>
+[Click here to go back](..)
