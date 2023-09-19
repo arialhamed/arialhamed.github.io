@@ -23,6 +23,10 @@ I'm just gonna say this: this course unveiled a huge nerd inside of me, one who 
     1. [Monitoring GDP](/notes/bmc/1/2)
     1. [Forecasting GDP](/notes/bmc/1/3)
 1. Currencies
+    1. [Currency Market Mechanics](/notes/bmc/2/1)
+    1. [Currency Valuation](/notes/bmc/2/2)
+    1. [Central Banks & Currencies](/notes/bmc/2/3)
+    1. [Currency Risk](/notes/bmc/2/4)
 1. Fixed Income
 1. Equities
 1. Terminal Basics

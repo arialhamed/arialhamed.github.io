@@ -23,6 +23,9 @@ h1, h2, h3, h4, h5, h6 {
 pre, code {
     background-color: #ddd!important;
 }
+a > code {
+    color: #202020!important;
+}
 
 figcaption {
     font-size: 70%;

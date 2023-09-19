@@ -16,23 +16,18 @@ As a fresh graduate from **NYP**'s <a href="https://www.nyp.edu.sg/schools/sit/f
 
 As of now, I am learning finacial & market analysis through Bloomberg for Education's course: Bloomberg Market Concepts. 
 
-<!-- <a href="/cv" target="_blank" id="pdfjsResume"><img src="https://raw.githubusercontent.com/arialhamed/static/main/images/cv/cv-2023-09-13.png"></a> -->
-
 <div class="row row-cols-2">
-    <a class="btn btn-outline-secondary" href="/resume" target="_blank" role="button">Resume</a>
-    <a class="btn btn-outline-secondary" href="/cv" target="_blank" role="button">CV</a>
+    <a class="btn btn-outline-secondary" href="/resume" role="button">Resume (.pdf)</a>
+    <a class="btn btn-outline-secondary" href="/cv" role="button">CV (all details)</a>
 </div>
-
-<!-- <br><br>
-
-<a href="https://docs.google.com/viewer?embedded=true&url=https%3A%2F%2Fraw.githubusercontent.com%2Farialhamed%2Fstatic%2Fmain%2Fpdf%2Fcv-2023-09-13.pdf" target="_blank" style="font-size:70%;">_Click here if the document doesn't appear above_</a><br> -->
 
 <!-- history:
 - 2023-03-25 : pre tomowork, pic taken from jw's 21st from tkb's camera
 - 2023-05-16 : tomowork final cv, in corporate cv book
+- 2023-09-13 : updated for bloomberg application
 --> 
 
-socials (note: for some reason the icons are not working right now, i will absolutely try to make em work again 😅):<br>
+<!-- socials (note: for some reason the icons are not working right now, i will absolutely try to make em work again 😅):<br>
 <div class="container">
     <div class="row row-cols-6">
         <a class="col btn btn-dark" style="background-color:#333;" href="https://codepen.io/arifhamed" target="_blank"><i class="fab fa-codepen"></i></a>
@@ -48,45 +43,6 @@ socials (note: for some reason the icons are not working right now, i will absol
         <a class="col btn btn-dark" style="background-color:#333;" href="https://arifhamed.tumblr.com/" target="_blank"><i class="fab fa-tumblr"></i></a>
         <a class="col btn btn-dark" style="background-color:#333;" href="https://www.twitch.tv/arifstocrat" target="_blank"><i class="fab fa-twitch"></i></a>
     </div>
-</div>
+</div> -->
 
 {% include comments.html url=page.url %}
-<!-- 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<span id="list"></span>
-
-<span id="1"><sup>[1]</sup> as of <span class="date">2023-02-24</span></span> -->
-<!-- <script>
-    const container = document.getElementById('pdfjsResume');
-
-    pdfjsLib.getDocument('https://raw.githubusercontent.com/arialhamed/static/main/pdf/cv-2023-09-13.pdf').promise.then(function(pdf) {
-        // gets first page because resume should only be 1 page
-        pdf.getPage(1).then(function(page) {
-            const scale = 1.67;
-            const viewport = page.getViewport({ scale });
-
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-            container.appendChild(canvas);
-
-            const renderContext = {
-                canvasContext: context,
-                viewport: viewport
-            };
-
-            page.render(renderContext);
-        });
-    });
-
-</script> -->
