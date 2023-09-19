@@ -21,11 +21,11 @@ redirect_from:
 
 <div style="text-align: center;">If you find something in this website infringing on your rights, please email me. 48 hours processing, business days, Singapore hours (GMT +0800).</div>
 
-<script>
+<!-- <script>
     getLatestAriProfilePic()
     async function getLatestAriProfilePic() {
         const response = await fetch("https://api.github.com/users/arialhamed/repos");
         const all = await response.json();
         document.getElementById("gh-image").src = all[0]['owner']['avatar_url'];
     }
-</script>
+</script> -->
