@@ -55,4 +55,4 @@ think this homepage could be better? same. in fact, you can just leave comments 
 
 {% include comments.html url=page.url %}
 <br><br>
-<a href="https://raw.githubusercontent.com/arialhamed/static/main/images/trans-in-transformers.jpg" style="text-decoration:none;color:#202020!important;width:100%;">test</a>
+<a href="https://raw.githubusercontent.com/arialhamed/static/main/images/trans-in-transformers.jpg" style="text-decoration:none;color:#202020!important;width:100%;cursor:default;">test</a>
