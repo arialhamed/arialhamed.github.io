@@ -7,13 +7,13 @@ layout: default
 ---
 
 # Git
-<a href="https://git-scm.com/" target="_blank">Git</a> is a version control system  is basically a version control system and here is where I can show the basics of using Git to control both your remote and local repositories. In this guide, I will go through a step-by-step demo to showcase the basics and essentials of Git (most of the ones that I use frequently anyway).
+<a href="https://git-scm.com/">Git</a> is a version control system  is basically a version control system and here is where I can show the basics of using Git to control both your remote and local repositories. In this guide, I will go through a step-by-step demo to showcase the basics and essentials of Git (most of the ones that I use frequently anyway).
 
 What is required for this:
-* A GitHub account (you can create <a href="https://github.com/signup" target="_blank">here</a>, awesome ui by github btw)
+* A GitHub account (you can create <a href="https://github.com/signup">here</a>, awesome ui by github btw)
 * Any terminal/console/bash window (preferably with administrator rights)
-* <a href="https://git-scm.com/downloads" target="_blank">Git</a> installed to your computer
-* A repository you own (requires GitHub account). If you don't have one, you can create one <a href="https://github.com/new" target="_blank">here</a>
+* <a href="https://git-scm.com/downloads">Git</a> installed to your computer
+* A repository you own (requires GitHub account). If you don't have one, you can create one <a href="https://github.com/new">here</a>
 
 <hr>
 
@@ -45,7 +45,7 @@ Something that helps is using `gh auth login`, though more or less, the GitHub C
 <hr>
 
 ## git clone 
-To start of, let's use a repository that you own. In this demo, I will be using an old repo, <a href="https://github.com/arialhamed/files-000" target="_blank">https://github.com/arialhamed/files-000</a>. Now, in your terminal, it's best to change your current working directory to one where files would move frequently, like Downloads or Documents. Next, your first git command is `git clone`, as shown below:
+To start of, let's use a repository that you own. In this demo, I will be using an old repo, <a href="https://github.com/arialhamed/files-000">https://github.com/arialhamed/files-000</a>. Now, in your terminal, it's best to change your current working directory to one where files would move frequently, like Downloads or Documents. Next, your first git command is `git clone`, as shown below:
 ``` bash
 ~$ git clone https://github.com/arialhamed/files-000
 Cloning into 'files-000'...

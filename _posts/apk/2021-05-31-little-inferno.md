@@ -10,7 +10,7 @@ tags: casual indie puzzle singleplayer satire physics
 paid: true
 ---
 
-> _"Throw your toys into your fire, and play with them as they burn. An adventure that takes place almost entirely in front of a fireplace - about looking up up up out of the chimney, and the cold world just on the other side of the wall. From the creators of World of Goo and Human Resource Machine." - <a href="https://store.steampowered.com/app/221260/Little_Inferno/" target="_blank">Steam</a>_
+> _"Throw your toys into your fire, and play with them as they burn. An adventure that takes place almost entirely in front of a fireplace - about looking up up up out of the chimney, and the cold world just on the other side of the wall. From the creators of World of Goo and Human Resource Machine." - <a href="https://store.steampowered.com/app/221260/Little_Inferno/">Steam</a>_
 
 <span class="timestamp">07 May 2022:</span> Now this is a good game right here. idk about you, but i love to see things burn, especially if it's combustible and it decreases in size after a while of it getting burned. It is super satisfying, both irl and somehow in this game too. Of course, with every Tomorrow Corporation game there is some story going on in the background about human civilization apocalypse or something, but the game claims that the game is just you burning stuff, that's it! It's also more or less a physics game because you can combine stuff together. Pretty good game indeed 11/10.
 

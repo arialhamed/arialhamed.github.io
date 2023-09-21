@@ -11,7 +11,7 @@ tags: mystery visual-novel detective anime horror
 paid: true
 ---
 
-> _"Investigate murders, search for clues and talk to your classmates to prepare for trial. There, you'll engage in deadly wordplay, going back and forth with suspects. Dissect their statements and fire their words back at them to expose their lies! There's only one way to survive—pull the trigger." - <a href="https://store.steampowered.com/app/413410/Danganronpa_Trigger_Happy_Havoc/" target="_blank">Steam</a>_
+> _"Investigate murders, search for clues and talk to your classmates to prepare for trial. There, you'll engage in deadly wordplay, going back and forth with suspects. Dissect their statements and fire their words back at them to expose their lies! There's only one way to survive—pull the trigger." - <a href="https://store.steampowered.com/app/413410/Danganronpa_Trigger_Happy_Havoc/">Steam</a>_
 
 Danganronpa: Trigger Happy Havoc. The first game, and in my opinion<sup><a href="#1">[1]</a></sup> the best, of the Danganronpa franchise.
 

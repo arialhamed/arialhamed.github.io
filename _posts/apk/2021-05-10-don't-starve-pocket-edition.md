@@ -10,7 +10,7 @@ tags: rpg action survival horror 2D open-world open-world-survival-craft craftin
 paid: true
 ---
 
-> _"Don’t Starve is an uncompromising wilderness survival game full of science and magic. Enter a strange and unexplored world full of strange creatures, dangers, and surprises. Gather resources to craft items and structures that match your survival style." - <a href="https://store.steampowered.com/app/219740/Dont_Starve/" target="_blank">Steam</a>_
+> _"Don’t Starve is an uncompromising wilderness survival game full of science and magic. Enter a strange and unexplored world full of strange creatures, dangers, and surprises. Gather resources to craft items and structures that match your survival style." - <a href="https://store.steampowered.com/app/219740/Dont_Starve/">Steam</a>_
 
 <span class="timestamp">22 April 2022:</span> This is another instant classic that reigned well in its time and its re-releases! Stemming from the PC edition, the Don't Starve series is an open world, survival game, where you gotta not starve, and also to stay away from the dark. I've not played it much but it seems pretty nice. This game is kinda like if Crashlands was designed by Tim Burton.
 

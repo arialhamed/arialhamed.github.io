@@ -11,7 +11,7 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"Gear up for Adventure and battle foes in top-down action using an arsenal of gadgets, guns, and gear. Explore dangerous corners of the procedurally generated world, take down titans of the mining industry, and harness the power Sparklite!" - <a href="https://play.google.com/store/apps/details?id=com.playdigious.sparklite" target="_blank">Play Store</a>_
+> _"Gear up for Adventure and battle foes in top-down action using an arsenal of gadgets, guns, and gear. Explore dangerous corners of the procedurally generated world, take down titans of the mining industry, and harness the power Sparklite!" - <a href="https://play.google.com/store/apps/details?id=com.playdigious.sparklite">Play Store</a>_
 
 <span class="timestamp">20 April 2022:</span> It seems to be a pretty interesting game. The artstyle, the gameplay, among other things this game is actually quite well cut. 
 

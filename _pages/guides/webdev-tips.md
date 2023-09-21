@@ -23,7 +23,7 @@ I have worked with quite a lot of websites, undoubtedly this one too (obviously)
 <hr>
 
 ### Always look back to Bootstrap
-A lot of times, we overlook the easy answer, and the easiest and effective answer is Bootstrap! This website uses a combination of Markdown & Bootstrap, and in some pages, the Bootstrap element will be louder than Markdown, such as [my X230 page](/blogs/upgrades/thinkpad/X230), that has both <a href="https://getbootstrap.com/docs/5.0/components/accordion/" target="_blank">Accordion</a> & <a href="https://getbootstrap.com/docs/5.0/components/carousel/" target="_blank">Carousel</a>.
+A lot of times, we overlook the easy answer, and the easiest and effective answer is Bootstrap! This website uses a combination of Markdown & Bootstrap, and in some pages, the Bootstrap element will be louder than Markdown, such as [my X230 page](/blogs/upgrades/thinkpad/X230), that has both <a href="https://getbootstrap.com/docs/5.0/components/accordion/">Accordion</a> & <a href="https://getbootstrap.com/docs/5.0/components/carousel/">Carousel</a>.
 
 so just google it, and btw it's very important to search up the Bootstrap version as well!
 
@@ -40,7 +40,7 @@ body {
     flex-direction: column;
 }
 ```
-The above is CSS you can put into your site.css that can apply to all pages (as I also have done <a href="https://arialhamed.github.io/static/css/site.css" target="_blank">here</a>), and the below is an example of what to do in your layouts html files. The effect will, of course, be visible in _vertically smaller pages_. In the example below though, all i did to change to the layout is add in the style attribute to the _main_content_wrap_ division. 
+The above is CSS you can put into your site.css that can apply to all pages (as I also have done <a href="https://arialhamed.github.io/static/css/site.css">here</a>), and the below is an example of what to do in your layouts html files. The effect will, of course, be visible in _vertically smaller pages_. In the example below though, all i did to change to the layout is add in the style attribute to the _main_content_wrap_ division. 
 ``` html
 <div id="header_wrap" class="outer">
     <!-- HEADER CONTENT -->

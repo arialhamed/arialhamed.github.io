@@ -24,7 +24,7 @@ A mini-SATA SSD, used in small laptops before the existence of M.2 replaced it. 
 </div>
 
 Interesting information
-- <a href="https://www.harddrivebenchmark.net/hdd.php?hdd=SAMSUNG+SSD+SM841N+mSATA+128GB" target="_blank">Harddrive Benchmark</a>
+- <a href="https://www.harddrivebenchmark.net/hdd.php?hdd=SAMSUNG+SSD+SM841N+mSATA+128GB">Harddrive Benchmark</a>
 
 <br><br><br><hr>
 MSRP: ~SGD$45.54<br>

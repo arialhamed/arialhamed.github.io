@@ -16,7 +16,7 @@ redirect_from:
 
 This is more, like, for me to reference to. i learned some things **and i will forget them** after a while, so here it is.
 
-Some tips i have here, probably. Not much to show here tbh, just some stuff copied over from <a href="https://forum.thinkpads.com/" target="_blank">https://forum.thinkpads.com</a>.
+Some tips i have here, probably. Not much to show here tbh, just some stuff copied over from <a href="https://forum.thinkpads.com/">https://forum.thinkpads.com</a>.
 
 
 <br><br><br>
@@ -75,4 +75,4 @@ Lastly if/ in case LenovoVantage windows app location/ name changes, do this to 
 3. On desktop Lenovo Vantage shortcut, right click > properties > shortcut tab, look under target/ target type to confirm above name (E046963F.LenovoCompanion_k1h2ywk1493x8!App). Note "target" might be greyed out or full name (e.g. last letters of "!app") not visible. This is OK as you're only confirming. If the name is different, the difference will be before the "!App" ending. If still no success, google "running windows store apps from batch script" to find a slighly more elaborate procedure. Note: in my case, the name got from googling above was slightly different (longer with version numbers, etc.) than in shortcut; it didn't work: so use above steps to get exact syntax but use app name as appears in shortcut.
 ```
 
-Source: <a href="https://forum.thinkpads.com/viewtopic.php?t=105732" target="_blank">Thinkpads Forum</a>
+Source: <a href="https://forum.thinkpads.com/viewtopic.php?t=105732">Thinkpads Forum</a>

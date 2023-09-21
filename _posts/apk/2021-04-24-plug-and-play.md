@@ -10,7 +10,7 @@ tags: esoteric
 paid: true
 ---
 
-> _"Explore the universe of Plug & Play, an interactive animation drawn by Michael Frei and coded by Mario von Rickenbach. An unashamedly surreal play with plugs. Run, hit, switch, fall, love, plug, pull. And push." - <a href="https://play.google.com/store/apps/details?id=com.etterstudio.pnp" target="_blank">Play Store</a>_
+> _"Explore the universe of Plug & Play, an interactive animation drawn by Michael Frei and coded by Mario von Rickenbach. An unashamedly surreal play with plugs. Run, hit, switch, fall, love, plug, pull. And push." - <a href="https://play.google.com/store/apps/details?id=com.etterstudio.pnp">Play Store</a>_
 
 <span class="timestamp">20 April 2022:</span> plug
 

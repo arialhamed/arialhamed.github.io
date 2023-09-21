@@ -12,9 +12,9 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"For many centuries, a dark dungeon had been beckoning hapless travelers with its secrets and treasures. One after another, they disappeared after having met the true Evil, but gloomy legends only heat up new and new adventurers’ itches. So why not to become one of them?!" - <a href="https://play.google.com/store/apps/details?id=com.EtherGaming.PocketRogues" target="_blank">Play Store</a>_
+> _"For many centuries, a dark dungeon had been beckoning hapless travelers with its secrets and treasures. One after another, they disappeared after having met the true Evil, but gloomy legends only heat up new and new adventurers’ itches. So why not to become one of them?!" - <a href="https://play.google.com/store/apps/details?id=com.EtherGaming.PocketRogues">Play Store</a>_
 
-You know what's funny, when you google `pocket rogues ultimate`, Google recommends <a href="https://apkmody.io/games/pocket-rogues-ultimate" target="_blank">apkmody.io</a> in their card to the right where it would show official details of the subject matter that was googled.
+You know what's funny, when you google `pocket rogues ultimate`, Google recommends <a href="https://apkmody.io/games/pocket-rogues-ultimate">apkmody.io</a> in their card to the right where it would show official details of the subject matter that was googled.
 
 Other than that, it was actually quite fun to play! Good game, good game.
 

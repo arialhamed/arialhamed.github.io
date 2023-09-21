@@ -12,9 +12,9 @@ _&lt;note for arif: state how android 11 or so already gives screen recording bu
 A lot of commands here actually relates to the [Android Debug Bridge](https://arialhamed.github.io/guides/adb), and a few pieces of software that I will explicitly state that is needed.
 
 ### Here are some programs that you need to start recording your Android phone's audio and screen:
-* <a href="https://developer.android.com/studio/releases/platform-tools" target="_blank">Android SDK Platform Tools</a>
-* <a href="https://github.com/Genymobile/scrcpy/releases/tag/v1.23" target="_blank">scrcpy</a> by <a href="http://genymobile.com/" target="_blank">Genymotion</a>
-* <a href="https://github.com/rom1v/sndcpy/releases/tag/v1.1" target="_blank">sndcpy</a> by <a href="https://github.com/rom1v" target="_blank">rom1v</a>
+* <a href="https://developer.android.com/studio/releases/platform-tools">Android SDK Platform Tools</a>
+* <a href="https://github.com/Genymobile/scrcpy/releases/tag/v1.23">scrcpy</a> by <a href="http://genymobile.com/">Genymotion</a>
+* <a href="https://github.com/rom1v/sndcpy/releases/tag/v1.1">sndcpy</a> by <a href="https://github.com/rom1v">rom1v</a>
 * Your Android phone
 * A USB cable to connect your phone to your computer (should be USB-C or Micro USB)
 * OBS Studio (it's free)

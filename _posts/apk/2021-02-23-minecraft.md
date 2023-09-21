@@ -12,7 +12,7 @@ tags: crafting action adventure exploration casual multiplayer singleplayer sand
 paid: true
 ---
 
-> _"Minecraft is a game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles. Play in creative mode with unlimited resources or mine deep into the world in survival mode, crafting weapons and armor to fend off the dangerous mobs." - <a href="https://www.minecraft.net/en-us" target="_blank">Nintendo site for Minecraft Switch</a>_
+> _"Minecraft is a game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles. Play in creative mode with unlimited resources or mine deep into the world in survival mode, crafting weapons and armor to fend off the dangerous mobs." - <a href="https://www.minecraft.net/en-us">Nintendo site for Minecraft Switch</a>_
 
 Minecraft, a staple of gaming, and the childhood memory of many people around the 2000s (earlier than that actually).<!--more--> A classic game, somehow surviving the test of time for so long. Just like Terraria, Minecraft has some good developers, <span style="font-size:60%;">not including the first one</span>, who listens to their fans and also know what's best for the game and the community. 
 

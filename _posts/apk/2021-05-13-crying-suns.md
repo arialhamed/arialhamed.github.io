@@ -10,7 +10,7 @@ tags: strategy indie space roguelite sci-fi 2d
 paid: true
 ---
 
-> _"When FTL meets Foundation and Dune:<br>Crying Suns is a tactical rogue-lite that puts you in the role of a space fleet commander as you explore a mysteriously fallen empire. In this story rich experience inspired by Dune and Foundation, each successful run will uncover the truth about the Empire... and yourself as well." - <a href="https://play.google.com/store/apps/details?id=com.altshift.orenda.cryingsuns" target="_blank">Play Store</a>_
+> _"When FTL meets Foundation and Dune:<br>Crying Suns is a tactical rogue-lite that puts you in the role of a space fleet commander as you explore a mysteriously fallen empire. In this story rich experience inspired by Dune and Foundation, each successful run will uncover the truth about the Empire... and yourself as well." - <a href="https://play.google.com/store/apps/details?id=com.altshift.orenda.cryingsuns">Play Store</a>_
 
 <span class="timestamp">22 April 2022:</span> Well the description i have above kinda describes it well. It is basically _FTL meets Foundation and Dune_. The one thing that really captured my attention of this game is that it has really nice graphics, a good pixelated aesthetic & 
 

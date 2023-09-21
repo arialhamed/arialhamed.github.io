@@ -6,7 +6,7 @@ permalink: /tools/html-to-escape
 
 # HTML to Escape Code Sequence
 
-This was an idea that i had so that i don't have to keep on copying off from <a href="" target="_blank">other sources</a>, i'm just lazy so i got to work to make something to do it for me.
+This was an idea that i had so that i don't have to keep on copying off from <a href="">other sources</a>, i'm just lazy so i got to work to make something to do it for me.
 
 <input id="input_raw" type="text" class="w-100" onkeyup="refreshOutput()">
 

@@ -18,9 +18,9 @@ RAR & 7z, the cornerstones of data archival. I don't want to bore you (and me) w
     * ..and like-wise, you can use RAR to un-split it back. Just extract from one of the parts, RAR should be able to identify the others solely based off the name and the parts. Of course, errors will be thrown if the end-archive is corrupt (not all parts present and have the same name besides the suffix). 
 
 <div class="text-center">
-    <a class="btn btn-dark btn-block w-100" href="https://play.google.com/store/apps/details?id=com.rarlab.rar" target="_blank" style="text-decoration: none; background-color: #333;">RAR Google Play (recommended, latest update)</a><br>
+    <a class="btn btn-dark btn-block w-100" href="https://play.google.com/store/apps/details?id=com.rarlab.rar" style="text-decoration: none; background-color: #333;">RAR Google Play (recommended, latest update)</a><br>
     <a class="btn btn-dark btn-block w-100" onclick='apk("com.rarlab.rar_6.10.build104.apk")' style="text-decoration: none; background-color: #333;"> Download <b>com.rarlab.rar_6.10.build104.apk</b> (3.32 MB)</a><br>
-    <a class="btn btn-dark btn-block w-100" href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver" target="_blank" style="text-decoration: none; background-color: #333;">7z Google Play (recommended, latest update)</a><br>
+    <a class="btn btn-dark btn-block w-100" href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver" style="text-decoration: none; background-color: #333;">7z Google Play (recommended, latest update)</a><br>
     <a class="btn btn-dark btn-block w-100" onclick='apk("ru.zdevs.zarchiver_1.0.4.apk")' style="text-decoration: none; background-color: #333;"> Download <b>ru.zdevs.zarchiver_1.0.4.apk</b> (4.56 MB)</a><br>
 </div>
 
@@ -43,7 +43,7 @@ I use this on multiple phones to check what kind of mobile GPU each phone has. F
 This is more than the usual package installer that every Android phone comes with. This can help you install .XAPK files, APKS files, the list probably ends there. There are many different versions of this app that you can find online, but the apkmody.io version is suffice imo. 
 
 <div class="text-center">
-    <a class="btn btn-dark btn-block w-100" href="https://play.google.com/store/apps/details?id=io.apkmody.sai" target="_blank" style="text-decoration: none; background-color: #333;"> Google Play (recommended, latest update)</a><br>
+    <a class="btn btn-dark btn-block w-100" href="https://play.google.com/store/apps/details?id=io.apkmody.sai" style="text-decoration: none; background-color: #333;"> Google Play (recommended, latest update)</a><br>
     <a class="btn btn-dark btn-block w-100" onclick='apk("io.apkmody.sai_2.1.6.apk")' style="text-decoration: none; background-color: #333;"> Download <b>io.apkmody.sai_2.1.6.apk</b> (7.94 MB)</a>
 </div>
 

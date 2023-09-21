@@ -11,11 +11,11 @@ tags: coding apocalyptic goo office
 paid: true
 ---
 
-> _"Program little office workers to solve puzzles. Be a good employee! The machines are coming... for your job." - <a href="https://tomorrowcorporation.com/humanresourcemachine" target="_blank">Tomorrow Corporation</a>_
+> _"Program little office workers to solve puzzles. Be a good employee! The machines are coming... for your job." - <a href="https://tomorrowcorporation.com/humanresourcemachine">Tomorrow Corporation</a>_
 
 Not much i have to say, just watch youtubers play this game. i think its a cool game because its a game about coding and logic without knowing about programming
 
-Note that <a href="https://www.virustotal.com/gui/file/27c055270daadd397e6f6dd1b338350da30d3ec34a8014d23fc9b5ca85aed3a4" target="_blank">VirusTotal</a> gave this file a false-positive (_Android.PUA.DebugKey_), as it is cracked.
+Note that <a href="https://www.virustotal.com/gui/file/27c055270daadd397e6f6dd1b338350da30d3ec34a8014d23fc9b5ca85aed3a4">VirusTotal</a> gave this file a false-positive (_Android.PUA.DebugKey_), as it is cracked.
 
 <div class="text-center">
     <a class="btn btn-dark btn-block w-100" onclick='apk("com.tomorrowcorporation.humanresourcemachine_1.0.5.apk")' style="text-decoration: none; background-color: #333;"> Download <b>com.tomorrowcorporation.humanresourcemachine_1.0.5.apk</b> (98.5 MB)</a>

@@ -12,7 +12,7 @@ secret: document.getElementById('truth').setAttribute('style','display:block;');
 paid: false
 ---
 
-> _"There isn’t much better than a wide open game world in which you have essentially no limits and can alter the very landscape in which you play – that is, unless you add dragons, of course…" - <a href="https://store.steampowered.com/app/270110/Block_Story/" target="_blank">Steam</a>_
+> _"There isn’t much better than a wide open game world in which you have essentially no limits and can alter the very landscape in which you play – that is, unless you add dragons, of course…" - <a href="https://store.steampowered.com/app/270110/Block_Story/">Steam</a>_
 
 If you can describe a childhood game that is also a Minecraft clone, this is one of them. I remember actually really liking this game, especially in the earlier version where TNT arrows would destroy water blocks and it would leave potholes of water near my house. Honestly, the description i got from staem above really reflects this game.
 

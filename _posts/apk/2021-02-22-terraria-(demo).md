@@ -14,7 +14,7 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"Dig, Fight, Build! The very world is at your fingertips as you fight for survival, fortune, and glory. Delve deep into cavernous expanses, seek out ever-greater foes to test your mettle in combat, or construct your own city - In the World of Terraria, the choice is yours!" - <a href="https://terraria.org/" target="_blank">Official Terraria site</a>_
+> _"Dig, Fight, Build! The very world is at your fingertips as you fight for survival, fortune, and glory. Delve deep into cavernous expanses, seek out ever-greater foes to test your mettle in combat, or construct your own city - In the World of Terraria, the choice is yours!" - <a href="https://terraria.org/">Official Terraria site</a>_
 
 This game is **incomparable**. This game stands out above every other game I have ever seen. Like, I don't even know where to start. Relogic kept on saying `"this is the last update"` in the last, like, **4** updates. The lead director, _Redigit_, felt that he was losing interest of the game, **_years ago_**. <!--more-->
 
@@ -22,7 +22,7 @@ I don't even need to explain this game, it can just explain in itself, and a who
 
 > In fact, that first time I have ever played Terraria was actually from an APK. I wanted more of the game after realising I could not combine the _Anklet_, the _Aglet_ & the _Spectre Boots_. After that, I decided to buy the game. That (along with the PC version and several other games) was one of the **best video game purchases I have ever made**. - _Arial_
 
-Shoutouts to <a href="https://www.drstudios.co.uk/" target="_blank">DR Studios</a> for doing such a great job porting 1.3 content to mobile, and also 1.4 content so much faster than the console version. I really aspire to be like them one day, more than just creating this sketchy website. 
+Shoutouts to <a href="https://www.drstudios.co.uk/">DR Studios</a> for doing such a great job porting 1.3 content to mobile, and also 1.4 content so much faster than the console version. I really aspire to be like them one day, more than just creating this sketchy website. 
 
 <div class="text-center">
     <a class="btn btn-dark btn-block w-100" onclick='apk("com.and.games505.Terraria_1.4.0.5.2.apk")' style="text-decoration: none; background-color: #333;"> Download <b>com.and.games505.Terraria_1.4.0.5.2.apk</b> (163 MB)</a><br>

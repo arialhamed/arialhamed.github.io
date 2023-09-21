@@ -172,7 +172,7 @@ As for me, I’m the poster child for putting my anxious-achiever persona to goo
 
  Morra Aarons-Mele is the author of The Anxious Achiever: Turn Your Biggest Fears Into Your Leadership Superpower (Harvard Business Review Press, 2023). She has written for the New York Times, the Wall Street Journal, O the Oprah Magazine, and other publications, and is the host of the Anxious Achiever podcast from LinkedIn Presents. 
  
- <a href="https://twitter.com/intent/follow?screen_name=morraam" target="_blank">@morraam</a>
+ <a href="https://twitter.com/intent/follow?screen_name=morraam">@morraam</a>
 
 <br><br><br>
 

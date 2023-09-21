@@ -11,7 +11,7 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"Misfortune Ramirez Hernandez, an imaginative 8-year-old, seeks the prize of Eternal Happiness, as a gift to her Mommy. Led by her new friend, Mr. Voice, they venture into the woods, where mysteries are unraveled and a little bit of bad luck unfolds." - <a href="https://play.google.com/store/apps/details?id=com.KillmondayGames.LittleMisfortuneDemo" target="_blank">Play Store</a>_
+> _"Misfortune Ramirez Hernandez, an imaginative 8-year-old, seeks the prize of Eternal Happiness, as a gift to her Mommy. Led by her new friend, Mr. Voice, they venture into the woods, where mysteries are unraveled and a little bit of bad luck unfolds." - <a href="https://play.google.com/store/apps/details?id=com.KillmondayGames.LittleMisfortuneDemo">Play Store</a>_
 
 By coincidence, Seán McLoughlin also debuted this game to the internet, and it was quite hype. To be honest, i'm not sure how this game really is, but it seems to really give of the same vibes as [Fran Bow](https://arialhamed.github.io/resources/apk/Fran-Bow), they just probably changed the art style from Tim Burton to someone else.
 

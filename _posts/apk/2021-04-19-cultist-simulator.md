@@ -10,7 +10,7 @@ tags: management
 paid: true
 ---
 
-> _"Seize forbidden treasures. Summon alien gods. Feed on your disciples. Cultist Simulator is a game of apocalypse and yearning. Play as a seeker after unholy mysteries, in a 1920s-themed setting of hidden gods and secret histories." - <a href="https://store.steampowered.com/app/718670/Cultist_Simulator/" target="_blank">Steam</a>_
+> _"Seize forbidden treasures. Summon alien gods. Feed on your disciples. Cultist Simulator is a game of apocalypse and yearning. Play as a seeker after unholy mysteries, in a 1920s-themed setting of hidden gods and secret histories." - <a href="https://store.steampowered.com/app/718670/Cultist_Simulator/">Steam</a>_
 
 I feel like, there is a small chance, a very small chance, that this game may have unintentionally and indirectly influenced some people to join actual cults or create one. I played this game a bit and i found that that the first of the details became way too relatable. As of this typing, i'm currently in an internship, then going back to school after it, so i'm not a neet, but still. 
 

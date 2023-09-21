@@ -43,7 +43,7 @@ these ideas are mine, but public, cuz if it was a million dollar idea i wouldn't
         - the microSIM frame,
         - maybe those keys too. damn this sounds useful.
 - random stuff that hold other stuff to stick onto the laptop lid.
-    - like if <a href="https://shopee.sg/Portable-Laptop-Extension-Stand-Multifunctional-Bracket-Double-Screen-Interactive-Magnetic-Aluminum-Alloy-Side-Mount-Phone-Holder-i.549899459.11759743580" target="_blank">this magnetic phone holder that you can paste to the back of your laptop</a> exists, then there should be other stuff that you can just slap onto the back of your laptop to hold.
+    - like if <a href="https://shopee.sg/Portable-Laptop-Extension-Stand-Multifunctional-Bracket-Double-Screen-Interactive-Magnetic-Aluminum-Alloy-Side-Mount-Phone-Holder-i.549899459.11759743580">this magnetic phone holder that you can paste to the back of your laptop</a> exists, then there should be other stuff that you can just slap onto the back of your laptop to hold.
 - customized laptop cases.
     - for whatever current portable workstation i use, definitely requires sewing.
 - laptop replacement parts (so here's a list).

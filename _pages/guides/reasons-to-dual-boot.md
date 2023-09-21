@@ -41,6 +41,6 @@ last updated as of <span class="timestamp">14 Oct 2022</span>
 - **Visual Studio** (the non-code version that can IDE)
 - **UiPath Studio** (RPA module)
 - some **Steam** games (<span onmouseover="this.innerHTML='just cause 2'">just cause</span>)
-- piracy<a href="freegogpcgames.com" target="_blank">.</a>
+- piracy<a href="freegogpcgames.com">.</a>
 
 this page is literally for me to remember

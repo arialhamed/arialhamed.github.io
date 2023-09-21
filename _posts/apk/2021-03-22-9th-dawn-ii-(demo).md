@@ -11,7 +11,7 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"A large scale fully openworld RPG full of fast-paced action, dungeon crawling, with single or multiplayer adventures! Fight plenty of ferocious monsters, collect masses of loot and take on ancient lost puzzles within the depths of Caspartia!" - <a href="https://store.steampowered.com/app/279070/9th_Dawn_II/" target="_blank">Steam</a>_
+> _"A large scale fully openworld RPG full of fast-paced action, dungeon crawling, with single or multiplayer adventures! Fight plenty of ferocious monsters, collect masses of loot and take on ancient lost puzzles within the depths of Caspartia!" - <a href="https://store.steampowered.com/app/279070/9th_Dawn_II/">Steam</a>_
 
 This was another game that I played early on, and I remembered it being very fun. The simplicity of the graphics and the quests. It's alright.
 

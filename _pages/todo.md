@@ -30,7 +30,7 @@ redirect_from:
 - Convert Micro-USB to Type-C on the Trackpoint Keyboard. 
 - Create keyboard tester on [arialhamed.github.io](arialhamed.github.io) (for X220 keyboard). 
 - Convert membrane to plastic springs in a membrane keyboard. 
-- <s>Download <a href="https://www.mediafire.com/file/ho04ugojs1kfjro/jp.co.spike_chunsoft.DRV3_1.0.2.apk/file" target="_blank">this</a> when you're in Waydroid</s>
+- <s>Download <a href="https://www.mediafire.com/file/ho04ugojs1kfjro/jp.co.spike_chunsoft.DRV3_1.0.2.apk/file">this</a> when you're in Waydroid</s>
 - Burn in your emblem to the cuboid water bottle with the soldering iron
 - 3D printed trackpoints
 - Consider new GaN, the Ugreen Nexode 200W
@@ -42,7 +42,7 @@ redirect_from:
 
 ### <span style="text-decoration:underline;">X250 screen to external monitor</span>
 
-Text by <a href="https://chat.openai.com" target="_blank">ChatGPT</a>.
+Text by <a href="https://chat.openai.com">ChatGPT</a>.
 
 It is possible to recycle an X250 screen with an eDP interface as an external monitor, but it will require some technical skill and additional hardware.
 

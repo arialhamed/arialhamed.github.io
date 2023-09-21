@@ -11,7 +11,7 @@ tags: rpg open-world adventure action
 paid: true
 ---
 
-> _"Ravensword brings unprecedented visuals to the RPG and adventure games genre. Explore a vast and richly detailed world, gather powerful weapons, collect hundreds of items, increase your skills, and follow a deep storyline to solve the mysteries of the Kingdom of Tyreas" - <a href="https://play.google.com/store/apps/details?id=com.crescentmoongames.ravensword2" target="_blank">Play Store</a>_
+> _"Ravensword brings unprecedented visuals to the RPG and adventure games genre. Explore a vast and richly detailed world, gather powerful weapons, collect hundreds of items, increase your skills, and follow a deep storyline to solve the mysteries of the Kingdom of Tyreas" - <a href="https://play.google.com/store/apps/details?id=com.crescentmoongames.ravensword2">Play Store</a>_
 
 I wanted to play this game for a long time ago, now i got to. Seems pretty fun, in the first half an hour. It is generally well-received by critics so here it is.
 

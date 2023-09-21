@@ -9,7 +9,7 @@ tags: emulator retro
 paid: true
 ---
 
-> _"DraStic is a fast emulator for Android that emulates a popular 2004 handheld console with two screens." - <a href="https://play.google.com/store/apps/details?id=com.dsemu.drastic" target="_blank">Play Store</a>_
+> _"DraStic is a fast emulator for Android that emulates a popular 2004 handheld console with two screens." - <a href="https://play.google.com/store/apps/details?id=com.dsemu.drastic">Play Store</a>_
 
 Likely the best Nintendo DS Emulator that you can find for Android. All its features can be found via the Play Store link. My favourite part about this emulator is how it can make your games HD somehow, which means that however the DS and its game are well made for backwards compatibility, which probably reaches out to the 3DS now.
 

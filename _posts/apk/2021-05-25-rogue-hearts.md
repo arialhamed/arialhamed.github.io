@@ -9,7 +9,7 @@ tags: roguelike dungeon-crawler dungeon crawler strategy time-based srpg rpg act
 paid: true
 ---
 
-> _"Welcome to this modern reinterpretation of a rogue-like dungeon crawler!<br>You will need a strategy with self-judgment and control, a necessity in SRPG and tactical games.<br>Break through challenges and trials by controlling the character directly."<br> - <a href="https://play.google.com/store/apps/details?id=com.ninetailgames.roguehearts.paid" target="_blank">Play Store</a> & <a href="https://apps.apple.com/us/app/rogue-hearts/id1212726570" target="_blank">App Store</a>_
+> _"Welcome to this modern reinterpretation of a rogue-like dungeon crawler!<br>You will need a strategy with self-judgment and control, a necessity in SRPG and tactical games.<br>Break through challenges and trials by controlling the character directly."<br> - <a href="https://play.google.com/store/apps/details?id=com.ninetailgames.roguehearts.paid">Play Store</a> & <a href="https://apps.apple.com/us/app/rogue-hearts/id1212726570">App Store</a>_
 
 <span class="timestamp">07 May 2022:</span> I mean the description above is exactly what it is. I played it for a few minutes and it's actually pretty good. It's like if [Cookie Run Kingdom](https://arialhamed.github.io/resources/apk/Cookie-Run-Kingdom) was a bit more manual, except that I don't think there is like your own kingdom in Rogue Hearts. Also, just like Cookie Run Kingdom, requires you to connect to a server, which sucks absolute balls if a game shuts down.
 

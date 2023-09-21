@@ -13,7 +13,7 @@ tags: roguelike metroidvania platform action pixel exploration procedural
 paid: true
 ---
 
-> _"Play as a failed alchemic experiment and explore the sprawling, ever-changing castle to find out what happened on this gloomy island…! That is, assuming you’re able to fight your way past its keepers." - <a href="https://play.google.com/store/apps/details?id=com.playdigious.deadcells.mobile" target="_blank">Play Store</a>_
+> _"Play as a failed alchemic experiment and explore the sprawling, ever-changing castle to find out what happened on this gloomy island…! That is, assuming you’re able to fight your way past its keepers." - <a href="https://play.google.com/store/apps/details?id=com.playdigious.deadcells.mobile">Play Store</a>_
 
 Now this game, that cover art, and how many times it got discounted on [Steam](https://store.steampowered.com/app/588650/Dead_Cells/), I finally got my hands on it..
 

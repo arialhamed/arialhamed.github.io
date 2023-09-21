@@ -12,7 +12,7 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"Imagine a place where all that is lost and forgotten goes; old toys, letters, socks. The Forgotten Lands is a magical world inhabited by Forgotlings; living mislaid objects longing to be remembered." - <a href="https://play.google.com/store/apps/details?id=com.hitcents.forgottonanne" target="_blank">Play Store</a>_
+> _"Imagine a place where all that is lost and forgotten goes; old toys, letters, socks. The Forgotten Lands is a magical world inhabited by Forgotlings; living mislaid objects longing to be remembered." - <a href="https://play.google.com/store/apps/details?id=com.hitcents.forgottonanne">Play Store</a>_
 
 Forgotton Anne is a seamless cinematic adventure with meaningful storytelling and light puzzle platforming. You are Anne, the enforcer who keeps order in the Forgotten Lands, as she sets out to squash a rebellion that might prevent her master, Bonku, and herself from returning to the human world...
 

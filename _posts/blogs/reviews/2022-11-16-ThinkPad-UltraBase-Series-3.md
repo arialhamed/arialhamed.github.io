@@ -23,7 +23,7 @@ Anyway, from that tangent, I unfortunately may have some trouble with the DVD-RW
 
 Either way, i don't really intend to keep it on for long though. The main reason why I even bothered to get the UltraBase was because _it can hold a HDD inside the Ultrabay_ with a HDD adapter!!!
 
-As of 2022-Nov-19, the HDD adapter that I have ordered is still on the way. The <a href="https://www.thinkwiki.org/wiki/Ultrabay" target="_blank">ThinkWiki</a> has been very helpful in making sure I purchased the right one. Now the only thing I can do about this UltraBase is hope that my HDD works in the UltraBase in the end. The Ultrabay is so much faster than USB 2.0, so this is going to be a great upgrade!
+As of 2022-Nov-19, the HDD adapter that I have ordered is still on the way. The <a href="https://www.thinkwiki.org/wiki/Ultrabay">ThinkWiki</a> has been very helpful in making sure I purchased the right one. Now the only thing I can do about this UltraBase is hope that my HDD works in the UltraBase in the end. The Ultrabay is so much faster than USB 2.0, so this is going to be a great upgrade!
 
 ### Gallery
 

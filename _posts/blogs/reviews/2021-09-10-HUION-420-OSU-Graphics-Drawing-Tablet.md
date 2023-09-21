@@ -16,7 +16,7 @@ Probably the cheapest drawing tablet to be ever commercially available. However,
 ### Gallery
 
 Interesting information:
-- <a href="https://www.amazon.com/Huion-Inches-Tablet-Graphics-Drawing/dp/B00DTPYWBG" target="_blank">Amazon listing</a>
+- <a href="https://www.amazon.com/Huion-Inches-Tablet-Graphics-Drawing/dp/B00DTPYWBG">Amazon listing</a>
 
 <br><br><br><hr>
 MSRP: ~SGD$28.46<br>

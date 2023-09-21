@@ -9,7 +9,7 @@ tags: surreal atmospheric geometry puzzle adventure
 paid: true
 ---
 
-> _"In Monument Valley you will manipulate impossible architecture and guide a silent princess through a stunningly beautiful world." - <a href="https://play.google.com/store/apps/details?id=com.ustwo.monumentvalley" target="_blank">Play Store</a>_
+> _"In Monument Valley you will manipulate impossible architecture and guide a silent princess through a stunningly beautiful world." - <a href="https://play.google.com/store/apps/details?id=com.ustwo.monumentvalley">Play Store</a>_
 
 <span class="timestamp">08 May 2022:</span> This game absolutely blew up, as it got popularized by gamers everywhere, and looking at it, I agree very much. 
 

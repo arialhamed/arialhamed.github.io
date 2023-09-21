@@ -11,7 +11,7 @@ tags: horror
 paid: true
 ---
 
-> _"Welcome to Circus Baby's Pizza World, where family fun and interactivity go beyond anything you've seen at those *other* pizza places! With cutting-edge animatronic entertainers that will knock your kids' socks off, as well as customized pizza catering, no party is complete without Circus Baby and the gang! <br><br>Now hiring: Late night technician. Must enjoy cramped spaces and be comfortable around active machinery. Not responsible for death or dismemberment." - <a href="https://play.google.com/store/apps/details?id=com.scottgames.sisterlocation" target="_blank">Play Store</a>_
+> _"Welcome to Circus Baby's Pizza World, where family fun and interactivity go beyond anything you've seen at those *other* pizza places! With cutting-edge animatronic entertainers that will knock your kids' socks off, as well as customized pizza catering, no party is complete without Circus Baby and the gang! <br><br>Now hiring: Late night technician. Must enjoy cramped spaces and be comfortable around active machinery. Not responsible for death or dismemberment." - <a href="https://play.google.com/store/apps/details?id=com.scottgames.sisterlocation">Play Store</a>_
 
 Now this time, they decided to switch up the design, and also change quite a bit of the concepts too. Like, quite a lot. This time I could tell a bit that the animatronics aren't just AI. I really like how you could move a bit in this game (kinda).
 

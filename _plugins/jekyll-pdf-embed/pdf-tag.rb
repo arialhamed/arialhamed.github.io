@@ -114,7 +114,7 @@ class JekyllPDFEmbed < Liquid::Tag
             </style>
             <div class="pdf-embed-wrap-#{@uuid}">
                 <div class="pdf-link-#{@uuid}">
-                    <a href="#{@link}" target="_blank">#{@label}</a>
+                    <a href="#{@link}">#{@label}</a>
                 </div>
                 <div class="pdf-embed-container-#{@uuid}">
                     <iframe src="#{@link}" frameborder="0" allowfullscreen></iframe>

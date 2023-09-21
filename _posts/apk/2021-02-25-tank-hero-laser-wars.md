@@ -10,7 +10,7 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"The follow up to the hit puzzle action game Tank Hero has finally arrived! Charge your lasers and get ready to take the fight to new battlegrounds that will challenge you like never before. Equip your tank with ray guns, plasma howitzers, sonic cannons, and more. Use the all new interactive environments to strategically take our your enemies." - <a href="https://play.google.com/store/apps/details?id=com.clapfootgames.laserwars" target="_blank">Play Store</a>_
+> _"The follow up to the hit puzzle action game Tank Hero has finally arrived! Charge your lasers and get ready to take the fight to new battlegrounds that will challenge you like never before. Equip your tank with ray guns, plasma howitzers, sonic cannons, and more. Use the all new interactive environments to strategically take our your enemies." - <a href="https://play.google.com/store/apps/details?id=com.clapfootgames.laserwars">Play Store</a>_
 
 Tank Hero: Laser Wars, <!--more--> There's not much to this game besides nostalgia, the only criticism of this game i have is the controls for shooting. 
 

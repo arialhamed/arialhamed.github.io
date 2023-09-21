@@ -12,7 +12,7 @@ tags: roguelike platform 2d procedural multiplayer adventure
 paid: false
 ---
 
-> _"Spelunky is a cave exploration / treasure-hunting game inspired by classic platform games and roguelikes, where the goal is to grab as much treasure from the cave as possible. Every time you play the cave’s layout will be different. Use your wits, your reflexes, and the items available to you to survive and go ever deeper! Perhaps at the end you may find what you’re looking for… Don’t be afraid to die! But also don’t be afraid to live! Happy Spelunky-ing!" - <a href="https://yancharkin.itch.io/spelunky-classic-hd" target="_blank">itch.io</a>, <a href="https://yancharkin.itch.io/" target="_blank">yancharkin</a>_
+> _"Spelunky is a cave exploration / treasure-hunting game inspired by classic platform games and roguelikes, where the goal is to grab as much treasure from the cave as possible. Every time you play the cave’s layout will be different. Use your wits, your reflexes, and the items available to you to survive and go ever deeper! Perhaps at the end you may find what you’re looking for… Don’t be afraid to die! But also don’t be afraid to live! Happy Spelunky-ing!" - <a href="https://yancharkin.itch.io/spelunky-classic-hd">itch.io</a>, <a href="https://yancharkin.itch.io/">yancharkin</a>_
 
 Next up here is a game done by Aquaria's **Derek Yu**. According to the itch.io website, the android game is based off the Humble Bundle version, and many people liked it. 
 

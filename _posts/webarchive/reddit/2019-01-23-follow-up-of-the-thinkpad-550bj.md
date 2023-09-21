@@ -52,7 +52,7 @@ It handled shipping well with no damages. However some exterior was already some
 
 
 
-After exterior inspection i connected it to mains power, but it started giving me weird high-pitched noises and it wouldn't power on. I took a change opening op the now brittle laptop so i perhaps find an issue it was having. With the information on <a href="http://www.komotch2.com/tps/550bj.htm" target="_blank">http://www.komotch2.com/tps/550bj.htm</a> i could disassemble the 550BJ. This was an experience on it's own to me because I've never seen that many ribbon cables and connectors holding the two pieces closely together.
+After exterior inspection i connected it to mains power, but it started giving me weird high-pitched noises and it wouldn't power on. I took a change opening op the now brittle laptop so i perhaps find an issue it was having. With the information on <a href="http://www.komotch2.com/tps/550bj.htm">http://www.komotch2.com/tps/550bj.htm</a> i could disassemble the 550BJ. This was an experience on it's own to me because I've never seen that many ribbon cables and connectors holding the two pieces closely together.
 
 <figure>
     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/resources/reddit/follow-up-of-the-thinkpad-550bj-06.webp" onerror="this.src='https://raw.githubusercontent.com/arialhamed/static/main/images/missing.jpeg'" class="w-100">

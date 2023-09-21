@@ -10,7 +10,7 @@ tags: survival management turret-defense
 paid: true
 ---
 
-> _"In Kingdom Two Crowns, players must work in the brand-new solo or co-op campaign mode to build their kingdom and secure it from the threat of the Greed. Experience new technology, units, enemies, mounts, and secrets in the next evolution of the award-winning micro strategy franchise!" - <a href="https://store.steampowered.com/app/701160/Kingdom_Two_Crowns/" target="_blank">Steam</a>_
+> _"In Kingdom Two Crowns, players must work in the brand-new solo or co-op campaign mode to build their kingdom and secure it from the threat of the Greed. Experience new technology, units, enemies, mounts, and secrets in the next evolution of the award-winning micro strategy franchise!" - <a href="https://store.steampowered.com/app/701160/Kingdom_Two_Crowns/">Steam</a>_
 
 <span class="timestamp">22 April 2022:</span> err, kinda the same as the first game, but this time its multiplayer, and there are different developers.
 

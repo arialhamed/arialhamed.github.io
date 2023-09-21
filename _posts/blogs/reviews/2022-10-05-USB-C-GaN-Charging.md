@@ -13,12 +13,12 @@ source_link: https://shopee.sg/45W-65W-90W-100W-USB-Type-C-PD-Charging-Cable-Cor
 
 With the new existence of GaN technology, eccentric manufacturers have been creating a new breed of cables.. between the new and old. USB-C to whatever proprietary charging connector laptops of the past has had.
 
-I have a ordered <a href="https://shopee.sg/45W-65W-90W-100W-USB-Type-C-PD-Charging-Cable-Cord-USB-C-Plug-Converter-to-Laptop-Power-Adapter-Connector-for-Universal-Laptops-i.268068206.2955272970" target="_blank">3 different cables online</a> and have used it on 3 different laptops:
+I have a ordered <a href="https://shopee.sg/45W-65W-90W-100W-USB-Type-C-PD-Charging-Cable-Cord-USB-C-Plug-Converter-to-Laptop-Power-Adapter-Connector-for-Universal-Laptops-i.268068206.2955272970">3 different cables online</a> and have used it on 3 different laptops:
 - ThinkPad X250
 - Yoga C640
 - ThinkPad X230
 
-I also have one where <a href="https://shopee.sg/Laptop-Power-Adapter-Connector-Dc-Plug-USB-Type-C-male-to-Universal-Male-Jack-Converter-for-Lenovo-for-Asus-Notebook-Charger-i.268068206.5837599267" target="_blank">there are many connectors</a> for one cable. Personally I wasn't a fan of it, since i didn't like the material of the cable itself and also i just really didn't like how the cable looked with the equipped tip. For some reason it had some trouble charging the X250 through the Slim-Tip.
+I also have one where <a href="https://shopee.sg/Laptop-Power-Adapter-Connector-Dc-Plug-USB-Type-C-male-to-Universal-Male-Jack-Converter-for-Lenovo-for-Asus-Notebook-Charger-i.268068206.5837599267">there are many connectors</a> for one cable. Personally I wasn't a fan of it, since i didn't like the material of the cable itself and also i just really didn't like how the cable looked with the equipped tip. For some reason it had some trouble charging the X250 through the Slim-Tip.
 
 ### Gallery
 
@@ -77,7 +77,7 @@ I also have one where <a href="https://shopee.sg/Laptop-Power-Adapter-Connector-
 
 
 Interesting information:
-- <a href="https://www.youtube.com/watch?v=uZAlsWBXFSg" target="_blank">Laptop Retrospective's review</a>
+- <a href="https://www.youtube.com/watch?v=uZAlsWBXFSg">Laptop Retrospective's review</a>
 
 <br><br><br><hr>
 Net Cost (Slim-Tip): SGD<b>$7.96</b><br>

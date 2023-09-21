@@ -10,7 +10,7 @@ tags: strategy
 paid: true
 ---
 
-> _"Craft, Steal, Brawl and Escape! It’s time to bust out of the toughest prisons in the world as you return to the life of an inmate in The Escapists 2, now with multiplayer! Have you got what it takes to escape?" - <a href="https://store.steampowered.com/app/641990/The_Escapists_2/" target="_blank">Steam</a>_
+> _"Craft, Steal, Brawl and Escape! It’s time to bust out of the toughest prisons in the world as you return to the life of an inmate in The Escapists 2, now with multiplayer! Have you got what it takes to escape?" - <a href="https://store.steampowered.com/app/641990/The_Escapists_2/">Steam</a>_
 
 <span class="timestamp">22 April 2022:</span> just look at [the first game page](https://arialhamed.github.io/resources/apk/The-Escapists-2-Pocket-Breakout).
 

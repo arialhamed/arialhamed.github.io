@@ -12,7 +12,7 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"Labyrinth Legend is an action RPG with hack and slash elements. Explore the automatically-generated dungeons, collect powerful equipment, and battle against unknown, formidable enemies!" - <a href="https://store.steampowered.com/app/1321010/Labyrinth_Legend/" target="_blank">Steam</a>_
+> _"Labyrinth Legend is an action RPG with hack and slash elements. Explore the automatically-generated dungeons, collect powerful equipment, and battle against unknown, formidable enemies!" - <a href="https://store.steampowered.com/app/1321010/Labyrinth_Legend/">Steam</a>_
 
 <span class="timestamp">00 May 2022:</span> 
 

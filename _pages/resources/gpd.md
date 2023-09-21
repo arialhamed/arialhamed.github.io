@@ -55,12 +55,12 @@ I've collected the data that I could possibly find about all of their devices, s
     </tr>
     <tr>
         <td>CPU</td>
-        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Rockchip+RK3288" target="_blank">Rockchip RK3288 SoC</a></td>
+        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Rockchip+RK3288">Rockchip RK3288 SoC</a></td>
         <td>MediaTek Dimensity 1200</td>
-        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Atom+x7-Z8750+%40+1.60GHz" target="_blank">Intel Atom x7-Z8750 @ 1.60GHz</a></td>
-        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+m3-7Y30+%40+1.00GHz" target="_blank">Intel Core m3-7Y30 @ 1.00GHz</a></td>
-        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i5-1035G7+%40+1.20GHz" target="_blank">Intel Core i5-1035G7 @ 1.20GHz</a></td>
-        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i5-1135G7+%40+2.40GHz" target="_blank">Intel Core i5-1135G7 @ 2.40GHz</a>, <a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i7-1165G7+%40+2.80GHz" target="_blank">Intel Core i7-1165G7 @ 2.80GHz</a>, <a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i7-1195G7+%40+2.90GHz" target="_blank">Intel Core i7-1195G7 @ 2.90GHz</a></td>
+        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Atom+x7-Z8750+%40+1.60GHz">Intel Atom x7-Z8750 @ 1.60GHz</a></td>
+        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+m3-7Y30+%40+1.00GHz">Intel Core m3-7Y30 @ 1.00GHz</a></td>
+        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i5-1035G7+%40+1.20GHz">Intel Core i5-1035G7 @ 1.20GHz</a></td>
+        <td><a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i5-1135G7+%40+2.40GHz">Intel Core i5-1135G7 @ 2.40GHz</a>, <a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i7-1165G7+%40+2.80GHz">Intel Core i7-1165G7 @ 2.80GHz</a>, <a href="https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i7-1195G7+%40+2.90GHz">Intel Core i7-1195G7 @ 2.90GHz</a></td>
     </tr>
     <tr>
         <td>Memory</td>
@@ -82,7 +82,7 @@ I've collected the data that I could possibly find about all of their devices, s
 
 <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/resources/gpd/GPD_XD_running_Virtua_Fighter_2_(uoYabause_emulator).png">
 
-Details & image source: <a href="https://en.wikipedia.org/wiki/GPD_XD" target="_blank">Wikipedia</a>
+Details & image source: <a href="https://en.wikipedia.org/wiki/GPD_XD">Wikipedia</a>
 
 <table>
     <tr>

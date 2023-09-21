@@ -10,7 +10,7 @@ tags: rpg
 paid: true
 ---
 
-> _"What can change the nature of a man?" - <a href="https://planescape.com/" target="_blank">Planescape Official Website</a>_
+> _"What can change the nature of a man?" - <a href="https://planescape.com/">Planescape Official Website</a>_
 
 To be frank, i never really played this game, like, at all. So idk just google this game or something.
 

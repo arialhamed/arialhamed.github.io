@@ -39,19 +39,19 @@
 			<br>
 			<span style="font-size:75%;font-style:italic;">Click to pause video, click again to play</span><br><br>
 			{% if page.play-link %}
-			Play Store: <a href="{{ page.play-link }}" target="_blank"><i class='fab fa-google-play'></i></a><br>
+			Play Store: <a href="{{ page.play-link }}"><i class='fab fa-google-play'></i></a><br>
 			{% endif %}
 			{% if page.ios-link %}
-				App Store: <a href="{{ page.ios-link }}" target="_blank"><i class="fab fa-apple"></i></a><br>
+				App Store: <a href="{{ page.ios-link }}"><i class="fab fa-apple"></i></a><br>
 			{% endif %}
 			{% if page.steam-link %}
-				Steam: <a href="{{ page.steam-link }}" target="_blank"><i class="fab fa-steam"></i></a><br>
+				Steam: <a href="{{ page.steam-link }}"><i class="fab fa-steam"></i></a><br>
 			{% endif %}
 			{% if page.itch-link %}
-				itch.io: <a href="{{ page.itch-link }}" target="_blank"><i class="fab fa-itch-io"></i></a><br>
+				itch.io: <a href="{{ page.itch-link }}"><i class="fab fa-itch-io"></i></a><br>
 			{% endif %}
 			<!-- {% if page.switch-link %}
-				N. Switch: <a href="{{ page.switch-link }}" target="_blank"><i class="fab fa-nintendo-switch"></i></a><br>
+				N. Switch: <a href="{{ page.switch-link }}"><i class="fab fa-nintendo-switch"></i></a><br>
 			{% endif %} -->
 			{{ content }}
 			

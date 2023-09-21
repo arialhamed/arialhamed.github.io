@@ -42,6 +42,7 @@ img {
     -moz-box-shadow: 0 0 0px #0000!important;
     -o-box-shadow: 0 0 0px #0000!important;
     -ms-box-shadow: 0 0 0px #0000!important;
+    border: none;
 }
 nav {
     background-color:#fff1 !important;

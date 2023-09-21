@@ -10,7 +10,7 @@ tags:
 paid: true
 ---
 
-> _"The award-winning, best-selling puzzle game franchise Scribblenauts is back!  Imagine Anything.  Explore Everything." - <a href="https://play.google.com/store/apps/details?id=com.wb.goog.scribblenauts3" target="_blank">Play Store</a>_
+> _"The award-winning, best-selling puzzle game franchise Scribblenauts is back!  Imagine Anything.  Explore Everything." - <a href="https://play.google.com/store/apps/details?id=com.wb.goog.scribblenauts3">Play Store</a>_
 
 I actually bought this a long while ago, using those voucher-type cards that you can buy from convenience stores. 
 

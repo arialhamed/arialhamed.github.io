@@ -9,7 +9,7 @@ tags: sci-fi open-world simulator
 paid: true
 ---
 
-> _"At the beginning of the game you are a pilot of a small ship. Financial struggle forces you to start transporting contraband. Certainly, it will lead to you being in trouble with the law someday. But at some point in your life you are forced to make a deal with the authorities of the system. And that is when your dangerous space adventure begins." - <a href="https://play.google.com/store/apps/details?id=com.skvgames.GalaxyGenome" target="_blank">Play Store</a>_
+> _"At the beginning of the game you are a pilot of a small ship. Financial struggle forces you to start transporting contraband. Certainly, it will lead to you being in trouble with the law someday. But at some point in your life you are forced to make a deal with the authorities of the system. And that is when your dangerous space adventure begins." - <a href="https://play.google.com/store/apps/details?id=com.skvgames.GalaxyGenome">Play Store</a>_
 
 <span class="timestamp">20 April 2022:</span> This game, like, somehow, reminds me of both FTL **&** Endless Sky.
 

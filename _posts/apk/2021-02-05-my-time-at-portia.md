@@ -13,7 +13,7 @@ tags: rpg 3d exploration life-sim open-world farming indie sandbox construction 
 paid: true
 ---
 
-> _"Discover your inner builder in the open world of Portia! A top hit 3D simulation RPG on PC has now arrived on mobile! Inherit your Pa's workshop, craft and build your way to compete for top builder in town! As you explore and discover hidden relics, restore the glory of human civilization on this post-apocalyptic land. As you grow into a seasoned builder, bond with NPCs and townsfolk to build a circle of friends and romance!" - <a href="https://play.google.com/store/apps/details?id=com.pathea.mtap" target="_blank">Play Store</a>_
+> _"Discover your inner builder in the open world of Portia! A top hit 3D simulation RPG on PC has now arrived on mobile! Inherit your Pa's workshop, craft and build your way to compete for top builder in town! As you explore and discover hidden relics, restore the glory of human civilization on this post-apocalyptic land. As you grow into a seasoned builder, bond with NPCs and townsfolk to build a circle of friends and romance!" - <a href="https://play.google.com/store/apps/details?id=com.pathea.mtap">Play Store</a>_
 
 I like this game. Released not too long ago, you're character escapes city life for a life of adventure and building, kinda like Stardew Valley but more building than farming. <!--more-->So far, I have played up until I had to build a bridge, and I still can't get over how big and extensive this game is. There is so much that I can't even describe it, and it is also a good game too.
 

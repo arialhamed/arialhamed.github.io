@@ -44,7 +44,7 @@ The Ultra Dock is compatible with the following ThinkPad models:
 </div>
 
 Interesting information:
-- <a href="https://www.thinkwiki.org/wiki/ThinkPad_Ultra_Dock" target="_blank">ThinkWiki</a>
+- <a href="https://www.thinkwiki.org/wiki/ThinkPad_Ultra_Dock">ThinkWiki</a>
 - [Setup poster (May 2016)](https://raw.githubusercontent.com/arialhamed/static/main/pdf/tp_ultra_dock_sp40a02135.pdf).
 
 <br><br><br><hr>

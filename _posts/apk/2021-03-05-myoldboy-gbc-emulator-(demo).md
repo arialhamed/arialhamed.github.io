@@ -10,7 +10,7 @@ secret: document.getElementById('truth').setAttribute('style','text-decoration:n
 paid: false
 ---
 
-> _"My OldBoy! is a full-featured and super-fast emulator to run Game Boy and Game Boy Color games on the broadest range of Android devices, from very low-end phones to modern tablets. It emulates accurately almost every aspect of the real hardware." - <a href="https://play.google.com/store/apps/details?id=com.fastemulator.gbcfree" target="_blank">Play Store</a>_
+> _"My OldBoy! is a full-featured and super-fast emulator to run Game Boy and Game Boy Color games on the broadest range of Android devices, from very low-end phones to modern tablets. It emulates accurately almost every aspect of the real hardware." - <a href="https://play.google.com/store/apps/details?id=com.fastemulator.gbcfree">Play Store</a>_
 
 This game does not need my words, either the community or its own self speaks for itself
 

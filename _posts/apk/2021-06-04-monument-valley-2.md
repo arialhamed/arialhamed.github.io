@@ -9,7 +9,7 @@ tags: surreal atmospheric geometry puzzle adventure
 paid: true
 ---
 
-> _"Guide a mother and her child as they embark on a journey through magical architecture, discovering illusionary pathways and delightful puzzles as you learn the secrets of the Sacred Geometry." - <a href="https://play.google.com/store/apps/details?id=com.ustwo.monumentvalley2" target="_blank">Play Store</a>_
+> _"Guide a mother and her child as they embark on a journey through magical architecture, discovering illusionary pathways and delightful puzzles as you learn the secrets of the Sacred Geometry." - <a href="https://play.google.com/store/apps/details?id=com.ustwo.monumentvalley2">Play Store</a>_
 
 <span class="timestamp">08 May 2022:</span> I have not played this game much, but for all I know, it holds out as much as it predecessor, [Monument Valley](https://arialhamed.github.io/resources/apk/Monument-Valley). Plus, they support trees which is pretty nice! Not a lot of game publishers or developers would go out their way to use their game to promote world peace or combating global warming.
 

@@ -11,7 +11,7 @@ tags: management
 paid: true
 ---
 
-> _"Mini Metro is a game about designing a subway map for a growing city. Draw lines between stations and start your trains running. As new stations open, redraw your lines to keep them efficient. Decide where to use your limited resources. How long can you keep the city moving?" - <a href="https://play.google.com/store/apps/details?id=nz.co.codepoint.minimetro" target="_blank">Play Store</a>_
+> _"Mini Metro is a game about designing a subway map for a growing city. Draw lines between stations and start your trains running. As new stations open, redraw your lines to keep them efficient. Decide where to use your limited resources. How long can you keep the city moving?" - <a href="https://play.google.com/store/apps/details?id=nz.co.codepoint.minimetro">Play Store</a>_
 
 To be frank, i've not played this game much but i remember being recommended this game from an old art teacher that was substituting my art lesson, which was pretty chill. I remember taking art in school, and it was quite chill. You know what else is chill? This game here. 
 

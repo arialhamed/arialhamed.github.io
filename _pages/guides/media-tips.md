@@ -21,7 +21,7 @@ I have worked with quite a lot of images, videos & audio, and I have learnt quit
 ---
 
 ### Batch convert image types using ImageMagick
-ImageMagick is a ImageMagick is a free and open-source cross-platform software suite for displaying, creating, converting, modifying, and editing raster images. I use it whenever I want to convert images offline. You can download it <a href="https://imagemagick.org/script/download.php" target="_blank">here</a>.
+ImageMagick is a ImageMagick is a free and open-source cross-platform software suite for displaying, creating, converting, modifying, and editing raster images. I use it whenever I want to convert images offline. You can download it <a href="https://imagemagick.org/script/download.php">here</a>.
 
 Say for example, I want to convert a lot of .WEBP that I downloaded from the internet, but as it seems, its actually gifs. Through the command prompt, I can use ImageMagick to create new .gif from reading the .webp, basically making a duplicate to your liking. The code is as showed below: 
 
@@ -34,7 +34,7 @@ for Linux, change the `magick mogrify` to `convert` if you installed `imagemagic
 ---
 
 ### Splitting a PDF to a shorter PDF
-`pdftk` is a useful multi-platform tool for extracting PDF pages to a smaller PDF (<a href="http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/" target="_blank">pdftk homepage</a>)
+`pdftk` is a useful multi-platform tool for extracting PDF pages to a smaller PDF (<a href="http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/">pdftk homepage</a>)
 
 ``` bash
 pdftk full-pdf.pdf cat 12-15 output outfile_p12-15.pdf
@@ -45,7 +45,7 @@ pdftk full-pdf.pdf cat 12-15 output outfile_p12-15.pdf
 ---
 
 ### Combining JPEGs into a PDF
-ImageMagick sure is magical! The following was found in <a href="https://askubuntu.com/a/246653" target="_blank">AskUbuntu</a>
+ImageMagick sure is magical! The following was found in <a href="https://askubuntu.com/a/246653">AskUbuntu</a>
 
 ``` bash
 convert *.jpg -auto-orient pictures.pdf

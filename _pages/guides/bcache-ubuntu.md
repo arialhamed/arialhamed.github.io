@@ -14,11 +14,11 @@ redirect_from:
 
 # Installing Ubuntu 20.04 and earlier with **bcache** support
 
-This guide is copied from <a href="https://kloppenborg.net/blog/installing-ubuntu-20-04-with-bcache/" target="_blank">_Kloppenborg's blog_</a> (and i can't believe they missed out the chance to call it the _Kloppenblog_).
+This guide is copied from <a href="https://kloppenborg.net/blog/installing-ubuntu-20-04-with-bcache/">_Kloppenborg's blog_</a> (and i can't believe they missed out the chance to call it the _Kloppenblog_).
 
 ## Overview
 
-Before we get going, not that this is only valid for a new installation of Linux as we delete all file system information. If this isn’t what you want to do, I suggest you check out <a href="https://github.com/facebook/flashcache" target="_blank">flashcache</a> or EnhanceIO which will let you migrate a live system.
+Before we get going, not that this is only valid for a new installation of Linux as we delete all file system information. If this isn’t what you want to do, I suggest you check out <a href="https://github.com/facebook/flashcache">flashcache</a> or EnhanceIO which will let you migrate a live system.
 
 Here are the major steps:
 
@@ -30,7 +30,7 @@ Here are the major steps:
 1. Install `bcache-tools` and re-generate `initramfs`
 1. Reboot into a fully functional system.
 
-Properly acknowledging my sources, there are two critical posts on Stack Overflow that made me think I could get away with this scheme: <a href="http://askubuntu.com/questions/523817/how-to-setup-bcache" target="_blank">Alex’s answer on how to setup bcache</a> and <a href="http://askubuntu.com/questions/28099/how-to-restore-a-system-after-accidentally-removing-all-kernels" target="_blank">Lekensteyn’s answer on how to restore kernels</a>. Lastly, be aware that Grub (and Grub2) do not support bcache, so you will need a separate `/boot` partition.
+Properly acknowledging my sources, there are two critical posts on Stack Overflow that made me think I could get away with this scheme: <a href="http://askubuntu.com/questions/523817/how-to-setup-bcache">Alex’s answer on how to setup bcache</a> and <a href="http://askubuntu.com/questions/28099/how-to-restore-a-system-after-accidentally-removing-all-kernels">Lekensteyn’s answer on how to restore kernels</a>. Lastly, be aware that Grub (and Grub2) do not support bcache, so you will need a separate `/boot` partition.
 
 ## Partitioning
 First, if you have used this system for anything important, back up your data. We’ll be erasing everything shortly.
@@ -45,7 +45,7 @@ Now, boot into the Ubuntu installer and remove any unnecessary partitions. You c
 /dev/sdb3 - any format, backing partition
 ```
 
-<span style="font-size:120%">_Ari_: I used Gparted. Don't need to set flags. EFI partition would usually average out as **1-2GB** and format it as **FAT32**, and there is a swap size guide <a href="https://www.cyberciti.biz/tips/linux-swap-space.html" target="_blank">here</a>.</span>
+<span style="font-size:120%">_Ari_: I used Gparted. Don't need to set flags. EFI partition would usually average out as **1-2GB** and format it as **FAT32**, and there is a swap size guide <a href="https://www.cyberciti.biz/tips/linux-swap-space.html">here</a>.</span>
 
 Don’t worry about doing a deep format of the caching and backing partitions as we’ll wipe these shortly. If you made any major changes to the partition tables, you might need to reboot before you can proceed. `gparted`, in particular, will let you know if this is the case.
 

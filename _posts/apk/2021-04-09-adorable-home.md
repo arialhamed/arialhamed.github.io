@@ -10,7 +10,7 @@ tags: casual relaxing lgbtq
 paid: false
 ---
 
-> _"You and your partner have just moved to a new home in the suburbs with your furry companion, an adorable cat named Snow. What to do first? Let's clean up so you can start decorating!" - <a href="https://hyperbeard.com/game/adorable-home/" target="_blank">Hyperbeard Official Site</a>_
+> _"You and your partner have just moved to a new home in the suburbs with your furry companion, an adorable cat named Snow. What to do first? Let's clean up so you can start decorating!" - <a href="https://hyperbeard.com/game/adorable-home/">Hyperbeard Official Site</a>_
 
 There's a couch, a table and a TV stand but not much else. What's missing here?! Oh... silly me, a TV of course. Let's buy that first!
 

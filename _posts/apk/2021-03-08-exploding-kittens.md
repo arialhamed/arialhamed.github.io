@@ -10,7 +10,7 @@ tags: card cards card-game cats cat kitten explosion
 paid: true
 ---
 
-> _"Play the most-funded game in Kickstarter history anywhere with the Exploding Kittens® Official mobile game!🐈💣" - <a href="https://play.google.com/store/apps/details?id=com.explodingkittens.projectbombsquad" target="_blank">Play Store</a>_
+> _"Play the most-funded game in Kickstarter history anywhere with the Exploding Kittens® Official mobile game!🐈💣" - <a href="https://play.google.com/store/apps/details?id=com.explodingkittens.projectbombsquad">Play Store</a>_
 
 Not much to say about this game, besides the fact that i regret recording the first time i booted up the game, got my first win. The card game in real life was quite fun, this game i up there with super unique card game concepts that also has great execution, like Coup, Stable Unicorns, Sabotuer, just to state a few, you know.
 
