@@ -296,9 +296,9 @@ TODO: put threshold service walkthrough here
 
 ### Is shutdown taking too long?
 
-Does `shutdown now` & `shutdown -P 0` still take ages and those weird characters appearing like @^@^@^@^@^@^@^@^@^ ? Well, I may or may not have found a way to fix that! 
+Does `shutdown now`{:.bash} & `shutdown -P 0`{:.bash} still take ages and those weird characters appearing like @^@^@^@^@^@^@^@^@^ ? Well, I may or may not have found a way to fix that! 
 
-1. Create backups of `/etc/systemd/system.conf` & `/etc/systemd/user.conf` just in case, preferably outside of the system.
+1. Create backups of `/etc/systemd/system.conf`{:.bash} & `/etc/systemd/user.conf`{:.bash} just in case, preferably outside of the system.
 1. Open both of those up with any text editor of your choice.
 1. Both with have this line, `#DefaultTimeoutStopSec=90s`.
 1. Change that to `DefaultTimeoutStopSec=3s`, or any amount, on both files. Note that I removed the comment char as well.
@@ -312,8 +312,8 @@ Source: [ItsFOSS](https://itsfoss.com/long-shutdown-linux/)
 ### My own setup command.
 
 the following are just **my** own commands that i run before taking a nap or have lunch after fresh installing a new ubuntu installation. It just downloads a pre-made shell script and runs it.
-<pre>
+``` properties
 curl -s -L https://github.com/arialhamed/static/raw/main/others/setup.sh | bash
-</pre>
+```
 
 note for ari: the command above is configured for Kubuntu, where certain packages already exist as it's own version that belongs in KDE, such as _KDE Partition Manager_ that is the KDE version for _GParted_. This is also configured for if you're dual-booting with Windows, which would allow you to run Visual Studio instead of MonoDevelop.
