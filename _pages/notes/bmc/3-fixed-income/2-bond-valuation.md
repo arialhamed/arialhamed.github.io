@@ -1,7 +1,7 @@
 ---
 title: "BMC: Fixed Income - Bond Valuation"
 layout: default
-permalink: /notes/bmc/fixed-income/bond-valuation
+permalink: /notes/bloomberg-market-concepts/fixed-income/bond-valuation
 redirect_from:
  - /notes/bmc/3/2
 ---

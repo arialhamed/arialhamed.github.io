@@ -1,7 +1,7 @@
 ---
 title: "BMC: Economic Indicators - Forecasting GDP"
 layout: default
-permalink: /notes/bmc/economic-indicators/forecasting-gdp
+permalink: /notes/bloomberg-market-concepts/economic-indicators/forecasting-gdp
 redirect_from:
  - /notes/bmc/1/3
 ---

@@ -1,7 +1,7 @@
 ---
 title: "BMC: Terminal Basics - Building an Equity Portfolio"
 layout: default
-permalink: /notes/bmc/terminal-basics/building-an-equity-portfolio
+permalink: /notes/bloomberg-market-concepts/terminal-basics/building-an-equity-portfolio
 redirect_from:
  - /notes/bmc/5/5
 ---

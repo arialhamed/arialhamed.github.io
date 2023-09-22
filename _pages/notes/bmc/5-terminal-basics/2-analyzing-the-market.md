@@ -1,7 +1,7 @@
 ---
 title: "BMC: Terminal Basics - Analyzing the Market"
 layout: default
-permalink: /notes/bmc/terminal-basics/analyzing-the-market
+permalink: /notes/bloomberg-market-concepts/terminal-basics/analyzing-the-market
 redirect_from:
  - /notes/bmc/5/2
 ---

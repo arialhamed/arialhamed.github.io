@@ -1,7 +1,7 @@
 ---
 title: "BMC: Economic Indicators - Monitoring GDP"
 layout: default
-permalink: /notes/bmc/economic-indicators/monitoring-gdp
+permalink: /notes/bloomberg-market-concepts/economic-indicators/monitoring-gdp
 redirect_from:
  - /notes/bmc/1/2
 ---

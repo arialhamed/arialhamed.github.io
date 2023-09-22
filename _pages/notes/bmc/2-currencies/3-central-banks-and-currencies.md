@@ -1,7 +1,7 @@
 ---
 title: "BMC: Currencies - Central Banks & Currencies"
 layout: default
-permalink: /notes/bmc/currencies/central-banks-and-currencies
+permalink: /notes/bloomberg-market-concepts/currencies/central-banks-and-currencies
 redirect_from:
  - /notes/bmc/2/3
 ---

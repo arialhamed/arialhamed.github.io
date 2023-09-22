@@ -1,7 +1,7 @@
 ---
 title: "BMC: Terminal Basics - Discovering Fixed Income"
 layout: default
-permalink: /notes/bmc/terminal-basics/discovering-fixed-income
+permalink: /notes/bloomberg-market-concepts/terminal-basics/discovering-fixed-income
 redirect_from:
  - /notes/bmc/5/4
 ---

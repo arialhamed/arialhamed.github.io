@@ -1,7 +1,7 @@
 ---
 title: "BMC: Fixed Income - The Roots of The Bond Market"
 layout: default
-permalink: /notes/bmc/fixed-income/the-roots-of-the-bond-market
+permalink: /notes/bloomberg-market-concepts/fixed-income/the-roots-of-the-bond-market
 redirect_from:
  - /notes/bmc/3/1
 ---

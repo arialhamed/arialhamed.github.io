@@ -1,7 +1,7 @@
 ---
 title: "BMC: Terminal Basics - Exploring the Equity Market"
 layout: default
-permalink: /notes/bmc/terminal-basics/exploring-the-equity-market
+permalink: /notes/bloomberg-market-concepts/terminal-basics/exploring-the-equity-market
 redirect_from:
  - /notes/bmc/5/3
 ---

@@ -1,7 +1,7 @@
 ---
 title: "BMC: Currencies - Currency Market Mechanics"
 layout: default
-permalink: /notes/bmc/currencies/currency-market-mechanics
+permalink: /notes/bloomberg-market-concepts/currencies/currency-market-mechanics
 redirect_from:
  - /notes/bmc/2/1
 ---

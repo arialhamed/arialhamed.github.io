@@ -1,7 +1,7 @@
 ---
 title: "BMC: Currencies - Currency Valuation"
 layout: default
-permalink: /notes/bmc/currencies/currency-valuation
+permalink: /notes/bloomberg-market-concepts/currencies/currency-valuation
 redirect_from:
  - /notes/bmc/2/2
 ---

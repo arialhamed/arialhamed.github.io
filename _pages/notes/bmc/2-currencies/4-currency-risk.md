@@ -1,7 +1,7 @@
 ---
 title: "BMC: Currencies - Currency Risk"
 layout: default
-permalink: /notes/bmc/currencies/currency-risk
+permalink: /notes/bloomberg-market-concepts/currencies/currency-risk
 redirect_from:
  - /notes/bmc/2/4
 ---

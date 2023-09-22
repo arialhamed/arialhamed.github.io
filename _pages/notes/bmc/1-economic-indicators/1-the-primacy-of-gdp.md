@@ -1,7 +1,7 @@
 ---
 title: "BMC: Economic Indicators - The Primacy of GDP"
 layout: default
-permalink: /notes/bmc/economic-indicators/the-primacy-of-gdp
+permalink: /notes/bloomberg-market-concepts/economic-indicators/the-primacy-of-gdp
 redirect_from:
  - /notes/bmc/1/1
 ---
