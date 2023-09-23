@@ -12,11 +12,11 @@ funky: true
 <link rel="stylesheet" type="text/css" href="https://arialhamed.github.io/static/css/site.css"> -->
 
 
-# arial hamed's guides, blogs & resources <br><span style="font-size:60%;">my casual digital abode</span>
+# optimize technology, preserve humanity. 
 
-need my cv? go to my <a href="/about"><code>about</code> page</a>.  
+looking for my cv? go to my <a href="/about"><code>about</code> page</a>.  
 <span onmouseover="this.innerHTML=''">here to look at some projects i did? go to my [`projects` page](/projects).</span>  
-looking for some tips or guidance in certain IT topics? check out all my [`guides`](/guides).  
+need some tips or guidance in certain IT topics? check out all my [`guides`](/guides).  
 [`chess`](/chess)? its not a project i'm rushing tbh.  
 think this homepage could be better? same. in fact, you can just leave comments almost anywhere in this website.  
 
@@ -26,7 +26,7 @@ think this homepage could be better? same. in fact, you can just leave comments 
 
 <!--want to give me stuff for free? check out my [`carousell wishlist`](/carousell-wishlist)-->
 
-latest build for https://arifhamed.github.io deployed on {{ site.time | date: "%A, %y %B %d, %H:%M:%S, GMT %Z:00" }}. 
+latest build for [arifhamed.github.io](https://arifhamed.github.io) deployed on {{ site.time | date: "%A, %y %B %d, %H:%M:%S, GMT %Z:00" }}. 
 
 <!-- <span id="time" ondblclick='window.open("https://github.com/arialhamed/arialhamed.github.io", "_self")'>i can't get the latest update to this website smh</span>
 

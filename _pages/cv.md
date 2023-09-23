@@ -9,6 +9,8 @@ redirect_from:
 cv page still wip
 
 <img src="https://github.com/arialhamed/static/blob/main/images/cv/nasa-t-shirt.jpg?raw=true" width=150 style="text-align: center;" title=":3">
+<img src="https://github.com/arialhamed/static/blob/main/images/cv/2023-09-23.jpg?raw=true" width=150 style="text-align: center;" title=":|">
+
 
 <div class="accordion" id="resume-accordion">
     <div class="accordion-item">
