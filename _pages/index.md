@@ -14,15 +14,11 @@ funky: true
 
 # arial hamed's guides, blogs & resources <br><span style="font-size:60%;">my casual digital abode</span>
 
-need my cv? go to my <a href="/about"><code>about</code> page</a>.
-
-<span onmouseover="this.innerHTML=''">here to look at some projects i did? go to my [`projects` page](/projects).</span>
-
-looking for some tips or guidance in certain IT topics? check out all my [`guides`](/guides).
-
-[`chess`](/chess)? its not a project i'm rushing tbh
-
-thought there would be more here? check the commented out elements, they're not necessary
+need my cv? go to my <a href="/about"><code>about</code> page</a>.  
+<span onmouseover="this.innerHTML=''">here to look at some projects i did? go to my [`projects` page](/projects).</span>  
+looking for some tips or guidance in certain IT topics? check out all my [`guides`](/guides).  
+[`chess`](/chess)? its not a project i'm rushing tbh.  
+think this homepage could be better? same. in fact, you can just leave comments almost anywhere in this website.  
 
 <!--got time to kill on your android phone? download some apks from my [`apk` resource page](/resources/apk).-->
 
@@ -30,11 +26,9 @@ thought there would be more here? check the commented out elements, they're not 
 
 <!--want to give me stuff for free? check out my [`carousell wishlist`](/carousell-wishlist)-->
 
-think this homepage could be better? same. in fact, you can just leave comments almost anywhere in this website.
+site last updated on {{ site.time | date: "%A, %y %B %d, %H:%M:%S, %Z" }}. 
 
-<span id="time" ondblclick='window.open("https://github.com/arialhamed/arialhamed.github.io", "_self")'>i can't get the latest update to this website smh</span>
-
-<span id="alt">If this shows up correctly, oml: {{ site.time | date_to_rfc822 }}</span>
+<!-- <span id="time" ondblclick='window.open("https://github.com/arialhamed/arialhamed.github.io", "_self")'>i can't get the latest update to this website smh</span>
 
 <script>
     getLatestCommitDate();
@@ -52,7 +46,7 @@ think this homepage could be better? same. in fact, you can just leave comments 
             document.getElementById('time').innerHTML = "you could be on mobile right now, yeah i see you. OwO";
         }
     }
-</script>
+</script> -->
 
 
 {% include comments.html url=page.url %}
