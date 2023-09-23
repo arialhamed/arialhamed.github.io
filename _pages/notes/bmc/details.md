@@ -13,9 +13,15 @@ redirect_from:
  - /notes/bmc/5
  - /bmc
  - /bmc/
+ - /bmc/1
+ - /bmc/2
+ - /bmc/3
+ - /bmc/4
+ - /bmc/5
  - /bloomberg-market-concepts
  - /bloomberg-market-concepts/
 ---
+
 # <span style="font-size:50%;">a Gen Z's</span> Bloomberg Market Concepts <span style="font-size:70%">Notes</span>
 
 From 14 September 2023 to _TBA_, I have undertaken the **Bloomberg Market Concepts** course from [Bloomberg for Education](https://portal.bloombergforeducation.com), and these are my notes. 
