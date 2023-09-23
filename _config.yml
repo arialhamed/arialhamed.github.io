@@ -1,10 +1,11 @@
-theme: jekyll-theme-slate
+theme: jekyll-theme-slate # whoa how this deviated so much in 2023 hahaha
 include: ['_pages', '_redirect']
 description: > # this means to ignore newlines until "baseurl:"
     ari's monochrome asylum.
 title: arialhamed.github.io
 url: ""
 markdown: kramdown
+timezone: Asia/Singapore
 plugins:
   - jekyll-gist
   - jekyll-coffeescript

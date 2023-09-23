@@ -34,6 +34,8 @@ think this homepage could be better? same. in fact, you can just leave comments 
 
 <span id="time" ondblclick='window.open("https://github.com/arialhamed/arialhamed.github.io", "_self")'>i can't get the latest update to this website smh</span>
 
+<span id="alt">If this shows up correctly, oml: {{ site.time | date_to_rfc822 }}</span>
+
 <script>
     getLatestCommitDate();
     function convertTZ(date, tzString) {
