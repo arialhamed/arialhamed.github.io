@@ -20,9 +20,9 @@ pre {
 h1, h2, h3, h4, h5, h6 {
     color: #EEE!important;
 }
-pre, code {
+/* pre, code {
     background-color: #ddd!important;
-}
+} */
 a > code {
     color: #202020!important;
 }
@@ -47,6 +47,13 @@ img {
 nav {
     background-color:#fff1 !important;
 }
+
+.language-plaintext {
+    background-color: #333 !important;
+    mix-blend-mode: difference;
+}
+
+
 
 
 .inner {
