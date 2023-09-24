@@ -6,11 +6,21 @@ redirect_from:
  - /cv/
 ---
 
-cv page still wip
-
-<img src="https://github.com/arialhamed/static/blob/main/images/cv/nasa-t-shirt.jpg?raw=true" width=150 style="text-align: center;" title=":3">
-<img src="https://github.com/arialhamed/static/blob/main/images/cv/2023-09-23.jpg?raw=true" width=150 style="text-align: center;" title=":|">
-
+<div style="display: flex;">
+    <figure>
+        <img src="https://github.com/arialhamed/static/blob/main/images/cv/nasa-t-shirt.jpg?raw=true" width=160 title=":3">
+        <figcaption><i>Photo taken</i>: 2023 May 5</figcaption>
+    </figure>
+    <div>
+        <b style="font-size:140%;">HAMED, Arif (Ari)</b>
+        <div><b>Nationality:</b> Singaporean</div>
+        <div><b>Mobile:</b> <i ondblclick="this.innerHTML='(+65) 8817 4266'">double click to reveal</i></div>
+        <div><b>Email:</b> <a href="mailto:arifhamed.arial@outlook.com">arifhamed.arial@outlook.com</a></div>
+        <div><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/ari-hamed/">https://www.linkedin.com/in/ari-hamed/</a></div>
+        <div><b>Portfolio:</b> <a href="https://arialhamed.github.io/">https://arialhamed.github.io/</a></div>
+        <div><b>Languages:</b> Singaporean</div>
+    </div>
+</div>
 
 <div class="accordion" id="resume-accordion">
     <div class="accordion-item">
