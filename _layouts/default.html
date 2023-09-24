@@ -59,15 +59,6 @@
     {% endif %}
 
     {% if page.about %}
-    <!-- for showing pdf in about page -->
-    <script src="/static/pdf.js/build/pdf.js"></script>
-    <script src="/static/pdf.js/build/pdf.worker.js"></script>
-    <link rel="stylesheet" href="/static/pdf.js/web/pdf_viewer.css" />
-    <script>
-      // const viewer = new PDFViewer(document.getElementById('viewResume'));
-      // viewer.setDocument('https://github.com/arialhamed/static/blob/f6e9b935f6baa961854aed08fe6742d93a0a6807/pdf/cv-2023-06-07.pdf');
-      pdfjsLib.GlobalWorkerOptions.workerSrc = '/static/pdf.js/build/pdf.worker.js';
-    </script>
     <!-- LinkedIn badge -->
     <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
     <!-- end of about page exclusive tags -->

@@ -19,7 +19,7 @@ redirect_from:
         <div><b>Email:</b> <a href="mailto:arifhamed.arial@outlook.com">arifhamed.arial@outlook.com</a></div>
         <div><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/ari-hamed/">https://www.linkedin.com/in/ari-hamed/</a></div>
         <div><b>Portfolio:</b> <a href="https://arialhamed.github.io/">https://arialhamed.github.io/</a></div>
-        <div><b>Languages:</b> Singaporean</div>
+        <div><b>Languages:</b> English (Business), Bahasa Melayu (Conversational)</div>
     </div>
 </div>
 
@@ -149,8 +149,8 @@ redirect_from:
                 <table style="border: none!important;">
                     <tbody>
                         <tr>
-                            <td style="text-align: left;"><b>Diploma in Information Technology</b>, School of Information Technology, Nanyang Polytechnic, Singapore</td>
-                            <td style="text-align: right;"><b>2020/04 – 2023</b></td>
+                            <td style="text-align: left;" width="75%"><b>Diploma in Information Technology</b>, School of Information Technology, Nanyang Polytechnic, Singapore</td>
+                            <td style="text-align: right;"><b>2020/04 – 2023/03</b></td>
                         </tr>
                         <tr>
                             <td style="text-align: left;"><b>Diploma Plus</b>, Machine Data Analytics &amp; Operational Intelligence, Nanyang Polytechnic, Singapore</td>
