@@ -11,10 +11,11 @@ redirect_from:
         <img src="https://github.com/arialhamed/static/blob/main/images/cv/nasa-t-shirt.jpg?raw=true" width=160 title=":3">
         <figcaption><i>Photo taken</i>: 2023 May 5</figcaption>
     </figure>
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <div>
         <b style="font-size:140%;">HAMED, Arif (Ari)</b>
         <div><b>Nationality:</b> Singaporean</div>
-        <div><b>Mobile:</b> <i ondblclick="this.innerHTML='(+65) 8817 4266'">double click to reveal</i></div>
+        <div><b>Mobile:</b> <i class="disable-selection" ondblclick="this.innerHTML='(+65) 8817 4266'">double click to reveal</i></div>
         <div><b>Email:</b> <a href="mailto:arifhamed.arial@outlook.com">arifhamed.arial@outlook.com</a></div>
         <div><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/ari-hamed/">https://www.linkedin.com/in/ari-hamed/</a></div>
         <div><b>Portfolio:</b> <a href="https://arialhamed.github.io/">https://arialhamed.github.io/</a></div>

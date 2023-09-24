@@ -22,10 +22,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* pre, code {
     background-color: #ddd!important;
-} */
+} 
 a > code {
     color: #d63384!important;
-}
+} */
 figcaption {
     font-size: 70%;
     text-align: center;
@@ -292,17 +292,20 @@ footer a:hover {
 }
 
 /* for dark mode accordion */
+.accordion-head {
+    background: none;
+}
 .accordion-item {
 	background-color: #0000!important; 
 	border: 1px solid #0000!important; 
 }
 .accordion-button {
-	background-color: #333!important; 
+	background-color: #fff1 !important; 
 	color: rgba(255,255,255,.55)!important; 
 }
 .accordion-button:not(.collapsed) {
 	color: rgba(255,255,255,.55)!important; 
-	background-color: #333!important; 
+	/* background-color: #fff1 !important;  */
 }
 .accordion-button:not(.collapsed)::after {
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23eeeeee'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e")!important; 
@@ -335,3 +338,6 @@ footer a:hover {
 	background-color: #888 !important; 
 }
 
+.navbar-toggler:focus {
+    box-shadow: none;
+}
