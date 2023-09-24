@@ -26,7 +26,7 @@ think this homepage could be better? same. in fact, you can just leave comments 
 
 <!--want to give me stuff for free? check out my [`carousell wishlist`](/carousell-wishlist)-->
 
-latest build for [arifhamed.github.io](https://arifhamed.github.io) deployed on {{ site.time | date: "%A, %y %B %d, %H:%M:%S, GMT %Z:00" }}. 
+latest build for [arifhamed.github.io](https://arifhamed.github.io) deployed on {{ site.time | date: "%A, %Y %B %d, %H:%M:%S, GMT %Z:00" }}. 
 
 <!-- <span id="time" ondblclick='window.open("https://github.com/arialhamed/arialhamed.github.io", "_self")'>i can't get the latest update to this website smh</span>
 

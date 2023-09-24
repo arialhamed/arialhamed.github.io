@@ -100,7 +100,7 @@ function displayResult(resultDiv, url, contentType, integrity) {
 
     resultDiv.innerHTML = linkEl;
   }
-  const copyButton = `<button id="sri-copy">Copy</button>`;
+  const copyButton = `<button id="sri-copy" class="btn btn-secondary">Copy</button>`;
 
   console.log("It's working");
   resultDiv.insertAdjacentHTML('afterend', copyButton);
