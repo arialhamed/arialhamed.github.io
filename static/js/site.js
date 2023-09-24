@@ -23,9 +23,9 @@ function unlock() {
 
 connectCheck();
 async function connectCheck() {
-const response = await fetch("http://arialhamed.pythonanywhere.com/track"); 
-const finalCheck = await response.json();
-console.log("connect good")
+    const response = await fetch("https://arialhamed.pythonanywhere.com/track"); 
+    const finalCheck = await response.json();
+    console.log("connect good")
 }
 
 function apk(e) {
