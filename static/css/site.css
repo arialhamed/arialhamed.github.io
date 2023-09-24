@@ -317,6 +317,9 @@ footer a:hover {
     border-color: #0000!important;
     box-shadow: 0 0 0 0px #0000!important;
 }
+.accordion-header {
+    background: none;
+}
 
 /* for dark mode links not in nav, header & footer */
 #main_content_wrap a:not(.nav-link, .dropdown-item) {
