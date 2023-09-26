@@ -1,8 +1,6 @@
 ---
 title: ideas
 permalink: /ideas
-redirect_from:
- - /ideas/
 layout: default
 ---
 
