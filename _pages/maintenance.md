@@ -13,7 +13,7 @@ redirect_from:
 
 <br>
 
-<div style="text-align:center;">page is currently under maintenance indefinitely</div><br><br>
+<div style="text-align:center;">page is currently under maintenance, indefinitely</div><br><br>
 
 <div class="w-100" style="text-align:center;">
     <a class="btn btn-dark" style="background-color:#333;" onclick="history.back()">go back</a>

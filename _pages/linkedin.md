@@ -1,6 +1,9 @@
 ---
 title: Link to LinkedIn
 permalink: /linkedin
-redirect_to: https://www.linkedin.com/in/arif-hamed-6a7425201/
+redirect_to: https://www.linkedin.com/in/ari-hamed/
 redirect_from: 
  - /linkedin/
+ - /link
+ - /link/
+---

@@ -21,12 +21,9 @@ pre {
 h1, h2, h3, h4, h5, h6 {
     color: #EEE!important;
 }
-/* pre, code {
-    background-color: #ddd!important;
+pre, code {
+    font-size: 120%;
 } 
-a > code {
-    color: #d63384!important;
-} */
 form, code {
     background-color: #fff1;
 }

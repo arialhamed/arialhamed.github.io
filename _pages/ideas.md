@@ -25,3 +25,5 @@ so this is where i got some dumbass ideas lol
 	- about bottling up (prolly similar to figure09). music video obviously related to volcano
 - clockwork city
 	- song about clockwork city. make the video & song steampunk related, kinda like the ballad of mona lisa
+- ice coffee night
+	- song about regrets & grief keeping me up at night

@@ -149,11 +149,11 @@ redirect_from:
                 <table style="border: none!important;">
                     <tbody>
                         <tr>
-                            <td style="text-align: left;" width="75%"><b>Diploma in Information Technology</b>, School of Information Technology, Nanyang Polytechnic, Singapore</td>
+                            <td style="text-align: left;"><b>Diploma in Information Technology</b>, School of Information Technology, <br>Nanyang Polytechnic, Singapore</td>
                             <td style="text-align: right;"><b>2020/04 – 2023/03</b></td>
                         </tr>
                         <tr>
-                            <td style="text-align: left;"><b>Diploma Plus</b>, Machine Data Analytics &amp; Operational Intelligence, Nanyang Polytechnic, Singapore</td>
+                            <td style="text-align: left;"><b>Diploma Plus</b>, Machine Data Analytics &amp; Operational Intelligence, <br>Nanyang Polytechnic, Singapore</td>
                         </tr>
                     </tbody>
                 </table>
