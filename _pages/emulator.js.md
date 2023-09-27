@@ -2,6 +2,7 @@
 title: Emulator.JS
 permalink: /emulator
 layout: default
+emulator: true
 ---
 
 <div style="max-width:100%; max-height:100%;">
