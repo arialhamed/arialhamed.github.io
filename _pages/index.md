@@ -10,6 +10,7 @@ looking for my cv? go to my <a href="/about"><code>about</code> page</a>.
 <span onmouseover="this.innerHTML=''">here to look at some projects i did? go to my [`projects` page](/projects).</span>  
 need some tips or guidance in certain IT topics? check out all my [`guides`](/guides).  
 [`chess`](/chess)? its not a project i'm rushing tbh.  
+oh want see some sweet emulation action? [i gotchu](/emulator)  
 think this homepage could be better? same. in fact, you can just leave comments almost anywhere in this website.  
 
 <!--got time to kill on your android phone? download some apks from my [`apk` resource page](/resources/apk).-->

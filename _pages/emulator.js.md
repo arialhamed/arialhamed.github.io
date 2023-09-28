@@ -1,6 +1,22 @@
 ---
 title: emulator.js
 permalink: /emulator
+redirect_from: 
+ - /emulator/
+ - /emulators
+ - /emulators/
+ - /emulator.js
+ - /emulator.js/
+ - /emulators.js
+ - /emulators.js/
+ - /emulator-js
+ - /emulator-js/
+ - /emulators-js
+ - /emulators-js/
+ - /emulatorjs
+ - /emulatorjs/
+ - /emulatorsjs
+ - /emulatorsjs/
 layout: default
 emulator: true
 ---
@@ -59,7 +75,7 @@ const currentQuery = new URLSearchParams(window.location.search);
 const romName = currentQuery.get("rom");
 if (!romName) {
   // This will be loaded in the page first
-  document.getElementById("left-table").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is disabled to optimize gameplay.";
+  document.getElementById("left-table").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is disabled to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a>";
   document.getElementById("loading-gif").innerHTML = "";
 } 
 // EmulatorJS
