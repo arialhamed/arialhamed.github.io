@@ -9,14 +9,37 @@ emulator: true
     <div id="game"></div>
 </div>
 <script>
-    EJS_player = '#game';
-    EJS_core = 'gba';
-    EJS_gameName = 'The Legend of Zelda - The Minish Cap';
-    EJS_color = '#222';
-    EJS_startOnLoaded = true;
-    EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: false, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
-    EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
-    EJS_gameUrl = "https://raw.githubusercontent.com/arialhamed/static/main/games/roms/gba/metroid-fusion.zip";
-    EJS_Settings = {defaultControllers: {'0': {'0': {'value': '40'},'1': {'value': '37'},'2': {'value': '16'},'3': {'value': '27'},'4': {'value': '87'},'5': {'value': '83'},'6': {'value': '65'},'7': {'value': '68'},'8': {'value': '39'},'9': {'value': '38'},'10': {'value': '81'},'11': {'value': '69'}},'1': {},'2': {},'3': {}}}
+EJS_player = '#game';
+EJS_core = 'gba';
+EJS_gameName = 'The Legend of Zelda - The Minish Cap';
+EJS_color = '#222';
+EJS_startOnLoaded = true;
+EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: false, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
+EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
+EJS_gameUrl = "https://raw.githubusercontent.com/arialhamed/static/main/games/roms/gba/metroid-fusion.gba";
+EJS_biosUrl = "https://raw.githubusercontent.com/arialhamed/static/main/others/gba_bios.bin";
+EJS_defaultControls = {
+  0: {
+    0: {'value' : 'i', 'value2' : 'BUTTON_2', 'keycode': '73'}, // B
+    // 1: {'value' : '', 'value2' : '', 'keycode': ''}, // Y
+    2: {'value' : '`', 'value2' : 'SELECT', 'keycode': '192'}, // SELECT
+    3: {'value' : 'escape', 'value2' : 'START', 'keycode': '27'}, // START
+    4: {'value' : 'w', 'value2' : 'LEFT_STICK_Y:-1', 'keycode': '87'}, // UP
+    5: {'value' : 's', 'value2' : 'LEFT_STICK_Y:+1', 'keycode': '83'}, // DOWN
+    6: {'value' : 'a', 'value2' : 'LEFT_STICK_X:-1', 'keycode': '65'}, // LEFT
+    7: {'value' : 'd', 'value2' : 'LEFT_STICK_X:+1', 'keycode': '68'}, // RIGHT
+    8: {'value' : 'o', 'value2' : 'BUTTON_3', 'keycode': '79'}, // A 
+    // 9: {'value' : '', 'value2' : '', 'keycode': ''}, // X
+    10: {'value' : 'u', 'value2' : 'LEFT_TOP_SHOULDER', 'keycode': '85'}, // L
+    11: {'value' : 'p', 'value2' : 'RIGHT_TOP_SHOULDER', 'keycode': '80'}, // R
+    24: {'value' : 'f2', 'value2' : '', 'keycode': '113'}, // QUICK SAVE
+    25: {'value' : 'f3', 'value2' : '', 'keycode': '115'}, // QUICK LOAD
+    27: {'value' : 'shift', 'value2' : '', 'keycode': '16'}, // FAST
+    // 28: {'value' : 'r', 'value2' : '', 'keycode': '82'} // SLOW
+  },
+  1: {},
+  2: {},
+  3: {}
+}
 </script>
 <script src='https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js'></script>
