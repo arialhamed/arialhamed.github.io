@@ -348,3 +348,11 @@ footer a:hover {
 .navbar-toggler:focus {
     box-shadow: none;
 }
+
+
+/* MOBILE STYLE */
+@media only screen and (max-width: 578px) {
+    #footer_wrap.inner p {
+        float: unset;
+    }
+}

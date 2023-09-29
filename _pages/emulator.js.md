@@ -23,38 +23,36 @@ enable_efficient: true
   <div id="loading-gif" style="text-align:center;"><img src="https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif"></div>
 </div>
 <br>
-<table style="border: none;" width="100%">
-  <tbody>
-    <tr>
-      <td width="50%" id="left-table">
-        Default controls:
-        <table>
-          <tbody>
-            <tr><td>Key</td><td>Binding</td></tr>
-            <tr><td>A</td><td>K</td></tr>
-            <tr><td>B</td><td>J</td></tr>
-            <tr><td>LT</td><td>I</td></tr>
-            <tr><td>RT</td><td>L</td></tr>
-            <tr><td>Up</td><td>W</td></tr>
-            <tr><td>Down</td><td>S</td></tr>
-            <tr><td>Left</td><td>A</td></tr>
-            <tr><td>Right</td><td>D</td></tr>
-            <tr><td>Start</td><td>Enter</td></tr>
-            <tr><td>Select</td><td>Delete</td></tr>
-            <tr><td>Q. Save</td><td>F2</td></tr>
-            <tr><td>Q. Load</td><td>F4</td></tr>
-            <tr><td>Fast-Forward</td><td>Shift</td></tr>
-          </tbody>
-        </table>
-      </td>
-      <td width="50%">
-        List of games:
-        <ul id="gba-intake">
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row row-cols-lg-2 row-cols-1">
+    <div class="col" id="left-table">
+      Default controls:
+      <table>
+        <tbody>
+          <tr><td>Key</td><td>Binding</td></tr>
+          <tr><td>A</td><td>K</td></tr>
+          <tr><td>B</td><td>J</td></tr>
+          <tr><td>LT</td><td>I</td></tr>
+          <tr><td>RT</td><td>L</td></tr>
+          <tr><td>Up</td><td>W</td></tr>
+          <tr><td>Down</td><td>S</td></tr>
+          <tr><td>Left</td><td>A</td></tr>
+          <tr><td>Right</td><td>D</td></tr>
+          <tr><td>Start</td><td>Enter</td></tr>
+          <tr><td>Select</td><td>Delete</td></tr>
+          <tr><td>Q. Save</td><td>F2</td></tr>
+          <tr><td>Q. Load</td><td>F4</td></tr>
+          <tr><td>Fast-Forward</td><td>Shift</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      List of games:
+      <ul id="gba-intake">
+      </ul>
+    </div>
+  </div>
+</div>
 <script>
 listGBA();
 async function listGBA(){
@@ -74,7 +72,7 @@ const currentQuery = new URLSearchParams(window.location.search);
 const romName = currentQuery.get("rom");
 if (!romName) {
   // This will be loaded in the page first
-  document.getElementById("left-table").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is disabled to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a>";
+  document.getElementById("left-table").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br><br>";
   document.getElementById("loading-gif").innerHTML = "";
 } 
 // EmulatorJS
