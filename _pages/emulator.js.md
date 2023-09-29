@@ -15,6 +15,7 @@ redirect_from:
  - /emulatorsjs/
 layout: default
 emulator: true
+enable_efficient: true
 ---
 
 <div style="max-width:100%; max-height:100%;">

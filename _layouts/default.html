@@ -50,7 +50,7 @@
     {% endif %}
     
     <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer" {% if page.emulator %} style="background-image: url('https://github.com/arialhamed/static/blob/main/images/efficiency-bg.png?raw=true') !important;" {% endif %}>
+    <div id="main_content_wrap" class="outer" {% if page.enable_efficient %} style="background-image: url('https://github.com/arialhamed/static/blob/main/images/efficiency-bg.png?raw=true') !important; background-attachment: fixed !important;" {% endif %}>
 	  
       <section id="main_content" class="inner">
         {% unless page.disable_nav %}
