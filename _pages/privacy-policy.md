@@ -25,7 +25,7 @@ We don't collect any personal information of our users.
 This site contains links to other sites. We are not responsible for the privacy practices or the content of these sites.
 
 ## Third Party Advertising
-This site does not contain ads, as traffic in this site is not expected to reach high peaks.
+This site does not contain ads. 
 
 <span style="display:none;">## Third Party Advertising
 These third-party ad servers or ad networks use technology to the advertisements and links that appear on arialhamed.github.io send directly to your browsers. They automatically receive your IP address when this occurs. Other technologies ( such as cookies, JavaScript, or Web Beacons ) may also be used by the third-party ad networks to measure the effectiveness of their advertisements and / or to personalize the advertising content that you see.</span>
