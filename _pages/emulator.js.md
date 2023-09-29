@@ -25,9 +25,9 @@ enable_efficient: true
 <br>
 <div class="container">
   <div class="row row-cols-lg-2 row-cols-1">
-    <div class="col" id="left-table">
-      Default controls:
-      <table>
+    <div class="col" id="default-info">
+      Default keyboard controls:
+      <table width="100%">
         <tbody>
           <tr><td>Key</td><td>Binding</td></tr>
           <tr><td>A</td><td>K</td></tr>
@@ -72,7 +72,7 @@ const currentQuery = new URLSearchParams(window.location.search);
 const romName = currentQuery.get("rom");
 if (!romName) {
   // This will be loaded in the page first
-  document.getElementById("left-table").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br><br>";
+  document.getElementById("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br><br>";
   document.getElementById("loading-gif").innerHTML = "";
 } 
 // EmulatorJS
