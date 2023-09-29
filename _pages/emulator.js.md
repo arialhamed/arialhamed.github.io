@@ -60,10 +60,12 @@ async function listGBA(){
   let gbaIntakeText = "";
   const response = await fetch("https://api.github.com/repos/arialhamed/static/contents/games/roms/gba");
   const all = await response.json();
+  const responseNames = await fetch("https://raw.githubusercontent.com/arialhamed/static/main/others/emulator-names.json");
+  const allNames = await responseNames.json();
   all.forEach(addToHTML);
   document.getElementById("gba-intake").innerHTML = gbaIntakeText;
   async function addToHTML(romDeets){
-    gbaIntakeText += "<li><a href=\"/emulator?rom=" + romDeets["name"] + "\">" + romDeets["name"].slice(0, -4) + "</a></li>";
+    gbaIntakeText += "<li><a href=\"/emulator?rom=" + romDeets["name"] + "\">" + allNames[romDeets["name"]] + "</a></li>";
   }
 }
 // Read URL for EmulatorJS. If there is no rom query loaded, don't load emulator settings
