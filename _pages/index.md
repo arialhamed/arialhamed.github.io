@@ -11,7 +11,13 @@ looking for my cv and/or resume? go to my <a href="/about"><code>about</code> pa
 need some tips or guidance in certain IT topics? check out all my [`guides`](/guides).  
 [`chess`](/chess)? its not a project i'm rushing tbh.  
 want see some sweet [`emulation`](/emulator) action? uwu  
-think this homepage could be better? same. in fact, you can just leave comments almost anywhere in this website. feel free to explore at your own discretion
+think this homepage could be better? same. in fact, you can just leave comments almost anywhere in this website. 
+
+<br>
+
+feel free to explore at your own discretion :3
+
+<br>
 
 latest build for [arifhamed.github.io](https://arifhamed.github.io) deployed on {{ site.time | date: "%A, %Y %B %d, %H:%M:%S, GMT %Z:00" }}. 
 
