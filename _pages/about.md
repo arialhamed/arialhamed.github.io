@@ -16,7 +16,7 @@ As a fresh graduate from **NYP**'s <a href="https://www.nyp.edu.sg/schools/sit/f
 
 As of now, I decided to upskill myself by learning finacial & market analysis through Bloomberg for Education's course: Bloomberg Market Concepts. 
 
-<div class="row row-cols-2">
+<div class="row row-cols-1 row-cols-md-2">
     <a class="btn btn-outline-secondary" href="/resume" role="button">Resume (.pdf)</a>
     <a class="btn btn-outline-secondary" href="/cv" role="button">CV (all details)</a>
 </div>

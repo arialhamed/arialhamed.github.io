@@ -11,7 +11,7 @@ redirect_from:
 I have a lot of knowledge that i will almost definitely forget, in some time in the future, so I decided to save it all here. 
 
 <div class="container" id="poly-itp-days">
-    <div class="row row-cols-1">
+    <div class="row row-cols-1 row-cols-md-3">
         <a class="col btn btn-outline-dark" href="/guides/markdown">markdown (jekyll)</a>
         <a class="col btn btn-outline-dark" href="/guides/git">git</a>
         <a class="col btn btn-outline-dark" href="/guides/github-cli">github cli</a>
