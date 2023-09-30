@@ -52,8 +52,8 @@ enable_efficient: true
           <tr><td>Right</td><td>D</td></tr>
           <tr><td>Start</td><td>Enter</td></tr>
           <tr><td>Select</td><td>Delete</td></tr>
-          <tr><td>Q. Save</td><td>F2</td></tr>
-          <tr><td>Q. Load</td><td>F4</td></tr>
+          <tr><td>Quick Save</td><td>F2</td></tr>
+          <tr><td>Quick Load</td><td>F4</td></tr>
           <tr><td>Fast-Forward</td><td>Shift</td></tr>
         </tbody>
       </table>
@@ -95,7 +95,9 @@ EJS_onGameStart = function(e){ document.getElementById("loading-gif").innerHTML 
 EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: true, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
 EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
 EJS_gameUrl = "https://raw.githubusercontent.com/arialhamed/static/main/games/roms/" + romName.slice(-3) + "/" + romName;
-EJS_biosUrl = "https://raw.githubusercontent.com/arialhamed/static/main/others/" + romName.slice(-3) + ".zip";
+if (["nds", "gba"].includes(romName.slice(-3))) {
+  EJS_biosUrl = "https://raw.githubusercontent.com/arialhamed/static/main/others/" + romName.slice(-3) + ".zip";
+}
 EJS_defaultControls = {
   0: {
     0: {'value' : 'j', 'value2' : 'BUTTON_2', 'keycode': '74'}, // B
