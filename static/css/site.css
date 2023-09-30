@@ -358,4 +358,7 @@ footer a:hover {
     #particles-js {
         display: none !important;
     }
+    #particles-mobile {
+        display: block !important;
+    }
 }

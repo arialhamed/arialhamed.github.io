@@ -5,20 +5,8 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    {% if page.funky %}
-    <meta http-equiv="refresh" content="1800;url=https://arialhamed.github.io/funky">
-    {% endif %}
     <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     
-    {% if page.farewell %}
-    <script>
-      function playFarewell(){
-        var audio = document.getElementById("farewell");
-        audio.play()
-      }
-    </script>
-    {% endif %}
-
     {% if page.about %}
     <!-- LinkedIn badge -->
     <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
@@ -50,7 +38,7 @@
     {% endif %}
     
     <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer" {% if page.enable_efficient %} style="background-image: url('https://github.com/arialhamed/static/blob/main/images/efficiency-bg.png?raw=true') !important; background-attachment: fixed !important;" {% endif %}>
+    <div id="main_content_wrap" class="outer" >
 	  
       <section id="main_content" class="inner">
         {% unless page.disable_nav %}

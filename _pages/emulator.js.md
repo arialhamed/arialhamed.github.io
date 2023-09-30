@@ -13,6 +13,18 @@ redirect_from:
  - /emulatorjs/
  - /emulatorsjs
  - /emulatorsjs/
+ - /resources/emulator
+ - /resources/emulator/
+ - /resources/emulators
+ - /resources/emulators/
+ - /resources/emulator-js
+ - /resources/emulator-js/
+ - /resources/emulators-js
+ - /resources/emulators-js/
+ - /resources/emulatorjs
+ - /resources/emulatorjs/
+ - /resources/emulatorsjs
+ - /resources/emulatorsjs/
 layout: default
 emulator: true
 enable_efficient: true
