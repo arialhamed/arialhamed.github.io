@@ -82,13 +82,13 @@ const currentQuery = new URLSearchParams(window.location.search);
 const romName = currentQuery.get("rom");
 if (!romName) {
   // This will be loaded in the page first
-  document.getElementById("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br><br>";
+  document.getElementById("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br><br>Note: .n64 files are actually .z64 files renamed for the sake of compatibility.<br><br>";
   document.getElementById("loading-gif").innerHTML = "";
 } 
 // EmulatorJS
 EJS_player = '#game';
 EJS_core = romName.slice(-3);
-// EJS_gameName = 'The Legend of Zelda - The Minish Cap';
+EJS_gameName = romName.slice(0, -4);
 EJS_color = '#222';
 EJS_startOnLoaded = true; 
 EJS_onGameStart = function(e){ document.getElementById("loading-gif").innerHTML = ""; };

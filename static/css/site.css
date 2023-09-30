@@ -355,7 +355,7 @@ footer a:hover {
     #footer_wrap footer p {
         float: unset !important;
     }
-    #particles-js {
+    #particles-js, canvas.particles-js-canvas-el {
         display: none !important;
     }
     #particles-mobile {
