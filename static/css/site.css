@@ -353,6 +353,6 @@ footer a:hover {
 /* MOBILE STYLE */
 @media only screen and (max-width: 578px) {
     #footer_wrap footer p {
-        float: unset;
+        float: unset !important;
     }
 }
