@@ -275,6 +275,10 @@ footer a:hover {
     opacity: .35;
 }
 
+.btn-outline-dark {
+    background-color: #fff1 !important;
+}
+
 .carousel-caption {
     background: rgba(0, 0, 0, 0.5);
 }
@@ -349,6 +353,10 @@ footer a:hover {
     box-shadow: none;
 }
 
+/* EmulatorJS */
+.ejs_context_menu {
+    display: none !important;
+}
 
 /* MOBILE STYLE */
 @media only screen and (max-width: 578px) {

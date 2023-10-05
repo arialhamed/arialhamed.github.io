@@ -25,5 +25,3 @@ I have a lot of knowledge that i will almost definitely forget, in some time in 
         <a class="col btn btn-outline-dark" href="/guides/bcache-ubuntu">bcache in ubuntu</a>
     </div>
 </div>
-
-<span style="font-size:70%;">disclaimer: in like maybe one or two decades in the future, the guides and tutorials saved here may be obsolete.</span>
