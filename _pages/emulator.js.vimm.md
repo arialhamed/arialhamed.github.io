@@ -100,7 +100,7 @@ async function loadEmulator(inRomName){
   EJS_onGameStart = function(e){ document.getElementById("loading-gif").innerHTML = ""; };
   EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: true, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
   EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
-  EJS_gameUrl = all;
+  EJS_gameUrl = all["url"];
   EJS_biosUrl = "https://raw.githubusercontent.com/arialhamed/static/main/others/gba_bios.bin";
   EJS_defaultControls = {
     0: {
