@@ -74,7 +74,7 @@ async function listGBA(){
   all.forEach(addToHTML);
   document.getElementById("gba-intake").innerHTML = gbaIntakeText;
   async function addToHTML(romDeets){
-    gbaIntakeText += "<li><a href=\"/emulatorvimm?rom=" + romDeets["name"] + "\">" + romDeets["name"] + "</a></li>";
+    gbaIntakeText += "<li><a href=\"/emulatorvimm?rom=" + romDeets["slug"] + "\">" + romDeets["name"] + "</a></li>";
   }
 }
 // Read URL for EmulatorJS. If there is no rom query loaded, don't load emulator settings
@@ -91,10 +91,11 @@ if (!romName) {
 async function loadEmulator(inRomName){
   const response = await fetch("https://arialhamed.pythonanywhere.com/emulator/gba/" + inRomName);
   const all = await response.json();
+  // const gameUrl = all["url"]
   console.log(all)
   EJS_player = '#game';
   EJS_core = "gba";
-  EJS_gameName = inRomName;
+  EJS_gameName = all["name"];
   EJS_color = '#222';
   EJS_startOnLoaded = true; 
   EJS_onGameStart = function(e){ document.getElementById("loading-gif").innerHTML = ""; };
