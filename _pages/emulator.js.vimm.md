@@ -84,9 +84,8 @@ if (!romName) {
   // This will be loaded in the page first
   document.getElementById("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br>Games from <a href=\"https://vimm.net/\">vimm.net</a><br><br>";
   document.getElementById("loading-gif").innerHTML = "";
-} else {
-  loadEmulator(romName);
-}
+} 
+loadEmulator(romName);
 // EmulatorJS
 async function loadEmulator(inRomName){
   const response = await fetch("https://arialhamed.pythonanywhere.com/emulator/gba/" + inRomName);
