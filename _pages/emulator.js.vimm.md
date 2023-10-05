@@ -74,7 +74,7 @@ async function listGBA(){
   all.forEach(addToHTML);
   document.getElementById("gba-intake").innerHTML = gbaIntakeText;
   async function addToHTML(romDeets){
-    gbaIntakeText += "<li><a href=\"/emulator?rom=" + romDeets["name"] + "\">" + romDeets["name"] + "</a></li>";
+    gbaIntakeText += "<li><a href=\"/emulatorvimm?rom=" + romDeets["name"] + "\">" + romDeets["name"] + "</a></li>";
   }
 }
 // Read URL for EmulatorJS. If there is no rom query loaded, don't load emulator settings
@@ -82,18 +82,19 @@ const currentQuery = new URLSearchParams(window.location.search);
 const romName = currentQuery.get("rom");
 if (!romName) {
   // This will be loaded in the page first
-  document.getElementById("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br><br>";
+  document.getElementById("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br>Games from <a href=\"https://vimm.net/\">vimm.net</a><br><br>";
   document.getElementById("loading-gif").innerHTML = "";
-} 
+} else {
+  loadEmulator(romName);
+}
 // EmulatorJS
-loadEmulator()
-async function loadEmulator(){
-  const response = await fetch("https://arialhamed.pythonanywhere.com/emulator/gba/" + romName);
+async function loadEmulator(inRomName){
+  const response = await fetch("https://arialhamed.pythonanywhere.com/emulator/gba/" + inRomName);
   const all = await response.json();
   console.log(all)
   EJS_player = '#game';
   EJS_core = "gba";
-  EJS_gameName = romName;
+  EJS_gameName = inRomName;
   EJS_color = '#222';
   EJS_startOnLoaded = true; 
   EJS_onGameStart = function(e){ document.getElementById("loading-gif").innerHTML = ""; };
