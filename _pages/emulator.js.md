@@ -74,9 +74,9 @@ async function listGBA(){
   all.forEach(addToHTML);
   document.getElementById("gba-intake").innerHTML = gbaIntakeText;
   async function addToHTML(romDeets){
-    // if romDeets["name"].endsWith(".gba"){
+    if (romDeets["name"].slice(-4) == ".gba") {
       gbaIntakeText += "<li><a href=\"/emulator?rom=" + romDeets["name"] + "\">" + romDeets["name"].slice(0, -4) + "</a></li>";
-    // }
+    }
   }
 }
 // Read URL for EmulatorJS. If there is no rom query loaded, don't load emulator settings
