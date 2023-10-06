@@ -27,6 +27,30 @@ browserOS: true
     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/browserOS/Ena_spin.webp">
 </div> 
 
-<link rel="stylesheet" type="text/css" href="https://arialhamed.pythonanywhere.io/browseros.css">
-<script type="text/javascript" src="https://arialhamed.pythonanywhere.com/browseros.js"></script>
+<style>
+    /* ------------------------------BROWSEROS---------------------------------------- */
+
+    .window {
+        position: absolute;
+        z-index: 9;
+        background-color: #f1f1f1;
+        border: 1px solid #d3d3d3;
+        text-align: center;
+        /* for resizing */
+        resize: none!important;
+        overflow-x: hidden; 
+        display: inline-block;
+        width: max-content; 
+    }
+
+    .windowTitle {
+        padding: 10px;
+        cursor: move;
+        z-index: 10;
+        background-color: #2196F3;
+        color: #fff;
+    }
+</style>
+
+<script type="text/javascript" src="https://arialhamed.pythonanywhere.com/static/browseros.js"></script>
 
