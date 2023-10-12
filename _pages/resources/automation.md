@@ -18,7 +18,7 @@ However, Python has some pretty useful uses in handling files, and as a data hoa
 This page is just simply some scripts that I use to automate some stuff. Each script should have plenty of comments inside to explain what it does. Like the other guides, this page is more for my own reference.
 <hr>
 
-{% include image.html url="http://jekyllrb.com" max-width="200px" file="logo.png" alt="Jekyll logo" caption="This is the Jekyll logo." %}
+{% include https://raw.githubusercontent.com/arialhamed/convenience/main/size%20reduction/split_video.py %}
 
 <ul id="nutz"></ul>
 
