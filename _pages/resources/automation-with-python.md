@@ -6,6 +6,7 @@ redirect_from:
  - /resources/automation
  - /resources/automation/
 layout: default
+published: false
 ---
 # Automation Scripts with Python 
 
