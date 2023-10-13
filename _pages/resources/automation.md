@@ -44,7 +44,7 @@ async function addToHTML(details){
         const responseContent = await responseFile.text();
         document.getElementById("scripts_content").innerHTML += "\
         <h3 id=\"" + slugify(details["name"]) + "\"><a href=\"" + details["download_url"] + "\" target=\"_blank\">" + details["name"] + "</a></h3> \
-        <code style='white-space: pre-line;'>" + responseContent + "</code> \
+        <div style='white-space: pre-line;'>{% highlight python %}" + responseContent + "{% endhighlight %}</div> \
         <br><br> \
         ";
         document.getElementById("scripts_list").innerHTML += "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>"
