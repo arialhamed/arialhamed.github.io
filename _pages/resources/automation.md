@@ -18,12 +18,13 @@ However, Python has some pretty useful uses in handling files, and as a data hoa
 This page is just simply some scripts that I use to automate some stuff. Each script should have plenty of comments inside to explain what it does. Like the other guides, this page is more for my own reference.
 <hr>
 
-{% include https://raw.githubusercontent.com/arialhamed/convenience/main/size%20reduction/split_video.py %}
+<ul id="scripts_list"></ul>
 
-<ul id="nutz"></ul>
+<div id="scripts_content"></div>
 
 <script>
 listResults();
+function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 async function listResults(){
     let intakeText = "";
     const response = await fetch("https://api.github.com/repos/arialhamed/convenience/contents/");
@@ -34,12 +35,19 @@ async function listResults(){
     allSecondLayer.forEach(addToHTML);
 }
 async function addToHTML(details){
-    if (details["type"] == "dir" ){
+    if (details["type"] == "dir"){
         const directory = await fetch(details["url"]);
         const directoryList = await directory.json();
-        directoryList.forEach(addToHTML)
+        directoryList.forEach(addToHTML);
     } else {
-        document.getElementById("nutz").innerHTML += "<li><a href=\"" + details["download_url"] + "\">" + details["name"] + "</a></li>";
+        const responseFile = await fetch(details["download_url"]);
+        const responseContent = await responseFile.text();
+        document.getElementById("scripts_content").innerHTML += "\
+        <h3 id=\"" + slugify(details["name"]) + "\"><a href=\"" + details["download_url"] + "\" target=\"_blank\">" + details["name"] + "</a></h3> \
+        <code style='white-space: pre-line;'>" + responseContent + "</code> \
+        <br><br> \
+        ";
+        document.getElementById("scripts_list").innerHTML += "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>"
     }
 }
 </script>
