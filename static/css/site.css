@@ -61,8 +61,8 @@ nav {
 
 
 .inner {
-    max-width: 60% !important; 
-    /* 800px */
+    /* max-width: 60% !important;  */
+    max-width: 800px !important; 
 }
 #main_content {
     padding-top: 15px!important;
@@ -376,9 +376,9 @@ footer a:hover {
     #particles-mobile {
         display: block !important;
     }
-    .inner {
+    /* .inner {
         max-width: 578px !important;
-    }
+    } */
     #scripts_content {
         position: static;
         width: 100%;
