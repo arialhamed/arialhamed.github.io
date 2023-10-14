@@ -61,7 +61,8 @@ nav {
 
 
 .inner {
-    max-width: 800px !important;
+    max-width: 60% !important; 
+    /* 800px */
 }
 #main_content {
     padding-top: 15px!important;
@@ -358,6 +359,12 @@ footer a:hover {
     display: none !important;
 }
 
+#scripts_content {
+    position: relative;
+    width: 140%;
+    left: -20%;
+}
+
 /* MOBILE STYLE */
 @media only screen and (max-width: 578px) {
     #footer_wrap footer p {
@@ -368,5 +375,13 @@ footer a:hover {
     }
     #particles-mobile {
         display: block !important;
+    }
+    .inner {
+        max-width: 578px !important;
+    }
+    #scripts_content {
+        position: static;
+        width: 100%;
+        left: 0%;
     }
 }
