@@ -22,17 +22,11 @@ This page is just simply some scripts that I use to automate some stuff. Each sc
 <ul id="scripts_list"></ul>
 
 <div id="scripts_content">
-    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/repeatables/instagram_comment_purge.py"></pre>
-    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/repeatables/setup.sh"></pre>
-    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/repeatables/timestamp.py"></pre>
-    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/repeatables/update-git.sh"></pre>
-    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/others/file_party_time.py"></pre>
-    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/size%20reduction/dedup.py"></pre>
-    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/size%20reduction/split_video.py"></pre>
-    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/size%20reduction/video-compressor.sh"></pre>
 </div>
 
 <script>
+function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
+
 listResults();
 async function listResults(){
   let intakeText = "";
@@ -49,7 +43,16 @@ async function addToHTML(details){
     const directoryList = await directory.json();
     directoryList.forEach(addToHTML);
   } else {
-    console.log(details["download_url"])
+    // console.log(details["download_url"])
+    const responseFile = await fetch(details["download_url"]);
+    const responseContent = await responseFile.text();
+    document.getElementById("scripts_content").innerHTML += "\
+      <h3 id=\"" + slugify(details["name"]) + "\"><a href=\"" + details["download_url"] + "\" target=\"_blank\">" + details["name"] + "</a></h3> \
+      <pre class=\"lang-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent + "</pre> \
+      <br><br> \
+    ";
+    document.getElementById("scripts_list").innerHTML += "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>";
+    Prism.highlightElement(document.getElementById(details["sha"]));
   }
 }
 </script>
