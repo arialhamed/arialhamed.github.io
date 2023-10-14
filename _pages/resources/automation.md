@@ -6,6 +6,7 @@ redirect_from:
  - /automation
  - /automation/
 layout: default
+prism: true
 ---
 # Automation Scripts 
 
@@ -20,38 +21,43 @@ This page is just simply some scripts that I use to automate some stuff. Each sc
 
 <ul id="scripts_list"></ul>
 
-<div id="scripts_content"></div>
+<div id="scripts_content">
+    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/repeatables/instagram_comment_purge.py"></pre>
+    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/repeatables/setup.sh"></pre>
+    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/repeatables/timestamp.py"></pre>
+    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/repeatables/update-git.sh"></pre>
+    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/others/file_party_time.py"></pre>
+    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/size%20reduction/dedup.py"></pre>
+    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/size%20reduction/split_video.py"></pre>
+    <pre data-src="https://raw.githubusercontent.com/arialhamed/convenience/main/size%20reduction/video-compressor.sh"></pre>
+</div>
 
 <script>
 listResults();
-function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 async function listResults(){
-    let intakeText = "";
-    const response = await fetch("https://api.github.com/repos/arialhamed/convenience/contents/");
-    const all = await response.json();
-    const allSecondLayer = all.filter(object => {
-        return object["type"] = "dir";
-    })
-    allSecondLayer.forEach(addToHTML);
+  let intakeText = "";
+  const response = await fetch("https://api.github.com/repos/arialhamed/convenience/contents/");
+  const all = await response.json();
+  const allSecondLayer = all.filter(object => {
+    return object["type"] == "dir";
+  })
+  allSecondLayer.forEach(addToHTML);
 }
 async function addToHTML(details){
-    if (details["type"] == "dir"){
-        const directory = await fetch(details["url"]);
-        const directoryList = await directory.json();
-        directoryList.forEach(addToHTML);
-    } else {
-        const responseFile = await fetch(details["download_url"]);
-        const responseContent = await responseFile.text();
-        document.getElementById("scripts_content").innerHTML += "\
-        <h3 id=\"" + slugify(details["name"]) + "\"><a href=\"" + details["download_url"] + "\" target=\"_blank\">" + details["name"] + "</a></h3> \
-        <div style='white-space: pre-line;'> \ 
-        " + responseContent + " \ 
-        </div> \
-        <br><br> \
-        ";
-        document.getElementById("scripts_list").innerHTML += "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>"
-    }
+  if (details["type"] == "dir"){
+    const directory = await fetch(details["url"]);
+    const directoryList = await directory.json();
+    directoryList.forEach(addToHTML);
+  } else {
+    console.log(details["download_url"])
+  }
 }
 </script>
+
+
+<script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/file-highlight/prism-file-highlight.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
 
 {% include comments.html url=page.url %}
