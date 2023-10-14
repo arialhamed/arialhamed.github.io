@@ -11,13 +11,13 @@ prism: true
 
 <h1>Automation Scripts</h1>
 
-Disclaimer: All scripts here are tested and functional in Windows 10, and most scripts (unless otherwise stated) are tested and functional in Python 3.9
+<p>Disclaimer: All scripts here are tested and functional in Windows 10, and most scripts (unless otherwise stated) are tested and functional in Python 3.9</p>
 
-Python was the first language I have ever learnt when I started my journey into IT. Learnt it back in 2017, when it was part of the new Computing subject for GCE "O" Levels. Ever since then though, I barely use it in any actual homework in my NYP course, with likely 3 modules that are an exception.
+<p>Python was the first language I have ever learnt when I started my journey into IT. Learnt it back in 2017, when it was part of the new Computing subject for GCE "O" Levels. Ever since then though, I barely use it in any actual homework in my NYP course, with likely 3 modules that are an exception.</p>
 
-However, Python has some pretty useful uses in handling files, and as a data hoarder, using Python for automating data handling is just what I need. When I started using Linux heavily in mid 2022, I soon picked up bash as well. 
+<p>However, Python has some pretty useful uses in handling files, and as a data hoarder, using Python for automating data handling is just what I need. When I started using Linux heavily in mid 2022, I soon picked up bash as well. </p>
 
-This page is just simply some scripts that I use to automate some stuff. Each script should have plenty of comments inside to explain what it does. Like the other guides, this page is more for my own reference.
+<p>This page is just simply some scripts that I use to automate some stuff. Each script should have plenty of comments inside to explain what it does. Like the other guides, this page is more for my own reference.</p>
 <hr>
 
 <ul id="scripts_list"></ul>
@@ -54,13 +54,23 @@ async function addToHTML(details){
     const responseContent = await responseFile.text();
     document.getElementById("scripts_content").innerHTML += "\
       <h3 id=\"" + slugify(details["name"]) + "\"><a href=\"" + details["download_url"] + "\" target=\"_blank\">" + details["name"] + "</a></h3> \
-      <pre class=\"lang-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent + "</pre> \
+      <pre><code class=\"language-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent + "</code></pre> \
       <br><br> \
     ";
     document.getElementById("scripts_list").innerHTML += "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>";
+    // const scriptTitle = document.createElement("h3");
+    // scriptTitle.appendChild(document.createTextNode())
+    // document.getElementById("scripts_content").appendChild(scriptTitle);
+    // document.getElementById("scripts_content").appendChild(document.createElement("<br>"));
+    // document.getElementById("scripts_content").appendChild(document.createElement("<br>"));
     Prism.highlightElement(document.getElementById(details["sha"]));
   }
 }
+// const node = document.createElement("li");
+// const textnode = document.createTextNode("Water");
+// node.appendChild(textnode);
+// document.getElementById("myList").appendChild(node);
+
 </script>
 
 

@@ -11,6 +11,7 @@ looking for my cv and/or resume? go to my <a href="/about"><code>about</code> pa
 need some tips or guidance in certain IT topics? check out all my [`guides`](/guides).  
 [`chess`](/chess)? its not a project i'm rushing tbh.  
 want see some sweet [`emulation`](/emulator) action? uwu  
+personally, i'm very proud of my [`automation`](/automation) scripts i created! :3  
 think this homepage could be better? same. in fact, you can just leave comments almost anywhere in this website. 
 
 <br>
