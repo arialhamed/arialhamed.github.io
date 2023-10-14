@@ -361,7 +361,8 @@ footer a:hover {
 #scripts_content {
     position: relative;
     width: 140%;
-    left: -20%;
+    left: max(-20%, calc(400px - 50vw));
+    max-width: 98vw;
 }
 
 /* MOBILE STYLE */
