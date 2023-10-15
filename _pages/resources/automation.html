@@ -20,8 +20,7 @@ prism: true
 <p>This page is just simply some scripts that I use to automate some stuff. Each script should have plenty of comments inside to explain what it does. Like the other guides, this page is more for my own reference.</p>
 <hr>
 
-<ul id="scripts_list">
-</ul>
+<ul id="scripts_list"></ul>
 
 <div id="scripts_content">
 </div>
@@ -30,8 +29,8 @@ prism: true
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/show-language/prism-show-language.min.js"></script>
-<!-- <script src="https://unpkg.com/prismjs@1.29.0/plugins/match-braces/prism-match-braces.min.js"></script> -->
-<!-- <script src="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script> -->
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/match-braces/prism-match-braces.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
 <!-- <script src="https://unpkg.com/prismjs@1.29.0/plugins/download-button/prism-download-button.min.js"></script> -->
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
@@ -52,7 +51,6 @@ async function addToHTML(details){
     const directoryList = await directory.json();
     directoryList.forEach(addToHTML);
   } else {
-    console.log(details["download_url"])
     const responseFile = await fetch(details["download_url"]);
     const responseContent = await responseFile.text();
     document.getElementById("scripts_content").insertAdjacentHTML("beforeend", "\
