@@ -30,6 +30,9 @@ prism: true
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/file-highlight/prism-file-highlight.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/show-language/prism-show-language.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/download-button/prism-download-button.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/match-braces/prism-match-braces.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 
@@ -53,8 +56,8 @@ async function addToHTML(details){
     const responseFile = await fetch(details["download_url"]);
     const responseContent = await responseFile.text();
     document.getElementById("scripts_content").insertAdjacentHTML("beforeend", "\
-      <h3 id=\"" + slugify(details["name"]) + "\"><a href=\"" + details["download_url"] + "\" target=\"_blank\">" + details["name"] + "</a></h3> \
-      <pre><code class=\"language-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent + "</code></pre> \
+      <h3 id=\"" + slugify(details["name"]) + "\">" + details["name"] + "</h3> \
+      <pre data-src=\"" + details["download_url"] + "\" data-download-link><code class=\"line-numbers language-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent + "</code></pre> \
       <br><br> \
     ");
     document.getElementById("scripts_list").insertAdjacentHTML("beforeend", "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>");
