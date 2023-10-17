@@ -8,7 +8,7 @@ redirect_from:
 
 <div style="display: flex;">
     <figure>
-        <img src="https://github.com/arialhamed/static/blob/main/images/cv/nasa-t-shirt.jpg?raw=true" width=160 title=":3">
+        <img src="https://media.licdn.com/dms/image/D5603AQFnyVTF1V31kg/profile-displayphoto-shrink_800_800/0/1697508115401?e=1703116800&v=beta&t=rT9oCsiGRrVj7nKKUfU-cUWGyX9YGBcxuavjtYS6cs4" width=160 title=":3">
         <figcaption><i>Photo taken</i>: 2023 May 5</figcaption>
     </figure>
     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -51,6 +51,50 @@ redirect_from:
             <div class="accordion-body">
                 <table style="border: none!important;">
                     <tbody>
+                        <tr>
+                            <td style="text-align: left;"><b>Micron Technology, Singapore</b><br><i>Digital Innovation Analyst</i></td>
+                            <td style="text-align: right;"><b>2023/10 – Present</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <ul>
+                                    <li>Environmental, Health, Safety and Security (EHSS):</li>
+                                    <ul>
+                                        <li>Ensured documented compliance with EHSS requirements and procedures.</li>
+                                        <li>Addressed non-compliant conditions promptly.</li>
+                                        <li>Cooperated with audits to maintain policy compliance.</li>
+                                    </ul>
+                                    <li>Identified, Developed, and Deployed Innovative Digital Solutions:</li>
+                                    <ul>
+                                        <li>Created and tested scalable digital solutions for efficiency.</li>
+                                        <li>Collaborated with stakeholders to enhance user experience.</li>
+                                        <li>Established work standards and data structures.</li>
+                                        <li>Designed business intelligence reporting for data-driven decisions.</li>
+                                    </ul>
+                                    <li>Continuous Improvements:</li>
+                                    <ul>
+                                        <li>Analyzed system issues and initiated improvements.</li>
+                                        <li>Spotted opportunities through data analysis.</li>
+                                        <li>Enhanced system effectiveness and efficiency.</li>
+                                        <li>Engaged with customers for feedback and process changes.</li>
+                                    </ul>
+                                    <li>Collaboration and Communication:</li>
+                                    <ul>
+                                        <li>Collaborated with team members and partners for innovative solutions.</li>
+                                        <li>Provided feedback and maintained effective communication.</li>
+                                        <li>Presented technical information accurately.</li>
+                                        <li>Participated in committees and teams as needed.</li>
+                                    </ul>
+                                    <li>Ongoing Personal/Professional Development:</li>
+                                    <ul>
+                                        <li>Monitored emerging digitization trends.</li>
+                                        <li>Researched, recommended, and adapted innovative solutions.</li>
+                                        <li>Acquired technical skills and certifications.</li>
+                                        <li>Demonstrated a growth mindset and effective learning.</li>
+                                    </ul>
+                                </ul>
+                            </td>
+                        </tr>
                         <tr>
                             <td style="text-align: left;"><b>TomoWork Ltd, Singapore</b><br><i>Participant</i></td>
                             <td style="text-align: right;"><b>2023/03 – 2023/06</b></td>
