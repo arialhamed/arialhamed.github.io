@@ -108,7 +108,7 @@ redirect_from:
                         </tr>
                         <tr>
                             <td style="text-align: left;"><b>InfoSpace Pte Ltd, Singapore</b><br><i>IT Intern</i></td>
-                            <td style="text-align: right;"><b>2023/03 – 2023/05</b></td>
+                            <td style="text-align: right;"><b>2022/03 – 2022/05</b></td>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -173,6 +173,7 @@ redirect_from:
                 <ul>
                     <li>Google Coursera – IT Automation with Python (Python, Linux) </li>
                     <li>Google Coursera – Data Analytics Professional Certificate (R) </li>
+                    <li>Bloomberg for Education – Bloomberg Market Concepts (BMC) Certificate </li>
                     <li>Bloomberg for Education – Environment Social Governance (ESG) Certificate </li>
                     <li>AWS Academy – Machine Learning Foundations Certification of Completion (Python, Machine Learning) </li>
                     <li>NVIDIA DLI – Fundamentals of Deep Learning Certificate of Competency (Python, Deep Learning) </li>
