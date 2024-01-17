@@ -1,0 +1,67 @@
+---
+title: "Browse me :3"
+permalink: /resources/browse-ari
+redirect_from:
+ - /resources/browse
+ - /resources/browse/
+ - /browse
+ - /browse/
+ - /resources/browse-repos
+ - /resources/browse-repos/
+ - /browse-repos
+ - /browse-repos/
+ - /resources/browse-ari/
+ - /browse-ari
+ - /browse-ari/
+layout: default
+prism: true
+---
+
+<h6>Browse my repositories, all with JS & <a href="https://api.github.com/" target="_blank">GitHub's API</a>.</h6>
+
+<h1 id="currentName">Ari's Public Repositories</h1>
+
+<p id="currentDescription"><span style="font-style: italic;">Description</span></p>
+
+<hr>
+
+<ul id="scripts_list"></ul>
+
+<div id="scripts_content"></div>
+
+<!-- <script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/file-highlight/prism-file-highlight.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/download-button/prism-download-button.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/match-braces/prism-match-braces.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script> -->
+<script>
+function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
+
+initialRun("https://api.github.com/users/arialhamed/repos");
+async function initialRun(initUrl) {
+  const initResponse = await fetch(initUrl);
+  const initAll = await initResponse.json();
+  initAll.forEach(initialBuild);
+}
+async function initialBuild(eachRecord){
+  document.getElementById("scripts_content").insertAdjacentHTML("beforeend", "<li><a onclick=repoRun(\"" + eachRecord["url"] + "\") style=\"cursor: pointer;\">" + eachRecord["name"] + "</a></li>");
+}
+
+async function repoRun(repoUrl){
+  console.log(repoUrl);
+  let repoResponse = await fetch(repoUrl);
+  let repoAll = await repoResponse.json();
+  document.getElementById("currentDescription").innerHTML = ([undefined, null, ""].includes(repoAll["description"]))? "<span style=\"font-style: italic;\">No description</span>" : repoAll["description"];
+  document.getElementById("currentName").innerHTML = (repoAll["fork"])? repoAll["name"] + " <span style=\"font-size: 60%;\">(<a href=\"" + repoAll["parent"]["html_url"] + "\" target=\"_blank\">fork</a>)</span>" : repoAll["name"];
+}
+
+</script>
+
+
+
+
+
+{% include comments.html url=page.url %}
