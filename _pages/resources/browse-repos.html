@@ -25,9 +25,19 @@ prism: true
 
 <hr>
 
-<p><a style="cursor: pointer;" onclick="initialRun('https://api.github.com/users/arialhamed/repos')">Click here to restart</a></p>
+<div style="text-align: center;">
+  <p style="float: left;"><a style="cursor: pointer;" onclick="goBack()">Back</a></p>
+  <p style="float: right;"><a style="cursor: pointer;" onclick="initialRun()">Click here to restart</a></p>
+  <div style="clear: both"></div>
+</div>
 
-<ul id="repos_content"></ul>
+<!-- row-cols-md-4 row-cols-sm-2 -->
+<div class="container">
+  <div id="repos_content" class="row"></div>
+</div>
+<div class="container">
+  <img id="selected_image">
+</div>
 
 <!-- <script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
@@ -40,20 +50,18 @@ prism: true
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 
-let lastUrl = "https://api.github.com/users/arialhamed/repos";
-
-initialRun(lastUrl);
-async function initialRun(initUrl) {
+initialRun();
+async function initialRun() {
   document.getElementById("repos_content").innerHTML = "";
   document.getElementById("currentName").innerHTML = "Ari's Public Repositories";
   document.getElementById("currentDescription").innerHTML = "<span style=\"font-style: italic;\">Description</span>";
   
-  const initResponse = await fetch(initUrl);
+  const initResponse = await fetch("https://api.github.com/users/arialhamed/repos?sort=updated");
   const initAll = await initResponse.json();
   initAll.forEach(initialBuild);
 }
 async function initialBuild(eachRecord){
-  document.getElementById("repos_content").insertAdjacentHTML("beforeend", "<li><a onclick=repoRun(\"" + eachRecord["url"] + "\") style=\"cursor: pointer;\">" + eachRecord["name"] + "</a></li>");
+  document.getElementById("repos_content").insertAdjacentHTML("beforeend", "<a class=\"col btn btn-outline-dark\" onclick=repoRun(\"" + eachRecord["url"] + "\") style=\"cursor: pointer;\">" + eachRecord["name"] + "</a>");
 }
 
 async function repoRun(repoUrl){
@@ -70,17 +78,23 @@ async function repoRun(repoUrl){
 }
 
 async function repoContentBuild(itemDetails){
-  let ifFileOrFolder = (itemDetails["type"] == "dir")? "<li><a onclick=dirRun(\"" + itemDetails["url"] + "\") style=\"cursor: pointer;\">" + itemDetails["name"] + "</a></li>" : "<li><a style=\"cursor: pointer;\">" + itemDetails["name"] + "</a></li>";
+  let ifFileOrFolder = (itemDetails["type"] == "dir")? "<a class=\"col btn btn-outline-dark\" onclick=dirRun(\"" + itemDetails["url"] + "\") style=\"cursor: pointer;\">" + itemDetails["name"] + "</a>" : "<a class=\"col btn btn-outline-dark\" onclick=showItem(\"" + itemDetails["download_url"] + "\") style=\"cursor: pointer;\">" + itemDetails["name"] + "</a>";
   document.getElementById("repos_content").insertAdjacentHTML("beforeend", ifFileOrFolder);
 }
 
 async function dirRun(dirUrl){
   document.getElementById("repos_content").innerHTML = "";
-
   let dirResponse = await fetch(dirUrl);
   let dirAll = await dirResponse.json();
   dirAll.forEach(repoContentBuild);
+}
 
+async function showItem(downloadUrl){
+  document.getElementById("selected_image").setAttribute("src", downloadUrl)
+}
+
+async function goBack() {
+  console.log("clicked back")
 }
 
 </script>
