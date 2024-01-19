@@ -17,26 +17,29 @@ layout: default
 prism: true
 ---
 
-<h6>Browse my repositories, all with JS & <a href="https://api.github.com/" target="_blank">GitHub's API</a>.</h6>
+<h6 style="cursor: default;">
+  <p style="float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a>.</p>
+  <p style="float: right; font-size: 70%; opacity: .3;" id="current-url-display"></p>
+  <div style="clear: both;"></div>
+</h6>
 
-<h1 id="currentName"></h1>
-
-<p id="currentDescription"></p>
-
-<hr>
-
-<div style="text-align: center;">
-  <p style="float: left;"><a style="cursor: pointer;" onclick="goBack()">Back</a></p>
-  <p style="float: right;"><a style="cursor: pointer;" onclick="initialRun()">Click here to restart</a></p>
+<div style="text-align: center; font-size: 200%;">
+  <p class="disable-selection" style="float: left;"><a id="browse-back">&#x1F860;</a></p>
+  <p class="disable-selection" style="float: right;"><a style="cursor: pointer;" onclick="browseReset()">&#x27F3;</a></p>
+  <h2 id="currentName" style="float: none;"></h2>
   <div style="clear: both"></div>
 </div>
 
+
+<p id="currentDescription"></p>
+
+<hr >
+
 <!-- row-cols-md-4 row-cols-sm-2 -->
 <div class="container">
-  <div id="repos_content" class="row"></div>
+  <div id="browse-content" class="row"></div>
 </div>
-<div class="container">
-  <img id="selected_image">
+<div class="container" id="browse-display">
 </div>
 
 <!-- <script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
@@ -46,55 +49,68 @@ prism: true
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/download-button/prism-download-button.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/match-braces/prism-match-braces.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script> -->
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+ -->
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 
-initialRun();
-async function initialRun() {
-  document.getElementById("repos_content").innerHTML = "";
-  document.getElementById("currentName").innerHTML = "Ari's Public Repositories";
-  document.getElementById("currentDescription").innerHTML = "<span style=\"font-style: italic;\">Description</span>";
-  
-  const initResponse = await fetch("https://api.github.com/users/arialhamed/repos?sort=updated");
-  const initAll = await initResponse.json();
-  initAll.forEach(initialBuild);
-}
-async function initialBuild(eachRecord){
-  document.getElementById("repos_content").insertAdjacentHTML("beforeend", "<a class=\"col btn btn-outline-dark\" onclick=repoRun(\"" + eachRecord["url"] + "\") style=\"cursor: pointer;\">" + eachRecord["name"] + "</a>");
-}
+let browsingTree = [];
 
-async function repoRun(repoUrl){
-  document.getElementById("repos_content").innerHTML = "";
+browseReset();
+async function browseRun(inUrl) {
+  browsingTree.push(inUrl); 
+  console.log(browsingTree);
+  document.getElementById("browse-content").innerHTML = "";
+  document.getElementById("current-url-display").innerHTML = inUrl;
+  const browseResponse = await fetch(inUrl);
+  let browseJson = await browseResponse.json();
+  if (inUrl.startsWith("https://api.github.com/users/arialhamed/repos")) {
+    document.getElementById("browse-back").style.cursor = "not-allowed"; document.getElementById("browse-back").onclick = "";
+    document.getElementById("currentName").innerHTML = "Ari's Public Repositories";
+    document.getElementById("currentDescription").innerHTML = "<span style=\"font-style: italic;\">&lt;description shown here when you select a repository below&gt;</span>";
   
-  let repoResponse = await fetch(repoUrl);
-  let repoAll = await repoResponse.json();
-  document.getElementById("currentDescription").innerHTML = ([undefined, null, ""].includes(repoAll["description"]))? "<span style=\"font-style: italic;\">No description</span>" : repoAll["description"];
-  document.getElementById("currentName").innerHTML = (repoAll["fork"])? repoAll["name"] + " <span style=\"font-size: 60%;\">(<a href=\"" + repoAll["parent"]["html_url"] + "\" target=\"_blank\">fork</a>)</span>" : repoAll["name"];
-  
-  let repoResponseContent = await fetch(repoUrl+"/contents");
-  let repoContents = await repoResponseContent.json();
-  repoContents.forEach(repoContentBuild)
-}
+  } else {
+    document.getElementById("browse-back").style.cursor = "pointer"; document.getElementById("browse-back").onclick = browseBack;
+    if (!inUrl.includes("?ref=")) {
+      document.getElementById("currentDescription").innerHTML = ([undefined, null, ""].includes(browseJson["description"]))? "<span style=\"font-style: italic;\">No description</span>" : browseJson["description"];
+      document.getElementById("currentName").innerHTML = (browseJson["fork"])? browseJson["name"] + " <span style=\"font-size: 60%;\">(<a href=\"" + browseJson["parent"]["html_url"] + "\" target=\"_blank\">fork</a>)</span>" : browseJson["name"];
+    }
 
-async function repoContentBuild(itemDetails){
-  let ifFileOrFolder = (itemDetails["type"] == "dir")? "<a class=\"col btn btn-outline-dark\" onclick=dirRun(\"" + itemDetails["url"] + "\") style=\"cursor: pointer;\">" + itemDetails["name"] + "</a>" : "<a class=\"col btn btn-outline-dark\" onclick=showItem(\"" + itemDetails["download_url"] + "\") style=\"cursor: pointer;\">" + itemDetails["name"] + "</a>";
-  document.getElementById("repos_content").insertAdjacentHTML("beforeend", ifFileOrFolder);
+    let repoResponseContent = await fetch((inUrl.includes("?ref="))? inUrl : inUrl+"/contents");
+    browseJson = await repoResponseContent.json();
+  }
+  browseJson.forEach(browseBuild);
 }
-
-async function dirRun(dirUrl){
-  document.getElementById("repos_content").innerHTML = "";
-  let dirResponse = await fetch(dirUrl);
-  let dirAll = await dirResponse.json();
-  dirAll.forEach(repoContentBuild);
+async function browseBuild(eachRecord){
+  if (eachRecord["git_url"].startsWith("git://")) {
+    document.getElementById("browse-content").insertAdjacentHTML("beforeend", "<a class=\"browse col btn btn-outline-dark\" onclick=browseRun(\"" + eachRecord["url"] + "\") style=\"cursor: pointer;\">" + eachRecord["name"] + "</a>");
+  } else {
+    let ifFileOrFolder = (eachRecord["type"] == "dir")? "<a class=\"browse col btn btn-outline-dark\" onclick=browseRun(\"" + eachRecord["url"] + "\") style=\"cursor: pointer;\">" + eachRecord["name"] + "</a>" : "<a class=\"browse col btn btn-outline-dark\" onclick=showItem(\"" + eachRecord["download_url"] + "\") style=\"cursor: pointer;\">" + eachRecord["name"] + "</a>";
+    document.getElementById("browse-content").insertAdjacentHTML("beforeend", ifFileOrFolder);
+  }
 }
 
 async function showItem(downloadUrl){
-  document.getElementById("selected_image").setAttribute("src", downloadUrl)
+  console.log("showItem(" + downloadUrl + ")");
+  if ([".avif", ".gif", ".jpg", ".jpeg", ".jfif", ".pjpeg", ".pjp", ".png", ".svg", ".webp", ".bmp", ".ico", ".cur", ".tif", ".tiff"].some(v => downloadUrl.toLowerCase().endsWith(v))) {
+    document.getElementById("browse-display").innerHTML = "<img src=\"" + downloadUrl + "\">";
+  } else if ([".webm", ".mp4", ".mov", ".wmv", ".avi", ".flv", ".swf", ".mkv"].some(v => downloadUrl.toLowerCase().endsWith(v))) {
+    document.getElementById("browse-display").innerHTML = "<video width=\"100%\" controls autoplay muted><source src=\"" + downloadUrl + "\" type=\"video/webm\"></video>";
+  } else if ([".3gp", ".aa", ".aac", ".aax", ".act", ".aiff", ".alac", ".amr", ".ape", ".au", ".awb", ".dss", ".dvf", ".flac", ".gsm", ".iklax", ".ivs", ".m4a", ".m4b", ".m4p", ".mmf", ".movpkg", ".mp3", ".mpc", ".msv", ".nmf", ".ogg", ".opus", ".ra", ".raw", ".rf64", ".sln", ".tta", ".voc", ".vox", ".wav", ".wma", ".wv", ".webm", ".8svx", ".cda", ".oga", ".mogg", ".rm"].some(v => downloadUrl.toLowerCase().endsWith(v))) {
+    document.getElementById("browse-display").innerHTML = "<audio width=\"100%\" controls><source src=\"" + downloadUrl + "\" type=\"audio/mpeg\"></audio>";
+  }
 }
 
-async function goBack() {
-  console.log("clicked back")
+async function browseBack() {
+  console.log("browseBack()");
+  browsingTree.pop();
+  browseRun(browsingTree.pop());
+}
+async function browseReset() {
+  console.log("browseReset()");
+  browsingTree = [];
+  document.getElementById("browse-display").innerHTML = "";
+  browseRun("https://api.github.com/users/arialhamed/repos?sort=pushed");
 }
 
 </script>
