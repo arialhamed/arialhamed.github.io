@@ -15,6 +15,7 @@ redirect_from:
  - /browse-ari/
 layout: default
 prism: true
+modelviewer: true
 ---
 
 <h6 style="cursor: default;">
@@ -23,56 +24,71 @@ prism: true
   <div style="clear: both;"></div>
 </h6>
 
+<!-- back        title        reload -->
 <div style="text-align: center; font-size: 200%;">
-  <p class="disable-selection" style="float: left;"><a id="browse-back">&#x1F850;</a></p>
-  <p class="disable-selection" style="float: right;"><a style="cursor: pointer;" onclick="browseReset()">&#x27F3;</a></p>
-  <h2 id="currentName" style="float: none; text-decoration: underline;"></h2>
+  <p class="disable-selection" style="float: left;"><a id="browse-back">&#129104;</a></p>
+  <p class="disable-selection" style="float: right;"><a style="cursor: pointer;" onclick="browseReset()">&#10227;</a></p>
+  <h2 id="currentName" style="float: none; text-decoration: underline; background: none!important;"></h2>
   <div style="clear: both"></div>
 </div>
 
-
+<!-- description -->
 <p id="currentDescription"></p>
 
 <hr >
 
-<!-- row-cols-md-4 row-cols-sm-2 -->
+<input type="search" onkeyup="searchContents()" id="searchBox" placeholder="search for what you need :3" style="width: 100%; background-color: rgba(0,0,0,0.2); color: white; border-radius: 8px; border-width: 0px; padding: 0 0 3px 8px; margin-bottom: 10px;">
+
+<!-- all cells -->
 <div class="container">
   <div id="browse-content" class="row"></div>
 </div>
+<br>
 
+<!-- under the cells, displaying all except images already in cells -->
 <div class="container" id="browse-display" style="display: block; text-align: center;">
 </div>
 
-<script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/file-highlight/prism-file-highlight.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/download-button/prism-download-button.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/match-braces/prism-match-braces.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<!-- Checked as of 2024 Jan 21, prismjs version is @1.29.0 -->
+<script src="https://unpkg.com/prismjs/components/prism-core.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/file-highlight/prism-file-highlight.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/download-button/prism-download-button.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/match-braces/prism-match-braces.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 
 // Third-party library objects
-const mdConverter = new showdown.Converter();
+const mdConverter = new showdown.Converter(); // Process markdown text
 
 // Constants
 const extensionsVideo = [".webm", ".mp4", ".mov", ".wmv", ".avi", ".flv", ".swf", ".mkv", ".webm"];
 const extensionsAudio = [".3gp", ".aa", ".aac", ".aax", ".act", ".aiff", ".alac", ".m4a", ".amr", ".ape", ".au", ".awb", ".dss", ".dvf", ".flac", ".gsm", ".iklax", ".ivs", ".m4b", ".m4p", ".mmf", ".movpkg", ".mp3", ".mpc", ".msv", ".nmf", ".ogg", ".opus", ".ra", ".raw", ".rf64", ".tta", ".voc", ".vox", ".wav", ".wma", ".wv", ".8svx", ".cda", ".oga", ".mogg", ".rm"];
 const extensionsArchive = [".7z", ".zip", ".apk", ".apks", ".xapk", ".arc", ".ark", ".jar", ".zpaq", ".zip", ".tar.gz", ".tar.bz2", ".tgz", ".rar", ".wad", ".pk3", ".exe"];
+const extensions3D = [".3mf", ".stl", ".glb", ".gltf", ".obj", ".amf"];
+const extensionsImage = [".avif", ".gif", ".jpg", ".jpeg", ".jfif", ".pjpeg", ".pjp", ".png", ".svg", ".webp", ".bmp", ".ico", ".cur", ".tif", ".tiff", ".kra", ".jpg_large"];
 
 // Browsing control variables
 let browsingTree = [];
 let isMouseOverAudio = false;
 
+
+// Kick off when the page loads
 browseReset();
+
+// Resets the search box 
+document.getElementById("searchBox").value = "";
+
+// The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using browseBuild
 async function browseRun(inUrl) {
   browsingTree.push(inUrl); // Adds current url to a history array
   
   document.getElementById("browse-content").innerHTML = ""; 
-  document.getElementById("current-url-display").innerHTML = inUrl;
+  document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" style=\"cursor: pointer;\" onclick=copyCurrentUrl() title=\"Copy current API URL\">" + inUrl + "</span>";
 
   const browseResponse = await fetch(inUrl);
   let browseJson = await browseResponse.json();
@@ -81,9 +97,12 @@ async function browseRun(inUrl) {
     document.getElementById("currentName").innerHTML = "Ari's Public Repositories";
     document.getElementById("currentDescription").innerHTML = "<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
   
-  } else { // If repository selected or in contents of repository
+  } else { 
+    // If repository selected or in contents of repository (not at the start)
     document.getElementById("browse-back").style.cursor = "pointer"; document.getElementById("browse-back").onclick = browseBack;
-    if (!inUrl.includes("?ref=")) { // If just at the main view of the repository (not in the contents)
+
+    // If just at the main view of the repository (not in the contents), then set the title and description
+    if (!inUrl.includes("?ref=")) { 
       document.getElementById("currentDescription").innerHTML = ([undefined, null, ""].includes(browseJson["description"]))? "<span style=\"font-style: italic;\">No description</span>" : browseJson["description"];
       document.getElementById("currentName").innerHTML = (browseJson["fork"])? browseJson["name"] + " <span style=\"font-size: 60%;\">(<a href=\"" + browseJson["parent"]["html_url"] + "\" target=\"_blank\">fork</a>)</span>" : browseJson["name"];
     }
@@ -93,78 +112,132 @@ async function browseRun(inUrl) {
     browseJson = await repoResponseContent.json();
     browseJson.sort((a, b) => a["type"].localeCompare(b["type"])); 
   }
+
+  // Loops through each.. whatever thing
   browseJson.forEach(browseBuild);
 }
+
+
+// The following will read each file or content (or repos) and display into the browse-content element
 async function browseBuild(eachRecord){
   let contentElement = "<a class=\"browse col btn btn-outline-dark\" style=\"cursor: pointer; margin: 3px\"";
   if (eachRecord["git_url"].startsWith("git://")) { // Is the record from the start?
+    // Adds the repository names and the prospective API URLs as cells
     document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "</a>");
   } else {
-    if (eachRecord["type"] == "dir") { // Is the record a directory?
+    // Is the record a directory?
+    if (eachRecord["type"] == "dir") { 
       contentElement += " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "/</a>";
-    } else { // Is the record a file?
-      if ([".avif", ".gif", ".jpg", ".jpeg", ".jfif", ".pjpeg", ".pjp", ".png", ".svg", ".webp", ".bmp", ".ico", ".cur", ".tif", ".tiff"].some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { // Is the record an image?
+    
+    } else { 
+      // This record is a file in these brackets
+      if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { // Is the record an image?
         contentElement += " href=\"" + eachRecord["download_url"] + "\">" + eachRecord["name"] + "<img style=\"width: 100%;\" src=\"" + eachRecord["download_url"] + "\" ></a>";
-      } else {
-        contentElement += " onclick=showItem(\"" + eachRecord["download_url"] + "\")>" + eachRecord["name"] + "</a>";
+      } else { 
+        // `download_ur` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing) 
+        contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + "</a>";
       }
     }
+
+    // Adds the folders and files as cells
     document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement);
   }
 }
 
+
+
 // When click on file, show it. Exceptions for markdown files.
-async function showItem(downloadUrl, mdRaw=true){
-  console.log("showItem(" + downloadUrl + ")");
-  let browseDisplayInner = "<br><a target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
+async function showFile(downloadUrl, mdRaw=true){
+  console.log("showFile(" + downloadUrl + ")");
+
+  // Builds 2 elements, the first one is the close button, ✕, and the second one is the name of the file, and also
+  let browseDisplayInner = "<a style=\"float: right; cursor: pointer;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'>&#10005;</a><a target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
+
+  // Building the style of the display element
+  let browseDisplayStyle = "float: none; text-align: center; padding: 12px; ";
   
   // Add option to show parsed for markdown files
-  if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {browseDisplayInner += " (<a onclick=\"showItem(\'" + downloadUrl + "\', true)\">raw</a>)"}
-  if (downloadUrl.toLowerCase().endsWith(".md") &&  mdRaw) {browseDisplayInner += " (<a onclick=\"showItem(\'" + downloadUrl + "\', false)\">parsed</a>)"}
+  if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', true)\">processed</a>)"}
+  if (downloadUrl.toLowerCase().endsWith(".md") &&  mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', false)\">raw</a>)"}
   
   // Tie out to give the title some space
   browseDisplayInner += "<br>";
 
+  // Check if file is video
   if (extensionsVideo.some(v => downloadUrl.toLowerCase().endsWith(v))) {
     browseDisplayInner += "<video id=\"show-video\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"video/webm\"></video>";
   
+  // Check if file is audio
   } else if (extensionsAudio.some(v => downloadUrl.toLowerCase().endsWith(v))) {
     browseDisplayInner += "<audio id=\"show-audio\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"audio/mpeg\"></audio>";
+    browseDisplayStyle += "positon: -webkit-sticky; position: sticky; top: 0px; bottom: 0px; background-color: rgba(0,0,0,.5); ";
   
+  // Check if file is a 3D object
+  } else if (extensions3D.some(v => downloadUrl.toLowerCase().endsWith(v))) {
+    browseDisplayInner += "<model-viewer alt=\"" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "\" src=\"" + downloadUrl + "\" shadow-intensity=\"1\" camera-controls touch-action=\"pan-y\"></model-viewer>";
+  
+  // Check if file is an archive file
   } else if (extensionsArchive.some(v => downloadUrl.toLowerCase().endsWith(v))) {
     browseDisplayInner += "<p>Contents of this file can not be parsed here.</p>";
   
-  } else { // If not video, audio or archive file, it should be a text file. Get contents of text and present it. 
+  // If the file is none of the above, it should be text
+  } else { 
     const itemTextResponse = await fetch(downloadUrl);
     const itemTextOut = await itemTextResponse.text();
+    console.log(downloadUrl.split('.').pop());
     
     // If asked to shown parsed (mdRaw = false), and file is markdown, then parse the file contents with Showdown.js and display it
     if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {
       browseDisplayInner += "<br>" + mdConverter.makeHtml(itemTextOut);
     } else { // else show it parsed in Prism.js
-      browseDisplayInner += "<br><pre style=\"background-color: #333a;\" data-src=\"" + downloadUrl + "\" data-download-link><code id=\"show-text\" class=\"line-numbers language-" + downloadUrl.split('.').pop() + "\">" + itemTextOut + "</code></pre>";
-    }
+      browseDisplayInner += "<br><pre style=\"background-color: #333a;\" data-src=\"" + downloadUrl + "\" data-download-link><code id=\"show-text\" class=\"line-numbers language-" + downloadUrl.split('.').pop() + "\">" + itemTextOut.replace(/\</g, "&lt;") + "</code></pre>";
+    } // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
   }
 
+  // Push contents to browse-display's innerHTML
   document.getElementById("browse-display").innerHTML = browseDisplayInner;
+  document.getElementById("browse-display").style = browseDisplayStyle;
 
   // Set volume to half and play the media automatically
   if (document.getElementById("show-video") !== null) {document.getElementById("show-video").volume = .5; document.getElementById("show-video").play()}
-  if (document.getElementById("show-audio") !== null) {document.getElementById("show-audio").volume = .5; document.getElementById("show-audio").play()}
   if (document.getElementById("show-text") !== null && !downloadUrl.endsWith(".md")) {Prism.highlightElement(document.getElementById("show-text"))}
-  
+  if (document.getElementById("show-audio") !== null) {document.getElementById("show-audio").volume = .5; document.getElementById("show-audio").play()}  
 }
 
+
+
+// Go back using browsingTree (which is )
 async function browseBack() {
   console.log("browseBack()");
   browsingTree.pop();
   browseRun(browsingTree.pop());
 }
+
+// Reset function
 async function browseReset(browseSort = "pushed") {
   console.log("browseReset()");
   browsingTree = [];
-  document.getElementById("browse-display").innerHTML = "";
+  document.getElementById("browse-display").innerHTML = ""; // clear the video/audio/text/etc display
+  document.getElementById("searchBox").value = ""; // clear search box
   browseRun("https://api.github.com/users/arialhamed/repos?sort=" + browseSort);
+}
+
+// Copy the current GitHub API URL
+async function copyCurrentUrl() {
+  navigator.clipboard.writeText(browsingTree[browsingTree.length - 1]);
+}
+
+// Search box function, basic stuff frfr
+async function searchContents() {
+  document.getElementById("browse-content").childNodes.forEach(
+    function(eachChild){
+      if (eachChild.textContent.toLowerCase().includes(document.getElementById("searchBox").value.toLowerCase())) {
+        eachChild.style.display = "inline";
+      } else {
+        eachChild.style.display = "none";
+      }
+    }
+  )
 }
 
 // TODO: Work on scrolling audio when mouse is over the audio or video elements
@@ -185,10 +258,6 @@ async function browseReset(browseSort = "pushed") {
 // onmouseover=\"function(){isMouseOverAudio=true;}\" onmouseout=\"function(){isMouseOverAudio=false;}\"
 
 </script>
-
-
-
-
 
 
 

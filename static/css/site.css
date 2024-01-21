@@ -21,6 +21,15 @@ pre {
 input:focus{
 	outline: none;
 }
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+/* remove the background from the audio element (may only work for webkit browsers) */
+audio::-webkit-media-controls-panel {
+    background-color: #0000;
+    color: #0000;
+}
 
 /* for dark mode elements */
 h1, h2, h3, h4, h5, h6 {
