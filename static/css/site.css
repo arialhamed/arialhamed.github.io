@@ -92,15 +92,10 @@ nav {
 }
 
 /* Comment CSS start */
-.comments {
-    border-top: 1px dashed #fff6 !important;
-}
-/* .comment-item, #comment-form {
-    background-color: #333!important;
-} */
-.comment-reply-button img {
-    visibility: hidden!important;
-}
+.comments {border-top: 1px dashed #fff6 !important;}
+.comment-item {background-color: #fff2!important;}
+.comment-form {background-color: transparent!important;}
+.comment-reply-button img {visibility: hidden!important;}
 #comment-submit, #comment-comment, #comment-name {
     background-color: #6666!important;
     color: white;

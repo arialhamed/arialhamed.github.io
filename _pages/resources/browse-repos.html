@@ -26,8 +26,8 @@ modelviewer: true
 
 <!-- back        title        reload -->
 <div style="text-align: center; font-size: 200%;">
-  <p class="disable-selection" style="float: left; font-family: none!important;"><a id="browse-back">&#129104;</a></p>
-  <p class="disable-selection" style="float: right; font-family: none!important;"><a style="cursor: pointer;" onclick="browseReset()">&#10227;</a></p>
+  <p class="disable-selection" style="float: left; font-family: none!important;"><a id="browse-back">&#8617;</a></p>
+  <p class="disable-selection" style="float: right;"><a style="cursor: pointer;" onclick="browseReset()">&#8634;</a></p>
   <h2 id="currentName" style="float: none; text-decoration: underline; background: none!important;"></h2>
   <div style="clear: both"></div>
 </div>
@@ -135,7 +135,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
     browseJson.sort((a, b) => a["type"].localeCompare(b["type"])); 
   }
 
-  // Loops through each.. whatever thing
+  // Loops through each.. whatever thing. He needs some milk
   browseJson.forEach(browseBuild);
 }
 
@@ -172,17 +172,17 @@ async function browseBuild(eachRecord){
 async function showFile(downloadUrl, mdRaw=true){
   console.log("showFile(" + downloadUrl + ")");
 
-  // Builds 2 elements, the first one is the close button, ✕, and the second one is the name of the file, and also
-  let browseDisplayInner = "<a style=\"float: right; cursor: pointer; margin-left: 10px;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'>&#10005;</a><a target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
+  // Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
+  let browseDisplayInner = "<a style=\"float: right; cursor: pointer; margin-left: 10px; font-size: 200%;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'>&#10005;</a><a style=\"font-size: 175%;\" target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
 
   // Building the style of the display element
-  let browseDisplayStyle = "float: none; text-align: center; padding: 12px; font-size: 175%;";
+  let browseDisplayStyle = "float: none; text-align: center; padding: 12px;";
   
   // Add option to show parsed for markdown files
   if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', true)\">processed</a>)"}
   if (downloadUrl.toLowerCase().endsWith(".md") &&  mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', false)\">raw</a>)"}
   
-  // Tie out to give the title some space
+  // Tie out to give the title some more space
   browseDisplayInner += "<br>";
 
   // Check if file is video
@@ -192,7 +192,8 @@ async function showFile(downloadUrl, mdRaw=true){
   // Check if file is audio
   } else if (extensionsAudio.some(v => downloadUrl.toLowerCase().endsWith(v))) {
     browseDisplayInner += "<audio id=\"show-audio\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"audio/mpeg\"></audio>";
-    browseDisplayStyle += "positon: -webkit-sticky; position: sticky; top: 0px; bottom: 0px; background-color: rgba(0,0,0,.5); ";
+    browseDisplayStyle += "positon: -webkit-sticky; position: sticky; top: 0px; bottom: 0px; background-color: rgba(0,0,0,.5); width: 80%;"; 
+    // Note the width is 80% here. This is just a lazy way of handling the back-to-top element when in mobile :P
   
   // Check if file is a 3D object
   } else if (extensions3D.some(v => downloadUrl.toLowerCase().endsWith(v))) {
