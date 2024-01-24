@@ -22,7 +22,7 @@ prism: true
 
 <ul id="scripts_list"></ul>
 
-<div id="scripts_content"></div>
+<div id="scripts-content"></div>
 
 <script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
@@ -54,7 +54,7 @@ async function addToHTML(details){
     console.log(details["download_url"])
     const responseFile = await fetch(details["download_url"]);
     const responseContent = await responseFile.text();
-    document.getElementById("scripts_content").insertAdjacentHTML("beforeend", "\
+    document.getElementById("scripts-content").insertAdjacentHTML("beforeend", "\
       <h3 id=\"" + slugify(details["name"]) + "\">" + details["name"] + "</h3> \
       <pre style=\"background-color: #333a;\" data-src=\"" + details["download_url"] + "\" data-download-link><code class=\"line-numbers language-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent.replace(/\</g, "&lt;") + "</code></pre> \
       <br><br> \

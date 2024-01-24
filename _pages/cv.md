@@ -8,7 +8,7 @@ redirect_from:
 
 <div style="display: flex;">
     <figure>
-        <img src="https://media.licdn.com/dms/image/D5603AQFnyVTF1V31kg/profile-displayphoto-shrink_800_800/0/1697508115401?e=1703116800&v=beta&t=rT9oCsiGRrVj7nKKUfU-cUWGyX9YGBcxuavjtYS6cs4" width=160 title=":3">
+        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/cv/nasa-t-shirt.jpg" width=160 title=":3">
         <figcaption><i>Photo taken</i>: 2023 May 5</figcaption>
     </figure>
     &nbsp;&nbsp;&nbsp;&nbsp;

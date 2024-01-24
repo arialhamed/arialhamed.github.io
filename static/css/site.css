@@ -26,7 +26,7 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 /* remove the background from the audio element (may only work for webkit browsers) */
-audio::-webkit-media-controls-panel {
+audio::-webkit-media-controls-panel { 
     background-color: #0000;
     color: #0000;
 }
@@ -293,17 +293,17 @@ footer a:hover {
     background-color: #fff1 !important;
 }
 
-.carousel-caption {
+.carousel-caption { /*third-party*/
     background: rgba(0, 0, 0, 0.5);
 }
 
-.captionedContainer {
+.captionedContainer { /*third-party*/
     position: relative;
     max-width: 800px; /* Maximum width */
     margin: 0 auto; /* Center it */
 }
 
-.captionedContainer .content {
+.captionedContainer .content { /*third-party*/
     position: absolute; /* Position the background text */
     bottom: 0; /* At the bottom. Use top:0 to append it to the top */
     background: rgb(0, 0, 0); /* Fallback color */
@@ -344,10 +344,10 @@ footer a:hover {
 }
 
 /* for dark mode links not in nav, header & footer */
-#main_content_wrap a:not(.nav-link, .dropdown-item) {
+#main_content_wrap a:not(.nav-link, .dropdown-item) { /*third-party*/
     color: rgba(200,200,255,.75) !important
 }
-#main_content_wrap a:not(.nav-link, .dropdown-item):hover {
+#main_content_wrap a:not(.nav-link, .dropdown-item):hover { /*third-party*/
     color: rgba(200,200,255,.55) !important
 }
 
@@ -368,11 +368,11 @@ footer a:hover {
 }
 
 /* EmulatorJS */
-.ejs_context_menu {
+.ejs_context_menu { /*third-party*/
     display: none !important;
 }
 
-#scripts_content {
+#scripts-content, #browse-display {
     position: relative;
     width: 140%;
     left: max(-20%, calc(400px - 50vw));
@@ -393,9 +393,15 @@ footer a:hover {
     /* .inner {
         max-width: 578px !important;
     } */
-    #scripts_content {
+    #scripts-content, #browse-display { 
         position: static !important;
         width: 100% !important;
         left: 0% !important;
+    }
+    #show-text, .line-numbers {
+        font-size: 70% !important;
+    }
+    pre[class*="language-"].line-numbers {
+        padding-left: 2.3em !important;
     }
 }
