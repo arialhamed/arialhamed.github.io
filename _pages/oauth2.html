@@ -1,0 +1,15 @@
+---
+title: OAuth2
+layout: default
+permalink: /OAuth2
+---
+
+<script>
+const { code, state } = queryString.parse(router.asPath.split("?")[1]);
+if (state !== localStorage.getItem("latestCSRFToken")) {
+    localStorage.removeItem("latestCSRFToken");
+    const res = await axios.post("https://arialhamed.pythonanywhere.com/walao", {
+        code
+    });
+}
+</script>

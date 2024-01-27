@@ -3,6 +3,13 @@ function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/
 // Third-party library objects
 const mdConverter = new showdown.Converter(); // Process markdown text
 
+// GitHub sign-in
+async function githubAuth(){
+  const state = crypto.randomUUID();
+  localStorage.setItem("latestCSRFToken", state);
+  window.location.assign(`https://github.com/login/oauth/authorize?client_id=e01ccbd2b58691be1411&response_type=code&scope=repo&redirect_uri=https://arialhamed.github.io/OAuth2&state=${state}`);
+}
+
 // Constants
 const extensionsVideo = [".webm", ".mp4", ".mov", ".wmv", ".avi", ".flv", ".swf", ".mkv", ".webm"];
 const extensionsAudio = [".3gp", ".aa", ".aac", ".aax", ".act", ".aiff", ".alac", ".m4a", ".amr", ".ape", ".au", ".awb", ".dss", ".dvf", ".flac", ".gsm", ".iklax", ".ivs", ".m4b", ".m4p", ".mmf", ".movpkg", ".mp3", ".mpc", ".msv", ".nmf", ".ogg", ".opus", ".ra", ".raw", ".rf64", ".tta", ".voc", ".vox", ".wav", ".wma", ".wv", ".8svx", ".cda", ".oga", ".mogg", ".rm"];
