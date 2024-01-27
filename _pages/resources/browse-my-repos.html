@@ -26,37 +26,6 @@ prism: true
 modelviewer: true
 ---
 
-<h6 style="cursor: default;">
-  <p style="float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a style="cursor: pointer;" onclick="githubAuth()">sign-in</a>).</p>
-  <p style="float: right; font-size: 70%; opacity: .3;" id="current-url-display"></p>
-  <div style="clear: both;"></div>
-</h6>
-
-<!-- back        title        reload -->
-<div style="text-align: center; font-size: 200%;">
-  <p class="disable-selection" title="reset" style="display: inline; vertical-align: middle; float: left; cursor: pointer;"><a onclick="browseReset()">&#8634;</a></p>
-  <p class="disable-selection" title="back" style="display: inline; vertical-align: middle; float: right; font-family: none!important;"><a id="browse-back">&#8617;</a></p>
-  <h2 id="currentName" style="float: none; text-decoration: underline; background: none!important;"></h2>
-  <div style="clear: both"></div>
-</div>
-
-<!-- description -->
-<p id="currentDescription"></p>
-
-<hr >
-
-<input type="search" onkeyup="searchContents()" id="searchBox" placeholder="search for what you need :3" style="width: 100%; background-color: rgba(0,0,0,0.2); color: white; border-radius: 8px; border-width: 0px; padding: 0 0 3px 8px; margin-bottom: 10px;">
-
-<!-- all cells -->
-<div class="container">
-  <div id="browse-content" class="row"></div>
-</div>
-<br>
-
-<!-- under the cells, displaying all except images already in cells -->
-<div class="container" id="browse-display" style="display: block; text-align: center;">
-</div>
-
 <!-- Checked as of 2024 Jan 21, prismjs version is @1.29.0 -->
 <script src="https://unpkg.com/prismjs/components/prism-core.min.js"></script>
 <script src="https://unpkg.com/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
@@ -67,7 +36,7 @@ modelviewer: true
 <script src="https://unpkg.com/prismjs/plugins/match-braces/prism-match-braces.min.js"></script>
 <script src="https://unpkg.com/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
-<script src="https://arialhamed.github.io/static/js/browse-my-repos.js"></script>
+<script src="https://arialhamed.pythonanywhere.com/static/browse-my-repos.js"></script>
 
 
 

@@ -4,9 +4,9 @@
     margin: auto;
 } */
 
-* {
+:not(code *), :not(pre *) {
     letter-spacing: 0px !important;
-    font-family: "Arial";
+    font-family: "Arial" !important;
 } 
 
 pre {

@@ -5,7 +5,7 @@ permalink: /OAuth2
 ---
 
 <script>
-mainAwaits();
+mainAwaits().then((bruh)=>{window.location.assign("https://arialhamed.github.io/resources/browse-my-repos")});
 async function mainAwaits(){
     const code = new URLSearchParams(window.location.search).get("code");
     const state = new URLSearchParams(window.location.search).get("state");
