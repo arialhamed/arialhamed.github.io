@@ -7,12 +7,16 @@ permalink: /OAuth2
 <script>
 mainAwaits();
 async function mainAwaits(){
-    const { code, state } = queryString.parse(router.asPath.split("?")[1]);
+    const code = new URLSearchParams(window.location.search).get("code");
+    const state = new URLSearchParams(window.location.search).get("state");
+    // const { code, state } = queryString.parse(router.asPath.split("?")[1]);
     if (state !== localStorage.getItem("latestCSRFToken")) {
         localStorage.removeItem("latestCSRFToken");
         const res = await axios.post("https://arialhamed.pythonanywhere.com/walao", {
             code
         });
+        console.log(res);
+        // localStorage.setItem("latestCSRFToken", res)
     }
 }
 </script>
