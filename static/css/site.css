@@ -4,9 +4,10 @@
     margin: auto;
 } */
 
-/* * {
-    font-family: monospace !important;
-} */
+* {
+    letter-spacing: 0px !important;
+    font-family: "Arial" !important;
+} 
 
 pre {
     white-space: pre-wrap;       /* Since CSS 2.1 */
@@ -17,8 +18,12 @@ pre {
     box-shadow: none;
 }
 
+#project_title a:hover {
+    text-shadow: .1em .2em 3px rgb(0, 0, 0);
+}
+
 /* to sleeken up text inputs */
-input:focus{
+input:focus, textarea:focus{
 	outline: none;
 }
 input[type=search]::-webkit-search-cancel-button {
@@ -32,26 +37,12 @@ audio::-webkit-media-controls-panel {
 }
 
 /* for dark mode elements */
-h1, h2, h3, h4, h5, h6 {
-    color: #EEE!important;
-}
-pre, code {
-    font-size: 120%;
-} 
-form, code {
-    background-color: #fff1;
-}
-pre code {
-    background-color: #fff;
-}
-figcaption {
-    font-size: 70%;
-    text-align: center;
-}
-video {
-    max-width: 100%;
-    height: auto;
-}
+h1, h2, h3, h4, h5, h6 {color: #EEE!important; }
+pre, code {font-size: 120%; } 
+form, code {background-color: #fff1; }
+pre code {background-color: #fff; }
+figcaption {font-size: 70%; text-align: center; }
+video {max-width: 100%; height: auto; }
 img {
     padding: 0 !important;
     margin: 10px 0 0 0 !important;
@@ -61,6 +52,7 @@ img {
     -o-box-shadow: 0 0 0px #0000!important;
     -ms-box-shadow: 0 0 0px #0000!important;
     border: none;
+/*    background: url(https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif) no-repeat;*/
 }
 nav {
     background-color:#fff1 !important;
@@ -372,7 +364,7 @@ footer a:hover {
     display: none !important;
 }
 
-#scripts-content, #browse-display {
+#scripts-content, #browse-display, #browse-content {
     position: relative;
     width: 140%;
     left: max(-20%, calc(400px - 50vw));
