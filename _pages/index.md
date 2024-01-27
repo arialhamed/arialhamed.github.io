@@ -4,14 +4,15 @@ layout: default
 permalink: /
 ---
 
-# optimize technology, optimize humanity. 
+# data. 
 
 looking for my cv and/or resume? go to my <a href="/about"><code>about</code> page</a>.  
 <!-- <span onmouseover="this.innerHTML=''">here to look at some projects i did? go to my [`projects` page](/projects).</span>   -->
 need some tips or guidance in certain IT topics? check out all my [`guides`](/guides).  
 [`chess`](/chess)? its not a project i'm rushing tbh.  
 want see some sweet [`emulation`](/emulator) action? uwu  
-personally, i'm very proud of my [`automation`](/automation) scripts i created! :3  
+personally, i'm very proud of my [`automation`](/automation) scripts i created! _uwu_  
+you can also [`browse my public repositories`](/browse-my-repos) with this javascript-heavy pages that i'm also proud of as well :3  
 think this homepage could be better? same. in fact, you can just leave comments almost anywhere in this website. 
 
 <br>
