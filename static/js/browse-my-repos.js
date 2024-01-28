@@ -1,10 +1,10 @@
-fetch("https://api.github.com").then((response) => {
-    if (response.ok) {
-        return response.json();
-    } 
-    throw new Error();
-}).then((responseJson) => {
-    // the other end is in the end of this file
+// fetch("https://api.github.com").then((response) => {
+//     if (response.ok) {
+//         return response.json();
+//     } 
+//     throw new Error();
+// }).then((responseJson) => {
+//     // the other end is in the end of this file
 
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 
@@ -245,10 +245,10 @@ async function searchContents() {
 // window.onscroll = function(){volumeControl()}
 
 // onmouseover=\"function(){isMouseOverAudio=true;}\" onmouseout=\"function(){isMouseOverAudio=false;}\"
-}).catch((error) => {
-    // console.log(error)
-    document.getElementById("currentName").textContent = "whoa there love";
-    document.getElementById("currentDescription").textContent = "API limit exceeded and this page can't do anything about until the next hour.";
-    document.getElementById("cellSeperator").remove();
-    document.getElementById("searchBox").remove();
-});
+// }).catch((error) => {
+//     // console.log(error)
+//     document.getElementById("currentName").textContent = "whoa there love";
+//     document.getElementById("currentDescription").textContent = "API limit exceeded and this page can't do anything about until the next hour.";
+//     document.getElementById("cellSeperator").remove();
+//     document.getElementById("searchBox").remove();
+// });
