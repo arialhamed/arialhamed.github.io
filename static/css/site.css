@@ -366,9 +366,9 @@ footer a:hover {
 
 #scripts-content, #browse-display, #browse-content {
     position: relative;
-    width: 140%;
-    left: max(-20%, calc(400px - 50vw));
-    max-width: 98vw;
+    width: min(140%, 98vw);
+    left: clamp(-20%, calc(400px - 50vw), 0px);
+    /* max-width: 98vw; */
 }
 
 /* MOBILE STYLE */

@@ -25,7 +25,6 @@ layout: default
 prism: true
 ---
 
-<br>
 <h6 style="cursor: default;">
     <p style="float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a style="cursor: pointer;" onclick="githubAuth()">sign-in</a>).</p>
     <p style="float: right; font-size: 70%; opacity: .3;" id="current-url-display"></p>
@@ -125,13 +124,12 @@ async function browseRun(inUrl, rootRepoUrl="") {
     document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" style=\"cursor: pointer;\" onclick=copyCurrentUrl() title=\"Copy current URL & position\">" + inUrl.slice(22) + "</span>";
 
     //const browseResponse = await fetch(inUrl);
-    let browseJson; // = await browseResponse.json();
+    const browseResponse = await fetch(inUrl);
+    browseJson = await browseResponse.json();
     if (inUrl.startsWith("https://api.github.com/users/arialhamed/repos")) { // If current link is the start
         document.getElementById("browse-back").style.cursor = "not-allowed"; document.getElementById("browse-back").onclick = "";
         document.getElementById("currentName").innerHTML = "Ari's Public Repositories";
         document.getElementById("currentDescription").innerHTML = "<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
-        const browseResponse = await fetch(inUrl);
-        browseJson = await browseResponse.json();
 
     } else {
         // If repository selected or in contents of repository (not at the start of the page)
@@ -159,7 +157,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
 
 // The following will read each file or content (or repos) and display into the browse-content element
 async function browseBuild(eachRecord){
-    let contentElement = "<a class=\"browse col btn btn-outline-dark\" style=\"cursor: pointer; margin: 3px; width: 100%;\"";
+    let contentElement = "<a class=\"browse col btn btn-outline-dark\" style=\"cursor: pointer; margin: 3px;\"";
     if (eachRecord["git_url"].startsWith("git://")) { // Is the record from the start?
         // Adds the repository names and the prospective API URLs as cells
         document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "</a>");
@@ -173,9 +171,9 @@ async function browseBuild(eachRecord){
         } else {
             // This record is a file in these brackets
             if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { // Is the record an image?
-                contentElement += " href=\"" + eachRecord["download_url"] + "\">" + eachRecord["name"] + "<img style=\"width: 100%;\" src=\"" + eachRecord["download_url"] + "\" ></a>";
+                contentElement += " href=\"" + eachRecord["download_url"] + "\"><span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">" + eachRecord["name"] + "</span><img style=\"width: 100%;\" src=\"" + eachRecord["download_url"] + "\" ></a>";
             } else {
-                // `download_ur` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
+                // `download_url` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
                 contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + "</a>";
             }
         }
