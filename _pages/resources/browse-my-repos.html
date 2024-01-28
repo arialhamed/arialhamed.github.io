@@ -25,9 +25,9 @@ layout: default
 prism: true
 ---
 
-<h6 style="cursor: default;">
-    <p style="float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a style="cursor: pointer;" onclick="githubAuth()">sign-in</a>).</p>
-    <p style="float: right; font-size: 70%; opacity: .3;" id="current-url-display"></p>
+<h6 style="cursor: default; font-size: 70%; opacity: .6;">
+    <p style="float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a href="https://arialhamed.pythonanywhere.com/login">sign-in</a>).</p>
+    <p style="float: right;" id="current-url-display"></p>
     <div style="clear: both;"></div>
 </h6>
 
@@ -68,6 +68,7 @@ prism: true
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
+function formatBytes(a,b=2){if(0===a)return"0 bytes";const c=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,c)).toFixed(b))+" "+["bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][c]}
 
 // Third-party library objects
 const mdConverter = new showdown.Converter(); // Process markdown text
@@ -157,7 +158,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
 
 // The following will read each file or content (or repos) and display into the browse-content element
 async function browseBuild(eachRecord){
-    let contentElement = "<a class=\"browse col btn btn-outline-dark\" style=\"cursor: pointer; margin: 3px;\"";
+    let contentElement = "<a class=\"browse col btn btn-outline-dark\" style=\"cursor: pointer; margin: 4px; \"";
     if (eachRecord["git_url"].startsWith("git://")) { // Is the record from the start?
         // Adds the repository names and the prospective API URLs as cells
         document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "</a>");
@@ -170,11 +171,12 @@ async function browseBuild(eachRecord){
 
         } else {
             // This record is a file in these brackets
+            let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]) + "</span>";
             if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { // Is the record an image?
-                contentElement += " href=\"" + eachRecord["download_url"] + "\"><span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">" + eachRecord["name"] + "</span><img style=\"width: 100%;\" src=\"" + eachRecord["download_url"] + "\" ></a>";
+                contentElement += " href=\"" + eachRecord["download_url"] + "\"><span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">" + eachRecord["name"] + sizeElement + "</span><img style=\"width: 100%;\" src=\"" + eachRecord["download_url"] + "\" ></a>";
             } else {
                 // `download_url` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
-                contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + "</a>";
+                contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + sizeElement + "</a>";
             }
         }
 
