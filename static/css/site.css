@@ -18,9 +18,8 @@ pre {
     box-shadow: none;
 }
 
-#project_title a:hover {
-    text-shadow: .1em .2em 3px rgb(0, 0, 0);
-}
+#project_title a:hover {text-shadow: .1em .2em 3px rgb(0, 0, 0); }
+.uwu:hover{text-shadow: .1em .2em 3px black; color: pink; }
 
 /* to sleeken up text inputs */
 input:focus, textarea:focus{
@@ -38,7 +37,7 @@ audio::-webkit-media-controls-panel {
 
 /* for dark mode elements */
 h1, h2, h3, h4, h5, h6 {color: #EEE!important; }
-:not(pre code#show-text) pre, :not(code#show-text) code {font-size: 120%; } 
+/* :not(pre code#show-text) pre, :not(code#show-text) code {font-size: 120%; }  */
 form, code {background-color: #fff1; }
 pre code {background-color: #fff; }
 figcaption {font-size: 70%; text-align: center; }
@@ -66,12 +65,8 @@ nav {
 
 
 
-.inner {
-    max-width: 800px !important; 
-}
-#main_content {
-    padding-top: 15px!important;
-}
+.inner {max-width: 800px !important; }
+#main_content {padding-top: 15px!important; }
 #main_content_wrap {
     flex: 1; 
     background: #202020!important; 
@@ -79,9 +74,7 @@ nav {
     border-bottom: 1px solid #202020!important; 
     color: #DDD!important;
 }
-#header_wrap, #footer_wrap {
-    background: #202020!important;
-}
+#header_wrap, #footer_wrap {background: #202020!important; }
 
 /* Comment CSS start */
 .comments {border-top: 1px dashed #fff6 !important;}
@@ -112,8 +105,7 @@ nav {
 
 
 /* ---- particles.js container ---- */
-/*this canvas css block ensure that the particles don't leave white space at the bottom*/
-canvas {
+canvas { /* this canvas css block ensure that the particles don't leave white space at the bottom */
     display: block;
 }
 #particles-js {
@@ -128,30 +120,28 @@ canvas {
 }
 /* end of particles.js css - credit to Vincent Garreau*/
 
-.despair{color:#f0f8ff;text-shadow:2px 2px 0 #222,4px 4px 0 #444,6px 6px 0 #666,8px 8px 0 #888,10px 10px 0 #aaa,12px 12px 0 #ccc,14px 14px 0 #eee,-2px -2px 0 #222,-4px -4px 0 #444,-6px -6px 0 #666,-8px -8px 0 #888,-10px -10px 0 #aaa,-12px -12px 0 #ccc,-14px -14px 0 #eee}
+/* .despair{color:#f0f8ff;text-shadow:2px 2px 0 #222,4px 4px 0 #444,6px 6px 0 #666,8px 8px 0 #888,10px 10px 0 #aaa,12px 12px 0 #ccc,14px 14px 0 #eee,-2px -2px 0 #222,-4px -4px 0 #444,-6px -6px 0 #666,-8px -8px 0 #888,-10px -10px 0 #aaa,-12px -12px 0 #ccc,-14px -14px 0 #eee}
 .lag-echo{text-shadow:1px 11px 0 #333,2px 22px 1 #444,3px 33px 2 #555,4px 44px 3 #666,5px 55px 4 #777,6px 66px 5 #888,7px 77px 6 #999,8px 88px 7 #AAA,9px 99px 8 #BBB}
 .abyssal{text-shadow:5px 10px 0 #333,10px 20px 0 #666,15px 30px 0 #999,20px 40px 0 #ccc}
 
 .hover-rotate-10:hover {
     font-size: 4rem;
     transform: rotate(10deg);
-    /* Legacy vendor prefixes that you probably don't need... */			
-    -webkit-transform: rotate(10deg); /* Safari */
-    -moz-transform: rotate(10deg); /* Firefox */		
-    -ms-transform: rotate(10deg); /* IE */			
-    -o-transform: rotate(10deg); /* Opera */			
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+    -webkit-transform: rotate(10deg); 
+    -moz-transform: rotate(10deg); 
+    -ms-transform: rotate(10deg); 
+    -o-transform: rotate(10deg); 
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); 
 }
 
 .rotate-180 {
     transform: rotate(180deg);
-    /* Legacy vendor prefixes that you probably don't need... */			
-    -webkit-transform: rotate(180deg); /* Safari */
-    -moz-transform: rotate(180deg); /* Firefox */		
-    -ms-transform: rotate(180deg); /* IE */			
-    -o-transform: rotate(180deg); /* Opera */			
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
-}
+    -webkit-transform: rotate(180deg); 
+    -moz-transform: rotate(180deg); 
+    -ms-transform: rotate(180deg); 
+    -o-transform: rotate(180deg); 
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); 
+} */
 
 .PageNavigation {
     font-size: 14px;
@@ -168,7 +158,7 @@ margin: 1em 0;
 font-size: 80%;
 }
 
-.timestamp {
+.timestamp, timestamp {
     color: #f2f2f2;
     background-color: #333;
     border-color: #333;
@@ -370,6 +360,7 @@ footer a:hover {
     left: calc(max(-20%, calc(50% - 50vw)) + 1.5rem);
     max-width: 140%;
     margin-left: -.75rem;
+    font-size: 75%; /*for some reason, this doesn't affect browse-content cells, as is expected*/
 }
 
 /* MOBILE STYLE */
@@ -390,9 +381,9 @@ footer a:hover {
         position: static !important;
         width: 100% !important;
     } */
-    #show-text {
+    /* #show-text {
         font-size: 70% !important;
-    }
+    } */
     pre[class*="language-"].line-numbers {
         padding-left: 2.3em !important;
     }
