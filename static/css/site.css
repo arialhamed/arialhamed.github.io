@@ -4,7 +4,7 @@
     margin: auto;
 } */
 
-:not(code *), :not(pre *) {
+:not(code *) :not(pre *) {
     letter-spacing: 0px !important;
     font-family: "Arial" !important;
 } 
@@ -366,8 +366,8 @@ footer a:hover {
 
 #scripts-content, #browse-display, #browse-content {
     position: relative;
-    width: min(140%, 96vw);
-    left: clamp(-20%, calc(400px - 50vw), 0px);
+    width: min(140%, calc(100vw - 1.5rem));
+    left: max(-20%, calc(50% - 50vw + 1.5rem));
     /* max-width: 98vw; */
 }
 
