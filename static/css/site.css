@@ -38,7 +38,7 @@ audio::-webkit-media-controls-panel {
 
 /* for dark mode elements */
 h1, h2, h3, h4, h5, h6 {color: #EEE!important; }
-pre, code {font-size: 120%; } 
+:not(pre code#show-text) pre, :not(code#show-text) code {font-size: 120%; } 
 form, code {background-color: #fff1; }
 pre code {background-color: #fff; }
 figcaption {font-size: 70%; text-align: center; }
@@ -367,8 +367,9 @@ footer a:hover {
 #scripts-content, #browse-display, #browse-content {
     position: relative;
     width: min(140%, calc(100vw - 1.5rem));
-    left: max(-20%, calc(50% - 50vw + 1.5rem));
-    /* max-width: 98vw; */
+    left: calc(max(-20%, calc(50% - 50vw)) + 1.5rem);
+    max-width: 140%;
+    margin-left: -.75rem;
 }
 
 /* MOBILE STYLE */
@@ -389,7 +390,7 @@ footer a:hover {
         position: static !important;
         width: 100% !important;
     } */
-    #show-text, .line-numbers {
+    #show-text {
         font-size: 70% !important;
     }
     pre[class*="language-"].line-numbers {

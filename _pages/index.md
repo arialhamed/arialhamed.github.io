@@ -4,7 +4,7 @@ layout: default
 permalink: /
 ---
 
-# data. 
+# i do the thing with computer sometimes. 
 
 looking for my cv and/or resume? go to my <a href="/about"><code>about</code> page</a>.  
 <!-- <span onmouseover="this.innerHTML=''">here to look at some projects i did? go to my [`projects` page](/projects).</span>   -->
