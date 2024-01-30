@@ -1,5 +1,5 @@
 ---
-title: "Browse me :3"
+title: "Browse my stuff :3"
 permalink: /resources/browse-my-repos
 redirect_from:
  - /resources/browse-my-repos/
@@ -21,6 +21,8 @@ redirect_from:
  - /browse-ari/
  - /browse
  - /browse/
+ - /uwu
+ - /uwu/
 layout: default
 prism: true
 ---
@@ -33,8 +35,8 @@ prism: true
 
 <!-- back        title        reload -->
 <div style="text-align: center; font-size: 200%;">
-    <p class="disable-selection" title="reset" style="display: inline; vertical-align: middle; float: left; cursor: pointer;"><a onclick="browseReset()">&#8634;</a></p>
-    <p class="disable-selection" title="back" style="display: inline; vertical-align: middle; float: right; cursor: pointer; font-family: none!important;"><a id="browse-back">&#8617;</a></p>
+    <p class="title-icons disable-selection" title="reset" style="float: left;"><a onclick="browseReset()">&#8634;</a></p>
+    <p class="title-icons disable-selection" title="back" style="float: right; font-family: none!important;"><a id="browse-back">&#8617;</a></p>
     <h2 id="currentName" style="float: none; text-decoration: underline; background: none!important;"></h2>
     <div style="clear: both"></div>
 </div>
@@ -48,12 +50,12 @@ prism: true
 
 <!-- all cells -->
 <div class="container">
-    <div id="browse-content" class="row"></div>
+    <div id="browse-content" class="row wide-responsive"></div>
 </div>
 <br>
 
 <!-- under the cells, displaying all except images already in cells -->
-<div class="container" id="browse-display" style="display: block; text-align: center;">
+<div class="container wide-responsive" id="browse-display" style="display: block; text-align: center;">
 </div>
 
 <!-- Checked as of 2024 Jan 21, prismjs version is @1.29.0 -->
@@ -66,6 +68,34 @@ prism: true
 <script src="https://unpkg.com/prismjs/plugins/match-braces/prism-match-braces.min.js"></script>
 <script src="https://unpkg.com/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<style>
+
+.title-icons {
+    display: inline; 
+    vertical-align: middle; 
+    border-radius: .75em; 
+    width: 1.5em; 
+    height: 1.5em; 
+    background-color: rgba(0,0,0,.2);
+    cursor: pointer;
+}
+.title-icons:hover {
+    background-color: rgba(255,255,255,.2);
+}
+#current-url-display {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#currentName {
+    max-width: 75vw; 
+    margin: auto; 
+}
+@media only screen and (max-width: 578px) {
+    pre[class*="language-"].line-numbers {
+        padding-left: 2.3em !important;
+    }
+}
+</style>
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 function formatBytes(a,b=2){if(0===a)return"0 bytes";const c=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,c)).toFixed(b))+" "+["bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][c]}
@@ -167,7 +197,7 @@ async function browseBuild(eachRecord){
         if (eachRecord["type"] == "dir") {
             // const lsCountContent = await fetch(eachRecord["url"]);
             // const lsCount = await lsCountContent.json()
-            contentElement += " onclick=browseRun(\"" + eachRecord["url"] + "\") id=\"" + eachRecord["sha"] + "\">" + eachRecord["name"] + "/<br><span style=\"font-size: 70%; vertical-align: top;\">directory</span></a>";
+            contentElement += " onclick=browseRun(\"" + eachRecord["url"] + "\") id=\"" + eachRecord["sha"] + "\">" + eachRecord["name"] + "/<br></a>";
 
         } else {
             // This record is a file in these brackets

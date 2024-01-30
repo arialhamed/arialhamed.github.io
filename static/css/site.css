@@ -19,7 +19,16 @@ pre {
 }
 
 #project_title a:hover {text-shadow: .1em .2em 3px rgb(0, 0, 0); }
-.uwu:hover{text-shadow: .1em .2em 3px black; color: pink; }
+.uwu:hover{
+/*    text-shadow: .1em .2em 3px black; */
+    background-image: linear-gradient(90deg, #5BCFFA 20%, #F5ABB9 20% 40%, white 40% 60%, #F5ABB9 60% 80%, #5BCFFA 80% 100%);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
 
 /* to sleeken up text inputs */
 input:focus, textarea:focus{
@@ -120,42 +129,19 @@ canvas { /* this canvas css block ensure that the particles don't leave white sp
 }
 /* end of particles.js css - credit to Vincent Garreau*/
 
-/* .despair{color:#f0f8ff;text-shadow:2px 2px 0 #222,4px 4px 0 #444,6px 6px 0 #666,8px 8px 0 #888,10px 10px 0 #aaa,12px 12px 0 #ccc,14px 14px 0 #eee,-2px -2px 0 #222,-4px -4px 0 #444,-6px -6px 0 #666,-8px -8px 0 #888,-10px -10px 0 #aaa,-12px -12px 0 #ccc,-14px -14px 0 #eee}
-.lag-echo{text-shadow:1px 11px 0 #333,2px 22px 1 #444,3px 33px 2 #555,4px 44px 3 #666,5px 55px 4 #777,6px 66px 5 #888,7px 77px 6 #999,8px 88px 7 #AAA,9px 99px 8 #BBB}
-.abyssal{text-shadow:5px 10px 0 #333,10px 20px 0 #666,15px 30px 0 #999,20px 40px 0 #ccc}
-
-.hover-rotate-10:hover {
-    font-size: 4rem;
-    transform: rotate(10deg);
-    -webkit-transform: rotate(10deg); 
-    -moz-transform: rotate(10deg); 
-    -ms-transform: rotate(10deg); 
-    -o-transform: rotate(10deg); 
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); 
-}
-
-.rotate-180 {
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg); 
-    -moz-transform: rotate(180deg); 
-    -ms-transform: rotate(180deg); 
-    -o-transform: rotate(180deg); 
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); 
-} */
-
 .PageNavigation {
     font-size: 14px;
     display: block;
     width: auto;
     overflow: hidden;
-  }
+}
 
 .PageNavigation a {
-display: block;
-width: 50%;
-float: left;
-margin: 1em 0;
-font-size: 80%;
+    display: block;
+    width: 50%;
+    float: left;
+    margin: 1em 0;
+    font-size: 80%;
 }
 
 .timestamp, timestamp {
@@ -210,12 +196,10 @@ body {
 .social-bar a:hover {
     background-color: #111;
 }
-
 .social-bar a i {
     color: white;
     background: white;
 }
-
 .android-icon {
     background-repeat: no-repeat;
     background-size: cover;
@@ -228,7 +212,6 @@ body {
     background-size: fill;
     margin-right: auto;
 }
-
 .project{
     margin-bottom: 2rem; 
     border-color: #333; 
@@ -236,7 +219,6 @@ body {
     border-width: medium;
     border-radius: 1rem;
 }
-
 .text-secret{
     width: 100%!important;
     text-align: center!important;
@@ -345,6 +327,12 @@ footer a:hover {
 	background-color: #888 !important; 
 }
 
+/*.nav-link:hover + .dropdown-menu {
+    display: block;
+}*/
+.dropdown-submenu {
+    position: relative;
+}
 .navbar-toggler:focus {
     box-shadow: none;
 }
@@ -354,7 +342,7 @@ footer a:hover {
     display: none !important;
 }
 
-#scripts-content, #browse-display, #browse-content {
+.wide-responsive {
     position: relative;
     width: min(140%, calc(100vw - 1.5rem));
     left: calc(max(-20%, calc(50% - 50vw)) + 1.5rem);
@@ -368,7 +356,7 @@ footer a:hover {
     #footer_wrap footer p {
         float: unset !important;
     }
-    #particles-js, canvas.particles-js-canvas-el {
+    #particles-js, canvas.particles-js-canvas-el, #github_redirect {
         display: none !important;
     }
     #particles-mobile {
@@ -384,7 +372,11 @@ footer a:hover {
     /* #show-text {
         font-size: 70% !important;
     } */
-    pre[class*="language-"].line-numbers {
+    /*pre[class*="language-"].line-numbers {
         padding-left: 2.3em !important;
+    }*/
+    #site-hair {
+        text-align: center;
+        float: none !important;
     }
 }

@@ -20,9 +20,9 @@ prism: true
 <p>This page is just simply some scripts that I use to automate some stuff. Each script should have plenty of comments inside to explain what it does. Like the other guides, this page is more for my own reference.</p>
 <hr>
 
-<ul id="scripts_list"></ul>
+<ul id="scripts-list"></ul>
 
-<div id="scripts-content"></div>
+<div id="scripts-content wide-responsive"></div>
 
 <script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
@@ -59,7 +59,7 @@ async function addToHTML(details){
       <pre style=\"background-color: #333a;\" data-src=\"" + details["download_url"] + "\" data-download-link><code class=\"line-numbers language-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent.replace(/\</g, "&lt;") + "</code></pre> \
       <br><br> \
     ");
-    document.getElementById("scripts_list").insertAdjacentHTML("beforeend", "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>");
+    document.getElementById("scripts-list").insertAdjacentHTML("beforeend", "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>");
     Prism.highlightElement(document.getElementById(details["sha"]));
   }
 }
