@@ -255,7 +255,7 @@ async function showFile(downloadUrl, mdRaw=true){
     let browseDisplayInner = "<a style=\"float: right; cursor: pointer; margin: auto 10px auto 10px; font-size: 200%;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'>&#10005;</a><a style=\"font-size: 175%;\" target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
 
     // Building the style of the display element
-    let browseDisplayStyle = "float: none; text-align: center; padding: 12px 0; margin: auto; ";
+    let browseDisplayStyle = "float: none; text-align: center; padding: 12px 0; ";
 
     // Add option to show parsed for markdown files
     if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', true)\">processed</a>)"}
@@ -330,7 +330,7 @@ async function copyCurrentUrl(tapState) {
         navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent);
         document.getElementById("cud-inner").textContent = "copied to clipboard!";
     } else {
-        document.getElementById("cud-inner").textContent = browsingTree.slice(-1).slice(22);
+        document.getElementById("cud-inner").textContent = browsingTree.slice(-1)[0].slice(22);
     }
 }
 
