@@ -39,7 +39,7 @@
         <a class="btn btn-dark w-100" style="background-color:#333;" href="{{ page.back }}">back to all {{ page.seq_type | default: "posts" }}</a>
         
         <div class="container">
-          <div class="PageNavigation row row-cols-auto">
+          <div class="page-navigation row row-cols-auto">
             {% assign cat = page.categories[0] %}
             {% assign cat_list = site.categories[cat] %}
             {% for post in cat_list %}

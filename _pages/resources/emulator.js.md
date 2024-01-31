@@ -65,6 +65,11 @@ enable_efficient: true
     </div>
   </div>
 </div>
+<style>
+.ejs_context_menu { /*third-party*/
+  display: none !important;
+}
+</style>
 <script>
 listGBA();
 async function listGBA(){

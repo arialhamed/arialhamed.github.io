@@ -25,7 +25,7 @@ redirect_from:
     <div class="row row-cols-2">
         {% for post in site.categories.reviews %}
             <a href="{{ site.baseurl }}{{ post.url }}">
-                <div class="captionedContainerM">
+                <div class="captioned-containerM">
                     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images{{ post.url }}.jpeg" onerror="this.src='https://raw.githubusercontent.com/arialhamed/static/main/images/missing.jpeg'" style="width:100%;">
                     <div class="content">
                         <h1 style="color: #f1f1f1; font-size: 1.5rem !important;">{{ post.title }}</h1>
