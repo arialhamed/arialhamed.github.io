@@ -16,18 +16,12 @@ nav {background-color:#fff1 !important}
 body {display: flex; min-height: 100vh; flex-direction: column}
 
 /* Jekyll */
+.inner {max-width: 800px !important; }
 #project_title a:hover {text-shadow: .1em .2em 3px rgb(0, 0, 0); }
 #main_content_wrap a:not(.nav-link, .dropdown-item) {color: rgba(200,200,255,.75) !important}
 #main_content_wrap a:not(.nav-link, .dropdown-item):hover {color: rgba(200,200,255,.55) !important}
-.inner {max-width: 800px !important; }
 #main_content {padding-top: 15px!important; }
-#main_content_wrap {
-    flex: 1; 
-    background: #202020!important; 
-    border-top: 1px solid #202020!important; 
-    border-bottom: 1px solid #202020!important; 
-    color: #DDD!important;
-}
+#main_content_wrap {flex: 1; background: #202020!important; border-top: 1px solid #202020!important; border-bottom: 1px solid #202020!important; color: #DDD!important}
 #header_wrap, #footer_wrap {background: #202020!important; }
 
 /* back-to-top fragment */
@@ -42,16 +36,7 @@ body {display: flex; min-height: 100vh; flex-direction: column}
 #comment-submit {background-color: #36758888!important; color: white}
 
 /* Particles.js by Vincent Garreau */
-#particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #20202000;
-    background-image: url("");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-}
+#particles-js {position: fixed; width: 100%; height: 100%; background-color: #20202000; background-image: url(""); background-repeat: no-repeat; background-size: cover; background-position: 50% 50%}
 
 /* Socials fragment */
 .social-bar {position: fixed; top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%)}
@@ -82,8 +67,6 @@ body {display: flex; min-height: 100vh; flex-direction: column}
 .active-dropdown {color: #1e2125; background-color: #e9ecef}
 .caption-middle {position: absolute; bottom: 5%; left: 50%; transform: translate(-50%, -50%)}
 
-
-
 /* Testing */
 /*.nav-link:hover + .dropdown-menu {
     display: block;
@@ -101,13 +84,10 @@ body {display: flex; min-height: 100vh; flex-direction: column}
 .page-navigation {font-size: 14px; display: block; width: auto; overflow: hidden}
 .page-navigation a {display: block; width: 50%; float: left; margin: 1em 0; font-size: 80%}
 .timestamp, timestamp {color: #f2f2f2; background-color: #333; border-color: #333; border-width: medium; border-style: solid; border-radius: 100px; padding: 0px 10px 0px 10px}
-.project{
-    margin-bottom: 2rem; 
-    border-color: #333; 
-    border-style: solid;
-    border-width: medium;
-    border-radius: 1rem;
-}
+.project{margin-bottom: 2rem; border-color: #333; border-style: solid; border-width: medium; border-radius: 1rem}
+.uwu:hover{background-image: linear-gradient(90deg, #5BCFFA 20%, #F5ABB9 20% 40%, white 40% 60%, #F5ABB9 60% 80%, #5BCFFA 80% 100%); background-size: 100%; background-clip: text; -webkit-background-clip: text; -moz-background-clip: text; -webkit-text-fill-color: transparent; -moz-text-fill-color: transparent}
+.disable-selection {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none}
+.highlight {mix-blend-mode: difference}
 .text-secret{
     width: 100%!important;
     text-align: center!important;
@@ -127,53 +107,23 @@ body {display: flex; min-height: 100vh; flex-direction: column}
     border-radius: 0.25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-.uwu:hover{
-    background-image: linear-gradient(90deg, #5BCFFA 20%, #F5ABB9 20% 40%, white 40% 60%, #F5ABB9 60% 80%, #5BCFFA 80% 100%);
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-}
-.disable-selection {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none}
-.highlight {mix-blend-mode: difference}
 .wide-responsive {
     position: relative;
-    width: 98vw; /* .75rem padding on each side already in elements that use this class*/
+    width: 98vw;
     left: max(-40%, calc(50% - 49vw + .75rem));
     max-width: 180%;
-    /* margin-left: -.75rem; */
+    margin-left: -.75rem;
     /* regarding this margin-left, it's about browse-display. check it */
     font-size: 75%; /*for some reason, this doesn't affect browse-content cells, as is great actly*/
 }
 
 /* MOBILE STYLE */
 @media only screen and (max-width: 578px) {
-    #footer_wrap footer p {
-        float: unset !important;
-    }
-    #particles-js, canvas.particles-js-canvas-el, #github_redirect {
-        display: none !important;
-    }
-    #particles-mobile {
-        display: block !important;
-    }
-    /* .inner {
-        max-width: 578px !important;
-    } */
-    /* #scripts-content, #browse-display, #browse-content { 
-        position: static !important;
-        width: 100% !important;
-    } */
-    /* #show-text {
-        font-size: 70% !important;
-    } */
+    #footer_wrap footer p {float: unset !important}
+    #particles-js, canvas.particles-js-canvas-el, #github_redirect {display: none !important}
+    #particles-mobile {display: block !important}
+    #site-hair {text-align: center; float: none !important}
     /*pre[class*="language-"].line-numbers {
         padding-left: 2.3em !important;
     }*/
-    #site-hair {
-        text-align: center;
-        float: none !important;
-    }
 }
