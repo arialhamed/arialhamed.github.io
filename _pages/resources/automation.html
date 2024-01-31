@@ -13,7 +13,7 @@ prism: true
 
 <p>Disclaimer: All scripts here are tested and functional in Windows 10, and most scripts (unless otherwise stated) are tested and functional in Python 3.9</p>
 
-<p>Python was the first language I have ever learnt when I started my journey into IT. Learnt it back in 2017, when it was part of the new Computing subject for GCE "O" Levels. Ever since then though, I barely use it in any actual homework in my NYP course, with likely 3 modules that are an exception.</p>
+<p>Python was the first language I have ever learnt when I started my journey into IT. Learnt it back in 2017, when it was part of the new Computing subject for GCE "O" Levels. Ever since then though, I barely use it in any actual homework in my NYP course, with around 3 modules that are an exception.</p>
 
 <p>However, Python has some pretty useful uses in handling files, and as a data hoarder, using Python for automating data handling is just what I need. When I started using Linux heavily in mid 2022, I soon picked up bash as well. </p>
 
@@ -22,18 +22,17 @@ prism: true
 
 <ul id="scripts-list"></ul>
 
-<div id="scripts-content wide-responsive"></div>
+<div id="scripts-content" class="wide-responsive"></div>
 
-<script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/file-highlight/prism-file-highlight.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/download-button/prism-download-button.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/match-braces/prism-match-braces.min.js"></script>
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<script src="https://unpkg.com/prismjs/components/prism-core.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/file-highlight/prism-file-highlight.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/download-button/prism-download-button.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/match-braces/prism-match-braces.min.js"></script>
+<script src="https://unpkg.com/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
 <script>
-function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 
 listResults();
 async function listResults(){

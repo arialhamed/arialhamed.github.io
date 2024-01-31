@@ -1,8 +1,9 @@
-/* main {
-    max-width: 38rem;
-    padding: 2rem;
-    margin: auto;
-} */
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+    display: none;
+} /* firefox compatible otw */
 
 :not(code *) :not(pre *) {
     letter-spacing: 0px !important;
@@ -86,7 +87,7 @@ nav {
 #header_wrap, #footer_wrap {background: #202020!important; }
 
 /* Comment CSS start */
-.comments {border-top: 1px dashed #fff6 !important;}
+.comments {border-top: 0px dashed #fff6 !important;}
 .comment-item {background-color: #fff2!important;}
 #comment-form {background-color: transparent!important;}
 .comment-reply-button img {visibility: hidden!important;}
@@ -344,11 +345,12 @@ footer a:hover {
 
 .wide-responsive {
     position: relative;
-    width: min(140%, calc(100vw - 1.5rem));
-    left: calc(max(-20%, calc(50% - 50vw)) + 1.5rem);
-    max-width: 140%;
-    margin-left: -.75rem;
-    font-size: 75%; /*for some reason, this doesn't affect browse-content cells, as is expected*/
+    width: 98vw; /* .75rem padding on each side already in elements that use this class*/
+    left: max(-40%, calc(50% - 49vw + .75rem));
+    max-width: 180%;
+    /* margin-left: -.75rem; */
+    /* regarding this margin-left, it's about browse-display. check it */
+    font-size: 75%; /*for some reason, this doesn't affect browse-content cells, as is great actly*/
 }
 
 /* MOBILE STYLE */

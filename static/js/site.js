@@ -1,5 +1,6 @@
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 function formatBytes(a,b=2){if(0===a)return"0 bytes";const c=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,c)).toFixed(b))+" "+["bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][c]}
+$(document).ready(function(){$("a").on("click",function(o){var t;""!==this.hash&&(o.preventDefault(),t=this.hash,$("html, body").animate({scrollTop:$(t).offset().top},800,function(){window.location.hash=t}))})});
 
 const all_imgs = document.getElementsByTagName("img");
 for (var i = 0; i < all_imgs.length; i++) document.getElementsByTagName("img")[i].setAttribute("onerror", 'this.src="https://github.com/arialhamed/static/raw/main/images/missing.jpeg";');
