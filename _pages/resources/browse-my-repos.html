@@ -35,9 +35,9 @@ prism: true
 
 <!-- back        title        reload -->
 <div style="text-align: center; font-size: 200%;">
-    <p class="title-icons disable-selection" title="reset" style="float: left;"><a onclick="browseReset()">&#8634;</a></p>
-    <p class="title-icons disable-selection" title="back" style="float: right; font-family: none!important;"><a id="browse-back">&#8617;</a></p>
-    <h2 id="currentName" style="float: none; text-decoration: underline; background: none!important;"></h2>
+    <p class="title-icons disable-selection" title="reset" style="float: left;" onclick="browseReset()">&#8634;</p>
+    <p class="title-icons disable-selection" title="back" style="float: right; font-family: none!important;" id="browse-back">&#8617;</p>
+    <h2 id="current-title" style="float: none; text-decoration: underline; background: none!important;"></h2>
     <div style="clear: both"></div>
 </div>
 
@@ -49,8 +49,8 @@ prism: true
 <input type="search" onkeyup="searchContents()" id="searchBox" placeholder="search for what you need :3" style="width: 100%; background-color: rgba(0,0,0,0.2); color: white; border-radius: 8px; border-width: 0px; padding: 0 0 3px 8px; margin-bottom: 10px;">
 
 <!-- all cells -->
-<div class="container">
-    <div id="browse-content" class="row wide-responsive"></div>
+<div class="container wide-responsive">
+    <div id="browse-content" class="row"></div>
 </div>
 <br>
 
@@ -76,25 +76,46 @@ prism: true
     border-radius: .75em; 
     width: 1.5em; 
     height: 1.5em; 
-    background-color: rgba(0,0,0,.2);
+    /* background-color: rgba(0,0,0,.2); */
     cursor: pointer;
 }
 .title-icons:hover {
-    background-color: rgba(255,255,255,.2);
+    background-color: rgba(0,0,0,.2);
 }
 #current-url-display {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#currentName {
+#current-title {
     max-width: 75vw; 
     margin: auto; 
 }
-@media only screen and (max-width: 578px) {
+/* #browse-display {
+    float: none;
+    text-align: center;
+    padding: 12px 0px;
+    margin: auto;
+} applied in script */
+.browse-cell:hover {
+    background-color: #fff2;
+}
+.browse-cell {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    background-color: #fff1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+/* @media only screen and (max-width: 578px) {
     pre[class*="language-"].line-numbers {
         padding-left: 2.3em !important;
     }
-}
+} */
 </style>
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
@@ -152,14 +173,14 @@ async function browseRun(inUrl, rootRepoUrl="") {
     console.log(browsingTree);
 
     document.getElementById("browse-content").innerHTML = "";
-    document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" style=\"cursor: pointer;\" onclick=copyCurrentUrl() title=\"Copy current URL & position\">" + inUrl.slice(22) + "</span>";
+    document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" style=\"cursor: pointer;\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">" + inUrl.slice(22) + "</span>";
 
     //const browseResponse = await fetch(inUrl);
     const browseResponse = await fetch(inUrl);
     browseJson = await browseResponse.json();
     if (inUrl.startsWith("https://api.github.com/users/arialhamed/repos")) { // If current link is the start
         document.getElementById("browse-back").style.cursor = "not-allowed"; document.getElementById("browse-back").onclick = "";
-        document.getElementById("currentName").innerHTML = "Ari's Public Repositories";
+        document.getElementById("current-title").innerHTML = "Ari's Public Repositories";
         document.getElementById("currentDescription").innerHTML = "<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
 
     } else {
@@ -172,7 +193,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
         // If just at the main view of the repository (not in the contents), then set the title and description
         if (!inUrl.includes("?ref=") || rootRepoUrl !== "") {
             document.getElementById("currentDescription").innerHTML = ([undefined, null, ""].includes(nameDescParentFork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nameDescParentFork[1];
-            document.getElementById("currentName").innerHTML = (nameDescParentFork[2])? nameDescParentFork[0] + " <span style=\"font-size: 60%;\">(<a href=\"" + nameDescParentFork[3] + "\" target=\"_blank\">fork</a>)</span>" : nameDescParentFork[0];
+            document.getElementById("current-title").innerHTML = (nameDescParentFork[2])? nameDescParentFork[0] + " <span style=\"font-size: 60%;\">(<a href=\"" + nameDescParentFork[3] + "\" target=\"_blank\">fork</a>)</span>" : nameDescParentFork[0];
         }
 
         // Get contents of repository, and sort it to show directories first
@@ -188,7 +209,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
 
 // The following will read each file or content (or repos) and display into the browse-content element
 async function browseBuild(eachRecord){
-    let contentElement = "<a class=\"browse col btn btn-outline-dark\" style=\"cursor: pointer; margin: 4px; \"";
+    let contentElement = "<a class=\"col browse-cell\" style=\"cursor: pointer; margin: 4px; \"";
     if (eachRecord["git_url"].startsWith("git://")) { // Is the record from the start?
         // Adds the repository names and the prospective API URLs as cells
         document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "</a>");
@@ -231,10 +252,10 @@ async function showFile(downloadUrl, mdRaw=true){
     console.log("showFile(" + downloadUrl + ")");
 
     // Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-    let browseDisplayInner = "<a style=\"float: right; cursor: pointer; margin-left: 10px; font-size: 200%;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'>&#10005;</a><a style=\"font-size: 175%;\" target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
+    let browseDisplayInner = "<a style=\"float: right; cursor: pointer; margin: auto 10px auto 10px; font-size: 200%;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'>&#10005;</a><a style=\"font-size: 175%;\" target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
 
     // Building the style of the display element
-    let browseDisplayStyle = "float: none; text-align: center; padding: 12px;";
+    let browseDisplayStyle = "float: none; text-align: center; padding: 12px 0; margin: auto; ";
 
     // Add option to show parsed for markdown files
     if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', true)\">processed</a>)"}
@@ -247,19 +268,19 @@ async function showFile(downloadUrl, mdRaw=true){
     if (extensionsVideo.some(v => downloadUrl.toLowerCase().endsWith(v))) {
         browseDisplayInner += "<video id=\"show-video\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"video/webm\"></video>";
 
-        // Check if file is audio
+    // Check if file is audio
     } else if (extensionsAudio.some(v => downloadUrl.toLowerCase().endsWith(v))) {
-    browseDisplayInner += "<audio id=\"show-audio\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"audio/mpeg\"></audio>";
-    browseDisplayStyle += "positon: -webkit-sticky; position: sticky; top: 0px; bottom: 0px; background-color: rgba(0,0,0,.5); width: 80%;";
-    // Note the width is 80% here. This is just a lazy way of handling the back-to-top element when in mobile :P
+        browseDisplayInner += "<audio id=\"show-audio\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"audio/mpeg\"></audio>";
+        browseDisplayStyle += "positon: -webkit-sticky; position: sticky; top: 0px; bottom: 0px; background-color: rgba(0,0,0,.5); width: 80%;";
+        // Note the width is 80% here. This is just a lazy way of handling the back-to-top element when in mobile :P
 
     // Check if file is a 3D object
     } else if (extensions3D.some(v => downloadUrl.toLowerCase().endsWith(v))) {
-    browseDisplayInner += "<model-viewer alt=\"" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "\" src=\"" + downloadUrl + "\" shadow-intensity=\"1\" camera-controls touch-action=\"pan-y\"></model-viewer>";
+        browseDisplayInner += "<model-viewer alt=\"" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "\" src=\"" + downloadUrl + "\" shadow-intensity=\"1\" camera-controls touch-action=\"pan-y\"></model-viewer>";
 
     // Check if file is an archive file
     } else if (extensionsArchive.some(v => downloadUrl.toLowerCase().endsWith(v))) {
-    browseDisplayInner += "<p>Contents of this file can not be parsed here.</p>";
+        browseDisplayInner += "<p>Contents of this file can not be parsed here.</p>";
 
     // If the file is none of the above, it should be text
     } else {
@@ -304,8 +325,13 @@ async function browseReset(browseSort = "pushed") {
 }
 
 // Copy the current GitHub API URL
-async function copyCurrentUrl() {
-    navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent);
+async function copyCurrentUrl(tapState) {
+    if (tapState){
+        navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent);
+        document.getElementById("cud-inner").textContent = "copied to clipboard!";
+    } else {
+        document.getElementById("cud-inner").textContent = browsingTree.slice(-1).slice(22);
+    }
 }
 
 // Search box function, basic stuff frfr
