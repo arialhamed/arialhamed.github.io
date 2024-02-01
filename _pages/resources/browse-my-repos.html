@@ -67,9 +67,8 @@ prism: true
 <script src="https://unpkg.com/prismjs/plugins/download-button/prism-download-button.min.js"></script>
 <script src="https://unpkg.com/prismjs/plugins/match-braces/prism-match-braces.min.js"></script>
 <script src="https://unpkg.com/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
-<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script src="https://unpkg.com/remarkable/dist/remarkable.min.js"></script>
 <style>
-
 .title-icons {
     display: inline; 
     vertical-align: middle; 
@@ -89,6 +88,13 @@ prism: true
 #current-title {
     max-width: 75vw; 
     margin: auto; 
+}
+#browse-md-parsed {
+    text-align: initial;
+    left: clamp(.75rem, calc(50vw - 400px), 24%);
+    position: inherit;
+    display: block;
+    width: min(800px, 98vw - 1.5rem);
 }
 /* #browse-display {
     float: none;
@@ -111,18 +117,13 @@ prism: true
     font-size: 1rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-/* @media only screen and (max-width: 578px) {
-    pre[class*="language-"].line-numbers {
-        padding-left: 2.3em !important;
-    }
-} */
 </style>
 <script>
 function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
 function formatBytes(a,b=2){if(0===a)return"0 bytes";const c=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,c)).toFixed(b))+" "+["bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][c]}
 
 // Third-party library objects
-const mdConverter = new showdown.Converter(); // Process markdown text
+const mdConverter = new remarkable.Remarkable({html: true}); // Parse markdown text
 
 // GitHub sign-in
 async function githubAuth(){
@@ -216,10 +217,7 @@ async function browseBuild(eachRecord){
     } else {
         // Is the record a directory?
         if (eachRecord["type"] == "dir") {
-            // const lsCountContent = await fetch(eachRecord["url"]);
-            // const lsCount = await lsCountContent.json()
             contentElement += " onclick=browseRun(\"" + eachRecord["url"] + "\") id=\"" + eachRecord["sha"] + "\">" + eachRecord["name"] + "/<br></a>";
-
         } else {
             // This record is a file in these brackets
             let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]) + "</span>";
@@ -234,7 +232,6 @@ async function browseBuild(eachRecord){
         // Adds the folders and files as cells
         document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement);
     }
-    // lsCountCell(eachRecord["sha"], eachRecord["url"]);
 }
 
 // NOTE: This function is removed to lower the API request count
@@ -290,7 +287,7 @@ async function showFile(downloadUrl, mdRaw=true){
 
         // If asked to shown parsed (mdRaw = false), and file is markdown, then parse the file contents with Showdown.js and display it
         if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {
-            browseDisplayInner += "<br>" + mdConverter.makeHtml(itemTextOut);
+            browseDisplayInner += "<br><span id=\"browse-md-parsed\">" + mdConverter.render(itemTextOut.substring(1).split("---").pop()) + "</span>";
         } else { // else show it parsed in Prism.js
             browseDisplayInner += "<br><pre style=\"background-color: #333a;\" data-src=\"" + downloadUrl + "\" data-download-link><code id=\"show-text\" class=\"line-numbers language-" + downloadUrl.split('.').pop() + "\">" + itemTextOut.replace(/\</g, "&lt;") + "</code></pre>";
         } // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element

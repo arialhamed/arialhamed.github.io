@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="https://arialhamed.github.io/static/css/bootstrap/bootstrap.min.css">
 <script src="https://arialhamed.github.io/static/js/bootstrap/jquery.min.js"></script>
 <script src="https://arialhamed.github.io/static/js/bootstrap/bootstrap.min.js"></script>
+
+{% if page.need_axios %}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{% endif %}
 
 {% unless page.enable_efficient %}
 <script src="https://arialhamed.github.io/static/js/particles.min.js"></script>
