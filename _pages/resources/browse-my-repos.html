@@ -95,6 +95,8 @@ prism: true
     position: inherit;
     display: block;
     width: min(800px, 98vw - 1.5rem);
+    padding: 1rem;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='lightgrey' stroke-width='1' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
 }
 /* #browse-display {
     float: none;
@@ -119,8 +121,6 @@ prism: true
 }
 </style>
 <script>
-function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
-function formatBytes(a,b=2){if(0===a)return"0 bytes";const c=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,c)).toFixed(b))+" "+["bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][c]}
 
 // Third-party library objects
 const mdConverter = new remarkable.Remarkable({html: true}); // Parse markdown text
@@ -194,7 +194,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
         // If just at the main view of the repository (not in the contents), then set the title and description
         if (!inUrl.includes("?ref=") || rootRepoUrl !== "") {
             document.getElementById("currentDescription").innerHTML = ([undefined, null, ""].includes(nameDescParentFork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nameDescParentFork[1];
-            document.getElementById("current-title").innerHTML = (nameDescParentFork[2])? nameDescParentFork[0] + " <span style=\"font-size: 60%;\">(<a href=\"" + nameDescParentFork[3] + "\" target=\"_blank\">fork</a>)</span>" : nameDescParentFork[0];
+            document.getElementById("current-title").innerHTML = (nameDescParentFork[2])? "<a href=\"" + inUrl + "\">" + nameDescParentFork[0] + "</a>" + " <span style=\"font-size: 60%;\">(<a href=\"" + nameDescParentFork[3] + "\" target=\"_blank\">fork</a>)</span>" : "<a href=\"" + inUrl + "\">" + nameDescParentFork[0] + "</a>";
         }
 
         // Get contents of repository, and sort it to show directories first
@@ -234,18 +234,8 @@ async function browseBuild(eachRecord){
     }
 }
 
-// NOTE: This function is removed to lower the API request count
-// Add ls count for each dir
-// async function lsCountCell(dirId, dirUrl){
-//     const lsCountContent = await fetch(dirUrl);
-//     const lsCount = await lsCountContent.json();
-//     document.getElementById(dirId).insertAdjacentHTML("beforeend", " <br><span style=\"font-size: 70%; line-height: 70%;\">items: " + lsCount.length + "</span>")
-// }
-
-
-
 // When click on file, show it. Exceptions for markdown files.
-async function showFile(downloadUrl, mdRaw=true){
+async function showFile(downloadUrl, mdRaw=false){
     console.log("showFile(" + downloadUrl + ")");
 
     // Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
@@ -255,8 +245,8 @@ async function showFile(downloadUrl, mdRaw=true){
     let browseDisplayStyle = "float: none; text-align: center; padding: 12px 0; ";
 
     // Add option to show parsed for markdown files
-    if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', true)\">processed</a>)"}
-    if (downloadUrl.toLowerCase().endsWith(".md") &&  mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', false)\">raw</a>)"}
+    if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', true)\">alt: raw</a>)"}
+    if (downloadUrl.toLowerCase().endsWith(".md") &&  mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', false)\">alt: parsed</a>)"}
 
     // Tie out to give the title some more space
     browseDisplayInner += "<br>";
@@ -299,13 +289,12 @@ async function showFile(downloadUrl, mdRaw=true){
 
     // Set volume to half and play the media automatically
     if (document.getElementById("show-video") !== null) {document.getElementById("show-video").volume = .5; document.getElementById("show-video").play()}
-    if (document.getElementById("show-text") !== null && !downloadUrl.endsWith(".md")) {Prism.highlightElement(document.getElementById("show-text"))}
+    // if (document.getElementById("show-text") !== null && !downloadUrl.endsWith(".md")) {Prism.highlightElement(document.getElementById("show-text"))}
+    if (document.getElementById("show-text") !== null) {Prism.highlightElement(document.getElementById("show-text"))}
     if (document.getElementById("show-audio") !== null) {document.getElementById("show-audio").volume = .5; document.getElementById("show-audio").play()}
 }
 
-
-
-// Go back using browsingTree (which is )
+// Go back using browsingTree (which is a list)
 async function browseBack() {
     console.log("browseBack()");
     browsingTree.pop();
@@ -343,6 +332,7 @@ async function searchContents() {
         }
     )
 }
+
 </script>
 
 
