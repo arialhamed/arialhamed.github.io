@@ -34,7 +34,7 @@ redirect_from:
 
 # reasons to dual boot linux and windows
 
-last updated as of <span class="timestamp">14 Oct 2022</span>
+last updated as of <timestamp>14 Oct 2022</timestamp>
 
 - **Lockdown Browser** (used by universities too)
 - **SparkAR Studio** (still want to make filters)

@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://www.carousell.sg/p/thinkpad-ultra-dock-40a2-1165113759/
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-10</span>
+<timestamp>last updated by Ari in 2022-Oct-10</timestamp>
 
 One of the best mechanical docks for ThinkPads (i think)
 

@@ -13,7 +13,7 @@ paid: false
 
 > _"Welcome to the unique turn-based strategy game set in the strange, flat world of the Square. Lead one of 12 distinct civilizations to victory by expanding your empire, researching technologies and ultimately become ruler of the world! Play in single-player or multiplayer mode for up to 15 players." - <a href="https://store.steampowered.com/app/874390/The_Battle_of_Polytopia/">Steam</a>_
 
-<span class="timestamp">20 April 2022:</span> This time, this is a game that a friend introduced in secondary school, and i really enjoyed it smh. As it seems, turn-based games are most fun with friends.
+<timestamp>20 April 2022:</timestamp> This time, this is a game that a friend introduced in secondary school, and i really enjoyed it smh. As it seems, turn-based games are most fun with friends.
 
 Something that's also fun about this is that it's also _free_.
 

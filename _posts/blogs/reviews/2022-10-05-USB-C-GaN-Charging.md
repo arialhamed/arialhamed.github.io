@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://shopee.sg/45W-65W-90W-100W-USB-Type-C-PD-Charging-Cable-Cord-USB-C-Plug-Converter-to-Laptop-Power-Adapter-Connector-for-Universal-Laptops-i.268068206.2955272970
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-05</span>
+<timestamp>last updated by Ari in 2022-Oct-05</timestamp>
 
 With the new existence of GaN technology, eccentric manufacturers have been creating a new breed of cables.. between the new and old. USB-C to whatever proprietary charging connector laptops of the past has had.
 

@@ -11,7 +11,7 @@ paid: false
 
 > _"With Game Creator you can create your own games on your android tablet or phone.<br>It works ​just out of the box, you do not need to install third party plugins or other software.<br>NO programming or scripting is required." - <a href="https://play.google.com/store/apps/details?id=org.silentworks.gamecreatorplayer">Play Store</a>_
 
-<span class="timestamp">07 May 2022:</span> I mean, it is what it says. You make games without the need for coding.
+<timestamp>07 May 2022:</timestamp> I mean, it is what it says. You make games without the need for coding.
 
 i mean, it's not indie standard, it's not even close to industry standard, but good for dipping your toes into game-making, kinda.
 

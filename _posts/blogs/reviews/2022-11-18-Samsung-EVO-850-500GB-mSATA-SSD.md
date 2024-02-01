@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://www.carousell.sg/p/grand-sales-samsung-evo-850-500gb-msata-ssd-solid-state-drive-1034082397/
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Nov-19</span>
+<timestamp>last updated by Ari in 2022-Nov-19</timestamp>
 
 
 

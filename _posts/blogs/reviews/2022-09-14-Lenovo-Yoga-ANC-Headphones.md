@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://www.carousell.sg/p/lenovo-yoga-headphones-bnib-1148009886/
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-14</span>
+<timestamp>last updated by Ari in 2022-Oct-14</timestamp>
 
 A fine piece of technology, useful for those like me who just want some silence. 
 

@@ -28,7 +28,7 @@ redirect_from:
                 {% if post.custom_label %}
                     {{ post.custom_label}}
                 {% else %}
-                    <span class="timestamp">{{ post.date | date: "%-d %B %y" }}</span> {{ post.title }}
+                    <timestamp>{{ post.date | date: "%-d %B %y" }}</timestamp> {{ post.title }}
                 {% endif %}
             </a>
         {% endfor %}

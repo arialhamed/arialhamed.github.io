@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://shopee.sg/NEXSTAND-K2-Laptop-Stand-Portable-Adjustable-Eye-Level-Ergonomic-Light-Weight-Macbook-Stand-Mount-Holder-i.260164214.7050291316
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-14</span>
+<timestamp>last updated by Ari in 2022-Oct-14</timestamp>
 
 A one-move solution to elevating your laptop. Somehow I got it at its lower price, and somehow no one knows about this. All I know now is that there is an updated version for it, presumable for larger laptops.
 

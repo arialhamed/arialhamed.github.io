@@ -11,7 +11,7 @@ paid: false
 
 > _"If you like playing 3D games, you might like to create your own game with custom scenes, characters, weapons and design your own gameplay. Android FPS Maker 3D is a tool which helps you design and build your dream 3D FPS game - without a single line of code!" - <a href="https://play.google.com/store/apps/details?id=org.silentworks.fpscreatorfree">Play Store</a>_
 
-<span class="timestamp">07 May 2022:</span> I mean, it is what it says. You make fps games without the need for coding.
+<timestamp>07 May 2022:</timestamp> I mean, it is what it says. You make fps games without the need for coding.
 
 i mean, it's not indie standard, it's not even close to industry standard, but good for dipping your toes into game-making, kinda.
 

@@ -12,7 +12,7 @@ paid: false
 
 > _"Play God & Create Worlds with Life or Destroy everything within a tap of your finger!" - <a href="https://play.google.com/store/apps/details?id=com.pixowl.thesandbox.android">Play Store</a>_
 
-<span class="timestamp">08 May 2022:</span> It's pretty fun and charming, ngl. I really loved playing it as a kid, and as a young adult now, seeing the graphics just bring back so many memories, of me doing a lot of random stuff ranging from creating a healing laser to just bombing a human population. 
+<timestamp>08 May 2022:</timestamp> It's pretty fun and charming, ngl. I really loved playing it as a kid, and as a young adult now, seeing the graphics just bring back so many memories, of me doing a lot of random stuff ranging from creating a healing laser to just bombing a human population. 
 
 However, microtransactions. That cursed word is enough to kill an entire litter of cats.
 

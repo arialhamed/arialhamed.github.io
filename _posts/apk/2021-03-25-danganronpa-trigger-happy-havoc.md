@@ -29,4 +29,4 @@ For a more in-depth explanation, just watch, like, game grumps or something. I'v
 </div>
 
 <br>
-<sup id="1">[1]</sup> Written as of <span class="timestamp">2022-03-23</span>.
+<sup id="1">[1]</sup> Written as of <timestamp>2022-03-23</timestamp>.

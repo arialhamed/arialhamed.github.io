@@ -26,7 +26,7 @@ We hope you enjoy!
 
 Adorable Home is LGBTQ+ friendly. It references mature themes and on occasion, depicts characters in revealing outfits; this is a game about partners inside their home (Bedroom, Bathroom, etc.) after all. It may be inappropriate for children.
 
-<span class="timestamp">[2022-Mar-30]</span> Aight, now for my review: haven't played it. ngl, idk why i even upload this, it's free.
+<timestamp>[2022-Mar-30]</timestamp> Aight, now for my review: haven't played it. ngl, idk why i even upload this, it's free.
 
 <div class="text-center">
     <a class="btn btn-dark btn-block w-100" onclick='apk("com.hyperbeard.adorablehome_1.20.5.apk")' style="text-decoration: none; background-color: #333;"> Download <b>com.hyperbeard.adorablehome_1.20.5.apk</b> (85.5 MB)</a>

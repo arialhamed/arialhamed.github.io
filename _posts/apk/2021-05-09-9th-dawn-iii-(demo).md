@@ -13,7 +13,7 @@ paid: false
 
 > _"9th Dawn III: Shadow of Erthil is a massive open world RPG/dungeon crawler packed full of content – featuring more than 270 monsters to fight and capture, a fun card game with 180 cards to collect, and over 1,400 unique items to hoard!" - <a href="https://store.steampowered.com/app/1154850/9th_Dawn_III/">Steam</a>_
 
-<span class="timestamp">21 April 2022:</span> I played 9th Dawn i & ii, and i thought this one was just gonna be the same thing. However, still images doesn't do the game justice. The design stays almost the same, but the graphics and animations are all so advanced now, and there is so much more to this game than the previous ones.
+<timestamp>21 April 2022:</timestamp> I played 9th Dawn i & ii, and i thought this one was just gonna be the same thing. However, still images doesn't do the game justice. The design stays almost the same, but the graphics and animations are all so advanced now, and there is so much more to this game than the previous ones.
 
 tbh i have not gotten so deep into this game yet but it really does seem promising.
 

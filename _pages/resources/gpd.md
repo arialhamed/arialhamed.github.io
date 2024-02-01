@@ -18,7 +18,7 @@ layout: default
 
 # GPD Unofficial PSREF <span style="font-size: 200%;">page is WIP</span>
 
-<span class="timestamp">2022 Sep 14</span>: as of this writing, i do not own any GPD devices, nor even in real life, but i'll be damned if i hadn't known about it through austin evans and ltt.
+<timestamp>2022 Sep 14</timestamp>: as of this writing, i do not own any GPD devices, nor even in real life, but i'll be damned if i hadn't known about it through austin evans and ltt.
 
 Gamepad Digital, aka GPD, is a company based in Shenzen, China, and they started out making handheld gaming consoles for quite a long time. Soon enough they began making tiny handheld laptops that does more than gaming, such as the latest GPD Pocket 3 and the GPD MicroPC, meant for programmers, engineers, server admins, etc. I'm at least 2 of that (or at least i hope to be)
 

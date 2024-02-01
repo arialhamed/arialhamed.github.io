@@ -9,7 +9,7 @@ seq_type: review
 source_link: 
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-14</span>
+<timestamp>last updated by Ari in 2022-Oct-14</timestamp>
 
 A wired trackball that used the index finger for moving. The way I got this was interesting, the seller's husband wanted to clear out their stuff, so I got this I guess. 
 

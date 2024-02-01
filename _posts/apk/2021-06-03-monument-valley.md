@@ -11,7 +11,7 @@ paid: true
 
 > _"In Monument Valley you will manipulate impossible architecture and guide a silent princess through a stunningly beautiful world." - <a href="https://play.google.com/store/apps/details?id=com.ustwo.monumentvalley">Play Store</a>_
 
-<span class="timestamp">08 May 2022:</span> This game absolutely blew up, as it got popularized by gamers everywhere, and looking at it, I agree very much. 
+<timestamp>08 May 2022:</timestamp> This game absolutely blew up, as it got popularized by gamers everywhere, and looking at it, I agree very much. 
 
 Unlike most youtubers though, this game is best experienced by your own, in silence, using your own voice in your head.
 

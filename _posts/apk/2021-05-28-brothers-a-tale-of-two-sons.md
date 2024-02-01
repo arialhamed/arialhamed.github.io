@@ -12,7 +12,7 @@ paid: true
 
 > _"Guide two brothers on an epic fairy tale journey from visionary Swedish film director, Josef Fares and top-tier developer Starbreeze Studios. Control both brothers at once as you experience co-op play in single player mode, like never before." - <a href="https://store.steampowered.com/app/225080/Brothers__A_Tale_of_Two_Sons/"></a>_
 
-<span class="timestamp">07 May 2022:</span> Apparently, this game won some awards, probably because of the story and gameplay. I really think that the shining spark of this game is the controls. It works very well with a controller on PC, and the mobile edition can simply have it on touchscreen, I think it's no problem for consoles. 
+<timestamp>07 May 2022:</timestamp> Apparently, this game won some awards, probably because of the story and gameplay. I really think that the shining spark of this game is the controls. It works very well with a controller on PC, and the mobile edition can simply have it on touchscreen, I think it's no problem for consoles. 
 
 Unfortunately, for us here in this sketchy bootstrap jekyll website, the PowerVR version may not be functional? For some reason the rest of the versions work on my phone (which has a PowerVR GPU), but man the graphics were all wrong.
 

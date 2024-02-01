@@ -10,7 +10,7 @@ source_link: https://www.carousell.sg/p/orico-nvme-ssd-enclosure-1164960053/
 published: false
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-</span>
+<timestamp>last updated by Ari in 2022-Oct-</timestamp>
 
 A enclosure for M.2 NVMe SSDs, popular among those with M.2 NVMe SSDs.
 

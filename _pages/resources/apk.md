@@ -64,8 +64,8 @@ redirect_to: /maintenance
 Here are a few things to take note about the APKs here
 1. _**SOURCES**_. Almost everything here are pulled from an Android phone using [ADB](https://arialhamed.github.io/resources/apk/tools), and all apps are originally installed from the **[Google Play Store](https://play.google.com)**. There will be quite a few exceptions.
 1. _**UPDATES**_. Files here **might not be up-to-date** to the latest according to the Play Store, just comment in the page that it is outdated, or [report it](https://arialhamed.github.io/report)
-1. _**FILE SIZE NOTICE**_. Files that exceed __2 GB__ are split into multiple archives. Use any archival software such as the one I used to pack them, <a href="https://www.win-rar.com/start.html?&L=0">WinRAR</a>, to unpack them. As of <span class="timestamp">03 May 2022</span>, I have yet to find a reliable place to store these huge files that are more than _2 GB_
-1. _**VIRUSTOTAL**_. All files that are **less than 650 MB** <span class="timestamp">_[as of 03 May 2022]_</span> are scanned with <a href="https://www.virustotal.com/">_VirusTotal_</a> and _Windows Defender_.
+1. _**FILE SIZE NOTICE**_. Files that exceed __2 GB__ are split into multiple archives. Use any archival software such as the one I used to pack them, <a href="https://www.win-rar.com/start.html?&L=0">WinRAR</a>, to unpack them. As of <timestamp>03 May 2022</timestamp>, I have yet to find a reliable place to store these huge files that are more than _2 GB_
+1. _**VIRUSTOTAL**_. All files that are **less than 650 MB** <timestamp>_[as of 03 May 2022]_</timestamp> are scanned with <a href="https://www.virustotal.com/">_VirusTotal_</a> and _Windows Defender_.
     * Some files here have a few trivial detections picked up by VirusTotal, but they are usually false positives. Either way, anything detected by the softwares I would state clearly in their respective posts.
     * The maximum flags per file I would allow to be uploaded to my website would be _**1**_, or _**2** for a very few exceptions_.
     * Files that exceed 650 MB are usually XAPK or APKS, so I would just unpack those and then scan those files

@@ -12,7 +12,7 @@ paid: true
 
 > _"Enter the Aperture Science Enrichment Center and experience Bridge Constructor Portal – the unique merging of the classic Portal™ and Bridge Constructor™ games." - <a href="https://play.google.com/store/apps/details?id=com.headupgames.bridgeconstructorportal">Play Store</a>_
 
-<span class="timestamp">21 April 2022:</span> This basically Poly Bridge but with the Portal theme.
+<timestamp>21 April 2022:</timestamp> This basically Poly Bridge but with the Portal theme.
 
 ..that's about it..
 

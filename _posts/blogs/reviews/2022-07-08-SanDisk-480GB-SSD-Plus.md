@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://www.carousell.sg/p/SanDisk-ssd-plus-480gb-1170889630/
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-</span>
+<timestamp>last updated by Ari in 2022-Oct-</timestamp>
 
 A neat little 2.5inch SSD, very useful speeding up an old laptop.
 

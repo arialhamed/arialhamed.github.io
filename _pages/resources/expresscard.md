@@ -12,7 +12,7 @@ redirect_from:
 
 > _"ExpressCard? is that, like, a credit card with express credit?"_ - a millenial
 
-Even though I am a millenial myself (as of <span class="timestamp">Q3 2022</span>), I have became very mentally invested and intrigued about ExpressCard this year. To be honest, i don't know what this page is going to be, but it's here. 
+Even though I am a millenial myself (as of <timestamp>Q3 2022</timestamp>), I have became very mentally invested and intrigued about ExpressCard this year. To be honest, i don't know what this page is going to be, but it's here. 
 
 <div style="text-align:center;">
    <figure>

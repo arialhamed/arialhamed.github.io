@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://www.carousell.sg/p/logitech-ergo-m575-1155972026/
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-14</span>
+<timestamp>last updated by Ari in 2022-Oct-14</timestamp>
 
 A wireless trackball which is a revamp of the M570, now in Bluetooth. 
 

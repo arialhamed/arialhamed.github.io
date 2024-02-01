@@ -10,7 +10,7 @@ source_link: https://www.carousell.sg/p/samsung-msata-128-gb-ssd-1175558555/
 published: false
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-</span>
+<timestamp>last updated by Ari in 2022-Oct-</timestamp>
 
 A mini-SATA SSD, used in small laptops before the existence of M.2 replaced it. Somehow, there are still multiple applications for it, one of which I found out not too long ago was the use in mining rigs.
 

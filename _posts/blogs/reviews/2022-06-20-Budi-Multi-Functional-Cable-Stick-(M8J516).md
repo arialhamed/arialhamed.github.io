@@ -10,7 +10,7 @@ source_link: https://shopee.sg/M8J516-Budi-Multi-Functional-Cable-Stick-support-
 published: false
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-</span>
+<timestamp>last updated by Ari in 2022-Oct-</timestamp>
 
 A very hand multi-tool that holds a lot, and does a lot. 
 

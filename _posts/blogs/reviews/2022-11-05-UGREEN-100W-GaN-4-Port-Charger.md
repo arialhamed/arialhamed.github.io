@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://www.carousell.sg/p/ugreen-100w-gan-charger-4-port-usb-c-multiport-charger-4-port-usb-fast-charger-power-adapter-1159350339/
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Nov-12</span>
+<timestamp>last updated by Ari in 2022-Nov-12</timestamp>
 
 I have been eyeing this for quite a while actually, ever since I saw <a href="{{ page.source_link }}">this listing</a> and many other listings that are also somewhat similar in function. As my final semester in poly starts (though its week 4 by now), I found myself staying back in school more often, like up to 7pm. It's not just the amount of assignments that I have, but its also the fact that in the places where I can study, there are 2 things: air-con, and infinite power that I don't need to pay extra for. Hey we're paying the school fees, so therefore I get to eat da powaa. 
 

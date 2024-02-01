@@ -10,7 +10,7 @@ source_link: https://shopee.sg/%E3%80%90Ready-Stock%E3%80%91Logitech-PEBBLE-Wire
 published: false
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-</span>
+<timestamp>last updated by Ari in 2022-Oct-</timestamp>
 
 A little hard piece of round mouse, Logitech definitely did something here. 
 

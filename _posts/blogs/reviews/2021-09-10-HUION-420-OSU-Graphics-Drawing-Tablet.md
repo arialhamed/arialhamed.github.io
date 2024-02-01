@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://shopee.sg/HUION-OSU-Tablet-Graphics-Drawing-Pen-Tablet-420-(4-x-2.23-)-i.290050563.7545508412
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-14</span>
+<timestamp>last updated by Ari in 2022-Oct-14</timestamp>
 
 Probably the cheapest drawing tablet to be ever commercially available. However, it's good. 
 

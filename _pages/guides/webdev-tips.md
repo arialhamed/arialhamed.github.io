@@ -62,7 +62,7 @@ The above is CSS you can put into your site.css that can apply to all pages (as 
 <hr>
 
 ### Place PDFs in website (with and without Bootstrap)
-As of <span class="timestamp">21 May 2022</span>, I was able to hold close to this method of uploading a .pdf file for display in a static website.
+As of <timestamp>21 May 2022</timestamp>, I was able to hold close to this method of uploading a .pdf file for display in a static website.
 
 #### Use Google Docs Viewer
 

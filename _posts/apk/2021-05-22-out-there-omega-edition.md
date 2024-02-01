@@ -12,7 +12,7 @@ paid: true
 
 > _"Out There is an award-winning space exploration game blending roguelike, resource management and interactive fiction." - <a href="https://store.steampowered.com/app/334420/Out_There__Edition/">Steam</a>_
 
-<span class="timestamp">05 May 2022:</span> This game is kinda like FTL, yet the gameplay is very unique. Honestly, this game has a lot to take in but it's quite fun once you get used to it!
+<timestamp>05 May 2022:</timestamp> This game is kinda like FTL, yet the gameplay is very unique. Honestly, this game has a lot to take in but it's quite fun once you get used to it!
 
 Many Resources mod: To get 1000 units of resources, you need to divide this resource in the ship’s inventory and click on the “+” or “-” button.
 

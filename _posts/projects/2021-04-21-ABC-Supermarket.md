@@ -16,4 +16,4 @@ This project was done by me and my team, consisting of <a href="https://github.c
 
 Repository: <a href="https://github.com/arialhamed/IT2155-fullstackdevproj">Public archive</a>
 
-Development started in <span class="timestamp">21 April 2021</span>, and ended in <span class="timestamp">19 August 2021</span>.
+Development started in <timestamp>21 April 2021</timestamp>, and ended in <timestamp>19 August 2021</timestamp>.

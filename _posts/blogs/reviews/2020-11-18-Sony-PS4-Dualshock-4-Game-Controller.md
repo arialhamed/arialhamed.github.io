@@ -10,7 +10,7 @@ source_link: https://shopee.sg/%E3%80%90Raya-Limited-Shocking-SALE%E3%80%91ONE-Y
 published: false
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-</span>
+<timestamp>last updated by Ari in 2022-Oct-</timestamp>
 
 An iconic video game controller made for the PS4, and we all know it. Still in sale alongside the PS5 Controller in retail stores everywhere, it is quite a piece of intricate ingenuity. It's in fact a miracle for me to even get it on sale for about <span style="font-size:60%;">SGD</span>$20
 

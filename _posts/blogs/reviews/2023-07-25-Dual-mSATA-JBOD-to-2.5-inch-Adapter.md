@@ -12,7 +12,7 @@ published: false
 
 # Dual mSATA JBOD to 2.5 inch Adapter
 
-<span class="timestamp">last updated by Ari in 20xx-xx-</span>
+<timestamp>last updated by Ari in 20xx-xx-</timestamp>
 
 
 

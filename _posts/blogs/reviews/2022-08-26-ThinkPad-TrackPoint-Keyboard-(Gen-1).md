@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://www.carousell.sg/p/trackpoint-keyboard-first-gen-1167766553/
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-14</span>
+<timestamp>last updated by Ari in 2022-Oct-14</timestamp>
 
 A rare commodity that not a lot of people think of about. 
 

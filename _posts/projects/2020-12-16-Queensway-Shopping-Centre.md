@@ -18,4 +18,4 @@ This project was done by me and my team, consisting of GitHub users <a href="htt
 
 Repository: <a href="https://github.com/JabezThian/App-Development">Original (private repo)</a>, and <a href="https://github.com/arialhamed/IT1966-appdevelopmentproj">my own fork</a> (public archive). 
 
-Development started in <span class="timestamp">16 December 2020</span>, and ended in <span class="timestamp">20 February 2021</span>.
+Development started in <timestamp>16 December 2020</timestamp>, and ended in <timestamp>20 February 2021</timestamp>.

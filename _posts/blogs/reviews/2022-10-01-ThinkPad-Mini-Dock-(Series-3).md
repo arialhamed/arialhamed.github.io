@@ -10,7 +10,7 @@ source_link: https://www.carousell.sg/p/lenovo-thinkpad-mini-dock-p-n-45n5887-11
 published: false
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-</span>
+<timestamp>last updated by Ari in 2022-Oct-</timestamp>
 
 The most versatile mechanical dock for ThinkPads.
 

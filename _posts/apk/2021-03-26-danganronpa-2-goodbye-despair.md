@@ -15,7 +15,7 @@ paid: true
 
 ctrl+c, ctrl+v review from [THH](https://arialhamed.github.io/resources/apk/Trigger-Happy-Havoc). According to the fans, Danganronpa kinda goes downhill, from what i read anyway, I could be wrong though. For all i know, this game still has good content, and many people love the characters in this game too. Seems pretty fine. <span style="font-size:20%;color:#0002;">chiaki is best girl</span>
 
-ytbers Game Grumps are also playing this game and still recording it (as of <span class="timestamp">24 March 2022</span>), though I'm one of those people who would wait until their uploading of the entire gameplay was played through. Seems promising imo.
+ytbers Game Grumps are also playing this game and still recording it (as of <timestamp>24 March 2022</timestamp>), though I'm one of those people who would wait until their uploading of the entire gameplay was played through. Seems promising imo.
 
 <!-- Due to the limitation of my "file server", i could only upload a max of 2 GB, so i split it using WinRAR. Likewise, use WinRAR or 7zip to unpack it. -->
 

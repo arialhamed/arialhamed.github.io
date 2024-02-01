@@ -10,7 +10,7 @@ layout: default
 
 # Needlework
 
-As of <span class="timestamp">2022 March</span>, I got knee-deep into needlework! It all started when I was in a quick design competition to create a bag out of cardboard (using design thinking as well of course) and I realized that all the forms of fasteners were absolutely the worst. 
+As of <timestamp>2022 March</timestamp>, I got knee-deep into needlework! It all started when I was in a quick design competition to create a bag out of cardboard (using design thinking as well of course) and I realized that all the forms of fasteners were absolutely the worst. 
 - Glue can't hold 2 huge pieces of cardboard together (and we weren't trusted with super-glue), 
 - sticky tac is essentially the same, 
 - staplers were too harsh for thick cardboard (if it could even penetrate at the first place), 

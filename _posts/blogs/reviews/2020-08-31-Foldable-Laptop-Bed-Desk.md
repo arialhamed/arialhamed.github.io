@@ -10,7 +10,7 @@ source_link: https://shopee.sg/-SINGAPORE-INSTOCK-Laptop-Desk-Bed-Tray-Foldable-
 published: false
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Oct-11</span>
+<timestamp>last updated by Ari in 2022-Oct-11</timestamp>
 
 A desk for you to use your laptop or whatever it may be on your bed. I use it once in a while.
 

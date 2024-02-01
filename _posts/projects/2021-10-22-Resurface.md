@@ -16,4 +16,4 @@ This project was done by me and my team, consisting of <a href="https://github.c
 
 Repository: <a href="https://github.com/JakeIsMeh/enterprisedevproj">Original (private repo)</a>, and <a href="https://github.com/arialhamed/IT2166-enterprisedevproj">my own fork</a> (public archive).
 
-Research & development started in <span class="timestamp">22 October 2021</span>, and ended in a final presentation in <span class="timestamp">14 August 2021</span>.
+Research & development started in <timestamp>22 October 2021</timestamp>, and ended in a final presentation in <timestamp>14 August 2021</timestamp>.

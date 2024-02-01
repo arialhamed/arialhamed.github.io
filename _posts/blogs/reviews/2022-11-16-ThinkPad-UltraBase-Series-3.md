@@ -9,7 +9,7 @@ seq_type: review
 source_link: https://www.carousell.sg/p/100-originial-lenovo-thinkpad-ultrabase-series-3-1112753465
 ---
 
-<span class="timestamp">last updated by Ari in 2022-Nov-16</span>
+<timestamp>last updated by Ari in 2022-Nov-16</timestamp>
 
 So i got it, finally, an UltraBase Series 3, and let's just say it's pretty metal.
 
