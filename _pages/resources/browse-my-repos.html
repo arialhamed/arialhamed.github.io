@@ -35,8 +35,8 @@ prism: true
 
 <!-- reload        title        back -->
 <div style="text-align: center;">
-    <p class="title-icons disable-selection" title="Reset" style="float: left;" onclick="browseReset()"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="2.5em"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
-    <p class="title-icons disable-selection" title="Back" style="float: right;" id="browse-back"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="2.5em"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
+    <p class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
+    <p class="title-icons disable-selection" title="Reset" style="float: right;" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
     <h2 id="current-title"></h2>
     <div style="clear: both"></div>
 </div>
@@ -46,7 +46,7 @@ prism: true
 
 <hr id="cellSeperator">
 
-<input type="search" onkeyup="searchContents()" id="searchBox" placeholder="search for what you need :3" style="width: 100%; background-color: rgba(0,0,0,0.2); color: white; border-radius: 8px; border-width: 0px; padding: 0 0 3px 8px; margin-bottom: 10px;">
+<input type="search" onkeyup="searchContents()" id="search-box" placeholder="search :3">
 
 <!-- all cells -->
 <div class="container wide-responsive">
@@ -103,6 +103,15 @@ prism: true
 }
 #cud-inner {
     cursor: pointer;
+}
+#search-box {
+    width: 100%;
+    background-color: rgba(0,0,0,0.2);
+    color: white;
+    border-radius: 8px;
+    border-width: 0px;
+    padding: .2em 0 .3em .5em;
+    margin-bottom: 10px;
 }
 #browse-md-parsed {
     text-align: initial;
@@ -185,7 +194,7 @@ if (!queryUrl || String(queryUrl).startsWith("/users/arialhamed/repos?sort=")){
 }
 
 // Resets the search box
-document.getElementById("searchBox").value = "";
+document.getElementById("search-box").value = "";
 
 // The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using browseBuild
 async function browseRun(inUrl, rootRepoUrl="") {
@@ -293,7 +302,6 @@ async function showFile(downloadUrl, mdRaw=false){
     } else {
         const itemTextResponse = await fetch(downloadUrl);
         const itemTextOut = await itemTextResponse.text();
-        console.log(downloadUrl.split('.').pop());
 
         // If asked to shown parsed (mdRaw = false), and file is markdown, then parse the file contents with Showdown.js and display it
         if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {
@@ -325,7 +333,7 @@ async function browseReset(browseSort = "pushed") {
     console.log("browseReset()");
     browsingTree = [];
     document.getElementById("browse-display").innerHTML = ""; // clear the video/audio/text/etc display
-    document.getElementById("searchBox").value = ""; // clear search box
+    document.getElementById("search-box").value = ""; // clear search box
     browseRun("https://api.github.com/users/arialhamed/repos?sort=" + browseSort);
 }
 
@@ -343,7 +351,7 @@ async function copyCurrentUrl(tapState) {
 async function searchContents() {
     document.getElementById("browse-content").childNodes.forEach(
         function(eachChild){
-            if (eachChild.textContent.toLowerCase().includes(document.getElementById("searchBox").value.toLowerCase())) {
+            if (eachChild.textContent.toLowerCase().includes(document.getElementById("search-box").value.toLowerCase())) {
                 eachChild.style.display = "";
             } else {
                 eachChild.style.display = "none";
