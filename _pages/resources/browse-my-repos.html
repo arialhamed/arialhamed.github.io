@@ -42,7 +42,7 @@ prism: true
 </div>
 
 <!-- description -->
-<p id="currentDescription"></p>
+<p id="current-description"></p>
 
 <hr id="cellSeperator">
 
@@ -174,7 +174,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
     console.log(browsingTree);
 
     document.getElementById("browse-content").innerHTML = "";
-    document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" style=\"cursor: pointer;\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">" + inUrl.slice(22) + "</span>";
+    document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" style=\"cursor: pointer;\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">" + inUrl.slice(22) + "</span> <svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\" height=\"1.5em\"><path fill-rule=\"evenodd\" d=\"M18 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1V9a4 4 0 0 0-4-4h-3a2 2 0 0 0-1 .3V5c0-1.1.9-2 2-2h7Z\" clip-rule=\"evenodd\"></path><path fill-rule=\"evenodd\" d=\"M8 7v4H4.2c0-.2.2-.3.3-.4l2.4-2.9A2 2 0 0 1 8 7.1Zm2 0v4a2 2 0 0 1-2 2H4v6c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3Z\" clip-rule=\"evenodd\"></path></svg>";
 
     //const browseResponse = await fetch(inUrl);
     const browseResponse = await fetch(inUrl);
@@ -182,7 +182,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
     if (inUrl.startsWith("https://api.github.com/users/arialhamed/repos")) { // If current link is the start
         document.getElementById("browse-back").style.cursor = "not-allowed"; document.getElementById("browse-back").onclick = "";
         document.getElementById("current-title").innerHTML = "Ari's Public Repositories";
-        document.getElementById("currentDescription").innerHTML = "<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
+        document.getElementById("current-description").innerHTML = "<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
 
     } else {
         // If repository selected or in contents of repository (not at the start of the page)
@@ -193,7 +193,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
 
         // If just at the main view of the repository (not in the contents), then set the title and description
         if (!inUrl.includes("?ref=") || rootRepoUrl !== "") {
-            document.getElementById("currentDescription").innerHTML = ([undefined, null, ""].includes(nameDescParentFork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nameDescParentFork[1];
+            document.getElementById("current-description").innerHTML = ([undefined, null, ""].includes(nameDescParentFork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nameDescParentFork[1];
             document.getElementById("current-title").innerHTML = (nameDescParentFork[2])? "<a href=\"" + inUrl + "\">" + nameDescParentFork[0] + "</a>" + " <span style=\"font-size: 60%;\">(<a href=\"" + nameDescParentFork[3] + "\" target=\"_blank\">fork</a>)</span>" : "<a href=\"" + inUrl + "\">" + nameDescParentFork[0] + "</a>";
         }
 
@@ -203,7 +203,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
         browseJson.sort((a, b) => a["type"].localeCompare(b["type"]));
     }
 
-    // Loops through each.. whatever thing. He needs some milk
+    // Loops through each... whatever thing. He needs some milk
     browseJson.forEach(browseBuild);
 }
 
