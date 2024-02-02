@@ -33,11 +33,11 @@ prism: true
     <div style="clear: both;"></div>
 </h6>
 
-<!-- back        title        reload -->
-<div style="text-align: center; font-size: 200%;">
-    <p class="title-icons disable-selection" title="reset" style="float: left;" onclick="browseReset()">&#8634;</p>
-    <p class="title-icons disable-selection" title="back" style="float: right; font-family: none!important;" id="browse-back">&#8617;</p>
-    <h2 id="current-title" style="float: none; text-decoration: underline; background: none!important;"></h2>
+<!-- reload        title        back -->
+<div style="text-align: center;">
+    <p class="title-icons disable-selection" title="Reset" style="float: left;" onclick="browseReset()"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="2.5em"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
+    <p class="title-icons disable-selection" title="Back" style="float: right;" id="browse-back"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="2.5em"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
+    <h2 id="current-title"></h2>
     <div style="clear: both"></div>
 </div>
 
@@ -73,10 +73,8 @@ prism: true
     display: inline; 
     vertical-align: middle; 
     border-radius: .75em; 
-    width: 1.5em; 
-    height: 1.5em; 
-    /* background-color: rgba(0,0,0,.2); */
     cursor: pointer;
+    color: rgba(200,200,255,.75) !important;
 }
 .title-icons:hover {
     background-color: rgba(0,0,0,.2);
@@ -88,6 +86,23 @@ prism: true
 #current-title {
     max-width: 75vw; 
     margin: auto; 
+    float: none; 
+    text-decoration: underline; 
+    background: none!important; 
+}
+/*#current-title a {color: #fff; }*/
+#current-title a:hover {
+    color: rgba(200,200,255,.75) !important;
+}
+#current-title-inner {
+    color: white;
+    cursor: pointer;
+}
+#current-title-inner:hover {
+    color: rgba(200,200,255,.75);
+}
+#cud-inner {
+    cursor: pointer;
 }
 #browse-md-parsed {
     text-align: initial;
@@ -96,7 +111,7 @@ prism: true
     display: block;
     width: min(800px, 98vw - 1.5rem);
     padding: 1rem;
-    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='lightgrey' stroke-width='1' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
 }
 /* #browse-display {
     float: none;
@@ -109,6 +124,9 @@ prism: true
 }
 .browse-cell {
     display: inline-block;
+    cursor: pointer;
+    margin: 4px;
+    color: rgba(200,200,255,.75) !important;
     text-align: center;
     text-decoration: none;
     background-color: #fff1;
@@ -174,7 +192,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
     console.log(browsingTree);
 
     document.getElementById("browse-content").innerHTML = "";
-    document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" style=\"cursor: pointer;\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">" + inUrl.slice(22) + "</span> <svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\" height=\"1.5em\"><path fill-rule=\"evenodd\" d=\"M18 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1V9a4 4 0 0 0-4-4h-3a2 2 0 0 0-1 .3V5c0-1.1.9-2 2-2h7Z\" clip-rule=\"evenodd\"></path><path fill-rule=\"evenodd\" d=\"M8 7v4H4.2c0-.2.2-.3.3-.4l2.4-2.9A2 2 0 0 1 8 7.1Zm2 0v4a2 2 0 0 1-2 2H4v6c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3Z\" clip-rule=\"evenodd\"></path></svg>";
+    document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">" + inUrl.slice(22) + " " + iconCopy + "</span>";
 
     //const browseResponse = await fetch(inUrl);
     const browseResponse = await fetch(inUrl);
@@ -194,7 +212,8 @@ async function browseRun(inUrl, rootRepoUrl="") {
         // If just at the main view of the repository (not in the contents), then set the title and description
         if (!inUrl.includes("?ref=") || rootRepoUrl !== "") {
             document.getElementById("current-description").innerHTML = ([undefined, null, ""].includes(nameDescParentFork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nameDescParentFork[1];
-            document.getElementById("current-title").innerHTML = (nameDescParentFork[2])? "<a href=\"" + inUrl + "\">" + nameDescParentFork[0] + "</a>" + " <span style=\"font-size: 60%;\">(<a href=\"" + nameDescParentFork[3] + "\" target=\"_blank\">fork</a>)</span>" : "<a href=\"" + inUrl + "\">" + nameDescParentFork[0] + "</a>";
+            let currentTitleCommon = "<span id=\"current-title-inner\" onclick=\"window.location = '" + browseJson["html_url"] + "'\" title=\"" + browseJson["html_url"] + "\">" + nameDescParentFork[0] + "</span>";
+            document.getElementById("current-title").innerHTML = (nameDescParentFork[2])? currentTitleCommon + " <span style=\"font-size: 60%;\">(<a href=\"" + nameDescParentFork[3] + "\" target=\"_blank\">fork</a>)</span>" : currentTitleCommon;
         }
 
         // Get contents of repository, and sort it to show directories first
@@ -210,27 +229,27 @@ async function browseRun(inUrl, rootRepoUrl="") {
 
 // The following will read each file or content (or repos) and display into the browse-content element
 async function browseBuild(eachRecord){
-    let contentElement = "<a class=\"col browse-cell\" style=\"cursor: pointer; margin: 4px; \"";
+    let contentElement = "<span class=\"col browse-cell\"";
     if (eachRecord["git_url"].startsWith("git://")) { // Is the record from the start?
         // Adds the repository names and the prospective API URLs as cells
-        document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "</a>");
+        document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"]);
     } else {
         // Is the record a directory?
         if (eachRecord["type"] == "dir") {
-            contentElement += " onclick=browseRun(\"" + eachRecord["url"] + "\") id=\"" + eachRecord["sha"] + "\">" + eachRecord["name"] + "/<br></a>";
+            contentElement += " onclick=browseRun(\"" + eachRecord["url"] + "\") id=\"" + eachRecord["sha"] + "\">" + eachRecord["name"] + "/ <br><svg height=\"1.2em\" class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z\" clip-rule=\"evenodd\"/></svg>";
         } else {
             // This record is a file in these brackets
-            let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]) + "</span>";
+            let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]);
             if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { // Is the record an image?
-                contentElement += " href=\"" + eachRecord["download_url"] + "\"><span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">" + eachRecord["name"] + sizeElement + "</span><img style=\"width: 100%;\" src=\"" + eachRecord["download_url"] + "\" ></a>";
+                contentElement += " href=\"" + eachRecord["download_url"] + "\"><span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">" + eachRecord["name"] + sizeElement + "</span><img style=\"width: 100%;\" src=\"" + eachRecord["download_url"] + "\" >";
             } else {
                 // `download_url` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
-                contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + sizeElement + "</a>";
+                contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + sizeElement;
             }
         }
 
         // Adds the folders and files as cells
-        document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement);
+        document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + "</span>");
     }
 }
 
@@ -289,7 +308,6 @@ async function showFile(downloadUrl, mdRaw=false){
 
     // Set volume to half and play the media automatically
     if (document.getElementById("show-video") !== null) {document.getElementById("show-video").volume = .5; document.getElementById("show-video").play()}
-    // if (document.getElementById("show-text") !== null && !downloadUrl.endsWith(".md")) {Prism.highlightElement(document.getElementById("show-text"))}
     if (document.getElementById("show-text") !== null) {Prism.highlightElement(document.getElementById("show-text"))}
     if (document.getElementById("show-audio") !== null) {document.getElementById("show-audio").volume = .5; document.getElementById("show-audio").play()}
 }
@@ -314,9 +332,9 @@ async function browseReset(browseSort = "pushed") {
 async function copyCurrentUrl(tapState) {
     if (tapState){
         navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent);
-        document.getElementById("cud-inner").textContent = "copied to clipboard!";
+        document.getElementById("cud-inner").innerHTML = "copied to clipboard! <svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" height=\"1.5em\"><path stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z\"/></svg>";
     } else {
-        document.getElementById("cud-inner").textContent = browsingTree.slice(-1)[0].slice(22);
+        document.getElementById("cud-inner").innerHTML = browsingTree.slice(-1)[0].slice(22) + " " + iconCopy;
     }
 }
 
@@ -325,7 +343,7 @@ async function searchContents() {
     document.getElementById("browse-content").childNodes.forEach(
         function(eachChild){
             if (eachChild.textContent.toLowerCase().includes(document.getElementById("searchBox").value.toLowerCase())) {
-                eachChild.style.display = "inline";
+                eachChild.style.display = "";
             } else {
                 eachChild.style.display = "none";
             }
