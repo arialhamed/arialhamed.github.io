@@ -4,7 +4,6 @@ layout: default
 permalink: /
 ---
 
-<!-- <h1><span title=":3" class="uwu disable-selection" onmousedown="this.textContent = '>w<'" onmouseup="this.textContent = 'OwO'" onmouseenter="this.textContent = 'OwO'" onmouseleave="this.textContent = 'UwU'" style="font-family: monospace !important;">UwU</span></h1> -->
 <h1><span title=":3" class="uwu"></span></h1>
 
 Hi :3 welcome to my #linkinbio

@@ -146,6 +146,18 @@ prism: true
     font-size: 1rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+.browse-cell * {
+    margin: 0 auto;
+}
+.browse-cell a img {
+    max-width: max(10vw, 20vh); 
+}
+.browse-cell a img + span {
+    display: block; 
+    max-width: max(10vw, 20vh); 
+    word-wrap: anywhere; 
+    margin-top: .6em; 
+}
 </style>
 <script>
 
@@ -250,8 +262,10 @@ async function browseBuild(eachRecord){
         } else {
             // This record is a file in these brackets
             let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]);
-            if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { // Is the record an image?
-                contentElement += " href=\"" + eachRecord["download_url"] + "\"><span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">" + eachRecord["name"] + sizeElement + "</span><img style=\"width: 100%;\" src=\"" + eachRecord["download_url"] + "\" >";
+            // Is the record an image?
+            if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { 
+                contentElement += `><a href=\"` + eachRecord["download_url"] + `\"><img src=\"` + eachRecord["download_url"] + `\" ><span>` + eachRecord["name"] + sizeElement + `</span><span>`;
+                // <span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">` + eachRecord["name"] + sizeElement + `</span>
             } else {
                 // `download_url` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
                 contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + sizeElement;
