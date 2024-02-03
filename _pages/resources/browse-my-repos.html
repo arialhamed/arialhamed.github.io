@@ -350,12 +350,8 @@ async function copyCurrentUrl(tapState) {
 // Search box function, basic stuff frfr
 async function searchContents() {
     document.getElementById("browse-content").childNodes.forEach(
-        function(eachChild){
-            if (eachChild.textContent.toLowerCase().includes(document.getElementById("search-box").value.toLowerCase())) {
-                eachChild.style.display = "";
-            } else {
-                eachChild.style.display = "none";
-            }
+        function(a){
+            a.style.display = (a.textContent.toLowerCase().includes(document.getElementById("search-box").value.toLowerCase())) ? "" : "none" 
         }
     )
 }
