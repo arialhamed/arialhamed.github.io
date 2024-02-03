@@ -40,19 +40,19 @@ body {
     flex-direction: column;
 }
 ```
-The above is CSS you can put into your site.css that can apply to all pages (as I also have done <a href="https://arialhamed.github.io/static/css/site.css">here</a>), and the below is an example of what to do in your layouts html files. The effect will, of course, be visible in _vertically smaller pages_. In the example below though, all i did to change to the layout is add in the style attribute to the _main_content_wrap_ division. 
+The above is CSS you can put into your site.css that can apply to all pages (as I also have done <a href="https://arialhamed.github.io/static/css/site.css">here</a>), and the below is an example of what to do in your layouts html files. The effect will, of course, be visible in _vertically smaller pages_. In the example below though, all i did to change to the layout is add in the style attribute to the _main-content-wrap_ division. 
 ``` html
-<div id="header_wrap" class="outer">
+<div id="header-wrap" class="outer">
     <!-- HEADER CONTENT -->
 </div>
 
-<div id="main_content_wrap" class="outer" style="flex: 1;">
-    <section id="main_content" class="inner">
+<div id="main-content-wrap" class="outer" style="flex: 1;">
+    <section id="main-content" class="inner">
         <!-- MAIN CONTENT -->
     </section>
 </div>
 
-<div id="footer_wrap" class="outer">
+<div id="footer-wrap" class="outer">
     <!-- FOOTER CONTENT -->
 </div>
 ```
@@ -84,7 +84,7 @@ Oh yeah, and as of this writing (look at timestamp above), height is hardcoded, 
 You can look at many websites that has a small footer, including this one, that the text in the footer are split, left & right. There are many ways to do this, but I found a neat way to do this, without using too much knowledge of html & css.
 
 ``` html
-<div id="footer_wrap" class="outer">
+<div id="footer-wrap" class="outer">
     <footer class="inner" style="text-align: center">
         <p style="float: left;">
             © 2022 by Arial Hamed

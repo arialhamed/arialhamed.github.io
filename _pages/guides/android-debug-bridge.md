@@ -90,11 +90,15 @@ If you copied your APK from a debug installation, usually done by running an app
 
 ## shell
 There are many uses to `adb shell`, but i've used `adb shell` to primarily identify locations of files by using `adb shell pm path`.
-``` bash My own app
+
+My own app: 
+``` bash 
 ~$ adb shell pm path com.arialhamed.albus
 package:/data/app/~~Csp-EsZddaHFDHOLpuzSiw==/com.arialhamed.albus-nwluTCiu_4zV2HznTGtlFQ==/base.apk
 ```
-``` bash RAR app
+
+RAR app: 
+``` bash 
 ~$ adb shell pm path "com.rarlab.rar"
 package:/data/app/~~Q_2vPHIW_fget0QXGx4WLA==/com.rarlab.rar-vyLBQeS4znyP8jiS0AvGmQ==/base.apk
 package:/data/app/~~Q_2vPHIW_fget0QXGx4WLA==/com.rarlab.rar-vyLBQeS4znyP8jiS0AvGmQ==/split_config.arm64_v8a.apk
