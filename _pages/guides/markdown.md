@@ -12,7 +12,7 @@ redirect_from:
 layout: default
 ---
 
-This is a good guide to creating a website purely out of Markdown, this repo was ripped from [egillespie's markdown repo](https://github.com/egillespie/markdown-only-website). This website, which is heavily modified, does use a lot of html & javascript.
+###### This is a good guide to creating a website purely out of Markdown, this repo was ripped from [egillespie's markdown repo](https://github.com/egillespie/markdown-only-website). <br>Disclaimer: This website is heavily modified with supplementary HTML, CSS & JavaScript, among other aspects of web development that GitHub Pages & Jekyll allows
 
 # Make a Website with Only Markdown
 
