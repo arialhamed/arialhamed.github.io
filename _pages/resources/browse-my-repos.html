@@ -312,6 +312,10 @@ async function showFile(downloadUrl, mdRaw=false){
     } else if (extensionsArchive.some(v => downloadUrl.toLowerCase().endsWith(v))) {
         browseDisplayInner += "<p>Contents of this file can not be parsed here.</p>";
 
+    // Check if file is PDF
+    } else if (downloadUrl.toLowerCase().endsWith(".pdf")) {
+        browseDisplayInner += "<object type=\"application/pdf\" data=\"" + downloadUrl + "\" width=\"500\" height=\"375\">"
+
     // If the file is none of the above, it should be text
     } else {
         const itemTextResponse = await fetch(downloadUrl);
