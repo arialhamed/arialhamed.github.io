@@ -52,7 +52,7 @@ if(window.innerWidth <= 578){
             "line_linked": {
                 "enable": true,
                 "distance": 255,
-                "color": "#ddd",
+                "color": "var(--font-color)",
                 "opacity": 0.12,
                 "width": 1
             },

@@ -44,7 +44,7 @@ prism: true
 <!-- description -->
 <p id="current-description"></p>
 
-<hr id="cellSeperator">
+<hr id="cell-seperator">
 
 <input type="search" onkeyup="searchContents()" id="search-box" placeholder="search :3">
 
@@ -74,7 +74,7 @@ prism: true
     vertical-align: middle; 
     border-radius: .75em; 
     cursor: pointer;
-    color: rgba(200,200,255,.75) !important;
+    color: var(--anchor-color) !important;
 }
 .title-icons:hover {
     background-color: rgba(0,0,0,.2);
@@ -92,14 +92,14 @@ prism: true
 }
 /*#current-title a {color: #fff; }*/
 #current-title a:hover {
-    color: rgba(200,200,255,.75) !important;
+    color: var(--anchor-color) !important;
 }
 #current-title-inner {
     color: white;
     cursor: pointer;
 }
 #current-title-inner:hover {
-    color: rgba(200,200,255,.75);
+    color: var(--anchor-color);
 }
 #cud-inner {
     cursor: pointer;
@@ -129,16 +129,16 @@ prism: true
     margin: auto;
 } applied in script */
 .browse-cell:hover {
-    background-color: #fff2;
+    background-color: var(--overlay-hover);
 }
 .browse-cell {
     display: inline-block;
     cursor: pointer;
     margin: 4px;
-    color: rgba(200,200,255,.75) !important;
+    color: var(--anchor-color) !important;
     text-align: center;
     text-decoration: none;
-    background-color: #fff1;
+    background-color: var(--overlay);
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;

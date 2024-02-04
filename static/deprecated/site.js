@@ -24,4 +24,4 @@ function apk(e) {
 }
 document.getElementsByTagName("video")[0].onended = function() {
 	this.load(), this.play()
-}, dragElement(document.getElementById("mydiv")), /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && (document.getElementById("project_tagline").innerHTML = "");
+}, dragElement(document.getElementById("mydiv")), /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && (document.getElementById("project-tagline").innerHTML = "");

@@ -187,7 +187,7 @@ function embedCodeToTarget(targetDiv, codeText, showBorder, showLineNumbers, sho
   }
   if (showBorder) {
     if (!isDarkStyle) {
-      code.style.border = "1px solid #ddd";
+      code.style.border = "1px solid var(--font-color)";
     } else {
       code.style.border = "1px solid #555";
     }
@@ -255,7 +255,7 @@ delivered <span class="hide-in-phone">with ❤ </span>by <a href="${serviceProvi
     if (!isDarkStyle) {
       meta.classList.add("file-meta-light");
       if (showBorder) {
-        meta.style.border = "1px solid #ddd";
+        meta.style.border = "1px solid var(--font-color)";
         meta.style.borderTop = "0";
       }
     } else {

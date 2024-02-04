@@ -6,37 +6,37 @@ input:focus, textarea:focus{outline: none}
 input[type=search]::-webkit-search-cancel-button {-webkit-appearance: searchfield-cancel-button}
 audio::-webkit-media-controls-panel {background-color: #0000; color: #0000}
 footer a:hover {color: #888}
-h1, h2, h3, h4, h5, h6 {color: #EEE!important; }
-form, code {background-color: #fff1; }
+h1, h2, h3, h4, h5, h6 {color: var(--font-color)!important; }
+form, code {background-color: var(--overlay); }
 pre code {background-color: #fff; }
 figcaption {font-size: 70%; text-align: center; }
 video {max-width: 100%; height: auto; }
 img {padding: 0 !important; margin: 10px 0 0 0 !important; box-shadow: 0 0 0px #0000!important; -webkit-box-shadow: 0 0 0px #0000!important; -moz-box-shadow: 0 0 0px #0000!important; -o-box-shadow: 0 0 0px #0000!important; -ms-box-shadow: 0 0 0px #0000!important; border: none}
-nav {background-color:#fff1 !important}
+nav {background-color:var(--overlay) !important}
 body {display: flex; min-height: 100vh; flex-direction: column}
 
 /* Jekyll */
 .inner {max-width: 800px !important; }
 #project-title a:hover {text-shadow: .1em .2em 3px rgb(0, 0, 0); }
-#main-content-wrap a:not(.nav-link, .dropdown-item) {color: rgba(200,200,255,.75) !important}
+#main-content-wrap a:not(.nav-link, .dropdown-item) {color: var(--anchor-color) !important}
 #main-content-wrap a:not(.nav-link, .dropdown-item):hover {color: rgba(200,200,255,.55) !important}
 #main-content {padding-top: 15px!important; }
-#main-content-wrap {flex: 1; background: #202020!important; border-top: 1px solid #202020!important; border-bottom: 1px solid #202020!important; color: #DDD!important}
-#header-wrap, #footer-wrap {background: #202020!important; }
+#main-content-wrap {flex: 1; background: var(--background-color)!important; border-top: 1px solid var(--background-color)!important; border-bottom: 1px solid var(--background-color)!important; color: var(--font-color)!important}
+#header-wrap, #footer-wrap {background: var(--background-color)!important; }
 
 /* back-to-top fragment */
 #back-to-top:hover {background: #444}
 
 /* Comment CSS start */
 .comments {border-top: 0px dashed #fff6 !important}
-.comment-item {background-color: #fff2!important}
+.comment-item {background-color: var(--overlay-hover)!important}
 #comment-form {background-color: transparent!important}
 .comment-reply-button img {visibility: hidden!important}
-#comment-comment, #comment-name {background-color: #fff2!important; color: white}
+#comment-comment, #comment-name {background-color: var(--overlay-hover)!important; color: white}
 #comment-submit {background-color: #36758888!important; color: white}
 
 /* Particles.js by Vincent Garreau */
-#particles-js {position: fixed; width: 100%; height: 100%; background-color: #20202000; background-image: url(""); background-repeat: no-repeat; background-size: cover; background-position: 50% 50%}
+#particles-js {position: fixed; width: 100%; height: 100%; background-color: var(--background-color)00; background-image: url(""); background-repeat: no-repeat; background-size: cover; background-position: 50% 50%}
 
 /* Socials fragment */
 .social-bar {position: fixed; top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%)}
@@ -48,11 +48,11 @@ body {display: flex; min-height: 100vh; flex-direction: column}
 
 /* bootstrap */
 .btn.disabled, .btn:disabled, fieldset:disabled .btn {pointer-events: none; opacity: .35}
-.btn-outline-dark {background-color: #fff1 !important}
+.btn-outline-dark {background-color: var(--overlay) !important}
 .carousel-caption {background: rgba(0, 0, 0, 0.5)}
 .accordion-head {background: none}
 .accordion-item {background-color: #0000!important; border: 1px solid #0000!important}
-.accordion-button {background-color: #fff1 !important; color: rgba(255,255,255,.55)!important}
+.accordion-button {background-color: var(--overlay) !important; color: rgba(255,255,255,.55)!important}
 .accordion-button:not(.collapsed) {color: rgba(255,255,255,.55)!important}
 .accordion-button:not(.collapsed)::after {background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23eeeeee'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e")!important}
 .accordion-button::after {background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23eeeeee'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e")!important}
@@ -83,7 +83,7 @@ body {display: flex; min-height: 100vh; flex-direction: column}
 /* Custom */
 .page-navigation {font-size: 14px; display: block; width: auto; overflow: hidden}
 .page-navigation a {display: block; width: 50%; float: left; margin: 1em 0; font-size: 80%}
-.timestamp, timestamp {color: #f2f2f2; background-color: #333; border-color: #333; border-width: medium; border-style: solid; border-radius: 100px; padding: 0px 10px 0px 10px}
+.timestamp, timestamp {color: var(--font-color); background-color: #333; border-color: #333; border-width: medium; border-style: solid; border-radius: 100px; padding: 0px 10px 0px 10px}
 .project{margin-bottom: 2rem; border-color: #333; border-style: solid; border-width: medium; border-radius: 1rem}
 .uwu:hover{background-image: linear-gradient(90deg, #5BCFFA 20%, #F5ABB9 20% 40%, white 40% 60%, #F5ABB9 60% 80%, #5BCFFA 80% 100%); background-size: 100%; background-clip: text; -webkit-background-clip: text; -moz-background-clip: text; -webkit-text-fill-color: transparent; -moz-text-fill-color: transparent}
 .disable-selection {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none}
@@ -100,7 +100,7 @@ body {display: flex; min-height: 100vh; flex-direction: column}
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #ddd;
+    color: var(--font-color);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

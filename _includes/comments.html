@@ -680,7 +680,7 @@
 <style>
 @import url("https://fonts.googleapis.com/css?family=Arimo");
 #comment-form {background-color: transparent; }
-.comment-item {position: relative; padding: 0.5em 2.5em; background-color: #fff1; width: 95%; margin: 1em auto; border-radius: 8px; }
+.comment-item {position: relative; padding: 0.5em 2.5em; background-color: var(--overlay); width: 95%; margin: 1em auto; border-radius: 8px; }
 .comment-item:after {content: ""; position: relative; display: block; clear: both; }
 .comment-item p {line-height: 1.6; }
 .comment-item small {padding-left: 0.7em; color: #999; font-size: 0.8em; }
@@ -704,14 +704,14 @@
 .comments-form ul {list-style: none; margin-left: -40px; }
 .comments-form ul li {margin-bottom: 15px; }
 .comments {align-items: center; border-top: 0px dashed #fff6; padding-top: 1rem; position: relative; }
-.comment-button {border: 0; border-radius: .25rem; background: #333; color: #f2f2f2; font-size: 0.9em; margin-bottom: 20px; outline-style: none; padding: 10px 20px; width: auto; min-width: 25%; }
+.comment-button {border: 0; border-radius: .25rem; background: #333; color: var(--font-color); font-size: 0.9em; margin-bottom: 20px; outline-style: none; padding: 10px 20px; width: auto; min-width: 25%; }
 #comment-submit {width: 100%; min-width: 25%; position: relative; background-color: #36758888; color: white; }
-.comment-button:disabled::after, .comment-button[disabled]::after {content: ""; position: absolute; width: 16px; height: 16px; top: 0; left: 0; right: 0; bottom: 0; margin: auto; border: 4px solid transparent; border-top-color: #f2f2f2; border-radius: 50%; -webkit-animation: button-loading-spinner 1s ease infinite; animation: button-loading-spinner 1s ease infinite; }
+.comment-button:disabled::after, .comment-button[disabled]::after {content: ""; position: absolute; width: 16px; height: 16px; top: 0; left: 0; right: 0; bottom: 0; margin: auto; border: 4px solid transparent; border-top-color: var(--font-color); border-radius: 50%; -webkit-animation: button-loading-spinner 1s ease infinite; animation: button-loading-spinner 1s ease infinite; }
 
 @keyframes button-loading-spinner {from {transform: rotate(0turn); } to {transform: rotate(1turn); }}
 @-webkit-keyframes button-loading-spinner {from {transform: rotate(0turn); } to {transform: rotate(1turn); }}
 
-#load-comment-button:hover {background-color: #fff2; }
+#load-comment-button:hover {background-color: var(--overlay-hover); }
 #load-more-comments {width: auto; }
 #load-more-comments, #num-comments-displayed {display: none; }
 #comment-name, #comment-comment {width: 100%; padding: 10px; border: 0; border-radius: 8px; box-shadow: 0px 0px 2px 2px rgb(0 0 0 / 10%); background-color: #ffffff15; color: white; }

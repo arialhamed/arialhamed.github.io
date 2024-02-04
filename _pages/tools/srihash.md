@@ -26,7 +26,7 @@ redirect_from:
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input id="sriSubmit" class="btn btn-secondary" type="submit" value="Hash!">
             </form>
-            <pre id="sri-snippet" name="sriSnippet" style="background-color: #fff1;"></pre>
+            <pre id="sri-snippet" name="sriSnippet" style="background-color: var(--overlay);"></pre>
             <div id="sri-error"></div>
         </div>
     </div>
