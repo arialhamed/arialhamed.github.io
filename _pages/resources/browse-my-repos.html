@@ -149,10 +149,10 @@ prism: true
 .browse-cell * {
     margin: 0 auto;
 }
-.browse-cell a img {
+.browse-cell img {
     max-width: max(10vw, 20vh); 
 }
-.browse-cell a img + span {
+.browse-cell img + span {
     display: block; 
     max-width: max(10vw, 20vh); 
     word-wrap: anywhere; 
@@ -264,7 +264,7 @@ async function browseBuild(eachRecord){
             let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]);
             // Is the record an image?
             if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { 
-                contentElement += `><a href=\"` + eachRecord["download_url"] + `\"><img src=\"` + eachRecord["download_url"] + `\" ><span>` + eachRecord["name"] + sizeElement + `</span><span>`;
+                contentElement = `<a class=\"col browse-cell\" href=\"` + eachRecord["download_url"] + `\"><img src=\"` + eachRecord["download_url"] + `\" ><span>` + eachRecord["name"] + sizeElement + `</span>`;
                 // <span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">` + eachRecord["name"] + sizeElement + `</span>
             } else {
                 // `download_url` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
