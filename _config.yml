@@ -14,6 +14,7 @@ plugins:
   # - jekyll-multiple-languages-plugin
   - jekyll-category-post-navigation
   - jekyll-pdf-embed
+  - jekyll-remote-include
   - directory_tag
 # languages: ["sv", "en", "my", "ch", "id"]
 # exclude_from_localizations: ["javascript", "css", "static", "LICENSE"]
