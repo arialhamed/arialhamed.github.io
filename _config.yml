@@ -14,9 +14,11 @@ plugins:
   # - jekyll-multiple-languages-plugin
   - jekyll-category-post-navigation
   - jekyll-pdf-embed
-  - jekyll-remote-include
   - directory_tag
+  - jekyll-remote-include
 # languages: ["sv", "en", "my", "ch", "id"]
+kramdown:
+  syntax_highlighter: coderay
 # exclude_from_localizations: ["javascript", "css", "static", "LICENSE"]
 comment-post: https://docs.google.com/forms/d/e/1FAIpQLSeJJ5CGX171i8bg9T0FnR0ngW-AJ55VkOG4HtICBLsnkUVzkQ
 comment-read: https://docs.google.com/spreadsheets/d/15dwbltXqr3tluVzFOAl7tI2ovLmY78QGrTaY8gPDHz8
