@@ -77,7 +77,13 @@ prism: true
     color: var(--anchor-color) !important;
 }
 .title-icons:hover {
-    background-color: rgba(0,0,0,.2);
+    background-color: var(--overlay-hover);
+}
+#browse-back + p svg {
+    transition: ease-in-out .5s;
+}
+#browse-back + p svg:hover {
+    rotate: 180deg;
 }
 #current-url-display {
     overflow: hidden;
@@ -103,6 +109,9 @@ prism: true
 }
 #cud-inner {
     cursor: pointer;
+}
+#cud-inner:hover {
+    color: var(--anchor-color);
 }
 #search-box {
     width: 100%;
@@ -288,7 +297,7 @@ async function showFile(downloadUrl, mdRaw=false){
     console.log("showFile(" + downloadUrl + ")");
 
     // Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-    let browseDisplayInner = "<a style=\"float: right; cursor: pointer; margin: auto 10px auto 10px; font-size: 200%;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'>&#10005;</a><a style=\"font-size: 175%;\" target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
+    let browseDisplayInner = "<a style=\"float: right; cursor: pointer; margin: auto 10px auto 10px; font-size: 200%;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'><svg width=\"1.5em\" class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a style=\"font-size: 175%;\" target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
 
     // Building the style of the display element
     let browseDisplayStyle = "float: none; text-align: center; padding: 12px 0; ";
