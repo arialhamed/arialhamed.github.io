@@ -150,14 +150,20 @@ prism: true
     margin: 0 auto;
 }
 .browse-cell img {
-    max-width: max(10vw, 20vh); 
+    max-height: 15vh;
+    margin: auto;
+    margin-top: 1em;
 }
-.browse-cell img + span {
-    display: block; 
-    max-width: max(10vw, 20vh); 
-    word-wrap: anywhere; 
-    margin-top: .6em; 
+a.browse-cell {
+    display: flex;
+    flex-direction: column-reverse;
 }
+.browse-cell span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
 </style>
 <script>
 
@@ -254,26 +260,26 @@ async function browseBuild(eachRecord){
     let contentElement = "<span class=\"col browse-cell\"";
     if (eachRecord["git_url"].startsWith("git://")) { // Is the record from the start?
         // Adds the repository names and the prospective API URLs as cells
-        document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"]);
+        document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "</span>");
     } else {
         // Is the record a directory?
         if (eachRecord["type"] == "dir") {
-            contentElement += " onclick=browseRun(\"" + eachRecord["url"] + "\") id=\"" + eachRecord["sha"] + "\">" + eachRecord["name"] + "/ <br><svg height=\"1.2em\" class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z\" clip-rule=\"evenodd\"/></svg>";
+            contentElement += " onclick=browseRun(\"" + eachRecord["url"] + "\") id=\"" + eachRecord["sha"] + "\">" + eachRecord["name"] + "/ <br><svg height=\"1.2em\" class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z\" clip-rule=\"evenodd\"/></svg></span>";
         } else {
             // This record is a file in these brackets
             let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]);
             // Is the record an image?
             if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { 
-                contentElement = `<a class=\"col browse-cell\" href=\"` + eachRecord["download_url"] + `\"><img src=\"` + eachRecord["download_url"] + `\" ><span>` + eachRecord["name"] + sizeElement + `</span>`;
+                contentElement = `<a class=\"col browse-cell\" href=\"` + eachRecord["download_url"] + `\"><span>` + eachRecord["name"] + sizeElement + `</span></span><span style=\"flex:.5\"></span><img src=\"` + eachRecord["download_url"] + `\" ></a>`;
                 // <span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">` + eachRecord["name"] + sizeElement + `</span>
             } else {
                 // `download_url` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
-                contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + sizeElement;
+                contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + sizeElement + "</span>";
             }
         }
 
         // Adds the folders and files as cells
-        document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement + "</span>");
+        document.getElementById("browse-content").insertAdjacentHTML("beforeend", contentElement);
     }
 }
 
