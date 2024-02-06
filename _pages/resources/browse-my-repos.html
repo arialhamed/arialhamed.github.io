@@ -113,6 +113,10 @@ prism: true
 #cud-inner:hover {
     color: var(--anchor-color);
 }
+#cud-inner svg {
+    position: relative;
+    right: .2em;
+}
 #cud-inner:hover svg {
     transform: scale(1.2);
 }
@@ -134,12 +138,6 @@ prism: true
     padding: 1rem;
     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
 }
-/* #browse-display {
-    float: none;
-    text-align: center;
-    padding: 12px 0px;
-    margin: auto;
-} applied in script */
 .browse-cell:hover {
     background-color: var(--overlay-hover);
 }
@@ -161,24 +159,91 @@ prism: true
 .browse-cell * {
     margin: 0 auto;
 }
-/*.browse-cell img {
-    max-height: 15vh;
-    margin: auto;
-    margin-top: 1em;
-}
-a.browse-cell {
-    display: flex;
-    flex-direction: column-reverse;
-}
-*/.browse-cell span {
+.browse-cell span {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
 }
 img.browse-cell {
-    max-height: 20vh;
+    height: min(15vh, 20vw);
     object-fit: scale-down;
+    width: max(20vw, 30vh);
 }
+#show-image {
+    max-width: 80%;
+    max-height: 80%; 
+    object-fit: contain;
+    margin: auto;
+}
+.browse-display-image #browse-display span:first-child { 
+    background-color: #000a;
+    padding: 1em;
+    border-radius: 2em;
+}
+.browse-display-default {
+    display: block;
+    float: none; 
+    text-align: center; 
+    padding: 12px 0; 
+}
+.browse-display-image {
+    display: flex;
+    flex-direction: column;
+    text-align: center; 
+    position: fixed; 
+    padding: 10%; 
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    background-color: #000a; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 6; 
+    margin: 0;
+}
+.browse-display-audio {
+    display: block;
+    text-align: center;
+    position: sticky;
+    position: -webkit-sticky;
+    padding: 1em;
+    top: 1em;
+    bottom: 1em;
+    background-color: #000a;
+    width: calc(100% - 2em);
+    z-index: 6;
+    border-radius: 2em;
+    margin: auto;
+}
+#browse-display-close svg {transition: ease-in-out .2s; transform: rotate(180deg) scale(1); }
+#browse-display-close:hover svg {transition: ease-in-out .2s; transform: rotate(180deg) scale(1.5); }
+#browse-display-close {
+    float: right;
+    cursor: pointer;
+    margin: auto 10px auto 10px;
+    font-size: 200%;
+    width: 1.5em;
+    top: -.4em;
+    position: relative;
+}
+.browse-display-image #browse-display-close {
+    top: unset;
+    left: 1.5em;
+    bottom: -1.5em;
+}
+.browse-display-audio #browse-display-close {
+    top: -.2em;
+    right: -.5em;
+}
+#browse-display-close + a {
+    font-size: 175%;
+    position: relative;
+    left: 1.5em;
+    word-wrap: anywhere;
+}
+.browse-display-image #browse-display-close + a {width: calc(100% - 3em); display: block; }
+.browse-display-audio #browse-display-close + a {left: 0; }
 
 </style>
 <script>
@@ -206,6 +271,7 @@ const iconCopy = "<svg height=\"1.5em\" class=\"w-6 h-6 text-gray-800 dark:text-
 // Browsing control variables
 let browsingTree = [];
 let isMouseOverAudio = false;
+let browsingArray = [];
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named "url", the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
@@ -270,7 +336,6 @@ async function browseRun(inUrl, rootRepoUrl="") {
     browseJson.forEach(browseBuild);
 }
 
-
 // The following will read each file or content (or repos) and display into the browse-content element
 async function browseBuild(eachRecord){
     let contentElement = "<span class=\"col browse-cell\"";
@@ -284,14 +349,15 @@ async function browseBuild(eachRecord){
         } else {
             // This record is a file in these brackets
             let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]);
+            let showItemElement = ` onclick=showFile(\"` + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + `\")`;
             // Is the record an image?
             if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { 
-                contentElement = `<img class=\"col browse-cell\" src=\"` + eachRecord["download_url"] + `\" >`;
+                contentElement = `<img` + showItemElement + ` class=\"col browse-cell\" src=\"` + eachRecord["download_url"] + `\" >`;
                 // contentElement = `<a class=\"col browse-cell\" href=\"` + eachRecord["download_url"] + `\"><span>` + eachRecord["name"] + sizeElement + `</span></span><span style=\"flex:.5\"></span><img src=\"` + eachRecord["download_url"] + `\" ></a>`;
                 // <span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">` + eachRecord["name"] + sizeElement + `</span>
             } else {
                 // `download_url` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
-                contentElement += " onclick=showFile(\"" + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + "\")>" + eachRecord["name"] + sizeElement + "</span>";
+                contentElement += showItemElement + `>` + eachRecord["name"] + sizeElement + `</span>`;
             }
         }
 
@@ -305,27 +371,35 @@ async function showFile(downloadUrl, mdRaw=false){
     console.log("showFile(" + downloadUrl + ")");
 
     // Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-    let browseDisplayInner = "<a style=\"float: right; cursor: pointer; margin: auto 10px auto 10px; font-size: 200%;\" onclick=\'document.getElementById(\"browse-display\").innerHTML = \"\"; document.getElementById(\"browse-display\").style = \"\"; \'><svg width=\"1.5em\" class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a style=\"font-size: 175%;\" target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
-
-    // Building the style of the display element
-    let browseDisplayStyle = "float: none; text-align: center; padding: 12px 0; ";
+    let browseDisplayInner = "<a id=\"browse-display-close\"><svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a target=\"_blank\" href=\"" + downloadUrl + "\">" + decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1)) + "</a>";
 
     // Add option to show parsed for markdown files
-    if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', true)\">alt: raw</a>)"}
-    if (downloadUrl.toLowerCase().endsWith(".md") &&  mdRaw) {browseDisplayInner += " (<a style=\"cursor: pointer;\" onclick=\"showFile(\'" + downloadUrl + "\', false)\">alt: parsed</a>)"}
+    if (downloadUrl.toLowerCase().endsWith(".md")) {
+        browseDisplayInner += " <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'" + downloadUrl + "\', ";
+        if (mdRaw) {browseDisplayInner += "false)\">alt: parsed"; } else {browseDisplayInner += "true)\">alt: raw"; }
+        browseDisplayInner += "</a>)</span>";
+    }
 
     // Tie out to give the title some more space
     browseDisplayInner += "<br>";
 
+    // Remove any existing browsing indicators from browse-display
+    ["default", "image", "audio"].forEach(a => document.getElementById("browse-display").classList.remove("browse-display-"+a))
+    let browseDisplayIndicator = "default";
+
+    // Check if file is image
+    if (extensionsImage.some(v => downloadUrl.toLowerCase().endsWith(v))) {
+        browseDisplayInner = "<span>" + browseDisplayInner + "</span><img id=\"show-image\" src=\"" + downloadUrl + "\">";
+        browseDisplayIndicator = "image";
+
     // Check if file is video
-    if (extensionsVideo.some(v => downloadUrl.toLowerCase().endsWith(v))) {
+    } else if (extensionsVideo.some(v => downloadUrl.toLowerCase().endsWith(v))) {
         browseDisplayInner += "<video id=\"show-video\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"video/webm\"></video>";
 
     // Check if file is audio
     } else if (extensionsAudio.some(v => downloadUrl.toLowerCase().endsWith(v))) {
         browseDisplayInner += "<audio id=\"show-audio\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"audio/mpeg\"></audio>";
-        browseDisplayStyle += "positon: -webkit-sticky; position: sticky; top: 0px; bottom: 0px; background-color: rgba(0,0,0,.5); width: 80%;";
-        // Note the width is 80% here. This is just a lazy way of handling the back-to-top element when in mobile :P
+        browseDisplayIndicator = "audio"
 
     // Check if file is a 3D object
     } else if (extensions3D.some(v => downloadUrl.toLowerCase().endsWith(v))) {
@@ -337,7 +411,7 @@ async function showFile(downloadUrl, mdRaw=false){
 
     // Check if file is PDF
     } else if (downloadUrl.toLowerCase().endsWith(".pdf")) {
-        browseDisplayInner += "<object type=\"application/pdf\" data=\"" + downloadUrl + "\" width=\"500\" height=\"375\">"
+        browseDisplayInner += "<object type=\"application/pdf\" data=\"" + downloadUrl + "\" width=\"500\" height=\"375\">";
 
     // If the file is none of the above, it should be text
     } else {
@@ -354,7 +428,8 @@ async function showFile(downloadUrl, mdRaw=false){
 
     // Push contents to browse-display's innerHTML
     document.getElementById("browse-display").innerHTML = browseDisplayInner;
-    document.getElementById("browse-display").style = browseDisplayStyle;
+    document.getElementById("browse-display").classList.add("browse-display-" + browseDisplayIndicator);
+    document.getElementById("browse-display-close").onclick=function(){document.getElementById("browse-display").innerHTML = ""; document.getElementById("browse-display").classList.remove("browse-display-" + browseDisplayIndicator); }
 
     // Set volume to half and play the media automatically
     if (document.getElementById("show-video") !== null) {document.getElementById("show-video").volume = .5; document.getElementById("show-video").play()}
