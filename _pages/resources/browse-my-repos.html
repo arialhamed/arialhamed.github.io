@@ -113,6 +113,9 @@ prism: true
 #cud-inner:hover {
     color: var(--anchor-color);
 }
+#cud-inner:hover svg {
+    transform: scale(1.2);
+}
 #search-box {
     width: 100%;
     background-color: rgba(0,0,0,0.2);
@@ -158,7 +161,7 @@ prism: true
 .browse-cell * {
     margin: 0 auto;
 }
-.browse-cell img {
+/*.browse-cell img {
     max-height: 15vh;
     margin: auto;
     margin-top: 1em;
@@ -167,10 +170,14 @@ a.browse-cell {
     display: flex;
     flex-direction: column-reverse;
 }
-.browse-cell span {
+*/.browse-cell span {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
+}
+img.browse-cell {
+    max-height: 20vh;
+    object-fit: scale-down;
 }
 
 </style>
@@ -279,7 +286,8 @@ async function browseBuild(eachRecord){
             let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]);
             // Is the record an image?
             if (extensionsImage.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))) { 
-                contentElement = `<a class=\"col browse-cell\" href=\"` + eachRecord["download_url"] + `\"><span>` + eachRecord["name"] + sizeElement + `</span></span><span style=\"flex:.5\"></span><img src=\"` + eachRecord["download_url"] + `\" ></a>`;
+                contentElement = `<img class=\"col browse-cell\" src=\"` + eachRecord["download_url"] + `\" >`;
+                // contentElement = `<a class=\"col browse-cell\" href=\"` + eachRecord["download_url"] + `\"><span>` + eachRecord["name"] + sizeElement + `</span></span><span style=\"flex:.5\"></span><img src=\"` + eachRecord["download_url"] + `\" ></a>`;
                 // <span style=\"text-overflow: ellipsis; overflow: hidden; display: block; width: 100%;\">` + eachRecord["name"] + sizeElement + `</span>
             } else {
                 // `download_url` does not contain encoded text, but `html_url` and `url` has, so i use that (`url` has that "?ref=" thing)
