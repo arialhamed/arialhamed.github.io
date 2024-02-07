@@ -55,7 +55,7 @@ prism: true
 <br>
 
 <!-- under the cells, displaying all except images already in cells -->
-<div class="container wide-responsive" id="browse-display" style="display: block; text-align: center;">
+<div class="container wide-responsive" id="browse-display">
 </div>
 
 <!-- Checked as of 2024 Jan 21, prismjs version is @1.29.0 -->
@@ -170,13 +170,13 @@ img.browse-cell {
     width: max(20vw, 30vh);
 }
 #show-image {
-    max-width: 80%;
-    max-height: 80%; 
+    max-width: 100%;
+    max-height: calc(100% - 10vh);
     object-fit: contain;
     margin: auto;
 }
 .browse-display-image #browse-display span:first-child { 
-    background-color: #000a;
+    background-color: var(--popup-background-color);
     padding: 1em;
     border-radius: 2em;
 }
@@ -191,12 +191,12 @@ img.browse-cell {
     flex-direction: column;
     text-align: center; 
     position: fixed; 
-    padding: 10%; 
+    padding: 5vh 5vw; 
     top: 0; 
     bottom: 0; 
     left: 0; 
     right: 0;
-    background-color: #000a; 
+    background-color: var(--popup-background-color); 
     width: 100%; 
     height: 100%; 
     z-index: 6; 
@@ -210,7 +210,7 @@ img.browse-cell {
     padding: 1em;
     top: 1em;
     bottom: 1em;
-    background-color: #000a;
+    background-color: var(--popup-background-color);
     width: calc(100% - 2em);
     z-index: 6;
     border-radius: 2em;
@@ -230,7 +230,7 @@ img.browse-cell {
 .browse-display-image #browse-display-close {
     top: unset;
     left: 1.5em;
-    bottom: -1.5em;
+    /* bottom: -1.5em; */
 }
 .browse-display-audio #browse-display-close {
     top: -.2em;
@@ -389,7 +389,7 @@ async function showFile(downloadUrl, mdRaw=false){
 
     // Check if file is image
     if (extensionsImage.some(v => downloadUrl.toLowerCase().endsWith(v))) {
-        browseDisplayInner = "<span>" + browseDisplayInner + "</span><img id=\"show-image\" src=\"" + downloadUrl + "\">";
+        browseDisplayInner = "<img id=\"show-image\" src=\"" + downloadUrl + "\"><span>" + browseDisplayInner + "</span>";
         browseDisplayIndicator = "image";
 
     // Check if file is video

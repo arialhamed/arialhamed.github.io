@@ -73,10 +73,14 @@
     :root {
         --overlay: #fff1; 
         --overlay-hover: #fff2; 
+        --overlay-solid: #333; 
+        --overlay-solid-hover: #3E3E3E;
         --font-color: #ddd; 
         --background-color: #202020; 
         --font: Arial; 
         --anchor-color: rgba(200,200,255,.75); 
+        --anchor-color-hover: rgba(200,200,255,.55); 
+        --popup-background-color: #000a; 
     }
     :not(code *) :not(pre *) {font-family: var(--font) !important; letter-spacing: 0px !important; }
     code {font-size: 1em; }
@@ -90,13 +94,13 @@
     figcaption {font-size: 70%; text-align: center; }
     video {max-width: 100%; height: auto; }
     img {margin-top: .7em; } /*padding: 0 !important;  box-shadow: 0 0 0px #0000!important; -webkit-box-shadow: 0 0 0px #0000!important; -moz-box-shadow: 0 0 0px #0000!important; -o-box-shadow: 0 0 0px #0000!important; -ms-box-shadow: 0 0 0px #0000!important; border: none; */
-    nav {background-color:var(--overlay); position: sticky; top: 1em; z-index: 5; }
+    /* nav {background-color:var(--overlay); position: sticky; top: 1em; z-index: 5; } */
     body {display: flex; min-height: 100vh; flex-direction: column; }
 
     /* Jekyll */
     footer p{color:var(--font-color)}
-    a{text-decoration:none;color:#0F79D0;text-shadow:none;transition:color 0.5s ease;transition:text-shadow 0.5s ease;-webkit-transition:color 0.5s ease;-webkit-transition:text-shadow 0.5s ease;-moz-transition:color 0.5s ease;-moz-transition:text-shadow 0.5s ease;-o-transition:color 0.5s ease;-o-transition:text-shadow 0.5s ease;-ms-transition:color 0.5s ease;-ms-transition:text-shadow 0.5s ease}
-    a:hover,a:focus{text-decoration:underline}
+    a{text-decoration:none;color:var(--anchor-color);text-shadow:none;transition:color 0.5s ease;transition:text-shadow 0.5s ease;-webkit-transition:color 0.5s ease;-webkit-transition:text-shadow 0.5s ease;-moz-transition:color 0.5s ease;-moz-transition:text-shadow 0.5s ease;-o-transition:color 0.5s ease;-o-transition:text-shadow 0.5s ease;-ms-transition:color 0.5s ease;-ms-transition:text-shadow 0.5s ease}
+    a:hover,a:focus{text-decoration:underline;color:var(--anchor-color-hover);}
     footer a{color:var(--font-color);text-decoration:underline}
     .outer{width:100%}
     .inner{position:relative;max-width:800px;padding:20px 10px;margin:0 auto}
@@ -106,8 +110,8 @@
     #project-title a:hover {text-shadow: .1em .2em 3px rgb(0, 0, 0); }
     #project-tagline{font-size:24px;font-weight:300;background:none;text-shadow:#111 0px 0px 10px}
     #main-content-wrap{flex: 1; background:var(--background-color);border-top:1px solid var(--background-color);border-bottom:1px solid var(--background-color);color:var(--font-color); }
-    #main-content-wrap a:not(.nav-link, .dropdown-item) {color: var(--anchor-color) !important; }
-    #main-content-wrap a:not(.nav-link, .dropdown-item):hover {color: rgba(200,200,255,.55) !important; }
+    /* #main-content-wrap a:not(.nav-link, .dropdown-item) {color: var(--anchor-color) !important; }
+    #main-content-wrap a:not(.nav-link, .dropdown-item):hover {color: rgba(200,200,255,.55) !important; } */
     #main-content{padding-top:15px}
     #footer-wrap{background:var(--background-color)}
     .language-plaintext {background-color: #333 !important; mix-blend-mode: difference; }
@@ -174,6 +178,10 @@
     .captioned-container .content {position: absolute; bottom: 0; background: rgb(0, 0, 0); background: rgba(0, 0, 0, 0.5); color: #f1f1f1 !important; width: 100%; padding: 20px; }
     .active-dropdown {color: #1e2125; background-color: #e9ecef; }
     .caption-middle {position: absolute; bottom: 5%; left: 50%; transform: translate(-50%, -50%); }
+    .navbar {background-color: var(--overlay-solid); position: sticky; top: 1em; z-index: 5; margin-top: .5em; margin-bottom: -.5em; box-shadow: 0 0 1em #111; border-radius: 2em;}
+    .navbar-collapse:not(.show) .navbar-nav .nav-item .dropdown-menu {margin-left: -3em; }
+    .nav-link svg {transition: ease-in .2s; transform: scale(1.0); height: 2.2em; margin: -.5em 0; }
+    .nav-link:hover svg {transition: ease-in .2s; transform: scale(1.2); }
 
     /* Custom */
     #github_redirect figure img{transition: ease-out 1s; }

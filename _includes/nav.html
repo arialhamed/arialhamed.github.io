@@ -1,122 +1,120 @@
-<nav class="navbar navbar-expand-sm navbar-dark">
+<nav class="navbar navbar-expand-sm navbar-dark disable-selection">
   <div class="container-fluid">
     <!-- HAMBURGER -->
-    <button class="navbar-toggler w-100" style="margin-right:5px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+    <button class="navbar-toggler w-100" style="margin-right:5px!important;border-radius:2em;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-sm-0">
         <!-- HOME -->
         <li class="nav-item">
-          <a class="nav-link disable-selection {% if page.url == '/' %} active {% endif %}" aria-current="page" href="/">home</a>
+          <a class="nav-link {% if page.url == '/' %} active {% endif %}" aria-current="page" href="/">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.3 3.3a1 1 0 0 1 1.4 0l6 6 2 2a1 1 0 0 1-1.4 1.4l-.3-.3V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3c0 .6-.4 1-1 1H7a2 2 0 0 1-2-2v-6.6l-.3.3a1 1 0 0 1-1.4-1.4l2-2 6-6Z" clip-rule="evenodd"/></svg>
+          </a>
         </li>
         <!-- ABOUT -->
         <li class="nav-item">
-          <a class="nav-link disable-selection {% if page.url == '/about' %} active {% endif %}" href="/about">about</a>
+          <a class="nav-link {% if page.url == '/about' %} active {% endif %}" href="/about">about</a>
         </li>
         <!-- GUIDES -->
         <li class="nav-item dropdown">
-          <a class="nav-link disable-selection {% if page.url contains '/guides' %} active {% endif %} dropdown-toggle" id="navbarGuides" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link {% if page.url contains '/guides' %} active {% endif %} dropdown-toggle" id="navbarGuides" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             guides
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarGuides">
-            <li><a class="dropdown-item disable-selection" href="/guides/markdown">markdown</a></li>
-            <li><a class="dropdown-item disable-selection" href="/guides/git">git</a></li>
-            <!-- <li><a class="dropdown-item disable-selection" href="/guides/github-cli">github cli</a></li> -->
-            <li><a class="dropdown-item disable-selection" href="/guides/android-debug-bridge">android debug</a></li>
-            <li><a class="dropdown-item disable-selection" href="/guides/screen-recording">android record</a></li>
-            <li><a class="dropdown-item disable-selection" href="/guides/webdev-tips">webdev tips</a></li>
-            <li><a class="dropdown-item disable-selection" href="/guides/comments">comments</a></li>
-            <li><a class="dropdown-item disable-selection" href="/guides/media-tips">media tips</a></li>
-            <li><a class="dropdown-item disable-selection" href="/guides/ubuntu">ubuntu tips</a></li>
-            <li><a class="dropdown-item disable-selection" href="/guides/thinkpad">thinkpad tips</a></li>
-            <li><a class="dropdown-item disable-selection" href="/guides/overpowered-android-gaming">op android gaming</a></li>
-            
-            <!-- <li><a class="dropdown-item disable-selection" href="/guides/bcache-ubuntu">ubuntu bcache</a></li> -->
+            <li><a class="dropdown-item" href="/guides/markdown">markdown</a></li>
+            <li><a class="dropdown-item" href="/guides/git">git</a></li>
+            <!-- <li><a class="dropdown-item" href="/guides/github-cli">github cli</a></li> -->
+            <li><a class="dropdown-item" href="/guides/android-debug-bridge">android debug</a></li>
+            <li><a class="dropdown-item" href="/guides/screen-recording">android record</a></li>
+            <li><a class="dropdown-item" href="/guides/webdev-tips">webdev tips</a></li>
+            <li><a class="dropdown-item" href="/guides/comments">comments</a></li>
+            <li><a class="dropdown-item" href="/guides/media-tips">media tips</a></li>
+            <li><a class="dropdown-item" href="/guides/ubuntu">ubuntu tips</a></li>
+            <li><a class="dropdown-item" href="/guides/thinkpad">thinkpad tips</a></li>
+            <li><a class="dropdown-item" href="/guides/overpowered-android-gaming">op android gaming</a></li>
+            <li><a class="dropdown-item" href="/guides/bcache-ubuntu">ubuntu bcache</a></li>
             
           </ul>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link disable-selection {% if page.url == '/guides' %} active {% endif %}" href="/guides">guides</a>
-        </li> -->
         <!-- BLOGS -->
         <li class="nav-item dropdown">
-          <a class="nav-link disable-selection {% if page.url contains '/blogs' %} active {% endif %} dropdown-toggle" id="navbarBlogs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link {% if page.url contains '/blogs' %} active {% endif %} dropdown-toggle" id="navbarBlogs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             blogs
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarBlogs">
-            <li><a class="dropdown-item disable-selection" href="/blogs/reviews">product reviews</a></li>
-            <li><a class="dropdown-item disable-selection" href="/blogs/upgrades">upgrades</a></li>
-            <li><a class="dropdown-item disable-selection" href="/blogs/if-i-had-a-3d-printer">if i had a 3d printer</a></li>
-            <li><a class="dropdown-item disable-selection" href="/blogs/needlework">needlework</a></li>
+            <li><a class="dropdown-item" href="/blogs/reviews">product reviews</a></li>
+            <li><a class="dropdown-item" href="/blogs/upgrades">upgrades</a></li>
+            <li><a class="dropdown-item" href="/blogs/if-i-had-a-3d-printer">if i had a 3d printer</a></li>
+            <li><a class="dropdown-item" href="/blogs/needlework">needlework</a></li>
             
           </ul>
         </li>
         <!-- RESOURCES -->
         <li class="nav-item dropdown">
-          <a class="nav-link disable-selection {% if page.url contains '/resources' %} active {% endif %} dropdown-toggle" id="navbarResources" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link {% if page.url contains '/resources' %} active {% endif %} dropdown-toggle" id="navbarResources" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             resources
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarResources">
-            <!-- <li><a class="dropdown-item disable-selection" href="/resources/ai">ai</a></li> -->
-            <!-- <li><a class="dropdown-item disable-selection" href="/resources/projects">projects</a></li> -->
-            <li><a class="dropdown-item disable-selection" href="/resources/browse-my-repos">browse my repos</a></li>
-            <li><a class="dropdown-item disable-selection" href="/resources/automation">automation</a></li>
-            <li><a class="dropdown-item disable-selection" href="/resources/emulator">emulator</a></li>
-            <li><a class="dropdown-item disable-selection" href="/resources/chatgpt">chatgpt responses</a></li>
-            <li><a class="dropdown-item disable-selection" href="/resources/markdown-live-preview">md preview</a></li>
-            <li><a class="dropdown-item disable-selection" href="/resources/logitech-unifying-catalog">logitech unifying catalog</a></li>
-            <!-- <li><a class="dropdown-item disable-selection" href="/resources/gpd">gpd reference</a></li> -->
-            <li><a class="dropdown-item disable-selection" href="/resources/expresscard">expresscard</a></li>
-            <li><a class="dropdown-item disable-selection" href="/resources/thinkpad-records">thinkpad-records</a></li>
-            <!-- <li><a class="dropdown-item disable-selection" href="/resources/bible">bible (niv)</a></li> -->
-            <!-- <li><a class="dropdown-item disable-selection" href="/resources/psref">psref</a></li> -->
-            <!-- <li><a class="dropdown-item disable-selection" href="/resources/lyrics">lyrics</a></li> -->
-            <!-- <li><a class="dropdown-item disable-selection" href="/resources/3d/openscad">openscad</a></li> -->
+            <!-- <li><a class="dropdown-item" href="/resources/ai">ai</a></li> -->
+            <!-- <li><a class="dropdown-item" href="/resources/projects">projects</a></li> -->
+            <li><a class="dropdown-item" href="/resources/browse-my-repos">browse my repos</a></li>
+            <li><a class="dropdown-item" href="/resources/automation">automation</a></li>
+            <li><a class="dropdown-item" href="/resources/emulator">emulator</a></li>
+            <li><a class="dropdown-item" href="/resources/chatgpt">chatgpt responses</a></li>
+            <li><a class="dropdown-item" href="/resources/markdown-live-preview">md preview</a></li>
+            <li><a class="dropdown-item" href="/resources/logitech-unifying-catalog">logitech unifying catalog</a></li>
+            <!-- <li><a class="dropdown-item" href="/resources/gpd">gpd reference</a></li> -->
+            <li><a class="dropdown-item" href="/resources/expresscard">expresscard</a></li>
+            <li><a class="dropdown-item" href="/resources/thinkpad-records">thinkpad-records</a></li>
+            <!-- <li><a class="dropdown-item" href="/resources/bible">bible (niv)</a></li> -->
+            <!-- <li><a class="dropdown-item" href="/resources/psref">psref</a></li> -->
+            <!-- <li><a class="dropdown-item" href="/resources/lyrics">lyrics</a></li> -->
+            <!-- <li><a class="dropdown-item" href="/resources/3d/openscad">openscad</a></li> -->
           </ul>
         </li>
         <!-- AI -->
         <!-- <li class="nav-item dropdown">
-          <a class="nav-link disable-selection {% if page.url contains '/ai' %} active {% endif %} dropdown-toggle" id="navbarAi" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link {% if page.url contains '/ai' %} active {% endif %} dropdown-toggle" id="navbarAi" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             ai
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarAi">
-            <li><a class="dropdown-item disable-selection" href="/ai/notebooks">notebooks</a></li>
-            <li><a class="dropdown-item disable-selection" href="/ai/screwmatrix">screwmatrix</a></li>
-            <li><a class="dropdown-item disable-selection" href="/ai/datsatoilet">datsatoilet</a></li>
-            <li><a class="dropdown-item disable-selection" href="/tfjs-aap">tfjs (AAP)</a></li>
+            <li><a class="dropdown-item" href="/ai/notebooks">notebooks</a></li>
+            <li><a class="dropdown-item" href="/ai/screwmatrix">screwmatrix</a></li>
+            <li><a class="dropdown-item" href="/ai/datsatoilet">datsatoilet</a></li>
+            <li><a class="dropdown-item" href="/tfjs-aap">tfjs (AAP)</a></li>
           </ul>
         </li> -->
         <!-- GAMES -->
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link disable-selection {% if page.url contains '/games' %} active {% endif %} dropdown-toggle" id="navbarGames" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown">
+          <a class="nav-link {% if page.url contains '/games' %} active {% endif %} dropdown-toggle" id="navbarGames" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             games
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarGames">
-            <li><a class="dropdown-item disable-selection" href="/games/wordle">wordle</a></li>
-            <li><a class="dropdown-item disable-selection" href="/games/sudoku">sudoku</a></li>
-            <li><a class="dropdown-item disable-selection" href="/games/minesweeper">minesweeper</a></li>
+            <li><a class="dropdown-item" href="/games/wordle">wordle</a></li>
+            <li><a class="dropdown-item" href="/games/sudoku">sudoku</a></li>
+            <li><a class="dropdown-item" href="/games/minesweeper">minesweeper</a></li>
           </ul>
-        </li> -->
+        </li>
         <!-- TOOLS -->
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link disable-selection {% if page.url contains '/tools' %} active {% endif %} dropdown-toggle" id="navbarTools" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown">
+          <a class="nav-link {% if page.url contains '/tools' %} active {% endif %} dropdown-toggle" id="navbarTools" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             tools
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarTools">
-            <li><a class="dropdown-item disable-selection" href="/tools/srihash">srihash</a></li>
-            <li><a class="dropdown-item disable-selection" href="/tools/jscompress">jscompress</a></li>
-            <li><a class="dropdown-item disable-selection" href="/tools/html-to-escape">html to escape</a></li>
+            <li><a class="dropdown-item" href="/tools/srihash">srihash</a></li>
+            <li><a class="dropdown-item" href="/tools/jscompress">jscompress</a></li>
+            <li><a class="dropdown-item" href="/tools/html-to-escape">html to escape</a></li>
           </ul>
-        </li> -->
+        </li>
         <!-- WEBARCHIVE -->
         <!-- <li class="nav-item dropdown">
-          <a class="nav-link disable-selection {% if page.url contains '/webarchive' %} active {% endif %} dropdown-toggle" id="navbarWebarchive" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link {% if page.url contains '/webarchive' %} active {% endif %} dropdown-toggle" id="navbarWebarchive" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             webarchive
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarWebarchive">
-            <li><a class="dropdown-item disable-selection" href="/webarchive/generic">generic</a></li>
-            <li><a class="dropdown-item disable-selection" href="/webarchive/reddit">reddit</a></li>
+            <li><a class="dropdown-item" href="/webarchive/generic">generic</a></li>
+            <li><a class="dropdown-item" href="/webarchive/reddit">reddit</a></li>
           </ul>
         </li> -->
       </ul>
