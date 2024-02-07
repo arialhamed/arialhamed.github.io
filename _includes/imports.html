@@ -82,6 +82,7 @@
         --anchor-color: rgba(200,200,255,.75); 
         --anchor-color-hover: rgba(200,200,255,.55); 
         --popup-background-color: #000a; 
+        --inner-width: 800px; 
     }
     :not(code *) :not(pre *) {font-family: var(--font) !important; letter-spacing: 0px !important; }
     code {font-size: 1em; }
@@ -104,7 +105,7 @@
     a:hover,a:focus{text-decoration:underline;color:var(--anchor-color-hover);}
     footer a{color:var(--font-color);text-decoration:underline}
     .outer{width:100%}
-    .inner{position:relative;max-width:800px;padding:20px 10px;margin:0 auto}
+    .inner{position:relative;max-width:var(--inner-width);/*padding:20px 10px;*/margin:0 auto}
     #header-wrap{background:var(--background-color);}
     #header-wrap .inner{padding:50px 10px 30px 10px}
     #project-title{margin:0;font-size:42px;font-weight:700;text-shadow:#111 0px 0px 10px}

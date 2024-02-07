@@ -436,41 +436,10 @@ async function showFile(downloadUrl, mdRaw=false){
     if (document.getElementById("show-text") !== null) {Prism.highlightElement(document.getElementById("show-text"))}
     if (document.getElementById("show-audio") !== null) {document.getElementById("show-audio").volume = .5; document.getElementById("show-audio").play()}
 }
-
-// Go back using browsingTree (which is a list)
-async function browseBack() {
-    console.log("browseBack()");
-    browsingTree.pop();
-    browseRun(browsingTree.pop());
-}
-
-// Reset function
-async function browseReset(browseSort = "pushed") {
-    console.log("browseReset()");
-    browsingTree = [];
-    document.getElementById("browse-display").innerHTML = ""; // clear the video/audio/text/etc display
-    document.getElementById("search-box").value = ""; // clear search box
-    browseRun("https://api.github.com/users/arialhamed/repos?sort=" + browseSort);
-}
-
-// Copy the current GitHub API URL
-async function copyCurrentUrl(tapState) {
-    if (tapState){
-        navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent);
-        document.getElementById("cud-inner").innerHTML = "copied to clipboard! <svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" height=\"1.5em\"><path stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z\"/></svg>";
-    } else {
-        document.getElementById("cud-inner").innerHTML = browsingTree.slice(-1)[0].slice(22) + " " + iconCopy;
-    }
-}
-
-// Search box function, basic stuff frfr
-async function searchContents() {
-    document.getElementById("browse-content").childNodes.forEach(
-        function(a){
-            a.style.display = (a.textContent.toLowerCase().includes(document.getElementById("search-box").value.toLowerCase())) ? "" : "none" 
-        }
-    )
-}
+async function browseBack() {browsingTree.pop(); browseRun(browsingTree.pop()); }
+async function browseReset(browseSort = "pushed") {browsingTree = []; document.getElementById("browse-display").innerHTML = ""; document.getElementById("search-box").value = ""; browseRun("https://api.github.com/users/arialhamed/repos?sort=" + browseSort); }
+async function copyCurrentUrl(f) {if (f){navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent); document.getElementById("cud-inner").innerHTML = "copied to clipboard! <svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" height=\"1.5em\"><path stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z\"/></svg>"; } else {document.getElementById("cud-inner").innerHTML = browsingTree.slice(-1)[0].slice(22) + " " + iconCopy; }}
+async function searchContents() {document.getElementById("browse-content").childNodes.forEach(function(a){a.style.display = (a.textContent.toLowerCase().includes(document.getElementById("search-box").value.toLowerCase())) ? "" : "none"; })}
 
 </script>
 
