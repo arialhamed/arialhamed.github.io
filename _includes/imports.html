@@ -74,8 +74,8 @@
     :root {
         --overlay: #fff1; 
         --overlay-hover: #fff2; 
-        --overlay-solid: #333; 
-        --overlay-solid-hover: #3E3E3E;
+        --navbar-overlay: ##333e; 
+        --navbar-overlay-hover: #444e;
         --font-color: #ddd; 
         --background-color: #202020; 
         --font: Arial; 
@@ -179,7 +179,8 @@
     .captioned-container .content {position: absolute; bottom: 0; background: rgb(0, 0, 0); background: rgba(0, 0, 0, 0.5); color: #f1f1f1 !important; width: 100%; padding: 20px; }
     .active-dropdown {color: #1e2125; background-color: #e9ecef; }
     .caption-middle {position: absolute; bottom: 5%; left: 50%; transform: translate(-50%, -50%); }
-    .navbar {background-color: var(--overlay-solid); position: sticky; top: 1em; z-index: 5; margin-top: .5em; margin-bottom: -.5em; box-shadow: 0 0 1em #111; border-radius: 2em;}
+    .navbar {background-color: var(--navbar-overlay); position: sticky; top: 1em; z-index: 5; margin-top: .5em; margin-bottom: -.5em; box-shadow: 0 0 1em #111; border-radius: 2em;}
+    .navbar:hover {background-color: var(--navbar-overlay-hover); }
     .navbar-collapse:not(.show) .navbar-nav .nav-item .dropdown-menu {margin-left: -3em; }
     .nav-link svg {transition: ease-in .2s; transform: scale(1.0); height: 2.2em; margin: -.5em 0; }
     .nav-link:hover svg {transition: ease-in .2s; transform: scale(1.2); }
