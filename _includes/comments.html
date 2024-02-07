@@ -700,7 +700,7 @@
 {% endif %}
 
 #comment-reply-info p {margin: 0; }
-.comments-form {margin-left: 1em; margin-right: 1em; width: 95%; }
+.comments-form {margin-left: 1.7em; /*margin-right: 1em; */width: calc(100% - 3em); }
 .comments-form ul {list-style: none; margin-left: -40px; }
 .comments-form ul li {margin-bottom: 15px; }
 .comments {align-items: center; border-top: 0px dashed #fff6; padding-top: 1rem; position: relative; }
@@ -715,8 +715,7 @@
 #load-more-comments {width: auto; }
 #load-more-comments, #num-comments-displayed {display: none; }
 #comment-name, #comment-comment {width: 100%; padding: 10px; border: 0; border-radius: 8px; box-shadow: 0px 0px 2px 2px rgb(0 0 0 / 10%); background-color: #ffffff15; color: white; }
-#comment-name:focus, #comment-comment:focus {background: #fff; }
-#comment-comment {width: 100%; height: 80px; resize: vertical; min-height: 80px; }
+#comment-comment {width: 100%; resize: vertical; min-height: 8em; }
 
 {% if recaptcha_enabled %}
 {% comment %}
