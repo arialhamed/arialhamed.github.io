@@ -66,6 +66,7 @@
             }
         )
         // document.onkeyup = e => {e = e || window.event; if(e.key == "/"){document.getElementById("search-box").focus(); document.getElementById("main-content").scrollIntoView()}}
+        document.getElementById("toggle-fullscreen").onclick = e => {if(window.innerWidth == screen.width || window.innerHeight == screen.height){document.exitFullscreen(); document.getElementById("toggle-fullscreen").innerHTML = "<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8 4H4m0 0v4m0-4 5 5m7-5h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5m7 5h4m0 0v-4m0 4-5-5\"/></svg>"}else{document.documentElement.requestFullscreen(); document.getElementById("toggle-fullscreen").innerHTML = "<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 9h4m0 0V5m0 4L4 4m15 5h-4m0 0V5m0 4 5-5M5 15h4m0 0v4m0-4-5 5m15-5h-4m0 0v4m0-4 5 5\"/></svg>"}}
     }
 
     connectCheck();
@@ -111,7 +112,7 @@
     #header-wrap{background:var(--background-color)}
     #header-wrap .inner{padding:50px 10px 30px 10px}
     #project-title{margin:0;font-size:42px;font-weight:700;text-shadow:#111 0px 0px 10px}
-    #project-title:hover {transform: skew(-180deg, 0deg)}
+    #project-title:hover {transform: skew(-190deg, 0deg)}
     #project-title a:hover {text-shadow: .1em .2em 3px rgb(0, 0, 0)}
     #project-tagline{font-size:24px;font-weight:300;background:none;text-shadow:#111 0px 0px 10px}
     #main-content-wrap{flex: 1; background:var(--background-color);border-top:1px solid var(--background-color);border-bottom:1px solid var(--background-color);color:var(--font-color)}
@@ -191,6 +192,8 @@
     /* Custom */
     #github-redirect figure img{transition: ease-in-out .5s}
     #github-redirect figure img:hover{transform: rotate3d(1, 1, 1, 360deg)}
+    #toggle-fullscreen {color: rgba(255,255,255,.55); margin-right: 1em; width: 2em; cursor: pointer; display: flex!important;}
+    #toggle-fullscreen:hover {color: rgba(255,255,255,.75)}
     .page-navigation {font-size: 14px; display: block; width: auto; overflow: hidden}
     .page-navigation a {display: block; width: 50%; float: left; margin: 1em 0; font-size: 80%}
     .timestamp, timestamp {color: var(--font-color); background-color: #333; border-color: #333; border-width: medium; border-style: solid; border-radius: 100px; padding: 0px 10px 0px 10px; -webkit-box-decoration-break: clone; -o-box-decoration-break: clone; box-decoration-break: clone}
@@ -227,10 +230,9 @@
     .wide-responsive {
         position: relative;
         width: 98vw;
-        left: max(-40%, calc(50% - 49vw + .75rem));
+        margin-left: max(-40%, calc(50% - 49vw));
         max-width: 180%;
-        margin-left: -.75rem; /* value decided by bootstrap's css, not me */
-        font-size: 75%; /*for some reason, this doesn't affect browse-content cells, pretty noice*/
+        font-size: 75%;
     }
 
     /* MOBILE STYLE */
