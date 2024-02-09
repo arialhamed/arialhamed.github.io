@@ -79,9 +79,6 @@ prism: true
 .title-icons:hover {
     background-color: var(--overlay-hover);
 }
-#browse-back + p svg {
-    transition: ease-in-out .5s;
-}
 #browse-back + p svg:hover {
     rotate: 180deg;
 }
@@ -154,7 +151,7 @@ prism: true
     user-select: none;
     padding: .375rem .75rem;
     font-size: 1rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+/*    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/
 }
 .browse-cell * {
     margin: 0 auto;
@@ -216,8 +213,8 @@ img.browse-cell {
     border-radius: 2em;
     margin: auto;
 }
-#browse-display-close svg {transition: ease-in-out .2s; transform: rotate(180deg) scale(1); }
-#browse-display-close:hover svg {transition: ease-in-out .2s; transform: rotate(180deg) scale(1.5); }
+/*#browse-display-close svg {transition: ease-in-out .2s; transform: rotate(180deg) scale(1); }*/
+#browse-display-close:hover svg {transform: rotate(180deg) scale(1.5); }
 #browse-display-close {
     float: right;
     cursor: pointer;
