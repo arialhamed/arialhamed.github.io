@@ -58,16 +58,8 @@ prism: true
 <div class="container wide-responsive" id="browse-display">
 </div>
 
-<!-- Checked as of 2024 Jan 21, prismjs version is @1.29.0 -->
-<!-- <script src="/static/js/prismjs/components/prism-core.min.js"></script>
-<script src="/static/js/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="/static/js/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
-<script src="/static/js/prismjs/plugins/file-highlight/prism-file-highlight.min.js"></script>
-<script src="/static/js/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-<script src="/static/js/prismjs/plugins/download-button/prism-download-button.min.js"></script>
-<script src="/static/js/prismjs/plugins/match-braces/prism-match-braces.min.js"></script>
-<script src="/static/js/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script> -->
-<script type="text/javascript" src="/static/js/prism.js"></script>
+<!-- <script type="text/javascript" src="/static/js/prism.js"></script> -->
+<script type="text/javascript" src="/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/static/js/remarkable.min.js"></script>
 <style>
 .title-icons {
@@ -323,7 +315,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
     console.log(browsingTree);
 
     document.getElementById("browse-content").innerHTML = "";
-    document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">" + inUrl.slice(22) + " " + iconCopy + "</span>";
+    document.getElementById("current-url-display").innerHTML = "<span id=\"cud-inner\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">" + iconCopy + " " + inUrl.slice(22) + "</span>";
 
     //const browseResponse = await fetch(inUrl);
     const browseResponse = await fetch(inUrl);
@@ -446,7 +438,7 @@ async function showFile(downloadUrl, mdRaw=false){
         if (downloadUrl.toLowerCase().endsWith(".md") && !mdRaw) {
             browseDisplayInner += "<br><span id=\"browse-md-parsed\">" + mdConverter.render(itemTextOut.substring(1).split("---").pop()) + "</span>";
         } else { // else show it parsed in Prism.js
-            browseDisplayInner += "<br><pre style=\"background-color: #333a;\" data-src=\"" + downloadUrl + "\" data-download-link><code id=\"show-text\" class=\"line-numbers language-" + downloadUrl.split('.').pop() + "\">" + itemTextOut.replace(/\</g, "&lt;") + "</code></pre>";
+            browseDisplayInner += "<br><pre style=\"background-color:#333a;width:100%;\" data-src=\"" + downloadUrl + "\" data-download-link><code id=\"show-text\" class=\"line-numbers language-" + downloadUrl.split('.').pop() + "\">" + itemTextOut.replace(/\</g, "&lt;") + "</code></pre>";
         } // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
     }
 
@@ -468,15 +460,9 @@ async function showFile(downloadUrl, mdRaw=false){
             audioRange.max = this.duration
         })
         audioRange.oninput = function(){audioPlayer.currentTime = this.value}
-        //document.getElementById("show-audio").volume = .5; 
-        //document.getElementById("show-audio").play()
         document.getElementById("audio-player-toggle-status").innerHTML = pathPlaying;
         document.getElementById("audio-player-toggle-status").onclick = e => {
-            if(audioPlayerPlaying){
-                audioPlayer.pause()
-            } else {
-                audioPlayer.play()
-            }
+            audioPlayerPlaying?audioPlayer.pause():audioPlayer.play();
             document.getElementById("audio-player-toggle-status").innerHTML = (audioPlayerPlaying) ? pathPaused : pathPlaying;
             audioPlayerPlaying = !audioPlayerPlaying
         }
@@ -484,7 +470,7 @@ async function showFile(downloadUrl, mdRaw=false){
 }
 async function browseBack() {browsingTree.pop(); browseRun(browsingTree.pop()); }
 async function browseReset(browseSort = "pushed") {browsingTree = []; document.getElementById("browse-display").innerHTML = ""; document.getElementById("search-box").value = ""; browseRun("https://api.github.com/users/" + githubUsername + "/repos?sort=" + browseSort); }
-async function copyCurrentUrl(f) {if (f){navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent); document.getElementById("cud-inner").innerHTML = "copied to clipboard! <svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" height=\"1.5em\"><path stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z\"/></svg>"; } else {document.getElementById("cud-inner").innerHTML = browsingTree.slice(-1)[0].slice(22) + " " + iconCopy; }}
+async function copyCurrentUrl(f) {if (f){navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent); document.getElementById("cud-inner").innerHTML = "<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" height=\"1.5em\"><path stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z\"/></svg> copied to clipboard!"; } else {document.getElementById("cud-inner").innerHTML = iconCopy + " " + browsingTree.slice(-1)[0].slice(22); }}
 async function searchContents() {document.getElementById("browse-content").childNodes.forEach(function(a){a.style.display = (a.textContent.toLowerCase().includes(document.getElementById("search-box").value.toLowerCase())) ? "" : "none"; })}
 
 </script>
