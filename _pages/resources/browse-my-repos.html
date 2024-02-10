@@ -60,13 +60,13 @@ prism: true
 
 <!-- Checked as of 2024 Jan 21, prismjs version is @1.29.0 -->
 <script src="/static/js/prismjs/components/prism-core.min.js"></script>
-<script src="/static/js/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="/static/js/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
-<script src="/static/js/prismjs/plugins/file-highlight/prism-file-highlight.min.js"></script>
-<script src="/static/js/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-<script src="/static/js/prismjs/plugins/download-button/prism-download-button.min.js"></script>
-<script src="/static/js/prismjs/plugins/match-braces/prism-match-braces.min.js"></script>
-<script src="/static/js/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<script src="/static/js/prismjs/plugins/prism-toolbar.min.js"></script>
+<script src="/static/js/prismjs/plugins/prism-autoloader.min.js"></script>
+<script src="/static/js/prismjs/plugins/prism-file-highlight.min.js"></script>
+<script src="/static/js/prismjs/plugins/prism-copy-to-clipboard.min.js"></script>
+<script src="/static/js/prismjs/plugins/prism-download-button.min.js"></script>
+<script src="/static/js/prismjs/plugins/prism-match-braces.min.js"></script>
+<script src="/static/js/prismjs/plugins/prism-line-numbers.min.js"></script>
 <script src="/static/js/remarkable.min.js"></script>
 <style>
 .title-icons {
@@ -172,6 +172,10 @@ img.browse-cell {
     object-fit: contain;
     margin: auto;
 }
+#show-audio {
+    width: 90%;
+    accent-color: var(--anchor-color);
+}
 .browse-display-image #browse-display span:first-child { 
     background-color: var(--popup-background-color);
     padding: 1em;
@@ -241,7 +245,12 @@ img.browse-cell {
 }
 .browse-display-image #browse-display-close + a {width: calc(100% - 3em); display: block; }
 .browse-display-audio #browse-display-close + a {left: 0; }
-
+#audio-controls {display: flex; height: 6em}
+#audio-controls svg:first-child {margin-left: auto;}
+#audio-controls svg:last-child {margin-right: auto;}
+#audio-controls svg {transition: all .1s}
+#audio-controls svg:hover {transform: scale(1.1);}
+#audio-controls svg:active {transform: scale(.9);}
 </style>
 <script>
 
@@ -264,6 +273,19 @@ const extensionsImage = [".avif", ".gif", ".jpg", ".jpeg", ".jfif", ".pjpeg", ".
 const extensionsSheet = [".csv", ".tsv", ".xlsx"];
 const queryUrl = new URLSearchParams(window.location.search).get("url");
 const iconCopy = "<svg height=\"1.5em\" class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M18 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1V9a4 4 0 0 0-4-4h-3a2 2 0 0 0-1 .3V5c0-1.1.9-2 2-2h7Z\" clip-rule=\"evenodd\"/><path fill-rule=\"evenodd\" d=\"M8 7v4H4.2c0-.2.2-.3.3-.4l2.4-2.9A2 2 0 0 1 8 7.1Zm2 0v4a2 2 0 0 1-2 2H4v6c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3Z\" clip-rule=\"evenodd\"/></svg>";
+const audioPlayer = new Audio();
+let audioPlayerPlaying = false;
+audioPlayer.volume = .5;
+const pathPaused = `<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 18V6l8 6-8 6Z"/>`
+const pathPlaying = `<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6H8a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Zm7 0h-1a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Z"/>`
+const audioPlayerHTML = `<div id="audio-controls">
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z" clip-rule="evenodd"/></svg>
+    <svg id="audio-player-toggle-status" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"></svg>
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z" clip-rule="evenodd"/></svg>
+    <svg onclick="audioPlayer.volume -= .05; " style="height:60%;" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.5 8.4a5 5 0 0 1 0 7.1M14 6.1V18a1 1 0 0 1-1.6.7L8 15H6a1 1 0 0 1-1-1v-4c0-.6.4-1 1-1h2l4.4-3.6A1 1 0 0 1 14 6Z"/></svg>
+    <svg onclick="audioPlayer.volume += .05; " style="height:60%;" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.4a5 5 0 0 1 0 7.1m2.9 2.9a9 9 0 0 0 0-12.8m-6.4.5V18a1 1 0 0 1-1.6.7L6 15H4a1 1 0 0 1-1-1v-4c0-.6.4-1 1-1h2l4.4-3.6A1 1 0 0 1 12 6Z"/></svg>
+</div>
+<input id="show-audio" value="0" type="range">`;
 
 // Browsing control variables
 let browsingTree = [];
@@ -379,7 +401,7 @@ async function showFile(downloadUrl, mdRaw=false){
     }
 
     // Tie out to give the title some more space
-    browseDisplayInner += "<br>";
+    // browseDisplayInner += "<br>";
 
     // Remove any existing browsing indicators from browse-display
     ["default", "image", "audio"].forEach(a => document.getElementById("browse-display").classList.remove("browse-display-"+a))
@@ -396,7 +418,10 @@ async function showFile(downloadUrl, mdRaw=false){
 
     // Check if file is audio
     } else if (extensionsAudio.some(v => downloadUrl.toLowerCase().endsWith(v))) {
-        browseDisplayInner += "<audio id=\"show-audio\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"audio/mpeg\"></audio>";
+        // browseDisplayInner += "<audio id=\"show-audio\" style=\"width: 100%;\" controls><source src=\"" + downloadUrl + "\" type=\"audio/mpeg\"></audio>";
+        // browseDisplayInner += ``
+        browseDisplayInner += audioPlayerHTML;
+        // browseDisplayInner += "<input id=\"show-audio\" value=\"0\" type=\"range\">"
         browseDisplayIndicator = "audio"
 
     // Check if file is a 3D object
@@ -432,7 +457,29 @@ async function showFile(downloadUrl, mdRaw=false){
     // Set volume to half and play the media automatically
     if (document.getElementById("show-video") !== null) {document.getElementById("show-video").volume = .5; document.getElementById("show-video").play()}
     if (document.getElementById("show-text") !== null) {Prism.highlightElement(document.getElementById("show-text"))}
-    if (document.getElementById("show-audio") !== null) {document.getElementById("show-audio").volume = .5; document.getElementById("show-audio").play()}
+    if (document.getElementById("show-audio") !== null) {
+        let audioRange = document.getElementById("show-audio");
+        audioPlayer.src = downloadUrl;
+        audioPlayer.addEventListener('loadedmetadata', function(){
+            this.play()
+            this.loop = true;
+            setInterval(function(){audioRange.value = audioPlayer.currentTime}, 1000)
+            audioRange.max = this.duration
+        })
+        audioRange.oninput = function(){audioPlayer.currentTime = this.value}
+        //document.getElementById("show-audio").volume = .5; 
+        //document.getElementById("show-audio").play()
+        document.getElementById("audio-player-toggle-status").innerHTML = pathPlaying;
+        document.getElementById("audio-player-toggle-status").onclick = e => {
+            if(audioPlayerPlaying){
+                audioPlayer.pause()
+            } else {
+                audioPlayer.play()
+            }
+            document.getElementById("audio-player-toggle-status").innerHTML = (audioPlayerPlaying) ? pathPaused : pathPlaying;
+            audioPlayerPlaying = !audioPlayerPlaying
+        }
+    }
 }
 async function browseBack() {browsingTree.pop(); browseRun(browsingTree.pop()); }
 async function browseReset(browseSort = "pushed") {browsingTree = []; document.getElementById("browse-display").innerHTML = ""; document.getElementById("search-box").value = ""; browseRun("https://api.github.com/users/" + githubUsername + "/repos?sort=" + browseSort); }
@@ -441,6 +488,6 @@ async function searchContents() {document.getElementById("browse-content").child
 
 </script>
 
-
+    
 
 {% include comments.html url=page.url %}
