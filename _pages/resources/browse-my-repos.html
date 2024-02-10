@@ -269,13 +269,14 @@ const iconCopy = "<svg height=\"1.5em\" class=\"w-6 h-6 text-gray-800 dark:text-
 let browsingTree = [];
 let isMouseOverAudio = false;
 let browsingArray = [];
+let githubUsername = "arialhamed";
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named "url", the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
-if (!queryUrl || String(queryUrl).startsWith("/users/arialhamed/repos?sort=")){
+if (!queryUrl || String(queryUrl).startsWith("/users/" + githubUsername + "/repos?sort=")){
     browseReset();
 } else {
-    browsingTree.push("https://api.github.com/users/arialhamed/repos?sort=pushed");
+    browsingTree.push("https://api.github.com/users/" + githubUsername + "/repos?sort=pushed");
     if (queryUrl.split("/contents").length > 1){
         browsingTree.push("https://api.github.com" + queryUrl.split("/contents")[0]);
         let eachClimb = queryUrl.slice(queryUrl.indexOf("/contents/") + 10).split("?")[0].split("/");
@@ -304,7 +305,7 @@ async function browseRun(inUrl, rootRepoUrl="") {
     //const browseResponse = await fetch(inUrl);
     const browseResponse = await fetch(inUrl);
     browseJson = await browseResponse.json();
-    if (inUrl.startsWith("https://api.github.com/users/arialhamed/repos")) { // If current link is the start
+    if (inUrl.startsWith("https://api.github.com/users/" + githubUsername + "/repos")) { // If current link is the start
         document.getElementById("browse-back").style.cursor = "not-allowed"; document.getElementById("browse-back").onclick = "";
         document.getElementById("current-title").innerHTML = "Ari's Public Repositories";
         document.getElementById("current-description").innerHTML = "<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
@@ -434,7 +435,7 @@ async function showFile(downloadUrl, mdRaw=false){
     if (document.getElementById("show-audio") !== null) {document.getElementById("show-audio").volume = .5; document.getElementById("show-audio").play()}
 }
 async function browseBack() {browsingTree.pop(); browseRun(browsingTree.pop()); }
-async function browseReset(browseSort = "pushed") {browsingTree = []; document.getElementById("browse-display").innerHTML = ""; document.getElementById("search-box").value = ""; browseRun("https://api.github.com/users/arialhamed/repos?sort=" + browseSort); }
+async function browseReset(browseSort = "pushed") {browsingTree = []; document.getElementById("browse-display").innerHTML = ""; document.getElementById("search-box").value = ""; browseRun("https://api.github.com/users/" + githubUsername + "/repos?sort=" + browseSort); }
 async function copyCurrentUrl(f) {if (f){navigator.clipboard.writeText(String(window.location).split("?")[0] + "?url=" + document.getElementById("cud-inner").textContent); document.getElementById("cud-inner").innerHTML = "copied to clipboard! <svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" height=\"1.5em\"><path stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z\"/></svg>"; } else {document.getElementById("cud-inner").innerHTML = browsingTree.slice(-1)[0].slice(22) + " " + iconCopy; }}
 async function searchContents() {document.getElementById("browse-content").childNodes.forEach(function(a){a.style.display = (a.textContent.toLowerCase().includes(document.getElementById("search-box").value.toLowerCase())) ? "" : "none"; })}
 
