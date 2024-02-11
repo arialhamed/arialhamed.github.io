@@ -54,13 +54,13 @@ async function addToHTML(details){
     console.log(details["download_url"])
     const responseFile = await fetch(details["download_url"]);
     const responseContent = await responseFile.text();
-    document.getElementById("scripts-content").insertAdjacentHTML("beforeend", "\
+    gId("scripts-content").insertAdjacentHTML("beforeend", "\
       <h3 id=\"" + slugify(details["name"]) + "\">" + details["name"] + "</h3> \
       <pre style=\"background-color: #333a;\" data-src=\"" + details["download_url"] + "\" data-download-link><code class=\"line-numbers language-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent.replace(/\</g, "&lt;") + "</code></pre> \
       <br><br> \
     ");
-    document.getElementById("scripts-list").insertAdjacentHTML("beforeend", "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>");
-    Prism.highlightElement(document.getElementById(details["sha"]));
+    gId("scripts-list").insertAdjacentHTML("beforeend", "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>");
+    Prism.highlightElement(gId(details["sha"]));
   }
 }
 

@@ -6,7 +6,7 @@ excerpt_separator: <!--more-->
 permalink: /resources/apk/:title
 play-link: https://play.google.com/store/apps/details?id=com.fastemulator.gbafree
 tags: emulator retro
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

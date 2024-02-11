@@ -53,23 +53,23 @@
 		get rid of the jQuery dependency (for comments) altogether. 
 	{% endcomment %}
 	function setText(elementId, textContent) {
-		document.getElementById(elementId).textContent = textContent;
+		gId(elementId).textContent = textContent;
 	};
 
 	function show(elementId) {
-		document.getElementById(elementId).style.display = 'inline';
+		gId(elementId).style.display = 'inline';
 	};
 
 	function hide(elementId) {
-		document.getElementById(elementId).style.display = 'none';
+		gId(elementId).style.display = 'none';
 	};
 
 	function getValue(elementId) {
-		return document.getElementById(elementId).value;
+		return gId(elementId).value;
 	};
 
 	function setValue(elementId, value) {
-		return document.getElementById(elementId).value = value;
+		return gId(elementId).value = value;
 	};
 
 	function fadeIn(element) {
@@ -88,7 +88,7 @@
 
 
 	function disableButtonWithLoader(elementId) {
-		var buttonToDisable = document.getElementById(elementId);
+		var buttonToDisable = gId(elementId);
 		if (buttonToDisable == null) {
 			return;
 		}
@@ -101,7 +101,7 @@
 	};
 
 	function enablePostCommentButton() {
-		var postCommentButton = document.getElementById("comment-submit");
+		var postCommentButton = gId("comment-submit");
 		postCommentButton.disabled = false;
 		setText("comment-submit", "Post");
 	};
@@ -365,11 +365,11 @@
 	};
 
 	function clearCommentReplyItem() {
-		document.getElementById("comment-reply-info").innerHTML = ``;
+		gId("comment-reply-info").innerHTML = ``;
 	};
 
 	function replyToComment(commentId) {
-		document.getElementById("comment-reply-info").innerHTML = `<small class="comment-reply-clear" onclick="clearCommentReplyItem()">Ⓧ&nbsp;&nbsp;&nbsp;</small><small onClick="jumpToComment('${commentId}')">Replying to comment <a id="reply-to-comment-id">${commentId}</a></small>`;
+		gId("comment-reply-info").innerHTML = `<small class="comment-reply-clear" onclick="clearCommentReplyItem()">Ⓧ&nbsp;&nbsp;&nbsp;</small><small onClick="jumpToComment('${commentId}')">Replying to comment <a id="reply-to-comment-id">${commentId}</a></small>`;
 		smoothScrollTo(document.getElementsByClassName("comments-form")[0]);
 	};
 	{% endif %}
@@ -434,9 +434,9 @@
 			</div>
 		`.trim();
 		if (isPrepend) {
-			document.getElementById("comment-container").prepend(newItem);
+			gId("comment-container").prepend(newItem);
 		} else {
-			document.getElementById("comment-container").append(newItem);
+			gId("comment-container").append(newItem);
 		}
 		fadeIn(newItem);
 		visibleComments.push(element);

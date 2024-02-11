@@ -26,6 +26,6 @@ redirect_from:
     async function getLatestAriProfilePic() {
         const response = await fetch("https://api.github.com/users/arialhamed/repos");
         const all = await response.json();
-        document.getElementById("gh-image").src = all[0]['owner']['avatar_url'];
+        gId("gh-image").src = all[0]['owner']['avatar_url'];
     }
 </script> -->

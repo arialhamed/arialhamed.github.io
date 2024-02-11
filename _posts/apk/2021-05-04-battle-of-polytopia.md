@@ -7,7 +7,7 @@ play-link: https://play.google.com/store/apps/details?id=air.com.midjiwan.polyto
 steam-link: https://store.steampowered.com/app/874390/The_Battle_of_Polytopia/
 ios-link: https://apps.apple.com/us/app/the-battle-of-polytopia/id1006393168
 tags: stragey low-poly
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

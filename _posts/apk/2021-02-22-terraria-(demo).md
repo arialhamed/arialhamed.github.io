@@ -10,7 +10,7 @@ ios-link: https://apps.apple.com/us/app/terraria/id640364616
 steam-link: https://store.steampowered.com/app/105600/Terraria/
 switch-link: https://www.nintendo.com/store/products/terraria-switch/
 tags: crafting adventure action procedural construction sandbox 2d retro pixel exploration cross-platform survival indie
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

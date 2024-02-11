@@ -72,7 +72,7 @@ async function listGBA(){
   const response = await fetch("https://arialhamed.pythonanywhere.com/emulator/gba");
   const all = await response.json();
   all.forEach(addToHTML);
-  document.getElementById("gba-intake").innerHTML = gbaIntakeText;
+  gId("gba-intake").innerHTML = gbaIntakeText;
   async function addToHTML(romDeets){
     gbaIntakeText += "<li><a href=\"/emulatorvimm?rom=" + romDeets["slug"] + "\">" + romDeets["name"] + "</a></li>";
   }
@@ -82,8 +82,8 @@ const currentQuery = new URLSearchParams(window.location.search);
 const romName = currentQuery.get("rom");
 if (!romName) {
   // This will be loaded in the page first
-  document.getElementById("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br>Games from <a href=\"https://vimm.net/\">vimm.net</a><br><br>";
-  document.getElementById("loading-gif").innerHTML = "";
+  gId("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br>Games from <a href=\"https://vimm.net/\">vimm.net</a><br><br>";
+  gId("loading-gif").innerHTML = "";
 } 
 $.ajax({
   url: "https://arialhamed.pythonanywhere.com/emulator/gba/" + inRomName,
@@ -94,7 +94,7 @@ $.ajax({
   EJS_gameName = deets["name"];
   EJS_color = '#222';
   EJS_startOnLoaded = true; 
-  EJS_onGameStart = function(e){ document.getElementById("loading-gif").innerHTML = ""; };
+  EJS_onGameStart = function(e){ gId("loading-gif").innerHTML = ""; };
   EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: true, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
   EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
   EJS_gameUrl = deets["url"];
@@ -137,7 +137,7 @@ $.ajax({
 % EJS_gameName = deets["name"];
 % EJS_color = '#222';
 % EJS_startOnLoaded = true; 
-% EJS_onGameStart = function(e){ document.getElementById("loading-gif").innerHTML = ""; };
+% EJS_onGameStart = function(e){ gId("loading-gif").innerHTML = ""; };
 % EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: true, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
 % EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
 % EJS_gameUrl = deets["url"];

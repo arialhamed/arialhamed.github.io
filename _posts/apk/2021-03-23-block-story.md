@@ -8,7 +8,7 @@ play-link: https://play.google.com/store/apps/details?id=com.mindblocks.blocks_l
 ios-link: https://apps.apple.com/us/app/block-story-free/id536926804
 steam-link: https://store.steampowered.com/app/270110/Block_Story/
 tags: rpg action action-rpg adventure action-adventure open-world procedural dragon
-secret: document.getElementById('truth').setAttribute('style','display:block;');
+secret: gId('truth').setAttribute('style','display:block;');
 paid: false
 ---
 

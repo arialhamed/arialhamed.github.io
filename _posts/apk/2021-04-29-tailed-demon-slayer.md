@@ -6,7 +6,7 @@ permalink: /resources/apk/:title
 play-link: https://play.google.com/store/apps/details?id=com.cookapps.taileddemonslayer
 ios-link: https://apps.apple.com/app/id1587114188
 tags: afk slasher vertical action rpg 
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

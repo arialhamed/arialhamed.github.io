@@ -7,7 +7,7 @@ permalink: /resources/apk/:title
 play-link: https://play.google.com/store/apps/details?id=com.valorware.ninthdawnii
 steam-link: https://store.steampowered.com/app/279070/9th_Dawn_II/
 tags: rpg action adventure action-adventure open-world indie action-rpg
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

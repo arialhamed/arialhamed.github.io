@@ -268,7 +268,7 @@
         };
         c.resetPage();
         c.hitQuartile = function(a) {
-          var b = this.getData("viewport.documentHeight") || document.getElementById("app").clientHeight;
+          var b = this.getData("viewport.documentHeight") || gId("app").clientHeight;
           b /= 4;
           this.currQuartile = 25 * Math.floor(a / b);
           return this.currQuartile > this.maxQuartile ? (this.maxQuartile = this.currQuartile, !0) : !1
@@ -1065,7 +1065,7 @@
         };
         c.resetPage();
         c.hitQuartile = function(a) {
-          var b = this.getData("viewport.documentHeight") || document.getElementById("app").clientHeight;
+          var b = this.getData("viewport.documentHeight") || gId("app").clientHeight;
           b /= 4;
           this.currQuartile = 25 * Math.floor(a / b);
           return this.currQuartile > this.maxQuartile ? (this.maxQuartile = this.currQuartile, !0) : !1

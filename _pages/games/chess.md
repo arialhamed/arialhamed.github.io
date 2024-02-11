@@ -211,7 +211,7 @@ layout: none
         <div id="last-update" style="font-size:70%;text-align:center;color:aliceblue;"></div>
         <script>
             // The line below is for the update text at the bottom of the screen
-            getLatestUpate(); function convertTZ(date, tzString) {return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));} async function getLatestUpate() {const response = await fetch("https://api.github.com/repos/arialhamed/arialhamed.github.io/commits"); const all = await response.json(); const current = all[0]['commit']['author']['date']; const bruh = convertTZ(current.substring(0,4)+"/"+current.substring(5,7)+"/"+current.substring(8,10)+" "+current.substring(11,14)+":"+current.substring(14,17)+":"+current.substring(17,19)+" +0000", "Asia/Singapore"); const zeroPad = (num, places) => String(num).padStart(places, '0'); document.getElementById('last-update').innerHTML = "this website was last updated in "+bruh.getDate()+" "+["January","February","March","April","May","June","July","August","September","October","November","December"][bruh.getMonth()]+" "+bruh.getFullYear()+", "+zeroPad(parseInt(bruh.getHours()),2)+":"+zeroPad(parseInt(bruh.getMinutes()),2)+":"+zeroPad(parseInt(bruh.getSeconds()),2)+" (GMT+8, Singapore Time).<br><a href=\"/\" style=\"color: aliceblue;\">Click here to return to main website</a>"; if (document.getElementById('last-update').innerHTML.includes("NaN")){window.open("https://arialhamed.github.io/maintenance","_self")}}
+            getLatestUpate(); function convertTZ(date, tzString) {return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));} async function getLatestUpate() {const response = await fetch("https://api.github.com/repos/arialhamed/arialhamed.github.io/commits"); const all = await response.json(); const current = all[0]['commit']['author']['date']; const bruh = convertTZ(current.substring(0,4)+"/"+current.substring(5,7)+"/"+current.substring(8,10)+" "+current.substring(11,14)+":"+current.substring(14,17)+":"+current.substring(17,19)+" +0000", "Asia/Singapore"); const zeroPad = (num, places) => String(num).padStart(places, '0'); gId('last-update').innerHTML = "this website was last updated in "+bruh.getDate()+" "+["January","February","March","April","May","June","July","August","September","October","November","December"][bruh.getMonth()]+" "+bruh.getFullYear()+", "+zeroPad(parseInt(bruh.getHours()),2)+":"+zeroPad(parseInt(bruh.getMinutes()),2)+":"+zeroPad(parseInt(bruh.getSeconds()),2)+" (GMT+8, Singapore Time).<br><a href=\"/\" style=\"color: aliceblue;\">Click here to return to main website</a>"; if (gId('last-update').innerHTML.includes("NaN")){window.open("https://arialhamed.github.io/maintenance","_self")}}
             // NOTE: Order goes from top-left to bottom-right, as is routine
             // r.svg => https://raw.githubusercontent.com/arialhamed/static/main/images/games/chess/bR.svg
             piece = { 'P': 100, 'N': 280, 'B': 320, 'R': 479, 'Q': 929, 'K': 60000 };
@@ -256,7 +256,7 @@ layout: none
             function clickedTile(tile_id){
                 // this is actually img inside the td
                 // holler();
-                const targetedTile = document.getElementById(tile_id).firstChild;
+                const targetedTile = gId(tile_id).firstChild;
                 // check if there is piece there AND if is player piece (uppercase )
                 const currentPiece = currentPos[parseInt(tile_id.substr(2))]
                 if (targetedTile.src != "https://raw.githubusercontent.com/arialhamed/static/main/images/games/chess/x.svg" && currentPiece == currentPiece.toUpperCase()){
@@ -286,7 +286,7 @@ layout: none
                 }
             }   
             function toggleHighlightTile(tile_id){
-                const targetedTile = document.getElementById(tile_id).firstChild
+                const targetedTile = gId(tile_id).firstChild
                 // targetedTile.addEventListener("animationiteration", trailingAnimFunc, false)
                 if (targetedTile.style.animation == "" && targetedTile.src != "https://raw.githubusercontent.com/arialhamed/static/main/images/games/chess/x.svg"){
                     targetedTile.style.animation = "selected 0.4s ease-out 0s infinite alternate";

@@ -55,7 +55,7 @@ redirect_from:
         await webcam.setup(); // request access to the webcam
 
         if (isIos) {
-            document.getElementById('webcam-container').appendChild(webcam.webcam); // webcam object needs to be added in any case to make this work on iOS
+            gId('webcam-container').appendChild(webcam.webcam); // webcam object needs to be added in any case to make this work on iOS
             // grab video-object in any way you want and set the attributes
             const webCamVideo = document.getElementsByTagName('video')[0];
             webCamVideo.setAttribute("playsinline", true); // written with "setAttribute" bc. iOS buggs otherwise
@@ -63,10 +63,10 @@ redirect_from:
             webCamVideo.style.width = width + 'px';
             webCamVideo.style.height = height + 'px';
         } else {
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            gId("webcam-container").appendChild(webcam.canvas);
         }
         // append elements to the DOM
-        labelContainer = document.getElementById('label-container');
+        labelContainer = gId('label-container');
         for (let i = 0; i < maxPredictions; i++) { // and class labels
             labelContainer.appendChild(document.createElement('div'));
         }
@@ -122,7 +122,7 @@ redirect_from:
 				model = await tmImage.load(modelURL, metadataURL);
 				maxPredictions = model.getTotalClasses();
 
-				labelContainer = document.getElementById('label-container');
+				labelContainer = gId('label-container');
 				for (let i = 0; i < maxPredictions; i++) {
 					// and class labels
 					labelContainer.appendChild(document.createElement('div'));
@@ -131,7 +131,7 @@ redirect_from:
 
 			async function predict() {
 				// predict can take in an image, video or canvas html element
-				var image = document.getElementById('imagePreview');
+				var image = gId('imagePreview');
 				const prediction = await model.predict(image, false);
 				for (let i = 0; i < maxPredictions; i++) {
 					const classPrediction =

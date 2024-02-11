@@ -8,7 +8,7 @@ guid: 09ff9ba3-8dfd-45ca-8177-09cf69d65306
 play-link: https://play.google.com/store/apps/details?id=de.dakror.quarry.demo
 ios-link: https://apps.apple.com/us/app/my-time-at-portia/id1555184523
 tags: resource-management strategy economy automation tower-defense minimalist crafting
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

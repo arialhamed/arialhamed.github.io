@@ -8,7 +8,7 @@ steam-link: https://store.steampowered.com/app/1321010/Labyrinth_Legend/
 ios-link: https://apps.apple.com/us/app/labyrinth-legend/id1496499182
 tags:
 published: false
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

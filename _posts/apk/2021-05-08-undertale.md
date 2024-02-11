@@ -6,7 +6,7 @@ permalink: /resources/apk/:title
 play-link: 
 steam-link: https://store.steampowered.com/app/391540/Undertale/
 tags: rpg great-soundtrack story-rich choices-matter
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

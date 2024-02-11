@@ -23,7 +23,7 @@ var rant = 'Ahhh, but what happened to this game? <span style="font-size:100%;">
 const rant_prologue = document.createElement("span");
 const rant_initialText = document.createTextNode("I got a rant about this game, though. double click this sentence.");
 rant_prologue.appendChild(rant_initialText);
-document.getElementById("exist").appendChild(rant_prologue);
+gId("exist").appendChild(rant_prologue);
 rant_prologue.ondblclick = function(){
     this.innerHTML = rant;
 };

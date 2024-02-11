@@ -7,7 +7,7 @@ play-link: https://play.google.com/store/apps/details?id=com.playdigious.sparkli
 steam-link: https://store.steampowered.com/app/943140/Sparklite/
 ios-link: https://apps.apple.com/us/app/sparklite/id1553922886
 tags: rpg top-down shooter
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

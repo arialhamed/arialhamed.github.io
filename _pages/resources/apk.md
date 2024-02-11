@@ -43,7 +43,7 @@ redirect_to: /maintenance
         };
     };
     function apkSearch(){
-        const q = document.getElementById("apkSearchId");
+        const q = gId("apkSearchId");
         if (paidflag){
             console.log(q)
         }
@@ -55,7 +55,7 @@ redirect_to: /maintenance
             const response = await fetch("https://arialhamed.github.io/_pages/resources/apk_search.json");
         };
         const all_assets = await response.json();
-        // document.getElementById('update').innerHTML = "bruh: "+all_assets[4]["title"];
+        // gId('update').innerHTML = "bruh: "+all_assets[4]["title"];
 
     }
 </script>
@@ -88,7 +88,7 @@ Here are a few things to take note about the APKs here
 <!-- 1. _**REVIEW CREDIBILITY**_. Related to gameplay and compatibility, **not all games I have played through all the way**, so some of my thoughts may not be reflective of the whole game, and I would usually state about it too. -->
 <!-- 1. **Personal disclaimer**: * I do not condone piracy, <span style="font-size:170%">but</span>, I also do not condone putting **paywalls** and **paid subscription** behind software that is or was free, or paid to begin with, and limiting **freedom** &amp; **opinion** of customers. <a href="https://upload.wikimedia.org/wikipedia/commons/d/d7/The.Pirate.Bay.Cartoon-small.png">stay woke</a> -->
 
-<!-- <span ondblclick="document.getElementById('banned').style.display='block'" style="font-size:60%;">there's also some that I never want to install on any phone</span>
+<!-- <span ondblclick="gId('banned').style.display='block'" style="font-size:60%;">there's also some that I never want to install on any phone</span>
 
 <pre id="banned" style="display:non;">
 

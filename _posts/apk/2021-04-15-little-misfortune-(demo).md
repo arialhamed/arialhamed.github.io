@@ -7,7 +7,7 @@ play-link: https://play.google.com/store/apps/details?id=com.KillmondayGames.Lit
 steam-link: https://store.steampowered.com/app/714120/Little_Misfortune/
 ios-link: https://apps.apple.com/us/app/little-misfortune/id1483030972?l=en
 tags: psychological-horror horror point-and-click
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

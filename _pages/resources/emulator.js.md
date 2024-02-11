@@ -77,10 +77,10 @@ async function listGBA(){
   const response = await fetch("https://api.github.com/repos/arialhamed/static/contents/games/roms/gba");
   const all = await response.json();
   all.forEach(addToHTML);
-  // document.getElementById("gba-intake").innerHTML = gbaIntakeText;
+  // gId("gba-intake").innerHTML = gbaIntakeText;
   async function addToHTML(romDeets){
     if (romDeets["name"].slice(-4) == ".gba") {
-      document.getElementById("gba-intake").insertAdjacentHTML("beforeend", "<li><a href=\"/emulator?rom=" + romDeets["name"] + "\">" + romDeets["name"].slice(0, -4) + "</a></li>");
+      gId("gba-intake").insertAdjacentHTML("beforeend", "<li><a href=\"/emulator?rom=" + romDeets["name"] + "\">" + romDeets["name"].slice(0, -4) + "</a></li>");
     }
   }
 }
@@ -89,8 +89,8 @@ const currentQuery = new URLSearchParams(window.location.search);
 const romName = currentQuery.get("rom");
 if (!romName) {
   // This will be loaded in the page first
-  document.getElementById("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br><br>";
-  document.getElementById("loading-gif").innerHTML = "";
+  gId("default-info").innerHTML = "Select one of the games here to start playing.<br><br>Particles background is paused to optimize gameplay.<br><br>EmulatorJS by <a href=\"https://github.com/EmulatorJS/EmulatorJS\">Ethan O\'Brien</a><br><br>";
+  gId("loading-gif").innerHTML = "";
 } 
 // EmulatorJS
 EJS_player = '#game';
@@ -98,7 +98,7 @@ EJS_core = romName.slice(-3);
 EJS_gameName = romName.slice(0, -4);
 EJS_color = '#222';
 EJS_startOnLoaded = true; 
-EJS_onGameStart = function(e){ document.getElementById("loading-gif").innerHTML = ""; };
+EJS_onGameStart = function(e){ gId("loading-gif").innerHTML = ""; };
 EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: true, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
 EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
 EJS_gameUrl = "https://raw.githubusercontent.com/arialhamed/static/main/games/roms/" + romName.slice(-3) + "/" + romName;

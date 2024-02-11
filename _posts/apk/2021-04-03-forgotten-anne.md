@@ -8,7 +8,7 @@ play-link: https://play.google.com/store/apps/details?id=com.hitcents.forgottona
 ios-link: https://apps.apple.com/sg/app/forgotton-anne/id1457216934
 steam-link: https://store.steampowered.com/app/542050/Forgotton_Anne/
 tags: anime rpg visual-novel
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

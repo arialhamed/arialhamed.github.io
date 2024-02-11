@@ -36,7 +36,7 @@ Thingiverse: <a href="https://www.thingiverse.com/thing:6037340">Link</a>
       const processor = new OpenJsCad.Processor(scadCode);
 
       // Render the OpenSCAD model
-      const scadContainer = document.getElementById('scad-container');
+      const scadContainer = gId('scad-container');
       const viewer = document.createElement('div');
       viewer.setAttribute('style', 'width: 100%; height: 400px;');
       scadContainer.appendChild(viewer);

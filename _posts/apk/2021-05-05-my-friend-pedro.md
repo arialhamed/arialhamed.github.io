@@ -7,7 +7,7 @@ play-link: https://play.google.com/store/apps/details?id=com.devolverdigital.myf
 steam-link: https://store.steampowered.com/app/557340/My_Friend_Pedro/
 ios-link: https://apps.apple.com/us/app/my-friend-pedro/id1549573204
 tags: action time
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

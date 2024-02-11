@@ -7,7 +7,7 @@ play-link: https://play.google.com/store/apps/details?id=com.valorware.ninthdawn
 steam-link: https://store.steampowered.com/app/1154850/9th_Dawn_III/
 ios-link: https://apps.apple.com/us/app/9th-dawn-iii/id1528353612
 tags: hack-and-slash dungeon-crawler collectathon rpg action
-secret: document.getElementById('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
+secret: gId('truth').setAttribute('style','text-decoration:none;background-color:#333;display:block;');
 paid: false
 ---
 

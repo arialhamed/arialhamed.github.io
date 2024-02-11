@@ -964,7 +964,7 @@ Pics of the X230 from a google search
     <br>
     Some things that aren't essential & not directly involved with the X230 is not recorded to the above tally, such as the external monitor, the VGA cable that connects to it, the Ethernet cable connected to my router, the any of the mice that i use and some other unmentioned peripherals.
     <script>
-        var tds = document.getElementById('tbody').getElementsByTagName('td');
+        var tds = gId('tbody').getElementsByTagName('td');
         var sum1 = 0; var sum2 = 0;
         for(var i = 0; i < tds.length; i ++) {
             if(tds[i].className == 'cost1') {
@@ -974,7 +974,7 @@ Pics of the X230 from a google search
                 sum2 += isNaN(tds[i].innerHTML) ? 0 : parseFloat(tds[i].innerHTML);
             }
         }
-        document.getElementById("sum1").innerHTML = sum1;
-        document.getElementById("sum2").innerHTML = sum2;
+        gId("sum1").innerHTML = sum1;
+        gId("sum2").innerHTML = sum2;
     </script>
 </span>

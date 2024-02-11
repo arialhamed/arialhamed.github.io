@@ -17,7 +17,7 @@
     {% if page.farewell %}
     <script>
       function playFarewell(){
-        var audio = document.getElementById("farewell");
+        var audio = gId("farewell");
         audio.play()
       }
     </script>
@@ -55,7 +55,7 @@
               {% endif %}
             {% endfor %}
             
-            <script> function footnote(e){window.open("#"+e,"_self"),document.getElementById(e).style.backgroundColor="yellow"}function clearHighlight(e){document.getElementById(e).style.backgroundColor=""}document.addEventListener("keydown",function(e){switch(e.key){case"ArrowLeft":window.open("{{previous_post.url}}","_self");break;case"ArrowRight":window.open("{{next_post.url}}","_self")}}); </script>
+            <script> function footnote(e){window.open("#"+e,"_self"),gId(e).style.backgroundColor="yellow"}function clearHighlight(e){gId(e).style.backgroundColor=""}document.addEventListener("keydown",function(e){switch(e.key){case"ArrowLeft":window.open("{{previous_post.url}}","_self");break;case"ArrowRight":window.open("{{next_post.url}}","_self")}}); </script>
 
             {% if previous_post and next_post %}
               <a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
