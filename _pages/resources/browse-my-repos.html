@@ -321,6 +321,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
     browsingTree.push(inUrl); // Adds current url to a history array
     console.log(browsingTree);
 
+    browsingArray = [];
     gId("browse-content").innerHTML = "";
     gId("current-url-display").innerHTML = "<span id=\"cud-inner\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">" + iconCopy + inUrl.slice(22) + "</span>";
 
@@ -358,7 +359,6 @@ async function browseRun(inUrl, rootRepoUrl=""){
 // The following will read each file or content (or repos) and display into the browse-content element
 async function browseBuild(eachRecord){
     let contentElement = "<span class=\"col browse-cell\"";
-    browsingArray = [];
     if (eachRecord["git_url"].startsWith("git://")){ // Is the record from the start?
         // Adds the repository names and the prospective API URLs as cells
         gId("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "</span>");
