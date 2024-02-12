@@ -246,6 +246,9 @@ img.browse-cell{
 #audio-controls svg{transition:all .1s}
 #audio-controls svg:hover{transform:scale(1.1)}
 #audio-controls svg:active{transform:scale(.9)}
+#audio-toggle{margin:-1em}
+#audio-decrease, #audio-increase{height:60%}
+#audio-increase{margin-left:.25em}
 </style>
 <script>
 
@@ -274,12 +277,12 @@ const pathPaused = `<path stroke="currentColor" stroke-linecap="round" stroke-li
 const pathPlaying = `<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6H8a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Zm7 0h-1a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Z"/>`
 const audioPlayerHTML = `<div id="audio-controls">
     <span id="audio-duration">--:--<br>-<br>--:--</span>
-    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z" clip-rule="evenodd"/></svg>
+    <svg id="audio-previous" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z" clip-rule="evenodd"/></svg>
     <svg id="audio-toggle" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">`+pathPaused+`</svg>
-    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z" clip-rule="evenodd"/></svg>
-    <svg id="audio-decrease" style="height:60%;" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.5 8.4a5 5 0 0 1 0 7.1M14 6.1V18a1 1 0 0 1-1.6.7L8 15H6a1 1 0 0 1-1-1v-4c0-.6.4-1 1-1h2l4.4-3.6A1 1 0 0 1 14 6Z"/></svg>
+    <svg id="audio-next" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z" clip-rule="evenodd"/></svg>
+    <svg id="audio-decrease" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.5 8.4a5 5 0 0 1 0 7.1M14 6.1V18a1 1 0 0 1-1.6.7L8 15H6a1 1 0 0 1-1-1v-4c0-.6.4-1 1-1h2l4.4-3.6A1 1 0 0 1 14 6Z"/></svg>
     <span id="audio-volume">--</span>
-    <svg id="audio-increase" style="height:60%;" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.4a5 5 0 0 1 0 7.1m2.9 2.9a9 9 0 0 0 0-12.8m-6.4.5V18a1 1 0 0 1-1.6.7L6 15H4a1 1 0 0 1-1-1v-4c0-.6.4-1 1-1h2l4.4-3.6A1 1 0 0 1 12 6Z"/></svg>
+    <svg id="audio-increase" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.4a5 5 0 0 1 0 7.1m2.9 2.9a9 9 0 0 0 0-12.8m-6.4.5V18a1 1 0 0 1-1.6.7L6 15H4a1 1 0 0 1-1-1v-4c0-.6.4-1 1-1h2l4.4-3.6A1 1 0 0 1 12 6Z"/></svg>
 </div>
 <input id="show-audio" value="0" type="range">`;
 
@@ -355,6 +358,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 // The following will read each file or content (or repos) and display into the browse-content element
 async function browseBuild(eachRecord){
     let contentElement = "<span class=\"col browse-cell\"";
+    browsingArray = [];
     if (eachRecord["git_url"].startsWith("git://")){ // Is the record from the start?
         // Adds the repository names and the prospective API URLs as cells
         gId("browse-content").insertAdjacentHTML("beforeend", contentElement + " onclick=browseRun(\"" + eachRecord["url"] + "\")>" + eachRecord["name"] + "</span>");
@@ -365,13 +369,15 @@ async function browseBuild(eachRecord){
         }else{
             // This record is a file in these brackets
             let sizeElement = "<br><span style=\"font-size: 70%; vertical-align: top;\">" + formatBytes(eachRecord["size"]);
-            let showItemElement = ` onclick=showFile(\"` + eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1) + `\")`;
+            let friendlyUrl = eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/')) + "/" + eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1);
+            let showItemElement = ` onclick=showFile("` + friendlyUrl + `")`;
             // Is the record an image?
             if (extI.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))){ 
                 contentElement = `<img` + showItemElement + ` class=\"col browse-cell\" src=\"` + eachRecord["download_url"] + `\" >`;
             }else{
                 contentElement += showItemElement + `>` + eachRecord["name"] + sizeElement + `</span>`;
             }
+            browsingArray.push(friendlyUrl);
         }
 
         // Adds the folders and files as cells
@@ -474,6 +480,8 @@ async function showFile(downloadUrl, mdRaw=false){
         gId("audio-decrease").onclick = e =>{audioPlayer.volume -= .01; showVolume()}
         document.documentElement.onmouseup = e =>{doesIsVolumin?clearInterval(doesIsVolumin):""}
         document.documentElement.onmouseup = e =>{doesIsVolumin?clearInterval(doesIsVolumin):""}
+        gId("audio-next").onclick = e =>{showFile(browsingArray[Math.min(browsingArray.indexOf(downloadUrl)+1,browsingArray.length-1)])}
+        gId("audio-previous").onclick = e =>{showFile(browsingArray[Math.max(browsingArray.indexOf(downloadUrl)-1,0)])}
     }
 }
 async function browseBack(){browsingTree.pop(); browseRun(browsingTree.pop()); }
