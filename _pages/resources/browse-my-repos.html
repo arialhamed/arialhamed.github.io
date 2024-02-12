@@ -59,7 +59,9 @@ prism: true
 </div>
 
 <script type="text/javascript" src="/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/static/js/remarkable.min.js"></script>
+<!-- <script type="text/javascript" src="/static/js/remarkable.min.js"></script> -->
+<script type="text/javascript" src="/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/static/js/jsmediatags.min.js"></script>
 <style>
 .title-icons{
     display: inline; 
@@ -202,15 +204,17 @@ img.browse-cell{
     position: sticky;
     position: -webkit-sticky;
     padding: 1em;
-    /* top: 1em; */
     bottom: 1em;
-    background-color: var(--popup-background-color);
+    background-color: #0008;
+    background-image: url("");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
     width: calc(100% - 2em);
     z-index: 4;
     border-radius: 2em;
     margin: auto;
 }
-/*#browse-display-close svg{transition: ease-in-out .2s; transform: rotate(180deg) scale(1); }*/
 #browse-display-close:hover svg{transform: rotate(180deg) scale(1.5); }
 #browse-display-close{
     float: right;
@@ -449,7 +453,8 @@ async function showFile(downloadUrl, mdRaw=false){
         gId("browse-display").innerHTML = ""; 
         gId("browse-display").classList.remove("browse-display-" + browseDisplayIndicator); 
         clearInterval(intervalsDict["audioUpdating"]);
-        ["default","image","audio"].forEach(e=>{gId("browse-display").classList.remove("browse-display-"+e)})}
+        ["default","image","audio"].forEach(e=>{gId("browse-display").classList.remove("browse-display-"+e)})
+    }
 
     // Set volume to half and play the media automatically
     if (gId("show-video") !== null){gId("show-video").volume = .5; gId("show-video").play()}
@@ -460,14 +465,21 @@ async function showFile(downloadUrl, mdRaw=false){
         function showTimestamp(){try{gId("audio-duration").innerHTML=new Date(audioPlayer.currentTime * 1000).toISOString().slice(14, 19)+"<br>-<br>"+new Date(audioPlayer.duration * 1000).toISOString().slice(14, 19)}catch(err){clearInterval(intervalsDict["audioUpdating"])}}
         function showVolume(){try{gId("audio-volume").innerHTML=parseInt(audioPlayer.volume * 100)}catch(err){clearInterval(doesIsVolumin)}}
         let audioRange = gId("show-audio");
-        audioPlayer.src = downloadUrl;
+        fetch(downloadUrl).then(ea=>{ea.blob().then(eb=>{
+            audioPlayer.src = URL.createObjectURL(eb)
+            window.jsmediatags.read(eb, {
+                onSuccess: tag=>{debog=tag;gId("browse-display").style.backgroundImage="url("+jmtToSrc(tag.tags.picture)+")"},
+                onError: err=>{console.log(err)}
+            })
+        })})
+        // audioPlayer.src = downloadUrl;
         audioPlayer.addEventListener('loadedmetadata', function(){
             this.play()
             this.loop = true;
             intervalsDict["audioUpdating"] = setInterval(function(){audioRange.value = audioPlayer.currentTime * 8; showTimestamp()}, 125)
             audioRange.max = this.duration * 8;
             showTimestamp();showVolume();
-            gId("audio-toggle").innerHTML = pathPlaying;
+            gId("audio-toggle").innerHTML = pathPlaying
         })
         audioRange.oninput = function(){audioPlayer.currentTime = this.value / 8}
         gId("audio-toggle").onclick = e =>{
