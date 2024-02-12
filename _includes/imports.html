@@ -44,7 +44,7 @@
     window.onload = function(){
         Array.from(document.getElementsByClassName("uwu")).forEach(
             function(a){
-                const b = "border-radius:.5em;font-family:monospace!important;cursor:grab"
+                const b = "border-radius:.5em;font-family:var(--bs-font-monospace)!important;cursor:grab"
                 const c = b + ";color:white;";
                 const d = b + "bing;color:black;background:linear-gradient(90deg, #5BCFFA 20%, #F5ABB9 20% 40%, white 40% 60%, #F5ABB9 60% 80%, #5BCFFA 80% 100%);";
                 a.classList.add("disable-selection");
@@ -70,17 +70,17 @@
         --overlay:#fff1;
         --overlay-hover:#fff2;
         --nav-overlay:#333e;
-        --nav-font-color:rgba(255,255,255,.55);
-        --nav-font-color-hover:rgba(255,255,255,.75);
+        --nav-font-color:#dddf/*rgba(255,255,255,.55)*/;
+        --nav-font-color-hover:#dddd/*rgba(255,255,255,.75)*/;
         --font-color:#ddd;
         --background-solid:#202020;
         --font:Arial;
-        --anchor-color:rgba(200,200,255,.75);
+        --anchor-color:rgba(3, 3, 14, 0.75);
         --anchor-color-hover:rgba(200,200,255,.55);
         --popup-background-color:#000a;
         --inner-width:800px;
     }
-    :not(code *) :not(pre *){font-family:var(--font)!important;letter-spacing:0px!important}
+    :not(code *) :not(pre *){font-family:var(--font);letter-spacing:0px}
     code{font-size:1em}
     pre{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;box-shadow:none}
     canvas{display:block}
@@ -228,7 +228,11 @@
         #particles-js, canvas.particles-js-canvas-el, #github-redirect{display:none!important}
         #particles-mobile{display:block!important}
         #site-hair{text-align:center;float:none!important}
+        .navbar{width:min-content}
+        .dropdown-menu.show{position:absolute;margin-left:130%;top:0}
     }
+
+    /* testing out stuff here owo */
     .dropdown-submenu{position:relative}
     ::-webkit-scrollbar{
         width:0;
