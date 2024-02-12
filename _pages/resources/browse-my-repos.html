@@ -205,7 +205,7 @@ img.browse-cell{
     position: -webkit-sticky;
     padding: 1em;
     bottom: 1em;
-    background-color: #0008;
+    background-color: #0007;
     background-image: url("");
     background-size: auto 100%;
     background-repeat: no-repeat;
@@ -241,7 +241,7 @@ img.browse-cell{
     word-wrap: anywhere;
 }
 .browse-display-image #browse-display-close + a{width:calc(100% - 3em);display:block}
-.browse-display-audio #browse-display-close + a{left:0}
+.browse-display-audio #browse-display-close + a{left:0;background-color:var(--background-solid);padding:.4em;border-radius:.75em;-webkit-box-decoration-break:clone;-o-box-decoration-break:clone;box-decoration-break:clone}
 #audio-controls{display:flex;height:6em}
 #audio-controls svg{cursor:pointer}
 #audio-controls span{font-family:var(--bs-font-monospace);font-size:1.2em;line-height:1em;margin-top:1em}
@@ -250,7 +250,6 @@ img.browse-cell{
 #audio-controls svg{transition:all .1s}
 #audio-controls svg:hover{transform:scale(1.1)}
 #audio-controls svg:active{transform:scale(.9)}
-#audio-toggle{margin:-1em}
 #audio-decrease, #audio-increase{height:60%}
 #audio-increase{margin-left:.25em}
 </style>
@@ -446,7 +445,8 @@ async function showFile(downloadUrl, mdRaw=false){
         }// The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
     }
 
-    // Push contents to browse-display's innerHTML
+    // Clear inline styles, push contents to browse-display's innerHTML, and add custom-by-file styles via class
+    gId("browse-display").style="";
     gId("browse-display").innerHTML = browseDisplayInner;
     gId("browse-display").classList.add("browse-display-" + browseDisplayIndicator);
     gId("browse-display-close").onclick=function(){
@@ -465,21 +465,21 @@ async function showFile(downloadUrl, mdRaw=false){
         function showTimestamp(){try{gId("audio-duration").innerHTML=new Date(audioPlayer.currentTime * 1000).toISOString().slice(14, 19)+"<br>-<br>"+new Date(audioPlayer.duration * 1000).toISOString().slice(14, 19)}catch(err){clearInterval(intervalsDict["audioUpdating"])}}
         function showVolume(){try{gId("audio-volume").innerHTML=parseInt(audioPlayer.volume * 100)}catch(err){clearInterval(doesIsVolumin)}}
         let audioRange = gId("show-audio");
-        fetch(downloadUrl).then(ea=>{ea.blob().then(eb=>{
-            audioPlayer.src = URL.createObjectURL(eb)
-            window.jsmediatags.read(eb, {
-                onSuccess: tag=>{debog=tag;gId("browse-display").style.backgroundImage="url("+jmtToSrc(tag.tags.picture)+")"},
-                onError: err=>{console.log(err)}
-            })
-        })})
-        // audioPlayer.src = downloadUrl;
+        audioPlayer.src = downloadUrl;
         audioPlayer.addEventListener('loadedmetadata', function(){
             this.play()
+            gId("browse-display").style.backgroundImage=`url("https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif")`;
             this.loop = true;
             intervalsDict["audioUpdating"] = setInterval(function(){audioRange.value = audioPlayer.currentTime * 8; showTimestamp()}, 125)
             audioRange.max = this.duration * 8;
             showTimestamp();showVolume();
-            gId("audio-toggle").innerHTML = pathPlaying
+            gId("audio-toggle").innerHTML = pathPlaying;
+            fetch(audioPlayer.src).then(ea=>{ea.blob().then(eb=>{
+                window.jsmediatags.read(eb, {
+                    onSuccess: tag=>{gId("browse-display").style.backgroundImage=(tag.tags.picture==null)?"":"url("+jmtToSrc(tag.tags.picture)+")"},
+                    onError: err=>{console.log(err)}
+                })
+            })})
         })
         audioRange.oninput = function(){audioPlayer.currentTime = this.value / 8}
         gId("audio-toggle").onclick = e =>{
