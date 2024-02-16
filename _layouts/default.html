@@ -4,36 +4,31 @@
 		<meta charset='utf-8'>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width,maximum-scale=2">
-		{% if page.about %}
-		<!-- LinkedIn badge -->
+		<!--{% if page.about %}-->
 		<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-		<!-- end of about page exclusive tags -->
-		{% endif %}
-		{% if page.openscad %}
-		<!-- for showing openscad model in openscad page -->
-		<!-- <script language="javascript" src="https://unpkg.com/@jscad/regl-renderer"></script> -->
+		<!--{% endif %}-->
+		<!--{% if page.openscad %}-->
 		<script src="https://www.unpkg.com/jscad@1.1.0/csg.js"></script>
 		<script src="https://www.unpkg.com/jscad@1.1.0/openjscad.js"></script>
-		<!-- end of openscad page exclusive tags -->
-		{% endif %}
+		<!--{% endif %}-->
 		{% include icon.html %}
 		{% include imports.html %}
-		{% seo %}
+		<!--{% seo %}-->
 	</head>
 	<body>
 		{% include header.html %}
-		{% if page.browserOS %}
-			{{ content }}
-		{% endif %}
+		<!--{% if page.browserOS %}-->
+		{{ content }}
+		<!--{% endif %}-->
 		<div id="main-content-wrap" class="outer" >
 			<section id="main-content" class="inner">
-				{% unless page.disable_nav %}
+				<!--{% unless page.disable_nav %}-->
 					{% include nav.html %}
-				{% endunless %}
+				<!--{% endunless %}-->
 				<br>
-				{% unless page.browserOS %}
+				<!--{% unless page.browserOS %}-->
 					{{ content }}
-				{% endunless %}
+				<!--{% endunless %}-->
 			</section>
 		</div>
 		{% include footer.html %}
