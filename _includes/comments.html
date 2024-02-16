@@ -28,8 +28,9 @@
                 currentFadeItem = null; 
                 opacity = 0; 
                 element.style.background = "";
-            } 
-            element.style.background = "rgba(3, 155, 229, "+ opacity +")";
+            } else {
+                element.style.background = "rgba(3, 155, 229, "+ opacity +")";
+            }
         }, step); 
         currentFadeItem = timer
     };
