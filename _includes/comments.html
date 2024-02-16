@@ -34,7 +34,7 @@
 	var newCommentsToDisplay = hiddenComments;/*{% endif %}*/
 	if (isLoadMoreAction) {newCommentsToDisplay.reverse().forEach(element => displaySingleComment(element, true)); hiddenComments = hiddenComments.filter(item => !newCommentsToDisplay.includes(item) && !visibleComments.includes(item))} else {netNewComments.forEach(element => displaySingleComment(element, false));netNewComments = []} setText("num-comments-displayed", `Showing ${visibleComments.length} of ${visibleComments.length + hiddenComments.length} comments`); if (hiddenComments.length == 0) {hide("load-more-comments")} else {show("load-more-comments")}};/*{% if comment_replies_enabled %}*/
 	var currentFadeItem = null;
-	function fadeColor(element) {if (currentFadeItem != null) {clearInterval(currentFadeItem); currentFadeItem = null} var duration = 1000; var step = 25; let opacity = 1; const timer = setInterval(function() {opacity -= (1 / (duration / step)); if (opacity <= 0) {clearInterval(timer); currentFadeItem = null; opacity = 0; } element.style.background = "rgba(3, 155, 229, "+ opacity +")";}, step); currentFadeItem = timer};
+	function fadeColor(element) {if (currentFadeItem != null) {clearInterval(currentFadeItem); currentFadeItem = null} var duration = 1000; var step = 25; let opacity = 1; const timer = setInterval(function() {opacity -= (1 / (duration / step)); if (opacity <= 0) {clearInterval(timer); currentFadeItem = null; opacity = 0; } element.style.background = "unset"/*"rgba(3, 155, 229, "+ opacity +")"*/;}, step); currentFadeItem = timer};
 	function smoothScrollTo(element) {element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})};
 	function jumpToComment(commentId) {var element = document.getElementsByClassName("" + commentId)[0]; while(element == null && hiddenComments.length > 0) {loadMoreComments(true); element = document.getElementsByClassName("" + commentId)[0]} if (element != null) {smoothScrollTo(element); fadeColor(element)}};
 	function clearCommentReplyItem() {gId("comment-reply-info").innerHTML = ``};
@@ -76,7 +76,7 @@
 					<li><textarea id="comment-comment" name="comment" placeholder="Comment" required=""></textarea></li>
 					<li><button id="comment-submit" type="submit" class="comment-button">post</button></li>
 				</ul><!--{% if recaptcha_enabled %}-->
-				<p id="comment-recaptcha-disclaimer">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.</p>{% endif %}
+				<p id="comment-recaptcha-disclaimer">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.</p><!--{% endif %}-->
 			</form>
 		</div>
 	</div>
