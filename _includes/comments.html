@@ -116,14 +116,8 @@ clearCommentReplyItem();
 }}).catch(error => {console.log(error)}).finally(() => { enablePostCommentButton()}); return false};
 {% else %}
 function postComment(recaptchaToken) {disablePostCommentButton(); var username = getValue("comment-name"); var comment = getCommentContent(); fetch(`{{ site.comment-post }}/formResponse`, {method: 'POST', mode: 'no-cors', headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: encodeFormData({"{{ site.comment-post-fields[0] }}" : thisPageUrl?.toString(), "{{ site.comment-post-fields[1] }}" : username?.toString(), "{{ site.comment-post-fields[2] }}" : comment?.toString()})}).then(response => {setValue("comment-name", ''); setValue("comment-comment", '');
-{% if comment_replies_enabled %}
-clearCommentReplyItem();
-{% endif %}
-reloadComments()}).catch(error => {console.log(error);}).finally(() => { enablePostCommentButton()}); return false};
-{% endif %}
-{% unless lazy_load_enabled %}
-initialCommentLoad();
-{% endunless %}
+{% if comment_replies_enabled %} clearCommentReplyItem(); {% endif %} reloadComments()}).catch(error => {console.log(error);}).finally(() => { enablePostCommentButton()}); return false}; {% endif %}
+{% unless lazy_load_enabled %} initialCommentLoad(); {% endunless %}
 </script>
 <div id="load-comments" class="comments"><button id="load-comment-button" class="comment-button" onclick="initialCommentLoad()">load comments</button></div>
 <div id="comments-and-input">
