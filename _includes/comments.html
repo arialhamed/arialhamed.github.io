@@ -1,28 +1,4 @@
-{% assign chunked_loading_enabled = true %}
-{% if page.chunked_comment_loading == false %}
-	{% assign chunked_loading_enabled = false %}
-{% else %}
-	{% if site.google_forms_comments.chunked_comment_loading == false and page.chunked_comment_loading != true %}
-		{% assign chunked_loading_enabled = false %}
-	{% endif %}
-{% endif %}
-{% assign lazy_load_enabled = false %}
-{% if page.lazy_load_comments == true %}
-	{% assign lazy_load_enabled = true %}
-{% elsif site.google_forms_comments.lazy_load_comments == true %}
-	{% unless page.lazy_load_comments == false %}
-		{% assign lazy_load_enabled = true %}
-	{% endunless %}
-{% endif %}
-{% assign recaptcha_enabled = false %}
-{% if site.google_forms_comments.recaptcha_site_key %}
-	{% assign recaptcha_enabled = true %}
-{% endif %}
-{% assign comment_replies_enabled = false %}
-{% if site.google_forms_comments.comment_replies_enabled == true %}
-	{% assign comment_replies_enabled = true %}
-{% endif %}
-{% if site.comment-read or site.google_forms_comments.google_app_script %}
+{% assign chunked_loading_enabled = true %}{% if page.chunked_comment_loading == false %}{% assign chunked_loading_enabled = false %}{% else %}{% if site.google_forms_comments.chunked_comment_loading == false and page.chunked_comment_loading != true %}{% assign chunked_loading_enabled = false %}{% endif %}{% endif %}{% assign lazy_load_enabled = false %}{% if page.lazy_load_comments == true %}{% assign lazy_load_enabled = true %}{% elsif site.google_forms_comments.lazy_load_comments == true %}{% unless page.lazy_load_comments == false %}{% assign lazy_load_enabled = true %}{% endunless %}{% endif %}{% assign recaptcha_enabled = false %}{% if site.google_forms_comments.recaptcha_site_key %}{% assign recaptcha_enabled = true %}{% endif %}{% assign comment_replies_enabled = false %}{% if site.google_forms_comments.comment_replies_enabled == true %}{% assign comment_replies_enabled = true %}{% endif %}{% if site.comment-read or site.google_forms_comments.google_app_script %}
 <script>
 	function setText(elementId, textContent) {gId(elementId).textContent = textContent};
 	function show(elementId) {gId(elementId).style.display = 'inline'};
