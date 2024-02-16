@@ -137,7 +137,7 @@ prism: true
     display: inline-block;
     cursor: pointer;
     margin: 4px;
-    color: var(--anchor-color) !important;
+    color: var(--anchor-color-solid) !important;
     text-align: center;
     text-decoration: none;
     background-color: var(--overlay);
@@ -146,7 +146,7 @@ prism: true
     user-select: none;
     padding: .375rem .75rem;
     font-size: 1rem;
-/*    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/
+/*    text-shadow: -1px 1px 0 var(--background-solid), 1px 1px 0 var(--background-solid), -1px -1px 0 var(--background-solid), 1px -1px 0 var(--background-solid);*/
 }
 .browse-cell *{
     margin: 0 auto;
@@ -280,7 +280,7 @@ const extR=['.csv','.tsv','.xlsx'];
 const qUrl=new URLSearchParams(window.location.search).get("url");
 const iconCopy="<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M18 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1V9a4 4 0 0 0-4-4h-3a2 2 0 0 0-1 .3V5c0-1.1.9-2 2-2h7Z\" clip-rule=\"evenodd\"/><path fill-rule=\"evenodd\" d=\"M8 7v4H4.2c0-.2.2-.3.3-.4l2.4-2.9A2 2 0 0 1 8 7.1Zm2 0v4a2 2 0 0 1-2 2H4v6c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3Z\" clip-rule=\"evenodd\"/></svg>";
 const audioPlayer = new Audio();
-audioPlayer.volume = .5;
+audioPlayer.volume = 1;
 const pathPaused = `<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 18V6l8 6-8 6Z"/>`
 const pathPlaying = `<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6H8a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Zm7 0h-1a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Z"/>`
 const audioPlayerHTML = `
@@ -306,7 +306,6 @@ const audioPlayerHTML = `
 // Browsing control variables
 let debog;
 let browsingTree = [];
-let isMouseOverAudio = false;
 let browsingArray = [];
 let ghusr = "arialhamed";
 let intervalsDict ={};
@@ -332,7 +331,8 @@ if (!qUrl || String(qUrl).startsWith("/users/" + ghusr + "/repos?sort=")){
 }
 
 // Resets the search box
-gId("search-box").value = "";
+gId("search-box").value="";
+gId("search-box").onmousedown=e=>{gId("search-box").value="";searchContents()}
 
 // The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using browseBuild
 async function browseRun(inUrl, rootRepoUrl=""){
@@ -349,19 +349,18 @@ async function browseRun(inUrl, rootRepoUrl=""){
         gId("browse-back").style.cursor = "not-allowed"; gId("browse-back").onclick = "";
         gId("current-title").innerHTML = "Ari's Public Repositories";
         gId("current-description").innerHTML = "<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
-
     }else{
         // If repository selected or in contents of repository (not at the start of the page)
         gId("browse-back").style.cursor = "pointer"; gId("browse-back").onclick = browseBack;
 
         // Regarding URL passing (compressed, reason: redundant code)
-        let nameDescParentFork=[];if(""===rootRepoUrl)nameDescParentFork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nameDescParentFork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl),c=await b.json();nameDescParentFork=[c.name,c.description,c.fork],c.fork&&nameDescParentFork.push(c.parent.html_url)}
+        let nork=[];if(""===rootRepoUrl)nork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl),c=await b.json();nork=[c.name,c.description,c.fork],c.fork&&nork.push(c.parent.html_url)}
 
         // If just at the main view of the repository (not in the contents), then set the title and description
         if (!inUrl.includes("?ref=") || rootRepoUrl !== ""){
-            gId("current-description").innerHTML = ([undefined, null, ""].includes(nameDescParentFork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nameDescParentFork[1];
-            let currentTitleCommon = "<span id=\"current-title-inner\" onclick=\"window.location = '"+browseJson["html_url"]+"'\" title=\""+browseJson["html_url"]+"\">"+nameDescParentFork[0]+"</span>";
-            gId("current-title").innerHTML = (nameDescParentFork[2])? currentTitleCommon+" <span style=\"font-size: 60%;\">(<a href=\""+nameDescParentFork[3]+"\" target=\"_blank\">fork</a>)</span>" : currentTitleCommon;
+            gId("current-description").innerHTML = ([undefined, null, ""].includes(nork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nork[1];
+            let currentTitleCommon = "<span id=\"current-title-inner\" onclick=\"window.location = '"+browseJson["html_url"]+"'\" title=\""+browseJson["html_url"]+"\">"+nork[0]+"</span>";
+            gId("current-title").innerHTML = (nork[2])? currentTitleCommon+" <span style=\"font-size: 60%;\">(<a href=\""+nork[3]+"\" target=\"_blank\">fork</a>)</span>" : currentTitleCommon;
         }
 
         // Get contents of repository, and sort it to show directories first
@@ -407,7 +406,7 @@ async function browseBuild(eachRecord){
 async function showFile(downloadUrl, mdRaw=false){
     console.log("showFile("+downloadUrl+")");
     const bDisplay = gId("browse-display");
-
+    ogilvie.src="";
 
     // Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
     let browseDisplayInner = "<a id=\"browse-display-close\"><svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a target=\"_blank\" href=\""+downloadUrl+"\">"+decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))+"</a>";
@@ -435,7 +434,7 @@ async function showFile(downloadUrl, mdRaw=false){
     // Check if file is audio
     }else if (extS.some(v => downloadUrl.toLowerCase().endsWith(v))){
         browseDisplayInner += audioPlayerHTML;
-        browseDisplayIndicator = "audio"
+        browseDisplayIndicator = "audio";
 
     // Check if file is a 3D object
     }else if (ext3.some(v => downloadUrl.toLowerCase().endsWith(v))){
@@ -471,26 +470,29 @@ async function showFile(downloadUrl, mdRaw=false){
         bDisplay.classList.remove("browse-display-"+browseDisplayIndicator);
         audioPlayer.pause();
         ["default","image","audio"].forEach(e=>{bDisplay.classList.remove("browse-display-"+e)})
+        window.onkeydown=e=>{};
+        ogilvie.src="";
     }
 
     // Set volume to half and play the media automatically
     if (gId("show-video") !== null){gId("show-video").volume=.5; gId("show-video").play()}
     if (gId("show-text") !== null){Prism.highlightElement(gId("show-text"))}
     if (gId("show-audio") !== null){
-        var intervalScrubbing;
+        var intervalScrubAuto;
+        var isMouseOverAudio=false;
         gId("audio-volume").insertAdjacentHTML("afterbegin",`<input id="audio-volume-value" type="range" value="`+(audioPlayer.volume*100)+`" max="100">`)
         const volVal=gId("audio-volume-value");
         const aToggle=gId("audio-toggle");
 
         bDisplay.classList.add("disable-selection");
-        function showTimestamp(){try{gId("audio-duration").innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)+"<br>-<br>"+new Date(audioPlayer.duration*1000).toISOString().slice(14, 19)}catch(err){intervalScrubbing?clearInterval(intervalScrubbing):''}}
-        function showVolume(){try{gId("audio-volume-num").innerHTML=parseInt(audioPlayer.volume*100)}catch(err){clearInterval(intervalVolume)}}
+        function showTimestamp(){try{gId("audio-duration").innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)+"<br>-<br>"+new Date(audioPlayer.duration*1000).toISOString().slice(14, 19)}catch(err){intervalScrubAuto?clearInterval(intervalScrubAuto):''}}
+        function updateVol(f=0){audioPlayer.volume=clamp(0,audioPlayer.volume+f,1); try{gId("audio-volume-num").innerHTML=parseInt(audioPlayer.volume*100)}catch(err){clearInterval(intervalVolume)} volVal.value=audioPlayer.volume*100; }
         audioPlayer.src=downloadUrl;
         audioPlayer.addEventListener('loadedmetadata', function(){
             this.play()
             this.loop=true;
             gId("show-audio").max=this.duration*8;
-            showTimestamp();showVolume();
+            showTimestamp();updateVol();
             fetch(audioPlayer.src).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
                 onSuccess: tag=>{
                     debog=tag.tags;
@@ -501,11 +503,28 @@ async function showFile(downloadUrl, mdRaw=false){
         })
         gId("show-audio").oninput=e=>{audioPlayer.currentTime=gId("show-audio").value/8}
         aToggle.onclick=e=>{audioPlayer.paused?audioPlayer.play():audioPlayer.pause()}
-        audioPlayer.onplay=e=>{aToggle.innerHTML=pathPlaying;intervalScrubbing=setInterval(e=>{gId("show-audio").value=audioPlayer.currentTime*8;showTimestamp()},125)}
-        audioPlayer.onpause=e=>{aToggle.innerHTML=pathPaused;intervalScrubbing?clearInterval(intervalScrubbing):''}
-        volVal.oninput=e=>{audioPlayer.volume=volVal.value/100;showVolume()}
+        audioPlayer.onplay=e=>{aToggle.innerHTML=pathPlaying;intervalScrubAuto=setInterval(e=>{gId("show-audio").value=audioPlayer.currentTime*8;showTimestamp()},125)}
+        audioPlayer.onpause=e=>{aToggle.innerHTML=pathPaused;intervalScrubAuto?clearInterval(intervalScrubAuto):''}
+        volVal.oninput=e=>{audioPlayer.volume=volVal.value/100;updateVol()}
         gId("audio-next").onclick=e=>{showFile(browsingArray[Math.min(browsingArray.indexOf(downloadUrl)+1,browsingArray.length-1)])}
         gId("audio-previous").onclick=e=>{showFile(browsingArray[Math.max(browsingArray.indexOf(downloadUrl)-1,0)])}
+        gId("audio-volume-num").onmouseenter=e=>{isMouseOverAudio=true}
+        gId("audio-volume-num").onmouseleave=e=>{isMouseOverAudio=false}
+
+        window.onkeydown=e=>{
+            if(document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){
+                keyCodeUnassigned=true;
+                switch(e.keyCode){
+                    case 74: case 37: audioPlayer.currentTime -= 3; break; // 
+                    case 75: audioPlayer.paused?audioPlayer.play():audioPlayer.pause(); break;
+                    case 76: case 39: audioPlayer.currentTime += 3; break;
+                    case 38: updateVol(.01); break;
+                    case 40: updateVol(-.01); break;
+                    default: keyCodeUnassigned=false
+                }
+                keyCodeUnassigned?e.preventDefault():'';
+            }
+        }
     }
 }
 async function browseBack(){browsingTree.pop(); browseRun(browsingTree.pop())}

@@ -13,27 +13,7 @@
 	function formatDate(stringDate){var date = new Date(stringDate);var dateOptions = { year: 'numeric', month: 'long', day: 'numeric'};var timeOptions = { hour: 'numeric', minute: 'numeric' };return `${date.toLocaleDateString("en-us", dateOptions)} at ${date.toLocaleTimeString("en-us", timeOptions)}`;};
     async function displayComments(comments){show("comments-and-input"); hide("load-comments"); var hasVisibleComments = visibleComments.length > 0; if (comments == null || comments === "" || comments == []){if (!hasVisibleComments){show("no-comments"); hide("load-more-comments"); hide("num-comments-displayed")} return}/*{% if comment_replies_enabled %}*/commentIds = new Set();/*{% endif %}*//*{% if site.google_forms_comments.google_app_script %}*/var newHiddenComments = comments/*{% if comment_replies_enabled %}*/.map(item => {commentIds.add(Date.parse(item.timestamp)?.toString());return item;})/*{% endif %}*/.sort((a, b) => (new Date(a.timestamp).getTime() || 0) - (new Date(b.timestamp).getTime() || 0)).map(item => JSON.stringify(item));/*{% else %}*/comments = `timestamp,name,comment,isAuthor\n${comments}`; var newHiddenComments = $.csv.toObjects(comments)/*{% if comment_replies_enabled %}*/.map(item => {commentIds.add(Date.parse(item.timestamp)?.toString());return item;})/*{% endif %}*/.sort((a, b) => (new Date(a.timestamp).getTime() || 0) - (new Date(b.timestamp).getTime() || 0)).map(item => JSON.stringify(item));/*{% endif %}*/if (hasVisibleComments){netNewComments = newHiddenComments.filter(item => !visibleComments.includes(item)).filter(item => !hiddenComments.includes(item))} hiddenComments = newHiddenComments.filter(item => !visibleComments.includes(item)).filter(item => !netNewComments.includes(item)); loadMoreComments(false || !hasVisibleComments)};
 	function loadMoreComments(isLoadMoreAction){/*{% if chunked_loading_enabled  %}*/var newCommentsToDisplay = hiddenComments.slice(-5);/*{% else %}*/var newCommentsToDisplay = hiddenComments;/*{% endif %}*/if (isLoadMoreAction){newCommentsToDisplay.reverse().forEach(element => displaySingleComment(element, true)); hiddenComments = hiddenComments.filter(item => !newCommentsToDisplay.includes(item) && !visibleComments.includes(item))} else {netNewComments.forEach(element => displaySingleComment(element, false));netNewComments = []} setText("num-comments-displayed", `Showing ${visibleComments.length} of ${visibleComments.length + hiddenComments.length} comments`); if (hiddenComments.length == 0){hide("load-more-comments")} else {show("load-more-comments")}};/*{% if comment_replies_enabled %}*/var currentFadeItem = null;
-	function fadeColor(element){
-        if (currentFadeItem != null){
-            clearInterval(currentFadeItem); 
-            currentFadeItem = null
-        } 
-        var duration = 1000; 
-        var step = 25; 
-        let opacity = 1; 
-        const timer = setInterval(function(){
-            opacity -= (1 / (duration / step)); 
-            if (opacity <= 0){
-                clearInterval(timer); 
-                currentFadeItem = null; 
-                opacity = 0; 
-                element.style.background = "";
-            } else {
-                element.style.background = "rgba(3, 155, 229, "+ opacity +")";
-            }
-        }, step); 
-        currentFadeItem = timer
-    };
+	function fadeColor(element){if (currentFadeItem != null){clearInterval(currentFadeItem);currentFadeItem = null}var duration = 1000;var step = 25;let opacity = 1;const timer = setInterval(function(){opacity -= (1 / (duration / step));if(opacity <= 0){clearInterval(timer);currentFadeItem = null;opacity = 0;element.style.background = ""}else{element.style.background = "rgba(200, 200, 255, "+ opacity +")"}}, step); currentFadeItem = timer};
 	function smoothScrollTo(element){element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})};
 	function jumpToComment(commentId){var element = document.getElementsByClassName("" + commentId)[0]; while(element == null && hiddenComments.length > 0){loadMoreComments(true); element = document.getElementsByClassName("" + commentId)[0]} if (element != null){smoothScrollTo(element); fadeColor(element)}};
 	function clearCommentReplyItem(){gId("comment-reply-info").innerHTML = ``};

@@ -45,6 +45,8 @@
     // For if an image is needed to be shown in the animated canvas background
     const ogilvie = new Image()
 
+    clamp=(i,c,a)=>{return Math.max(Math.min(c,a),i)}
+
     window.onload = function(){
         Array.from(document.getElementsByClassName("uwu")).forEach(
             function(a){
@@ -81,6 +83,7 @@
         --font:Arial;
         --anchor-color:rgba(200,200,255,.75);
         --anchor-color-hover:rgba(200,200,255,.55);
+        --anchor-color-solid:rgb(200,200,255);
         --popup-background-color:#000a;
         --inner-width:800px;
     }
