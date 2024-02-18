@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang='{{ site.lang | default: "en-US" }}'>
-	<head>
-		<meta charset='utf-8'>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width,maximum-scale=2">
-		<!--{% if page.about %}-->
-		<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-		<!--{% endif %}-->
-		<!--{% if page.openscad %}-->
-		<script src="https://www.unpkg.com/jscad@1.1.0/csg.js"></script>
-		<script src="https://www.unpkg.com/jscad@1.1.0/openjscad.js"></script>
-		<!--{% endif %}-->
-		{% include icon.html %}
-		{% include imports.html %}
-		<!--{% seo %}-->
-	</head>
-	<body>
-		{% include header.html %}
-		<!--{% if page.browserOS %}-->
-		{{ content }}
-		<!--{% endif %}-->
-		<div id="main-content-wrap" class="outer" >
-			<section id="main-content" class="inner">
-				<!--{% unless page.disable_nav %}-->
-					{% include nav.html %}
-				<!--{% endunless %}-->
-				<br>
-				<!--{% unless page.browserOS %}-->
-					{{ content }}
-				<!--{% endunless %}-->
-			</section>
-		</div>
-		{% include footer.html %}
-	</body>
+<head>
+<meta charset='utf-8'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,maximum-scale=2">
+<!--{% if page.about %}-->
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+<!--{% endif %}-->
+<!--{% if page.openscad %}-->
+<script src="https://www.unpkg.com/jscad@1.1.0/csg.js"></script>
+<script src="https://www.unpkg.com/jscad@1.1.0/openjscad.js"></script>
+<!--{% endif %}-->
+{% include icon.html %}
+{% include imports.html %}
+{% seo %}
+</head>
+<body>
+{% include header.html %}
+<!--{% if page.browserOS %}-->
+{{ content }}
+<!--{% endif %}-->
+<div id="main-content-wrap" class="outer" >
+	<section id="main-content" class="inner">
+		<!--{% unless page.disable_nav %}-->
+			{% include nav.html %}
+		<!--{% endunless %}-->
+		<br>
+		<!--{% unless page.browserOS %}-->
+			{{ content }}
+		<!--{% endunless %}-->
+	</section>
+</div>
+{% include footer.html %}
+</body>
 </html>
