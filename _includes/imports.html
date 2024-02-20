@@ -45,7 +45,8 @@
     // For if an image is needed to be shown in the animated canvas background
     const ogilvie = new Image()
 
-    clamp=(i,c,a)=>{return Math.max(Math.min(c,a),i)}
+    const clamp=(i,c,a)=>{return Math.max(Math.min(c,a),i)}
+    const shuffle=(t)=>{let f=t.length,n,o=t;for(;0<f;)n=Math.floor(Math.random()*f),f--,[o[f],o[n]]=[o[n],o[f]];return o}
 
     window.onload = function(){
         Array.from(document.getElementsByClassName("uwu")).forEach(
