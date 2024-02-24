@@ -500,7 +500,7 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 
         window.onkeydown=function(){
             // catches anything that does not require text input
-            if(!("color|date|datetime-local|email|month|number|password|search|tel|text|time|url|week".includes(document.activeElement.type)||document.activeElement.tagName==="TEXTAREA")){
+            if(!(("color|date|datetime-local|email|month|number|password|search|tel|text|time|url|week".includes(document.activeElement.type)&&document.activeElement.tagName==="INPUT")||document.activeElement.tagName==="TEXTAREA")){
                 keyCodeUnassigned=true;
                 switch(this.keyCode){
                     case 74: case 37: audioPlayer.currentTime -= 3; break;
