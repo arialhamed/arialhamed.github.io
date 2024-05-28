@@ -74,7 +74,7 @@ prism: true
 .title-icons:hover{
     background-color: var(--overlay-hover);
 }
-#browse-back + p svg:hover{
+#browse-back-to-start + p svg:hover{
     rotate: 180deg;
 }
 #current-url-display{
@@ -311,6 +311,7 @@ let debog;
 let browsingTree=[];
 let browsingArray=[];
 let browsingRandomArray=[];
+let browsingCurrentRepo="";
 let ghusr="arialhamed";
 let intervalsDict={};
 
@@ -363,6 +364,12 @@ async function browseRun(inUrl, rootRepoUrl=""){
 
         // If just at the main view of the repository (not in the contents), then set the title and description
         if (!inUrl.includes("?ref=")||rootRepoUrl!==""){
+            // if (browsingCurrentRepo != inUrl){
+            //     const browseReleasesResponse=await fetch("https://api.github.com/repos/"+ghusr+"/"+nork[0]+"/tags");
+            //     const browseReleases=await browseReleasesResponse.json();
+            //     console.log(browseReleases)
+            // }
+            
             gId("current-description").innerHTML=([undefined, null, ""].includes(nork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nork[1];
             let currentTitleCommon="<span id=\"current-title-inner\" onclick=\"window.location='"+browseJson["html_url"]+"'\" title=\""+browseJson["html_url"]+"\">"+nork[0]+"</span>";
             gId("current-title").innerHTML=(nork[2])? currentTitleCommon+" <span style=\"font-size: 60%;\">(<a href=\""+nork[3]+"\" target=\"_blank\">fork</a>)</span>" : currentTitleCommon;
@@ -373,6 +380,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
         browseJson=await repoResponseContent.json();
         browseJson.sort((a, b) => a["type"].localeCompare(b["type"]));
     }
+    browsingCurrentRepo = inUrl
 
     // Loops through each... whatever thing. He needs some milk
     browseJson.forEach(browseBuild);
