@@ -10,104 +10,44 @@ seq_type: review
 source_link: 
 ---
 
-Alright time to shit this out. At least ~6 years of playing Starbound and ~4 years of Frackin Universe, has led me to this.. fanfiction, OC diarrhea that i birthed from my mind vagina.
-
 # Dawn of the Nine
+The Light shines throughout Existence, through each planet & galaxy, through every living being.  
+The Light binds us all as one.  
+The Light binds us, narrator & explorer.  
+My story will become your own, and yours will become mine.  
+You will live my life through my eyes..  
+and you will learn the truth.
 
-A millenia has passed ever since the deaths of our birth planets & galaxies were brought to past, whether be it by internal suffering, by cosmic fate or by the hands of Atrophus. Many civilizations stood tall and flourished among the wars across the universe, yet most were destined to fall. Even in the midst of wars in the past, the greatest of our kinds has brought forth the greatest achievements for all life to enjoy, whether be it the FTL engine, the discovery of magicka, unlocking the powers of the Ancients, and so much more. After the Atrophus was slain by the last survivor of Earth, many societies across the galaxies came together to become one to celebrate. They continued to do so, expanding forth to new galaxies.
+## Chapter 1: Calibri
+A millenia has passed ever since the deaths of our birth planets & galaxies were brought to past, whether be it by internal suffering, by cosmic fate or by the hands of Atrophus. Many civilizations stood tall and flourished among the wars across the universe, yet most were destined to fall. Even in the midst of wars in the past, the greatest of our kinds has brought forth the greatest achievements for all life to enjoy, whether be it the FTL engine, the discovery of magicka, unlocking the powers of the Ancients, and so much more. After the Atrophus was slain by the last survivor of Earth, many societies across the galaxies came together to become one to celebrate. They continued to do so, expanding forth to new galaxies, hence our lives & fortunes are forever intertwined for generations & generations to come.
 
-To be frank, I thought I was born too late to explore the world. I am glad to be born- umm, rather, created just in time to travel across the universe. My name is Calibri Quark, and I have graduated from The Cosmic Corps Academy. With my certificate & license to go to space, I want to explore the galaxies and contribute to advancements in technology to make the universe a better place to live in. 
+To be frank, I thought I was born too late to explore the universe. My name is Calibri Quark, and I was going to graduate from The Cosmic Corps Academy. I did not have much aspirations for my life. I just wanted to make the world run to sustain myself & my family.
 
-Little did I know, as I prepared my dorm to leave, I was met by a fate. A fate that haunted history, a cycle of destruction. Hope was dethroned. 
+Life was average here in Procyon Civil Space Colony. I lived my whole life as a casual Fabricant humanoid, adopted by humans. I had average physical abilities, and mostly average grades besides technology. I did not have many friends in the Academy besides a few short-lived ones that I had to do group projects with. I was.. just surviving in a world. Somehow, I have quite a lot of emotion as a Fabricant, to the point where other Fabricants would ask me to see a doctor when I started crying over assignments that were not my forte.
 
-## Chapter 1
+One day, I left my dormitory in the middle of night, the night before my graduation. Somehow, in my own dreams, I felt something. Something was not right. My entire life, I did not have big dreams or great aspirations to change the world, but there was something behind my eyes, an unexplainable itch. I needed to clear my head. 
 
-It was a normal day here in Dorian Civil Colony. I didn't really bond much with t
+Yet, today, I felt something that goes beyond what my mind & heart could comprehend. I walked around the void decks of the dormitories, I walked to view the synthetic lake. I knew I was awakened before. I knew that there is life beyond the small towns & hard labour. Was I being awakened again? I looked upon the stars, desperately searching for an answer. This was not the first time I found myself like this. I dared not to reveal myself like this in fear of being scrapped or suspected as having a disease of madness.
 
-### Concepts
-- Characters listed here are when the story starts
-- Races
-    - **Fabricants**
-        - Origin
-            - _An android species_. The Fabricants reated by an unknown ancestor race that existed before humans, meant to predict the future, yet the creators end up destroying themselves due to internal conflict, leading the Fabricants to fend for themselves across the planets set as their creator's sandboxes. Soon, many civilizations either adopt the Fabricants or enslave them due to their adhering & programmable nature. A few Fabricants remain in space, usually hostile. 
-        - Resistances: Oxygen-deficit, Poison, Pressure, Radiation, Flame
-        - Weaknesses: Electric
-        - Characters:
-            - **_Calibri_**, aka **_Kali_** (alive): [Main character](#main-characters)
-            - **Geneva** (unknown): Kali's childhood friend
-            - **Sir Tahoma** (deceased): A Fabricant warrior who broke from the confines of his sandbox and was honorably known in liberated Fabricants for sacrificing their life to fend off the Atrophus from his home planet.
-            - **Lato** (story): The last sane Fabricant from Sleipnolr V who <span onclick="this.innerHTML = 'gives the crew a Core of Ascension after telling them the tale of Sir Tahoma. She then dies, which triggers the planet to self-destruct'"><em>&lt;spoilers&gt;</em></span>
-            - **Nimbus** (story): A warlock hellbent on gaining power (actually weak, crew spares them usually)
-    - **Selachi**
-        - Origin
-            - _A sharkfolk species that can swim in liquid & gas_. A few million years ago, multiple oceanic & gaseuos planets appeared through a wormhole, into a system of an _unusual star_. After some time, The Selachi was born and then soon found a wormhole to the Solar System after the events of Atrophus. 
-        - Resistances: Frost, Pressure
-        - Weaknesses: Radiation, Flame
-        - Characters:
-            - **_Zorinnethinan_**, aka **_Rin_** (alive): [Main character](#main-characters)
-            - **Bahnan** (deceased): Grandfather of Rin (cutscene character)
-            - **Varanae** (unknown): Rin's partner
-    - **Ko'scoria**
-        - Origin
-            - _A non-newtonian species made out of magma, rock & metal_. A hive-mind of solar beings made out of hydrogen, lives in peace in stars. Millions of individual intelligent beings are released from the star when it dies in high temperature gaseuous state, but only a few hundred survives by colliding with asteroids and few planets that aren't dissolved to gain a solid form, hence becoming the magma-kind, the Ko'scoria. These survivors are known to be confused & not knowing what just happened to them, but they are quick to adapt to
-        - Resistances: Flame, Earth, Radiation, Electric
-        - Weaknesses: Frost (but can swim in water)
-        - Characters:
-            - **_Valekyne_**, aka **_Val_** (alive): [Main character](#main-characters)
-            - **Cotopaxi** (alive): Val's father, who works hard to support him & his daughter as a survivor from Methusaleh's expiration
-            - **Tambora** (alive): <span onclick="this.innerHTML='Val\'s lover who then turns into a villain due to The Celestial Corruption'"><em>&lt;spoilers&gt;</em></span>
-    - **D'metra**
-        - Origin
-            - _A plant-based humanoid species_. Humanoids & mutants made out of plants, originating from the Dendritic Galaxy. A common religion is formed around their deity, Plantera. 
-        - Characters:
-            - **_Akhila_** (alive): [Main character](#main-characters)
-            - **Gurabol** (alive): A retired warchief
-    - **Vizardians**
-        - Origin
-            - _Reptilian humanoids_. Hailing from the large twin planets Vizardia & Alzardia, the Vizardians escaped the Atrophus' wrath by divine intervention from their patron deity, Gloria. The Vizardians have had multiple wars between the planets, hence all Vizardians are well trained & armed for any military conflict. 
-        - Characters:
-            - **_Jjarvild_** (alive):
-            - **Hloran** (deceased): A scientist where the crew would find some journal entries about <span onclick="this.innerHTML='their involvement with accidentally creating The Celestial Corruption'"><em>&lt;spoilers&gt;</em></span>
-    - **Rendraiths**
-        - Origin
-            - _A shadow of solid & humanoid form_. The ones that choose to communicate with a 
-    - **Miraikan**
-        - Origin
-            - The direct opposite of Rendraiths, some people believe the Miraikan are angels. Similar in appearance to humans but blessed by the Mother. The Miraikan completely avoided the events of Atrophus and are mostly reclusive. It is rumored that those who leave the Miraikan's home planet peacefully becomes a human with hidden mutations, and those who betray their society of Miraikan becomes a Rendraith.
-        - 
-    - **Human**
-        - Critically endangered
-        - Few factions exist in 
-        - Other few factions that are mostly stuck in space are known to have been driven to madness due to the Atrophus, even though it is long gone
-        - Characters
-            - **Helvetica** & **Roman** (unknown): Adoptive parents of Kali, parents of Darien
-            - **Darien** (unknown): Adoptive brother of Kali, son of Helvetica & Roman
-            - CC Lieutenant **Varia** (alive): Coordinator of emergencies, who enabled most of the Cosmic Corps to escape The 
-    - 
-- Planets
-    - Earth: No longer exists, fragments of it are preserved in museums within the Solar System (the Sun is still alive)
-    - Dorian Space Station: Where the main characters were from.
-    - Arcadi: A planet 4x larger than Earth, but untouched by human industrialization 
-    - Akrossi: A swamp planet, highly poisonous
-    - Sleipnolr V: A completely cybernetic & metal planet, a great place for resources but highly deadly. Many corpses & skeletons converted to metal, most in states of pain & distress. Essential to the crew as it contains 
-    - Mannofrost
-        - A frozen planet with frozen clouds. The crew comes here to find some hermit for help regarding the element of frost.
-### Main characters:
-- Kali (she/her)
-    - Fabricant, adopted by humans
-    - Personality: Calm on the outside, always silly in the inside, usually positive but also analytical, sensitive to sound. Loves to eat human food due to her upbringing, though Fabricant food gives her better nutrients. Minored in Fabricant surgery in her time in Cosmic Corps Academy. 
-    - <span onclick="this.innerHTML='Kali is actually a human with a Fabricant body, and Helvetica & Roman are actually her biological human parents. She does not remember this at all and believes all her life that she was adopted as a Fabricant. She was killed by cult members of Gigas as a child, but the spirit of Tahoma intervened and was able to save her soul & placed it into her eyes, which are now the only biological part of her. He gives the eyes the body that he has. <br><br>She finds this out way later into the story when Tahoma talks to her and obviously goes through an arc about it, involving feelings of anxiety, suicide, self-harm, regret and more. In the end, she finds herself in Tahoma\'s form of pure power to fight the Manifest of Celestial Corruption'"><b>Click here for major spoilers</b></span>
-    - Weapons:
-        - Start: Electric Wand
-        - End: Electrified Chain Keris & Hammer, and high-calibre pistol
-- Val (they/them)
-    - Ko'scoria, birthed from Methuselah Star
-    - Personality: Bright, in the head & literally, while also a curious soul. Usually gullible to concepts foreign to her
-### Bad bois
-- Atrophus (dead)
-    - Literally just The Ruin from Starbound but I don't want to risk copyright lmao
-    - After it's destruction, a celestial law was quickly established and broadcasted to eradicate any remaining form of The Atrophus. Anyone that is caught withholding any part of The Atrophus, even if it is just one cell, will be brought to proper consequences
-- The Celestial Corruption
-    - A space-borne virus that causes madness, cancer, replacement of the mind, and the only cure is cutting off the infected area if it has not entered the bloodstream (at that point you're basically done for). It originates from a laboratory hidden in a frozen moon, with power-hungy, unethical scientists conducting experiments on live specimens of The Atrophus (so it's very illegal)
-- Ashkore
-    - A legendary dragon from a distant planet. 
+Then, I saw a figure made of pure light stood at the other side of the rails I was usually on. It looked humanoid in nature, with no outstanding details, and it too was staring into the stars like me. I would've been scared out of my head and ran away, since it was so unnatural to me. However, there was a peace when I saw the figure, a mix of peace & anxiety in my soul. As I approached it, my emotions fought for dominance. My mind races through each cultural & historical textbook that I've ever read, but none prevail relating to this phenomenon. Without hesitation, it motioned itself to a stance, as if looking at me and reaching out for my hand. I reach out for it's hand, and held it.
+
+## Chapter 2: A Vision
+
+In all my memory, every day was like every other. If it had not appeared before me in that moment, I might have stayed in the Colony, living as a simple Fabricant. The strange form faded before my eyes. Perhaps I'd only dreamed of it, but I was no longer the same. As if from a dream, I awoke to the reality of my existance, the fact that I was.. missing something in me. I knew that I was born a Fabricant, and that I had human parents who love me, and my best friend a D'metra named Akhila, but I could recall nothing else. Was I the only one feeling this way? Was I destined to live out the rest of my days with this void ever consuming? My heart ached for answers. In time, I would discover far more than I wish to learn. 
+
+Before I had time to ruminate further, I felt a tremor beneath my feet. I saw red lights and bright sounds coming from every direction. As I slowly emotionally recovered from the experience with the figure of light, I looked around me where many objects kept shooting out of the sky and into the horizon. Procyon CSC was under a state of emergency. 
+
+
+
+
+
+
+bits and pieces for drafting if 
+
+I live in my own small home with a farm, in a small planet. It was my sanctuary. As far as I could remember, I settled here to rest. If had stayed there, but eventually, loneliness and restlessness drove me away. I did not have any family or friends, yet I was content with having this simple life. I knew how to  
+In all my memory, every day had been like every other. If it had not appeared before me in that moment, I might have stayed in that planet for the rest of my days, living as a simple robot.  
+The strange form faded before 
+
+My parents live in Centauri CSC. We talk to each other when we can, they supported me ever since I was a small Fabricant. It didn't take too long
+
+---
