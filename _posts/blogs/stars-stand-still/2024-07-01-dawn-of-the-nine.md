@@ -2,7 +2,7 @@
 title: "Dawn of The Nine"
 subtitle: ""
 book: "Stars Stand Still"
-permalink: /blogs/novel/:book/:title
+permalink: /blogs/stars-stand-still/:title
 layout: default
 back: "https://arialhamed.github.io/blogs/novel"
 categories: novel
