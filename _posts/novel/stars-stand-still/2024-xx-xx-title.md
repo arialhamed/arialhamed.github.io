@@ -2,10 +2,10 @@
 title: ""
 subtitle: ""
 book: "Stars Stand Still"
-permalink: /blogs/novel/:book/:title
+permalink: /:categories/:title
 layout: default
 back: "https://arialhamed.github.io/blogs/novel"
-categories: novel
+categories: novel stars-stand-still
 seq_type: review
 source_link: 
 published: false

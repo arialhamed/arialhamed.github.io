@@ -2,10 +2,10 @@
 title: "Dawn of The Nine"
 subtitle: ""
 book: "Stars Stand Still"
-permalink: /blogs/stars-stand-still/:title
+permalink: /:categories/:title
 layout: default
 back: "https://arialhamed.github.io/blogs/novel"
-categories: novel
+categories: novel stars-stand-still
 seq_type: review
 source_link: 
 ---
@@ -23,7 +23,7 @@ A millenia has passed ever since the deaths of our birth planets & galaxies were
 
 To be frank, I thought I was born too late to explore the universe. My name is Calibri Quark, and I was going to graduate from The Cosmic Corps Academy. I did not have much aspirations for my life. I just wanted to make the world run to sustain myself & my family.
 
-Life was average here in Procyon Civil Space Colony. I lived my whole life as a casual Fabricant humanoid, adopted by humans. I had average physical abilities, and mostly average grades besides technology. I did not have many friends in the Academy besides a few short-lived ones that I had to do group projects with. I was.. just surviving in a world. Somehow, I have quite a lot of emotion as a Fabricant, to the point where other Fabricants would ask me to see a doctor when I started crying over assignments that were not my forte.
+Life was average here in Procyon Civil Space Colony. I lived my whole life as a casual Fabricant humanoid, adopted by humans. I had average physical abilities, and mostly average grades besides technology. I did not have many friends in the Academy besides a few short-lived ones that I had to do group projects with. I was.. just surviving in a world. Somehow, I have quite a lot of emotion as a Fabricant, to the point where other Fabricants would ask me to see a doctor when I started crying over assignments that were not my forte, or whenever I would celebrate 
 
 One day, I left my dormitory in the middle of night, the night before my graduation. Somehow, in my own dreams, I felt something. Something was not right. My entire life, I did not have big dreams or great aspirations to change the world, but there was something behind my eyes, an unexplainable itch. I needed to clear my head. 
 
@@ -44,7 +44,8 @@ Before I had time to ruminate further, I felt a tremor beneath my feet. I saw re
 
 bits and pieces for drafting if 
 
-I live in my own small home with a farm, in a small planet. It was my sanctuary. As far as I could remember, I settled here to rest. If had stayed there, but eventually, loneliness and restlessness drove me away. I did not have any family or friends, yet I was content with having this simple life. I knew how to  
+I live in my own small home with a farm, in a small planet. This eden was my sanctuary. As far as I could remember, I settled on this planet to rest. If had stayed there, I might have found peace, but eventually, loneliness and restlessness drove me away. I 
+ I did not have any family or friends, yet I was content with having this simple life. I knew how to  
 In all my memory, every day had been like every other. If it had not appeared before me in that moment, I might have stayed in that planet for the rest of my days, living as a simple robot.  
 The strange form faded before 
 
