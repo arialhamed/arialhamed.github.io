@@ -10,6 +10,8 @@ seq_type: review
 source_link: 
 ---
 
+<div style="text-align:center;">
+
 # Dawn of the Nine
 The Light shines throughout Existence, through each planet & galaxy, through every living being.  
 The Light binds us all as one.  
@@ -21,9 +23,7 @@ and you will learn the truth.
 ## Chapter 1: Calibri
 A millenia has passed ever since the deaths of our birth planets & galaxies were brought to past, whether be it by internal suffering, by cosmic fate or by the hands of Atrophus. Many civilizations stood tall and flourished among the wars across the universe, yet most were destined to fall. Even in the midst of wars in the past, the greatest of our kinds has brought forth the greatest achievements for all life to enjoy, whether be it the FTL engine, the discovery of magicka, unlocking the powers of the Ancients, and so much more. After the Atrophus was slain by the last survivor of Earth, many societies across the galaxies came together to become one to celebrate. They continued to do so, expanding forth to new galaxies, hence our lives & fortunes are forever intertwined for generations & generations to come.
 
-To be frank, I thought I was born too late to explore the universe. My name is Calibri Quark, and I was going to graduate from The Cosmic Corps Academy. I did not have much aspirations for my life. I just wanted to make the world run to sustain myself & my family.
-
-Life was average here in Procyon Civil Space Colony. I lived my whole life as a casual Fabricant humanoid, adopted by humans. I had average physical abilities, and mostly average grades besides technology. I did not have many friends in the Academy besides a few short-lived ones that I had to do group projects with. I was.. just surviving in a world. Somehow, I have quite a lot of emotion as a Fabricant, to the point where other Fabricants would ask me to see a doctor when I started crying over assignments that were not my forte, or whenever I would celebrate 
+To be frank, I thought I was born too late to explore the universe. My name is Calibri Quark, and I was going to graduate from The Cosmic Corps Academy. I did not have much aspirations for my life. I just wanted to make the world run to sustain myself & my family. My life was average here in Procyon Civil Space Colony. I lived my whole life as a casual Fabricant humanoid, adopted by humans. I had average physical abilities, and mostly average grades besides technology. I did not have many friends in the Academy besides a few short-lived ones that I had to do group projects with. Somehow, I have quite a lot of emotion as a Fabricant, to the point where other Fabricants would ask me to see a doctor when I started crying over assignments that were not my forte. 
 
 One day, I left my dormitory in the middle of night, the night before my graduation. Somehow, in my own dreams, I felt something. Something was not right. My entire life, I did not have big dreams or great aspirations to change the world, but there was something behind my eyes, an unexplainable itch. I needed to clear my head. 
 
@@ -40,7 +40,7 @@ Before I had time to ruminate further, I felt a tremor beneath my feet. I saw re
 
 
 
-
+</div>
 
 bits and pieces for drafting if 
 
