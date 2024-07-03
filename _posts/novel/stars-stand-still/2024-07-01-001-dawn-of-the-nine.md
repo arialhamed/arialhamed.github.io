@@ -8,12 +8,11 @@ back: "https://arialhamed.github.io/blogs/novel"
 categories: novel stars-stand-still
 seq_type: review
 source_link: 
+redirect_from: /:categories/000
 ---
 
-<p align="justify">
-
 # Dawn of the Nine
-The Light shines throughout Existence, through each planet & galaxy, through every living being.  
+The Light shines throughout Creation, through each planet & galaxy, through every living being.  
 The Light binds us all as one.  
 The Light binds us, narrator & explorer.  
 My story will become your own, and yours will become mine.  
@@ -23,7 +22,7 @@ and you will learn the truth.
 ## Chapter 1: Calibri
 A millenia has passed ever since the deaths of our birth planets & galaxies were brought to past, whether be it by internal suffering, cosmic fate or by the hands of Atrophus. Many civilizations stood tall and flourished among the wars across the universe, yet most were destined to fall. Even in the midst of wars in the past, the greatest of our kinds has brought forth the greatest achievements for all life to enjoy, whether be it the FTL engine, the discovery of magicka, unlocking the powers of the Ancients, and so much more. Atrophus, the world-devourer, was slain by the last survivor of Earth. Many worlds across the galaxies came together to become one to celebrate. They continued to do so, expanding forth to new galaxies, hence our lives & fortunes are forever intertwined for generations & generations to come.
 
-To be frank, I thought I was born too late to see the universe. My name is Calibri Quark, and I was going to graduate from The Cosmic Corps Academy. I did not have much aspirations for my life. I just wanted to make the world run to sustain myself & my family. My life was average here in Procyon Civil Space Colony. I lived my whole life as a casual Fabricant humanoid, adopted by humans. I had average physical abilities, and mostly average grades besides technology. I did not have many friends in the Academy besides a few short-lived ones that I had to do group projects with. Somehow, I have quite a lot of emotion as a Fabricant, to the point where other Fabricants would ask me to see a doctor when I started crying over assignments that were not my forte. 
+To be frank, I thought I was born too late to see the universe. My name is Calibri Quark, and I was going to graduate from The Cosmic Corps Academy. I did not have much aspirations for my life. I just wanted to make the world run to sustain myself & my family. My life was average here in Procyon Civil Space Colony. I lived my whole life as a casual Fabricant humanoid, adopted by humans. I had average physical abilities, and mostly average grades besides technology. I did not have many friends in the Academy besides a few short-lived ones that I had to do group projects with. I am seen as different from my peers, especially amongst other Fabricants. 
 
 One day, I left my dormitory in the middle of night, the night before my graduation. Somehow, in my own dreams, I felt something. Something was not right. My entire life, I did not have big dreams or great aspirations to change the world, but there was something behind my eyes, an unexplainable itch. I needed to clear my head. 
 
@@ -41,18 +40,4 @@ I ran back to my dorms to see everyone in different states of panic. Some are st
 
 A large blanket of dark maroon clouds blocked our star. It seemed.. alive. No, my eyes refuse to believe that it was natural. It was as if I was seeing a timelapse of a normal cloud moving in ten times speed. As if the movement of the cloud was not unsettling enough, I lowered my gaze to what was under the clouds, and I gasped in shock. I saw what appeared to be numerous arms, arms made out of who-knows-what, that started from the base of the cloud. It was holding an entire segment of the colony that was miles away, slowly raising it to the clouds. From afar I could make out some of the military drones attempt to shoot the arm. Each drone was shot down by its own shot, as the arms from the cloud deflected it. The sight had me awestruck in terror, and I was frozen in fear & awe.
 
-"Hey!" someone shouted in my direction, "Get out of here and into th-". The voice was cut-off, assuming that they were seeing what I was seeing as well. I briefly looked back at who it was. It was Varia, one of Cosmic Corps' Starcallers. The human-shark hybrid was one of the Cosmic Corps' best, and was destined to be the next Grand Starcaller. I often looked up to her as a great role model, and I was grateful for her to mentor me personally when I moved here. "We need to get out of here, now!" shouted Varia, as she pulled me out of my gaze and back into my alert state. We got 
-
-
-
-
-bits and pieces for drafting if needed
-
-I live in my own small home with a farm, in a small planet. This eden was my sanctuary. As far as I could remember, I settled on this planet to rest. If had stayed there, I might have found peace, but eventually, loneliness and restlessness drove me away. I 
- I did not have any family or friends, yet I was content with having this simple life. I knew how to  
-In all my memory, every day had been like every other. If it had not appeared before me in that moment, I might have stayed in that planet for the rest of my days, living as a simple robot.  
-The strange form faded before 
-
-My parents live in Centauri CSC. We talk to each other when we can, they supported me ever since I was a small Fabricant. It didn't take too long
-
----
+"Hey!" someone shouted in my direction, "Get out of here and into th-". The voice was cut-off, assuming that they were seeing what I was seeing as well. I briefly looked back at who it was. It was Varia, one of Cosmic Corps' Starcallers. The human-sharkkind hybrid was one of the Cosmic Corps' best, and was destined to be the next Grand Starcaller. I often looked up to her, and I was grateful for her to mentor me personally when I moved here. "We need to get out of here, now!" shouted Varia, as she pulled me out of my gaze and back into my alert state. 
