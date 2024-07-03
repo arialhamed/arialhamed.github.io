@@ -10,11 +10,11 @@ categories: novel stars-stand-still
 
 # Dawn of the Nine
 > The Light shines throughout Creation, through each planet & galaxy, through every living being.  
-The Light binds us all as one.  
-The Light binds us, narrator & explorer.  
-My story will become your own, and yours will become mine.  
-You will live my life through my eyes..  
-and you will learn the truth.
+> The Light binds us all as one.  
+> The Light binds us, narrator & explorer.  
+> My story will become your own, and yours will become mine.  
+> You will live my life through my eyes..  
+> and you will learn the truth.
 
 ## Chapter 1: Calibri
 A millenia has passed ever since the deaths of our birth planets & galaxies were brought to past, whether be it by internal suffering, cosmic fate or by the hands of Atrophus. Many civilizations stood tall and flourished among the wars across the universe, yet most were destined to fall. Even in the midst of wars in the past, the greatest of our kinds has brought forth the greatest achievements for all life to enjoy, whether be it the FTL engine, the discovery of magicka, unlocking the powers of the Ancients, and so much more. Atrophus, the world-devourer, was slain by the last survivor of Earth. Many worlds across the galaxies came together to become one to celebrate. They continued to do so, expanding forth to new galaxies, hence our lives & fortunes are forever intertwined for generations & generations to come.
