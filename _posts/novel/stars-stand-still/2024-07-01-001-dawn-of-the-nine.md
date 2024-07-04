@@ -11,6 +11,7 @@ categories: novel stars-stand-still
 # Dawn of the Nine
 
 > The Light shines throughout Creation, through each planet & galaxy, through every living being.  
+
 The Light binds us all as one.  
 The Light binds us, narrator & explorer.  
 My story will become your own, and yours will become mine.  
@@ -41,7 +42,7 @@ A large blanket of dark maroon clouds blocked our star. It seemed.. alive. No, m
 
 "Hey!" someone shouted in my direction, "Get out of here and into th-". The voice was cut-off, assuming that they were seeing what I was seeing as well. I briefly looked back at who it was. It was Varia, one of Cosmic Corps' Starcallers. The Lophiiformi was one of the Cosmic Corps' best, and was destined to be the next Grand Starcaller. I often looked up to her, and I was grateful for her to mentor me personally when I moved here. "We need to get out of here, now!" shouted Varia, as she pulled me out of my gaze and back into my alert state. She held & pulled me by my arm with force as we got out of the dorms, where many other Cosmic Associates like me were also running for their lives. The corridor was seemed long, so I began to pick up my pace and tried to match it to Varia's. From one of the rooms in front of us to the right, an explosion blasted through the door
 
-"Lizzie!" Varia & I called out. The Associate who managed to jump out in time was **Wisteriza**, a D'metra whom I've met and got close with after we were both pulled in a case that involves us, a lighter & a 5 litre canister of hydrogen. It was a miracle that 
+"Lizzie!" Varia & I called out. The crouching body with the Associate uniform who managed to fall out in time was **Kristeria**, a D'metra whom I've met and got close with after we were both pulled in a case that involves us, a lighter & a 5 litre canister of hydrogen. Kristeria made out of her room's explosion miraculously unscathed. "Owww..", she groaned in pain before getting a glimpse on Varia, "I swear that wasn't-". Kristeria was cut-off by another 
 
 
 * talk about kali's first time with lizzie by carrying lizzie into the river instead of using the convenient fire hydrant that contained chemicals
