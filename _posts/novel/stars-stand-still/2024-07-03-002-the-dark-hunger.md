@@ -30,7 +30,7 @@ The impact was so intense that it shook the entire hangar, but Varia's shield su
 
 "Are you two strapped in?" Varia said while she activates her old ship. Before I could respond, another shockwave sends us. I could barely get my words out that day. I stumbled back up and peaked at the rear view windows. "What do you see, Bri?" I heard Kristeria said in my direction. I could barely focus on it, as I was so discombobulated at this point of time. However, another pump of adrenaline hits me as I noticed hands. Large hands approaching us from behind. The red cloud wanted us. Varia was not having any of it and immediately stepped on it. I fell again when Varia's ship left the ground at top speed, so I crawled to a seat next to Kristeria. After finally settling and letting Kristeria help me, I got to take a good look at the world outside of the windows. The dark-red clouds were much lower now as it was moving down upon infrastructure. I noticed now what kind of entity this is after seeing our academy's interaction with this cloud. Rather, a lack there of, as where the academy was gone. I recalled now that only less than half of the residential district fell down. 
 
-This dark-red cloud was consuming. It was consuming everything. 
+This dark-red cloud was consuming. It was consuming everything. My organic blood ran cold as I saw, wave after wave of destruction upon Procyon Space Station. Varia was calling out for other escaping starships. She let a sigh of relief when she managed to get in contact with some and _rewrite this para_
 
 
 
