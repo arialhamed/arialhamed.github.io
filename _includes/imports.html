@@ -100,7 +100,8 @@
     figcaption{font-size:70%;text-align:center}
     video{max-width:100%;height:auto}
     img{margin-top:.7em}
-    table *{font-weight: normal}
+    table *:not(thead *){font-weight: normal}
+    table{background-color:#0003;color:#ddd;font-size:1em;display:block;overflow-x:auto;white-space:nowrap}
     body{display:flex;min-height:100vh;flex-direction:column}
     html{background-color:var(--background-solid)}
 
