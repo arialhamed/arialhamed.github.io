@@ -21,7 +21,8 @@ Disclaimers aside, I call this setup overpowered because using a laptop or PC de
 1. Download the probably largest file, around 1.3GB or so. If there are 2 or more similar sized entries, select & download the latest version. Make sure it is saved as either **.appx** or **.msixbundle** file
 1. Open **Windows PowerShell** as **Administrator**, go to the directory where that file is
 1. Type in `Add-AppxPackage Microsoft*.msixbundle`
-1. WSA should be installed. 
+1. WSA should be installed. You can test it by clicking on "Files", it will open the Google files app. Before that, you may need to go to enable Virtual Machine Platform
+1. (Skip if you already have done so) Search for "Turn Windows features on or off" through Windows Search. Check "Virtual Machine Platform", click "OK" then restart your computer.
 1. Download <a href="https://github.com/alesimula/wsa_pacman">WSA Pacman</a>. At first .apk or .xapk installation, you may need to click on some other stuff to allow installation (such as enabling Developer mode in WSA, and allowing ADB debugging between WSA & WSA Pacman)
 
 <br><br><br><br><br>
@@ -30,4 +31,4 @@ Disclaimers aside, I call this setup overpowered because using a laptop or PC de
 
 [2023-08-04] I'll leave the .iso for ReviOS (Windows **_10_**) right over [here](https://pixeldrain.com/u/nuwAvC3M).
 
-
+[2025-01-29] Ignore the last log update above, installing ReviOS via their <a href="https://revi.cc/docs/playbook/general">playbooks</a> and <a href="https://ameliorated.io/">AME Wizard</a> is fine, it does the job well and is much more customizable. However if you want to install without an email account, you may need to find some ways to circumvent it. You may find some results online for the latest details.
