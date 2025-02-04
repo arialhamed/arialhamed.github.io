@@ -13,11 +13,11 @@ redirect_from:
     </figure>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <div>
-        <b style="font-size:140%;">HAMED, Arif (Ari)</b>
+        <b style="font-size:140%;">HAMED, Daing Arial</b>
         <div><b>Nationality:</b> Singaporean</div>
         <div><b>Mobile:</b> <i class="disable-selection" ondblclick="this.innerHTML='(+65) 8817 4266'">double click to reveal</i></div>
-        <div><b>Email:</b> <a href="mailto:arifhamed.arial@outlook.com">arifhamed.arial@outlook.com</a></div>
-        <div><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/ari-hamed/">https://www.linkedin.com/in/ari-hamed/</a></div>
+        <div><b>Email:</b> <a href="mailto:arifhamed.arial@outlook.com">daing.arial@outlook.com</a></div>
+        <div><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/ari-hamed/">https://www.linkedin.com/in/daingarialhamed/</a></div>
         <div><b>Portfolio:</b> <a href="https://arialhamed.github.io/">https://arialhamed.github.io/</a></div>
         <div><b>Languages:</b> English (Business), Bahasa Melayu (Conversational)</div>
     </div>
@@ -171,6 +171,9 @@ redirect_from:
         <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#resume-accordion">
             <div class="accordion-body">
                 <ul>
+                    <li>American Productivity & Quality Center – Process Management Essentials </li>
+                    <li>American Productivity & Quality Center – Process Framework Essentials </li>
+                    <li>American Productivity & Quality Center – Process Design Essentials </li>
                     <li>Google Coursera – IT Automation with Python (Python, Linux) </li>
                     <li>Google Coursera – Data Analytics Professional Certificate (R) </li>
                     <li>Bloomberg for Education – Bloomberg Market Concepts (BMC) Certificate </li>
@@ -193,6 +196,10 @@ redirect_from:
             <div class="accordion-body">
                 <table style="border: none!important;">
                     <tbody>
+                        <tr>
+                            <td style="text-align: left;"><b>Bachelor of Engineering in Electrical & Electronics Engineering</b>, School of Information Technology, <br>Singapore Institute of Technology, Singapore</td>
+                            <td style="text-align: right;"><b>2025 – 2028</b></td>
+                        </tr>
                         <tr>
                             <td style="text-align: left;"><b>Diploma in Information Technology</b>, School of Information Technology, <br>Nanyang Polytechnic, Singapore</td>
                             <td style="text-align: right;"><b>2020/04 – 2023/03</b></td>
