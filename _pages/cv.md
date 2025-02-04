@@ -171,16 +171,16 @@ redirect_from:
         <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#resume-accordion">
             <div class="accordion-body">
                 <ul>
-                    <li>American Productivity & Quality Center – Process Management Essentials </li>
-                    <li>American Productivity & Quality Center – Process Framework Essentials </li>
-                    <li>American Productivity & Quality Center – Process Design Essentials </li>
-                    <li>Google Coursera – IT Automation with Python (Python, Linux) </li>
-                    <li>Google Coursera – Data Analytics Professional Certificate (R) </li>
-                    <li>Bloomberg for Education – Bloomberg Market Concepts (BMC) Certificate </li>
-                    <li>Bloomberg for Education – Environment Social Governance (ESG) Certificate </li>
-                    <li>AWS Academy – Machine Learning Foundations Certification of Completion (Python, Machine Learning) </li>
-                    <li>NVIDIA DLI – Fundamentals of Deep Learning Certificate of Competency (Python, Deep Learning) </li>
-                    <li>IBM – Penetration Testing, Incident Response and Forensics </li>
+                    <li>American Productivity & Quality Center – <a href="https://academy.apqc.org/certificates/o7sga67hm0" target="_blank">Process Management Essentials</a> </li>
+                    <li>American Productivity & Quality Center – <a href="https://academy.apqc.org/certificates/138g1fomhh" target="_blank">Process Framework Essentials</a> </li>
+                    <li>American Productivity & Quality Center – <a href="https://academy.apqc.org/certificates/p7c5fpv0a0" target="_blank">Process Design Essentials</a> </li>
+                    <!-- li>Google Coursera – <a href="" target="_blank">IT Automation with Python</a> (Python, Linux) </li-->
+                    <!-- li>Google Coursera – <a href="" target="_blank">Data Analytics Professional Certificate</a> (R) </li-->
+                    <li>Bloomberg for Education – <a href="https://portal.bloombergforeducation.com/certificates/cYECFA6rVikxGWJ6aQG2F77C" target="_blank">Bloomberg Market Concepts (BMC) Certificate</a> </li>
+                    <li>Bloomberg for Education – <a href="https://portal.bloombergforeducation.com/certificates/w7ptQF9sWLNBeanPvECouSmh" target="_blank">Environment Social Governance (ESG) Certificate</a> </li>
+                    <!-- li>AWS Academy – <a href="" target="_blank">Machine Learning Foundations Certification of Completion</a> (Python, Machine Learning) </li-->
+                    <!-- li>NVIDIA DLI – <a href="" target="_blank">Fundamentals of Deep Learning Certificate of Competency</a> (Python, Deep Learning) </li-->
+                    <!-- li>IBM – <a href="" target="_blank">Penetration Testing, Incident Response and Forensics</a> </li-->
                     <li>Linux, MS Power Apps, UiPath, Version Control (Git), JavaScript </li>
                 </ul>
             </div>
@@ -197,7 +197,7 @@ redirect_from:
                 <table style="border: none!important;">
                     <tbody>
                         <tr>
-                            <td style="text-align: left;"><b>Bachelor of Engineering in Electrical & Electronics Engineering</b>, School of Information Technology, <br>Singapore Institute of Technology, Singapore</td>
+                            <td style="text-align: left;"><b>Bachelor of Engineering in Electrical & Electronics Engineering</b>, <br>Singapore Institute of Technology, Singapore</td>
                             <td style="text-align: right;"><b>2025 – 2028</b></td>
                         </tr>
                         <tr>
