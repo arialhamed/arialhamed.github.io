@@ -535,7 +535,7 @@ async function browseReset(s="pushed"){browsingTree=[];gId("browse-display").inn
 async function copyCurrentUrl(f){if(f){navigator.clipboard.writeText(String(window.location).split("?")[0]+"?url="+gId("cud-inner").textContent);gId("cud-inner").innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId("cud-inner").innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 async function searchContents(){gId("browse-content").childNodes.forEach(function(a){a.style.display=(a.textContent.toLowerCase().includes(gId("search-box").value.toLowerCase())) ? "" : "none"})}
 
-github_login=()=>{localStorage.setItem("github_login_last_page", window.location.href);window.location.href=`https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback&scope=repo`}
+github_login=()=>{localStorage.setItem("github_login_last_page", window.location.href);window.location.href=`https://github.com/login/oauth/authorize?client_id=Ov23liUw2Ws03wqgrBkR&redirect_uri=https://arialhamed.github.io/github/callback&scope=repo`}
 
 </script>
 
