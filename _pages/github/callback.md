@@ -16,14 +16,14 @@ you'll be deported back to where you were soon
 		const params = new URLSearchParams(window.location.search);
 		const code = params.get('code');
 		if (code) {
-			fetch(`https://arialhamed.pythonanywhere.com/github/callback?code=${code}`)
+			fetch(`https://arialhamed.pythonanywhere.com/github/callback?code=${code}`, {headers: {}})
 			.then(response => response.json())
 			.then(data => {
 				localStorage.setItem('github_token', data.access_token);
 				// Now you can use the token to make authenticated API calls
 
 				// setTimeout(()=>{window.location.href=localStorage.getItem("github_login_last_page")}, 3000)
-				window.location.href=localStorage.getItem("github_login_last_page")
+				// window.location.href=localStorage.getItem("github_login_last_page")
 			});
 		}
 	};
