@@ -5,11 +5,7 @@ permalink: /github/callback
 disable_nav: true
 ---
 
-# Signing in..
-
-testing empty.html layout
-
-you'll be deported back to where you were soon
+## oauth-ing to github..
 
 <script>
 	window.onload = function() {
@@ -23,7 +19,7 @@ you'll be deported back to where you were soon
 				// Now you can use the token to make authenticated API calls
 
 				// setTimeout(()=>{window.location.href=localStorage.getItem("github_login_last_page")}, 3000)
-				// window.location.href=localStorage.getItem("github_login_last_page")
+				window.location.href=localStorage.getItem("github_login_last_page")
 			});
 		}
 	};
