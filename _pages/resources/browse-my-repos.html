@@ -348,7 +348,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 	gId("browse-content").innerHTML="";
 	gId("current-url-display").innerHTML="<span id=\"cud-inner\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">"+iconCopy+inUrl.slice(22)+"</span>";
 
-	const browseResponse=await fetch(inUrl);
+	const browseResponse=await fetch(inUrl, {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
 	browseJson=await browseResponse.json();
 	if (inUrl.startsWith("https://api.github.com/users/"+ghusr+"/repos")){ // If current link is the start
 		gId("browse-back").style.cursor="not-allowed"; gId("browse-back").onclick="";
@@ -359,12 +359,12 @@ async function browseRun(inUrl, rootRepoUrl=""){
 		gId("browse-back").style.cursor="pointer"; gId("browse-back").onclick=browseBack;
 
 		// Regarding URL passing (compressed, reason: redundant code)
-		let nork=[];if(""===rootRepoUrl)nork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl),c=await b.json();nork=[c.name,c.description,c.fork],c.fork&&nork.push(c.parent.html_url)}
+		let nork=[];if(""===rootRepoUrl)nork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl,{headers:{Authorization:(github_token)?`token ${github_token}`:``}}),c=await b.json();nork=[c.name,c.description,c.fork],c.fork&&nork.push(c.parent.html_url)}
 
 		// If just at the main view of the repository (not in the contents), then set the title and description
 		if (!inUrl.includes("?ref=")||rootRepoUrl!==""){
 			// if (browsingCurrentRepo != inUrl){
-			//	 const browseReleasesResponse=await fetch("https://api.github.com/repos/"+ghusr+"/"+nork[0]+"/tags");
+			//	 const browseReleasesResponse=await fetch("https://api.github.com/repos/"+ghusr+"/"+nork[0]+"/tags", {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
 			//	 const browseReleases=await browseReleasesResponse.json();
 			//	 console.log(browseReleases)
 			// }
@@ -375,7 +375,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 		}
 
 		// Get contents of repository, and sort it to show directories first
-		let repoResponseContent=await fetch((inUrl.includes("?ref="))?inUrl:inUrl+"/contents");
+		let repoResponseContent=await fetch((inUrl.includes("?ref="))?inUrl:inUrl+"/contents", {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
 		browseJson=await repoResponseContent.json();
 		browseJson.sort((a, b) => a["type"].localeCompare(b["type"]));
 	}
@@ -437,7 +437,7 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 	}else if(extA.some(v => downloadUrl.toLowerCase().endsWith(v))){browseDisplayInner+="<p>Contents of this file can not be parsed here.</p>";
 	}else if(downloadUrl.toLowerCase().endsWith(".pdf")){browseDisplayInner+="<object type=\"application/pdf\" data=\""+downloadUrl+"\" width=\"500\" height=\"375\">";
 	}else{
-		const itemTextResponse=await fetch(downloadUrl);
+		const itemTextResponse=await fetch(downloadUrl, {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
 		const itemTextOut=await itemTextResponse.text();
 
 		// If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
@@ -492,7 +492,7 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 		audioPlayer.onloadedmetadata=function(){
 			this.play()
 			gId("show-audio").max=this.duration*8;
-			fetch(this.src).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
+			fetch(this.src, {headers: {Authorization: (github_token)?`token ${github_token}`:``}}).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
 				onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?"":jmtToSrc(tag.tags.picture)},
 				onError: err=>{console.log(err)}
 			})})})
