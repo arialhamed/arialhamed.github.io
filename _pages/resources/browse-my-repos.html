@@ -351,7 +351,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 
 	const browseResponse=await fetch(inUrl, {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
 	browseJson=await browseResponse.json();
-	if (inUrl.startsWith("https://api.github.com/users/"+ghusr+"/repos")){ // If current link is the start
+	if (inUrl.startsWith("https://api.github.com" + list_repositories_qURL)){ // If current link is the start
 		gId("browse-back").style.cursor="not-allowed"; gId("browse-back").onclick="";
 		gId("current-title").innerHTML="Ari's Public Repositories";
 		gId("current-description").innerHTML="<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
