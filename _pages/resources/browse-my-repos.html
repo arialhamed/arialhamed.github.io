@@ -313,13 +313,14 @@ let browsingRandomArray=[];
 let browsingCurrentRepo="";
 let ghusr="arialhamed";
 let intervalsDict={};
+let list_repositories_qURL=(github_token)?"/user/repos?per_page=100&sort=":"/users/"+ghusr+"/repos?per_page=100&sort=";
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named "url", the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
-if (!qUrl||String(qUrl).startsWith("/users/"+ghusr+"/repos?sort=")){
+if (!qUrl||String(qUrl).startsWith("" + list_repositories_qURL + "")){
 	browseReset()
 }else{
-	browsingTree.push("https://api.github.com/users/"+ghusr+"/repos?sort=pushed");
+	browsingTree.push("https://api.github.com" + list_repositories_qURL + "pushed");
 	if (qUrl.split("/contents").length>1){
 		browsingTree.push("https://api.github.com"+qUrl.split("/contents")[0]);
 		let eachClimb=qUrl.slice(qUrl.indexOf("/contents/")+10).split("?")[0].split("/");
@@ -531,7 +532,7 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 	}
 }
 async function browseBack(){browsingTree.pop();browseRun(browsingTree.pop())}
-async function browseReset(s="pushed"){browsingTree=[];gId("browse-display").innerHTML="";gId("search-box").value="";browseRun("https://api.github.com/users/"+ghusr+"/repos?sort="+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});["default","image","audio"].forEach(e=>{gId("browse-display").classList.remove("browse-display-"+e)})}
+async function browseReset(s="pushed"){browsingTree=[];gId("browse-display").innerHTML="";gId("search-box").value="";browseRun("https://api.github.com"+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});["default","image","audio"].forEach(e=>{gId("browse-display").classList.remove("browse-display-"+e)})}
 async function copyCurrentUrl(f){if(f){navigator.clipboard.writeText(String(window.location).split("?")[0]+"?url="+gId("cud-inner").textContent);gId("cud-inner").innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId("cud-inner").innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 async function searchContents(){gId("browse-content").childNodes.forEach(function(a){a.style.display=(a.textContent.toLowerCase().includes(gId("search-box").value.toLowerCase())) ? "" : "none"})}
 
