@@ -353,7 +353,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 	browseJson=await browseResponse.json();
 	if (inUrl.startsWith("https://api.github.com" + list_repositories_qURL)){ // If current link is the start
 		gId("browse-back").style.cursor="not-allowed"; gId("browse-back").onclick="";
-		gId("current-title").innerHTML="Ari's Public Repositories";
+		gId("current-title").innerHTML=(github_token)?"All of Ari's Repositories":"Ari's Public Repositories";
 		gId("current-description").innerHTML="<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
 	}else{
 		// If repository selected or in contents of repository (not at the start of the page)
@@ -376,7 +376,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 		}
 
 		// Get contents of repository, and sort it to show directories first
-		let repoResponseContent=await fetch((inUrl.includes("?ref="))?inUrl:inUrl+"/contents", {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
+		let repoResponseContent=await fetch((inUrl.includes("?ref=")&&github_token)?inUrl:inUrl+"/contents", {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
 		browseJson=await repoResponseContent.json();
 		browseJson.sort((a, b) => a["type"].localeCompare(b["type"]));
 	}
