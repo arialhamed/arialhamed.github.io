@@ -376,7 +376,8 @@ async function browseRun(inUrl, rootRepoUrl=""){
 		}
 
 		// Get contents of repository, and sort it to show directories first
-		let repoResponseContent=await fetch((inUrl.includes("?ref=")&&!github_token)?inUrl:inUrl+"/contents", {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
+		// let repoResponseContent=await fetch((inUrl.includes("?ref="))?inUrl:inUrl+"/contents", {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
+		let repoResponseContent=await fetch(inUrl+"/contents", {headers: {Authorization: (github_token)?`token ${github_token}`:``}});
 		browseJson=await repoResponseContent.json();
 		browseJson.sort((a, b) => a["type"].localeCompare(b["type"]));
 	}
