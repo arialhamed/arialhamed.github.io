@@ -401,6 +401,7 @@ function browseBuild(eachRecord){
 			// This record is a file in these brackets
 			let sizeElement="<br><span style=\"font-size: 70%; vertical-align: top;\">"+formatBytes(eachRecord["size"]);
 			let friendlyUrl=eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/'))+"/"+eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1);
+			console.log(eachRecord["download_url"]); console.log(friendlyUrl);
 			let showItemElement=` onclick=showFile("`+friendlyUrl+`")`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))){ 
