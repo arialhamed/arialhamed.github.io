@@ -421,7 +421,7 @@ function browseBuild(eachRecord){
 async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 	console.log("showFile("+downloadUrl+")");
 	const bDisplay=gId("browse-display");
-	const downloadUrl_noParams = downloadUrl.split("?",1)
+	const downloadUrl_noParams = downloadUrl.split("?",1)[0];
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
 	let browseDisplayInner="<a id=\"browse-display-close\"><svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a target=\"_blank\" href=\""+downloadUrl+"\">"+decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))+"</a>";
