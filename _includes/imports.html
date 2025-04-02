@@ -70,7 +70,7 @@
     async function connectCheck(){const a=await fetch("https://arialhamed.pythonanywhere.com/track"),b=await a.json();console.log("current site:"+b.site)}
 
 	const github_token = localStorage.getItem('github_token');
-	const github_api_headers = {headers: {Accept: `application/vnd.github+json`, Authorization: (github_token)?`token ${github_token}`:``, "Access-Control-Allow-Origin": '*'}}
+	const github_api_headers = {headers: {Accept: `application/vnd.github+json`, Authorization: (github_token)?`token ${github_token}`:``, "Access-Control-Allow-Origin": '*', "Access-Control-Allow-Headers": "*"}}
 </script>
 <style type="text/css">
     /* Built-in */
