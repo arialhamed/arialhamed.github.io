@@ -8,7 +8,7 @@ permalink: /
 
 <br>
 
-hii welcome to my #linkinbio and kinda my portfolio
+### hii welcome to my #linkinbio and kinda my portfolio
 
 This is my website where i do some things sometimes, where i get to express myself, talk about some interesting things like technology & it's interaction with humans, and it's also my personal tool 🛠
 
