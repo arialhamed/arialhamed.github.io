@@ -6,9 +6,11 @@ permalink: /
 
 <!-- h1><span title=":3" class="uwu"></span></h1 -->
 
-Hi :3 welcome to my #linkinbio
+<br>
 
-This is my website where i do some things sometimes, where i get to express myself as a web developer, programmer & digital innovation analyst! 
+hii welcome to my #linkinbio and kinda my portfolio
+
+This is my website where i do some things sometimes, where i get to express myself, talk about some interesting things like technology & it's interaction with humans, and it's also my personal tool 🛠
 
 I'll let this melody, harmony & rhythm of HTML, CSS & JS (respectively) do all the talking! :3
 
