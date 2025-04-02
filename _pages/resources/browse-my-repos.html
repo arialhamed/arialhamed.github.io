@@ -401,16 +401,15 @@ function browseBuild(eachRecord){
 			// This record is a file in these brackets
 			let sizeElement="<br><span style=\"font-size: 70%; vertical-align: top;\">"+formatBytes(eachRecord["size"]);
 			let friendlyUrl=eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/'))+"/"+eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1);
-			console.log(eachRecord["download_url"]); console.log(friendlyUrl);
-			let showItemElement=` onclick=showFile("`+friendlyUrl+`")`;
+			let showItemElement=` onclick=showFile("`+eachRecord["download_url"]+`")`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))){ 
 				contentElement=`<img`+showItemElement+` class=\"col browse-cell\" src=\"`+eachRecord["download_url"]+`\" >`;
 			}else{
 				contentElement+=showItemElement+`>`+eachRecord["name"]+sizeElement+`</span>`;
 			}
-			browsingArray.push(friendlyUrl);
-			browsingRandomArray.splice((browsingRandomArray.length+1)*Math.random()|0,0,friendlyUrl)
+			browsingArray.push(eachRecord["download_url"]);
+			browsingRandomArray.splice((browsingRandomArray.length+1)*Math.random()|0,0,eachRecord["download_url"])
 		}
 
 		// Adds the folders and files as cells
