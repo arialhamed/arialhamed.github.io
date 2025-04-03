@@ -403,7 +403,7 @@ function browseBuild(eachRecord){
 			let friendlyUrl=eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/'))+"/"+eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1);
 			let showItemElement=` onclick=showFile("`+eachRecord["download_url"]+`")`;
 			// Is the record an image?
-			if (extI.some(v => eachRecord["download_url"].toLowerCase().endsWith(v))){ 
+			if (extI.some(v => eachRecord["download_url"].split("?",1)[0].toLowerCase().endsWith(v))){ 
 				contentElement=`<img`+showItemElement+` class=\"col browse-cell\" src=\"`+eachRecord["download_url"]+`\" >`;
 			}else{
 				contentElement+=showItemElement+`>`+eachRecord["name"]+sizeElement+`</span>`;
@@ -433,12 +433,20 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 	["default", "image", "audio"].forEach(a => bDisplay.classList.remove("browse-display-"+a))
 	let browseDisplayIndicator="default";
 
-	if(extI.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){browseDisplayIndicator="image";browseDisplayInner="<img id=\"show-image\" src=\""+downloadUrl+"\"><span>"+browseDisplayInner+"</span>";
-	}else if(extV.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){browseDisplayInner+="<video id=\"show-video\" style=\"width: 100%;\" controls><source src=\""+downloadUrl+"\" type=\"video/webm\"></video>";
-	}else if(extS.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){browseDisplayIndicator="audio";browseDisplayInner+=audioPlayerHTML;
-	}else if(ext3.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){browseDisplayInner+="<model-viewer alt=\""+decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))+"\" src=\""+downloadUrl+"\" shadow-intensity=\"1\" camera-controls touch-action=\"pan-y\"></model-viewer>";
-	}else if(extA.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){browseDisplayInner+="<p>Contents of this file can not be parsed here.</p>";
-	}else if(downloadUrl_noParams.toLowerCase().endsWith(".pdf")){browseDisplayInner+="<object type=\"application/pdf\" data=\""+downloadUrl+"\" width=\"500\" height=\"375\">";
+	if(extI.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+		browseDisplayIndicator="image";
+		browseDisplayInner="<img id=\"show-image\" src=\""+downloadUrl+"\"><span>"+browseDisplayInner+"</span>";
+	}else if(extV.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+		browseDisplayInner+="<video id=\"show-video\" style=\"width: 100%;\" controls><source src=\""+downloadUrl+"\" type=\"video/webm\"></video>";
+	}else if(extS.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+		browseDisplayIndicator="audio";
+		browseDisplayInner+=audioPlayerHTML;
+	}else if(ext3.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+		browseDisplayInner+="<model-viewer alt=\""+decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))+"\" src=\""+downloadUrl+"\" shadow-intensity=\"1\" camera-controls touch-action=\"pan-y\"></model-viewer>";
+	}else if(extA.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+		browseDisplayInner+="<p>Contents of this file can not be parsed here.</p>";
+	}else if(downloadUrl_noParams.toLowerCase().endsWith(".pdf")){
+		browseDisplayInner+="<object type=\"application/pdf\" data=\""+downloadUrl+"\" width=\"500\" height=\"375\">";
 	}else{
 		const itemTextResponse=await fetch(downloadUrl, github_api_headers);
 		const itemTextOut=await itemTextResponse.text();
