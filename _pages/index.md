@@ -30,9 +30,9 @@ continuum_status_check=()=>{
 		.then(j=>{
 			elapsed_seconds = Math.floor((new Date() - new Date(j["workflow_runs"][0]["created_at"])) / 1000);
 			if(j["workflow_runs"][0]["status"]!="completed"){
-				gId("action_status").innerHTML=`I'm currently building! (started ${elapsed_seconds} seconds ago)`;
+				gId("action_status").innerHTML=`i'm currently building this website! (started ${elapsed_seconds} seconds ago)`;
 			}else{
-				gId("action_status").innerHTML="latest site deployment: "+new Date(j["workflow_runs"][0]["updated_at"]).toLocaleDateString("en-US",{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'});
+				gId("action_status").innerHTML="latest website deployment: "+new Date(j["workflow_runs"][0]["updated_at"]).toLocaleDateString("en-US",{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'});
 				gId("check_status").click();
 				// upload seconds somewhere
 			}
