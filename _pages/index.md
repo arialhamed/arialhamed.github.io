@@ -10,7 +10,7 @@ permalink: /
 
 ### hii welcome to my #linkinbio and kinda my portfolio
 
-This is my website where i do some things sometimes, where i get to express myself, talk about some interesting things like technology & it's interaction with humans, and it's also my personal tool 🛠
+This is my website where i get to express myself, my own canvas, talk about some interesting things like technology & it's interaction with humans, and it's also my personal tool 🛠
 
 I'll let this melody, harmony & rhythm of HTML, CSS & JS (respectively) do all the talking! :3
 

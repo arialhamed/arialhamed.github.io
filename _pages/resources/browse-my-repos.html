@@ -326,7 +326,7 @@ if (!qUrl||String(qUrl).startsWith("" + list_repositories_qURL + "")){
 		let eachClimb=qUrl.slice(qUrl.indexOf("/contents/")+10).split("?")[0].split("/");
 		let accumClimb="";
 		for (let i=0; i<eachClimb.length-1; i++){
-			accumClimb+="/"+eachClimb[i];
+			accumClimb+="https://arialhamed.github.io/"+eachClimb[i];
 			browsingTree.push("https://api.github.com"+qUrl.slice(0, qUrl.indexOf("/contents/"))+"/contents"+accumClimb+qUrl.slice(qUrl.indexOf("?ref=")))
 		}
 		browseRun("https://api.github.com"+qUrl, "https://api.github.com"+qUrl.split("/contents")[0])
@@ -349,8 +349,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 	gId("browse-content").innerHTML="";
 	gId("current-url-display").innerHTML="<span id=\"cud-inner\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">"+iconCopy+inUrl.slice(22)+"</span>";
 
-	const browseResponse=await fetch(inUrl, github_api_headers);
-	browseJson=await browseResponse.json();
+	browseJson=await fetch(inUrl, github_api_headers).then(r=>r.json());
 	if (inUrl.startsWith("https://api.github.com" + list_repositories_qURL)){ // If current link is the start
 		gId("browse-back").style.cursor="not-allowed"; gId("browse-back").onclick="";
 		gId("current-title").innerHTML=(github_token)?"All of Ari's Repositories":"Ari's Public Repositories";
@@ -376,9 +375,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 		}
 
 		// Get contents of repository, and sort it to show directories first
-		let repoResponseContent=await fetch((inUrl.includes("?ref="))?inUrl:inUrl+"/contents", github_api_headers);
-		// let repoResponseContent=await fetch(inUrl+"/contents", github_api_headers);
-		browseJson=await repoResponseContent.json();
+		browseJson=await fetch((inUrl.includes("?ref="))?inUrl:inUrl+"/contents", github_api_headers).then(r=>r.json());
 		browseJson.sort((a, b) => a["type"].localeCompare(b["type"]));
 	}
 	browsingCurrentRepo = inUrl
@@ -401,7 +398,7 @@ function browseBuild(eachRecord){
 			// This record is a file in these brackets
 			let sizeElement="<br><span style=\"font-size: 70%; vertical-align: top;\">"+formatBytes(eachRecord["size"]);
 			let friendlyUrl=eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/'))+"/"+eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1);
-			let showItemElement=` onclick=showFile("`+eachRecord["download_url"]+`")`;
+			let showItemElement=` onclick=\'showFile("`+eachRecord["download_url"]+`", "`+eachRecord["git_url"]+`")\'`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord["download_url"].split("?",1)[0].toLowerCase().endsWith(v))){ 
 				contentElement=`<img`+showItemElement+` class=\"col browse-cell\" src=\"`+eachRecord["download_url"]+`\" >`;
@@ -418,16 +415,17 @@ function browseBuild(eachRecord){
 }
 
 // When click on file, show it. Exceptions for markdown files.
-async function showFile(downloadUrl, mdRaw=false, audioCont=false){
-	console.log("showFile("+downloadUrl+")");
+async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
+	console.log("showFile("+downloadUrl+", "+gitUrl+")");
 	const bDisplay=gId("browse-display");
 	const downloadUrl_noParams = downloadUrl.split("?",1)[0];
+	// const gitContent = await 
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
 	let browseDisplayInner="<a id=\"browse-display-close\"><svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a target=\"_blank\" href=\""+downloadUrl+"\">"+decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))+"</a>";
 
 	// Add option to show parsed for markdown files
-	if (downloadUrl_noParams.toLowerCase().endsWith(".md")){browseDisplayInner+=" <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'"+downloadUrl+"\', "+(mdRaw?"false)\">alt: parsed":"true)\">alt: raw")+"</a>)</span>"}
+	if (downloadUrl_noParams.toLowerCase().endsWith(".md")){browseDisplayInner+=" <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'"+downloadUrl+"\', \'"+gitUrl+"\', "+(mdRaw?"false)\">alt: parsed":"true)\">alt: raw")+"</a>)</span>"}
 
 	// Remove any existing browsing indicators from browse-display
 	["default", "image", "audio"].forEach(a => bDisplay.classList.remove("browse-display-"+a))
@@ -448,8 +446,7 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 	}else if(downloadUrl_noParams.toLowerCase().endsWith(".pdf")){
 		browseDisplayInner+="<object type=\"application/pdf\" data=\""+downloadUrl+"\" width=\"500\" height=\"375\">";
 	}else{
-		const itemTextResponse=await fetch(downloadUrl, github_api_headers);
-		const itemTextOut=await itemTextResponse.text();
+		const itemTextOut=await fetch(gitUrl, github_api_headers).then(r=>r.json()).then(t=>atob(t["content"]));
 
 		// If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
 		if(downloadUrl_noParams.toLowerCase().endsWith(".md") && !mdRaw){
@@ -474,8 +471,8 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 	if (gId("show-video")!==null){gId("show-video").volume=.5;gId("show-video").play()}
 	if (gId("show-text")!==null){Prism.highlightElement(gId("show-text"))}
 	if (gId("show-audio")!==null){
-		function aPnext(){var jove=audioPlayer.shuffle?browsingRandomArray:browsingArray;showFile(jove[jove.indexOf(downloadUrl)==jove.length-1?0:jove.indexOf(downloadUrl)+1])}
-		function aPprevious(){var jove=audioPlayer.shuffle?browsingRandomArray:browsingArray;showFile(jove[jove.indexOf(downloadUrl)==0?jove.length-1:jove.indexOf(downloadUrl)-1])}
+		function aPnext(){var jove=audioPlayer.shuffle?browsingRandomArray:browsingArray;showFile(jove[jove.indexOf(downloadUrl)==jove.length-1?0:jove.indexOf(downloadUrl)+1],jove[jove.indexOf(gitUrl)==jove.length-1?0:jove.indexOf(gitUrl)+1])}
+		function aPprevious(){var jove=audioPlayer.shuffle?browsingRandomArray:browsingArray;showFile(jove[jove.indexOf(downloadUrl)==0?jove.length-1:jove.indexOf(downloadUrl)-1],jove[jove.indexOf(gitUrl)==0?jove.length-1:jove.indexOf(gitUrl)-1])}
 
 		const volVal=Object.assign(document.createElement("input"), {id:"audio-volume-value",type:"range",value:audioPlayer.volume*100,max:100});
 		gId("audio-volume").insertAdjacentElement("afterbegin",volVal)
@@ -498,12 +495,12 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 
 
 		bDisplay.classList.add("disable-selection");
-		audioPlayer.src=downloadUrl;
+		// audioPlayer.src=downloadUrl; // move setting src to end of code
 		audioPlayer.onloadstart=()=>{ogilvie.src=""}
 		audioPlayer.onloadedmetadata=function(){
 			this.play()
 			gId("show-audio").max=this.duration*8;
-			fetch(this.src, github_api_headers).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
+			fetch(this.src).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
 				onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?"":jmtToSrc(tag.tags.picture)},
 				onError: err=>{console.log(err)}
 			})})})
@@ -538,7 +535,14 @@ async function showFile(downloadUrl, mdRaw=false, audioCont=false){
 		gId("audio-music-shuffle").style.color=audioPlayer.shuffle?"var(--anchor-color)":"var(--font-color)";
 		gId("audio-music-shuffle").onclick=function(){audioPlayer.shuffle=!audioPlayer.shuffle;this.style.color=audioPlayer.shuffle?"var(--anchor-color)":"var(--font-color)"}
 		gId("audio-music-loop").style.color=audioPlayer.loop?"var(--anchor-color)":"var(--font-color)";
-		gId("audio-music-loop").onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?"var(--anchor-color)":"var(--font-color)"}
+		gId("audio-music-loop").onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?"var(--anchor-color)":"var(--font-color)"};
+
+		// Custom header to get raw content
+		fetch(gitUrl, {headers: {Accept: `application/vnd.github.raw+json`, Authorization: (github_token)?`token ${github_token}`:``}})
+		.then(r=>r.blob())
+		.then(j=>{
+			audioPlayer.src = URL.createObjectURL(j)
+		})
 	}
 }
 async function browseBack(){browsingTree.pop();browseRun(browsingTree.pop())}
