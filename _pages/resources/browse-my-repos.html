@@ -308,8 +308,8 @@ const audioPlayerHTML=`
 // Browsing control variables
 let debog;
 let browsingTree=[];
-let browsingArray=[];
-let browsingRandomArray=[];
+let viewArray=[];
+let viewArrayRandom=[];
 let browsingCurrentRepo="";
 let ghusr="arialhamed";
 let intervalsDict={};
@@ -345,14 +345,14 @@ async function browseRun(inUrl, rootRepoUrl=""){
 	console.log(browsingTree);
 	gId("browse-reset").onclick=()=>{browseRun(inUrl)}
 
-	browsingArray=[];
+	viewArray=[];
 	gId("browse-content").innerHTML="";
 	gId("current-url-display").innerHTML="<span id=\"cud-inner\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">"+iconCopy+inUrl.slice(22)+"</span>";
 
 	browseJson=await fetch(inUrl, github_api_headers).then(r=>r.json());
 	if (inUrl.startsWith("https://api.github.com" + list_repositories_qURL)){ // If current link is the start
 		gId("browse-back").style.cursor="not-allowed"; gId("browse-back").onclick="";
-		gId("current-title").innerHTML=(github_token)?"All of Ari's Repositories":"Ari's Public Repositories";
+		gId("current-title").innerHTML=(github_token)?"All of Your Repositories":"Ari's Public Repositories";
 		gId("current-description").innerHTML="<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
 	}else{
 		// If repository selected or in contents of repository (not at the start of the page)
@@ -405,8 +405,8 @@ function browseBuild(eachRecord){
 			}else{
 				contentElement+=showItemElement+`>`+eachRecord["name"]+sizeElement+`</span>`;
 			}
-			browsingArray.push(eachRecord["download_url"]);
-			browsingRandomArray.splice((browsingRandomArray.length+1)*Math.random()|0,0,eachRecord["download_url"])
+			viewArray.push([eachRecord["download_url"], eachRecord["git_url"]]);
+			viewArrayRandom.splice((viewArrayRandom.length+1)*Math.random()|0,0,[eachRecord["download_url"], eachRecord["git_url"]])
 		}
 
 		// Adds the folders and files as cells
@@ -421,11 +421,14 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	const downloadUrl_noParams = downloadUrl.split("?",1)[0];
 	// const gitContent = await 
 
+	// Remove loops to avoid raiding the console section 
+	audioMainLoop?clearInterval(audioMainLoop):'';
+
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-	let browseDisplayInner="<a id=\"browse-display-close\"><svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a target=\"_blank\" href=\""+downloadUrl+"\">"+decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))+"</a>";
+	let browseDisplayInner="<a id=\"browse-display-close\"><svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a target=\"_blank\" href=\""+downloadUrl+"\">"+decodeURIComponent(downloadUrl_noParams.substring(downloadUrl_noParams.lastIndexOf('/')+1))+"</a>";
 
 	// Add option to show parsed for markdown files
-	if (downloadUrl_noParams.toLowerCase().endsWith(".md")){browseDisplayInner+=" <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'"+downloadUrl+"\', \'"+gitUrl+"\', "+(mdRaw?"false)\">alt: parsed":"true)\">alt: raw")+"</a>)</span>"}
+	if (downloadUrl_noParams.toLowerCase().endsWith(".md")){browseDisplayInner+=" <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'"+decodeURIComponent(downloadUrl)+"\', \'"+gitUrl+"\', "+(mdRaw?"false)\">alt: parsed":"true)\">alt: raw")+"</a>)</span>"}
 
 	// Remove any existing browsing indicators from browse-display
 	["default", "image", "audio"].forEach(a => bDisplay.classList.remove("browse-display-"+a))
@@ -453,7 +456,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			browseDisplayInner+="<br><span id=\"browse-md-parsed\">"+mdConverter.render(itemTextOut.substring(1).split("---").pop())+"</span>";
 		}else{ // else show it parsed in Prism.js
 			browseDisplayInner+="<br><pre style=\"background-color:#333a;width:100%;\" data-src=\""+downloadUrl+"\" data-download-link><code id=\"show-text\" class=\"line-numbers language-"+downloadUrl_noParams.split('.').pop()+"\">"+itemTextOut.replace(/\</g, "&lt;")+"</code></pre>";
-		}// The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
+		} // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 	}
 
 	// Clear inline styles, push contents to browse-display's innerHTML, and add custom-by-file styles via class
@@ -471,8 +474,9 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	if (gId("show-video")!==null){gId("show-video").volume=.5;gId("show-video").play()}
 	if (gId("show-text")!==null){Prism.highlightElement(gId("show-text"))}
 	if (gId("show-audio")!==null){
-		function aPnext(){var jove=audioPlayer.shuffle?browsingRandomArray:browsingArray;showFile(jove[jove.indexOf(downloadUrl)==jove.length-1?0:jove.indexOf(downloadUrl)+1],jove[jove.indexOf(gitUrl)==jove.length-1?0:jove.indexOf(gitUrl)+1])}
-		function aPprevious(){var jove=audioPlayer.shuffle?browsingRandomArray:browsingArray;showFile(jove[jove.indexOf(downloadUrl)==0?jove.length-1:jove.indexOf(downloadUrl)-1],jove[jove.indexOf(gitUrl)==0?jove.length-1:jove.indexOf(gitUrl)-1])}
+		console.log("Playing audio")
+		function aPnext(){var queue=audioPlayer.shuffle?viewArrayRandom:viewArray;showFile.apply(this,queue[queue.findIndex(x=>x[0]==downloadUrl)==queue.length-1?0:queue.findIndex(x=>x[0]==downloadUrl)+1])}
+		function aPprevious(){var queue=audioPlayer.shuffle?viewArrayRandom:viewArray;showFile.apply(this,queue[queue.findIndex(x=>x[0]==downloadUrl)==0?queue.length-1:queue.findIndex(x=>x[0]==downloadUrl)-1])}
 
 		const volVal=Object.assign(document.createElement("input"), {id:"audio-volume-value",type:"range",value:audioPlayer.volume*100,max:100});
 		gId("audio-volume").insertAdjacentElement("afterbegin",volVal)
@@ -495,15 +499,28 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 
 
 		bDisplay.classList.add("disable-selection");
-		// audioPlayer.src=downloadUrl; // move setting src to end of code
-		audioPlayer.onloadstart=()=>{ogilvie.src=""}
-		audioPlayer.onloadedmetadata=function(){
-			this.play()
-			gId("show-audio").max=this.duration*8;
-			fetch(this.src).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
+		audioPlayer.src = "";
+		fetch(gitUrl, {headers: {Accept: `application/vnd.github.raw+json`, Authorization: (github_token)?`token ${github_token}`:``}})
+		.then(r=>r.blob())
+		.then(j=>{
+			audioPlayer.src = URL.createObjectURL(j);
+			window.jsmediatags.read(j, {
 				onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?"":jmtToSrc(tag.tags.picture)},
 				onError: err=>{console.log(err)}
-			})})})
+			})
+		})
+		audioPlayer.onloadstart=()=>{ogilvie.src=""}
+		audioPlayer.onloadedmetadata=function(){
+			this.play();
+			gId("show-audio").max=this.duration*8;
+			// fetch(this.src).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
+			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?"":jmtToSrc(tag.tags.picture)},
+			// 	onError: err=>{console.log(err)}
+			// })})})
+			// fetch(this.src).then(r=>r.blob()). window.jsmediatags.read(this.src,{
+			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?"":jmtToSrc(tag.tags.picture)},
+			// 	onError: err=>{console.log(err)}
+			// })
 		}
 		audioPlayer.onended=function(){!audioPlayer.loop?aPnext():""}
 
@@ -537,12 +554,6 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		gId("audio-music-loop").style.color=audioPlayer.loop?"var(--anchor-color)":"var(--font-color)";
 		gId("audio-music-loop").onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?"var(--anchor-color)":"var(--font-color)"};
 
-		// Custom header to get raw content
-		fetch(gitUrl, {headers: {Accept: `application/vnd.github.raw+json`, Authorization: (github_token)?`token ${github_token}`:``}})
-		.then(r=>r.blob())
-		.then(j=>{
-			audioPlayer.src = URL.createObjectURL(j)
-		})
 	}
 }
 async function browseBack(){browsingTree.pop();browseRun(browsingTree.pop())}
