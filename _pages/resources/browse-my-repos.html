@@ -428,7 +428,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	let browseDisplayInner="<a id=\"browse-display-close\"><svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a target=\"_blank\" href=\""+downloadUrl+"\">"+decodeURIComponent(downloadUrl_noParams.substring(downloadUrl_noParams.lastIndexOf('/')+1))+"</a>";
 
 	// Add option to show parsed for markdown files
-	if (downloadUrl_noParams.toLowerCase().endsWith(".md")){browseDisplayInner+=" <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'"+encodeURIComponent(downloadUrl)+"\', \'"+gitUrl+"\', "+(mdRaw?"false)\">alt: parsed":"true)\">alt: raw")+"</a>)</span>"}
+	if (downloadUrl_noParams.toLowerCase().endsWith(".md")){browseDisplayInner+=" <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'"+downloadUrl+"\', \'"+gitUrl+"\', "+(mdRaw?"false)\">alt: parsed":"true)\">alt: raw")+"</a>)</span>"}
 
 	// Remove any existing browsing indicators from browse-display
 	["default", "image", "audio"].forEach(a => bDisplay.classList.remove("browse-display-"+a))
