@@ -360,7 +360,20 @@ async function browseRun(inUrl, rootRepoUrl=""){
 		gId("browse-back").style.cursor="pointer"; gId("browse-back").onclick=browseBack;
 
 		// Regarding URL passing (compressed, reason: redundant code)
-		let nork=[];if(""===rootRepoUrl)nork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl,github_api_headers),c=await b.json();nork=[c.name,c.description,c.fork],c.fork&&nork.push(c.parent.html_url)}
+		let nork=[];if(""===rootRepoUrl)nork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl,github_api_headers),c=await b.json();nork=[c.name,c.description,c.fork],c.fork&&nork.push(c.parent.html_url)};
+
+		// TODO: 	Gearing towards no-store for private repos, and no-cache for non-private repos
+		//			or consider setting max-age and must-revalidate
+		// let nork=[];
+		// if(""===rootRepoUrl){
+		// 	nork=[browseJson.name,browseJson.description,browseJson.fork,browseJson.private];
+		// 	browseJson.fork&&nork.push(browseJson.parent.html_url);
+		// }else{
+		// 	const b=await fetch(rootRepoUrl,github_api_headers),
+		// 	c=await b.json();
+		// 	nork=[c.name,c.description,c.fork,c.private],
+		// 	c.fork&&nork.push(c.parent.html_url)
+		// }
 
 		// If just at the main view of the repository (not in the contents), then set the title and description
 		if (!inUrl.includes("?ref=")||rootRepoUrl!==""){
@@ -369,7 +382,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 			//	 const browseReleases=await browseReleasesResponse.json();
 			//	 console.log(browseReleases)
 			// }
-			
+			browsingCurrentRepo = inUrl			
 			gId("current-description").innerHTML=([undefined, null, ""].includes(nork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nork[1];
 			let currentTitleCommon="<span id=\"current-title-inner\" onclick=\"window.location='"+browseJson["html_url"]+"'\" title=\""+browseJson["html_url"]+"\">"+nork[0]+"</span>";
 			gId("current-title").innerHTML=(nork[2])? currentTitleCommon+" <span style=\"font-size: 60%;\">(<a href=\""+nork[3]+"\" target=\"_blank\">fork</a>)</span>" : currentTitleCommon;
@@ -379,7 +392,7 @@ async function browseRun(inUrl, rootRepoUrl=""){
 		browseJson=await fetch((inUrl.includes("?ref="))?inUrl:inUrl+"/contents", github_api_headers).then(r=>r.json());
 		browseJson.sort((a, b) => a["type"].localeCompare(b["type"]));
 	}
-	browsingCurrentRepo = inUrl
+	// browsingCurrentRepo = inUrl
 
 	// Loops through each... whatever thing. He needs some milk
 	browseJson.forEach(browseBuild);
