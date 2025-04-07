@@ -411,7 +411,7 @@ function browseBuild(eachRecord){
 	let contentElement='<span class="col browse-cell"';
 	if (eachRecord['git_url'].startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']})" data-search="${eachRecord['name']}">${eachRecord['name']}</span>`);
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']}") data-search="${eachRecord['name']}">${eachRecord['name']}</span>`);
 	}else{
 		// Is the record a directory?
 		if (eachRecord['type'] == 'dir'){
