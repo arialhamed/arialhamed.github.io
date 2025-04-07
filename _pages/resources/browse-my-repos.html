@@ -359,41 +359,17 @@ async function browseRun(inUrl, rootRepoUrl=''){
 		// If repository selected or in contents of repository (not at the start of the page)
 		gId('browse-back').style.cursor='pointer'; gId('browse-back').onclick=browseBack;
 
-		// Regarding URL passing (compressed, reason: redundant code)
-		// let nork=[];if(''===rootRepoUrl)nork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl,github_api_headers),c=await b.json();nork=[c.name,c.description,c.fork],c.fork&&nork.push(c.parent.html_url)};
-
 		// TODO: 	Gearing towards no-store for private repos, and no-cache for non-private repos
 		//			or consider setting max-age and must-revalidate
-		// let nork=[];
-		// if(""===rootRepoUrl){
-		// 	nork=[browseJson.name,browseJson.description,browseJson.fork,browseJson.private];
-		// 	browseJson.fork&&nork.push(browseJson.parent.html_url);
-		// }else{
-		// 	const b=await fetch(rootRepoUrl,github_api_headers),
-		// 	c=await b.json();
-		// 	nork=[c.name,c.description,c.fork,c.private],
-		// 	c.fork&&nork.push(c.parent.html_url)
-		// }
-		// if(""==rootRepoUrl){
-		// const browseRootRepo = (''===rootRepoUrl)?browseJson:await fetch(rootRepoUrl, github_api_headers).then(r=>r.json());
-		// }else{
-		// 	const browseRootRepo = await fetch(rootRepoUrl, github_api_headers).then(r=>r.json())
-		// }
-		
-		// Fetch the root
-
 		// If just at the main view of the repository (not in the contents), then set the title and description
 		if (!inUrl.includes('?ref=')||rootRepoUrl!==''){
-			// if (browsingCurrentRepo != inUrl){
-			//	 const browseReleasesResponse=await fetch('https://api.github.com/repos/'+ghusr+'/'+nork[0]+'/tags', github_api_headers);
-			//	 const browseReleases=await browseReleasesResponse.json();
-			//	 console.log(browseReleases)
-			// }
+			// The current API URL may not be the API URL for the root repository. For a pre-filled URL, there is no way to get repository details to put into the title, description and more, so this part covers that
 			const browseRootRepo = (''===rootRepoUrl)?browseJson:await fetch(rootRepoUrl, github_api_headers).then(r=>r.json());
+			github_api_headers = {cache: (browseRootRepo.private)?"no-store":"no-cache", headers: {Accept: `application/vnd.github+json`, Authorization: (github_token)?`token ${github_token}`:``}};
 			browsingCurrentRepo = inUrl
 			gId('current-description').innerHTML=([undefined, null, ''].includes(browseRootRepo.description))? '<span style="font-style: italic;">No description</span>' : browseRootRepo.description;
 			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${browseJson.html_url}'" title="${browseJson.html_url}">${browseRootRepo.name}</span>`;
-			gId('current-title').innerHTML=(browseRootRepo.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${browseRootRepo.private}" target="_blank">fork</a>)</span>` : currentTitleCommon;
+			gId('current-title').innerHTML=(browseRootRepo.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${browseRootRepo.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
 		}
 
 		// Get contents of repository, and sort it to show directories first
@@ -535,14 +511,6 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		audioPlayer.onloadedmetadata=function(){
 			this.play();
 			gId('show-audio').max=this.duration*8;
-			// fetch(this.src).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
-			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
-			// 	onError: err=>{console.log(err)}
-			// })})})
-			// fetch(this.src).then(r=>r.blob()). window.jsmediatags.read(this.src,{
-			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
-			// 	onError: err=>{console.log(err)}
-			// })
 		}
 		audioPlayer.onended=function(){!audioPlayer.loop?aPnext():''}
 
