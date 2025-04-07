@@ -403,16 +403,16 @@ function browseBuild(eachRecord){
 	let contentElement='<span class="col browse-cell"';
 	if (eachRecord['git_url'].startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']}")>${eachRecord['name']}</span>`);
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']}" data-search="${eachRecord['name']}")>${eachRecord['name']}</span>`);
 	}else{
 		// Is the record a directory?
 		if (eachRecord['type'] == 'dir'){
-			contentElement+=` onclick=browseRun("${eachRecord['url']}") id="${eachRecord['sha']}">${eachRecord['name']}/ <br><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
+			contentElement+=` onclick=browseRun("${eachRecord['url']}") id="${eachRecord['sha']}" data-search="${eachRecord['name']}")>${eachRecord['name']}/ <br><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
 		}else{
 			// This record is a file in these brackets
 			let sizeElement=`<br><span style="font-size: 70%; vertical-align: top;">${formatBytes(eachRecord["size"])}`;
 			let friendlyUrl=eachRecord['download_url'].slice(0, eachRecord['download_url'].lastIndexOf('/'))+"/"+eachRecord['html_url'].slice(eachRecord['html_url'].lastIndexOf('/')+1);
-			let showItemElement=` onclick="showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')"`;
+			let showItemElement=` onclick="showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')" data-search="${eachRecord['name']}")`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord['download_url'].split('?',1)[0].toLowerCase().endsWith(v))){ 
 				contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord['download_url']}" >`;
@@ -424,15 +424,15 @@ function browseBuild(eachRecord){
 		}
 
 		// Adds the folders and files as cells
-		gId("browse-content").insertAdjacentHTML("beforeend", contentElement);
+		gId('browse-content').insertAdjacentHTML('beforeend', contentElement);
 	}
 }
 
 // When click on file, show it. Exceptions for markdown files.
 async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
-	console.log("showFile("+downloadUrl+", "+gitUrl+")");
-	const bDisplay=gId("browse-display");
-	const downloadUrl_noParams = downloadUrl.split("?",1)[0];
+	console.log(`showFile(${downloadUrl}, ${gitUrl})`);
+	const bDisplay=gId('browse-display');
+	const downloadUrl_noParams = downloadUrl.split('?',1)[0];
 	// const gitContent = await 
 
 	// Remove loops to avoid raiding the console section 
@@ -442,113 +442,113 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	let browseDisplayInner=`<a id="browse-display-close"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a><a target="_blank" href="${downloadUrl}">${decodeURIComponent(downloadUrl_noParams.substring(downloadUrl_noParams.lastIndexOf('/')+1))}</a>`;
 
 	// Add option to show parsed for markdown files
-	if (downloadUrl_noParams.toLowerCase().endsWith('.md')){browseDisplayInner+=" <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'"+downloadUrl+"\', \'"+gitUrl+"\', "+(mdRaw?"false)\">alt: parsed":"true)\">alt: raw")+"</a>)</span>"}
+	if (downloadUrl_noParams.toLowerCase().endsWith('.md')){browseDisplayInner+=` <span style="cursor:pointer;position:relative;left:3em;">(<a onclick="showFile('${downloadUrl}', '${gitUrl}', ${(mdRaw?'false)">alt: parsed':'true)">alt: raw')}</a>)</span>`}
 
 	// Remove any existing browsing indicators from browse-display
-	["default", "image", "audio"].forEach(a => bDisplay.classList.remove("browse-display-"+a))
-	let browseDisplayIndicator="default";
+	['default', 'image', 'audio'].forEach(a => bDisplay.classList.remove('browse-display-'+a))
+	let browseDisplayIndicator='default';
 
 	if(extI.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
 		browseDisplayIndicator="image";
-		browseDisplayInner="<img id=\"show-image\" src=\""+downloadUrl+"\"><span>"+browseDisplayInner+"</span>";
+		browseDisplayInner=`<img id="show-image" src="${downloadUrl}"><span>${browseDisplayInner}</span>`;
 	}else if(extV.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
-		browseDisplayInner+="<video id=\"show-video\" style=\"width: 100%;\" controls><source src=\""+downloadUrl+"\" type=\"video/webm\"></video>";
+		browseDisplayInner+=`<video id="show-video" style="width: 100%;" controls><source src="${downloadUrl}" type="video/webm"></video>`;
 	}else if(extS.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
 		browseDisplayIndicator="audio";
 		browseDisplayInner+=audioPlayerHTML;
 	}else if(ext3.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
-		browseDisplayInner+="<model-viewer alt=\""+decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))+"\" src=\""+downloadUrl+"\" shadow-intensity=\"1\" camera-controls touch-action=\"pan-y\"></model-viewer>";
+		browseDisplayInner+=`<model-viewer alt="${decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))}" src="${downloadUrl}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`;
 	}else if(extA.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
 		browseDisplayInner+="<p>Contents of this file can not be parsed here.</p>";
 	}else if(downloadUrl_noParams.toLowerCase().endsWith(".pdf")){
-		browseDisplayInner+="<object type=\"application/pdf\" data=\""+downloadUrl+"\" width=\"500\" height=\"375\">";
+		browseDisplayInner+=`<object type="application/pdf" data="${downloadUrl}" width="500" height="375">`;
 	}else{
-		const itemTextOut=await fetch(gitUrl, github_api_headers).then(r=>r.json()).then(t=>atob(t["content"]));
+		const itemTextOut=await fetch(gitUrl, github_api_headers).then(r=>r.json()).then(t=>atob(t['content']));
 
 		// If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
-		if(downloadUrl_noParams.toLowerCase().endsWith(".md") && !mdRaw){
-			browseDisplayInner+="<br><span id=\"browse-md-parsed\">"+mdConverter.render(itemTextOut.substring(1).split("---").pop())+"</span>";
+		if(downloadUrl_noParams.toLowerCase().endsWith('.md') && !mdRaw){
+			browseDisplayInner+=`<br><span id="browse-md-parsed">${mdConverter.render(itemTextOut.substring(1).split('---').pop())}</span>`;
 		}else{ // else show it parsed in Prism.js
-			browseDisplayInner+="<br><pre style=\"background-color:#333a;width:100%;\" data-src=\""+downloadUrl+"\" data-download-link><code id=\"show-text\" class=\"line-numbers language-"+downloadUrl_noParams.split('.').pop()+"\">"+itemTextOut.replace(/\</g, "&lt;")+"</code></pre>";
+			browseDisplayInner+=`<br><pre style="background-color:#333a;width:100%;" data-src="${downloadUrl}" data-download-link><code id="show-text" class="line-numbers language-${downloadUrl_noParams.split('.').pop()}">${itemTextOut.replace(/\</g, '&lt;')}</code></pre>`;
 		} // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 	}
 
 	// Clear inline styles, push contents to browse-display's innerHTML, and add custom-by-file styles via class
-	bDisplay.style="";
+	bDisplay.style='';
 	bDisplay.innerHTML=browseDisplayInner;
-	bDisplay.classList.add("browse-display-"+browseDisplayIndicator);
-	gId("browse-display-close").onclick=()=>{
-		bDisplay.innerHTML="";
-		bDisplay.classList.remove("browse-display-"+browseDisplayIndicator);
-		["default","image","audio"].forEach(e=>{bDisplay.classList.remove("browse-display-"+e)})
+	bDisplay.classList.add('browse-display-'+browseDisplayIndicator);
+	gId('browse-display-close').onclick=()=>{
+		bDisplay.innerHTML='';
+		bDisplay.classList.remove('browse-display-'+browseDisplayIndicator);
+		['default','image','audio'].forEach(e=>{bDisplay.classList.remove('browse-display-'+e)})
 	}
 
 
 	// Set volume to half and play the media automatically
-	if (gId("show-video")!==null){gId("show-video").volume=.5;gId("show-video").play()}
-	if (gId("show-text")!==null){Prism.highlightElement(gId("show-text"))}
-	if (gId("show-audio")!==null){
-		console.log("Playing audio")
+	if (gId('show-video')!==null){gId('show-video').volume=.5;gId('show-video').play()}
+	if (gId('show-text')!==null){Prism.highlightElement(gId('show-text'))}
+	if (gId('show-audio')!==null){
+		console.log('Playing audio')
 		function aPnext(){var queue=audioPlayer.shuffle?mediaArrayRandom:mediaArray;showFile.apply(this,queue[queue.findIndex(x=>x[0]==downloadUrl)==queue.length-1?0:queue.findIndex(x=>x[0]==downloadUrl)+1])}
 		function aPprevious(){var queue=audioPlayer.shuffle?mediaArrayRandom:mediaArray;showFile.apply(this,queue[queue.findIndex(x=>x[0]==downloadUrl)==0?queue.length-1:queue.findIndex(x=>x[0]==downloadUrl)-1])}
 
-		const volVal=Object.assign(document.createElement("input"), {id:"audio-volume-value",type:"range",value:audioPlayer.volume*100,max:100});
-		gId("audio-volume").insertAdjacentElement("afterbegin",volVal)
+		const volVal=Object.assign(document.createElement('input'), {id:'audio-volume-value',type:'range',value:audioPlayer.volume*100,max:100});
+		gId('audio-volume').insertAdjacentElement('afterbegin',volVal)
 
-		const aToggle=gId("audio-toggle");
+		const aToggle=gId('audio-toggle');
 		var audioMainLoop=setInterval(()=>{
-			gId("show-audio").value=audioPlayer.currentTime*8;
-			gId("audio-duration").innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)+"<br>-<br>"+new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
-			gId("audio-volume-num").innerHTML=parseInt(audioPlayer.volume*100)
+			gId('show-audio').value=audioPlayer.currentTime*8;
+			gId('audio-duration').innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)+'<br>-<br>'+new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
+			gId('audio-volume-num').innerHTML=parseInt(audioPlayer.volume*100)
 			volVal.value=audioPlayer.volume*100;
 
 		}, 125)
-		gId("browse-display-close").addEventListener("click",()=>{
-			ogilvie.src="";
+		gId('browse-display-close').addEventListener('click',()=>{
+			ogilvie.src='';
 			window.onkeydown=()=>{};
 			audioPlayer.pause()
 			audioMainLoop?clearInterval(audioMainLoop):'';
-			bDisplay.classList.remove("disable-selection")
+			bDisplay.classList.remove('disable-selection')
 		})
 
 
-		bDisplay.classList.add("disable-selection");
-		audioPlayer.src = "";
+		bDisplay.classList.add('disable-selection');
+		audioPlayer.src = '';
 		fetch(gitUrl, {headers: {Accept: `application/vnd.github.raw+json`, Authorization: (github_token)?`token ${github_token}`:``}})
 		.then(r=>r.blob())
 		.then(j=>{
 			audioPlayer.src = URL.createObjectURL(j);
 			window.jsmediatags.read(j, {
-				onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?"":jmtToSrc(tag.tags.picture)},
+				onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 				onError: err=>{console.log(err)}
 			})
 		})
-		audioPlayer.onloadstart=()=>{ogilvie.src=""}
+		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
 			this.play();
-			gId("show-audio").max=this.duration*8;
+			gId('show-audio').max=this.duration*8;
 			// fetch(this.src).then(ea=>{ea.blob().then(eb=>{window.jsmediatags.read(eb,{
-			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?"":jmtToSrc(tag.tags.picture)},
+			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 			// 	onError: err=>{console.log(err)}
 			// })})})
 			// fetch(this.src).then(r=>r.blob()). window.jsmediatags.read(this.src,{
-			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?"":jmtToSrc(tag.tags.picture)},
+			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 			// 	onError: err=>{console.log(err)}
 			// })
 		}
-		audioPlayer.onended=function(){!audioPlayer.loop?aPnext():""}
+		audioPlayer.onended=function(){!audioPlayer.loop?aPnext():''}
 
-		gId("show-audio").oninput=function(){audioPlayer.currentTime=this.value/8} // Slider change current time
+		gId('show-audio').oninput=function(){audioPlayer.currentTime=this.value/8} // Slider change current time
 		aToggle.onclick=()=>{audioPlayer.togglePlay()} // Play/Paused toggle
 		audioPlayer.onplay=()=>{aToggle.innerHTML=pathPlaying}; audioPlayer.onpause=()=>{aToggle.innerHTML=pathPaused} // Play/Paused display
 		volVal.oninput=function(){audioPlayer.volume=this.value/100} // Slider change volume
-		gId("audio-next").onclick=()=>{aPnext()}
-		gId("audio-previous").onclick=()=>{aPprevious()}
-		[["in",.01],["de",-.01]].forEach(e=>{gId("audio-"+e[0]+"crease").onclick=()=>{audioPlayer.volumeAdd(e[1])}})
+		gId('audio-next').onclick=()=>{aPnext()}
+		gId('audio-previous').onclick=()=>{aPprevious()}
+		[['in',.01],['de',-.01]].forEach(e=>{gId('audio-'+e[0]+'crease').onclick=()=>{audioPlayer.volumeAdd(e[1])}})
 
 		window.onkeydown=function(){
 			// catches anything that does not require text input
-			if(!(("color|date|datetime-local|email|month|number|password|search|tel|text|time|url|week".includes(document.activeElement.type)&&document.activeElement.tagName==="INPUT")||document.activeElement.tagName==="TEXTAREA")){
+			if(!(('color|date|datetime-local|email|month|number|password|search|tel|text|time|url|week'.includes(document.activeElement.type)&&document.activeElement.tagName==='INPUT')||document.activeElement.tagName==='TEXTAREA')){
 				keyCodeUnassigned=true;
 				switch(this.keyCode){
 					case 74: case 37: audioPlayer.currentTime -= 3; break;
@@ -561,21 +561,21 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 				keyCodeUnassigned?this.preventDefault():'';
 			}
 		}
-		gId("audio-volume").onwheel=e=>{e.preventDefault();audioPlayer.volumeAdd(Math.max(e.deltaX,-e.deltaY)>0?-.01:.01)}
-		gId("show-audio").onwheel=e=>{e.preventDefault();audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}
-		gId("audio-music-shuffle").style.color=audioPlayer.shuffle?"var(--anchor-color)":"var(--font-color)";
-		gId("audio-music-shuffle").onclick=function(){audioPlayer.shuffle=!audioPlayer.shuffle;this.style.color=audioPlayer.shuffle?"var(--anchor-color)":"var(--font-color)"}
-		gId("audio-music-loop").style.color=audioPlayer.loop?"var(--anchor-color)":"var(--font-color)";
-		gId("audio-music-loop").onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?"var(--anchor-color)":"var(--font-color)"};
+		gId('audio-volume').onwheel=e=>{e.preventDefault();audioPlayer.volumeAdd(Math.max(e.deltaX,-e.deltaY)>0?-.01:.01)}
+		gId('show-audio').onwheel=e=>{e.preventDefault();audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}
+		gId('audio-music-shuffle').style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)';
+		gId('audio-music-shuffle').onclick=function(){audioPlayer.shuffle=!audioPlayer.shuffle;this.style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)'}
+		gId('audio-music-loop').style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)';
+		gId('audio-music-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
 
 	}
 }
 async function browseBack(){browsingTree.pop();browseRun(browsingTree.pop())}
-async function browseReset(s="pushed"){browsingTree=[];gId("browse-display").innerHTML="";gId("search-box").value="";browseRun("https://api.github.com"+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});["default","image","audio"].forEach(e=>{gId("browse-display").classList.remove("browse-display-"+e)})}
-async function copyCurrentUrl(f){if(f){navigator.clipboard.writeText(String(window.location).split("?")[0]+"?url="+gId("cud-inner").textContent);gId("cud-inner").innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId("cud-inner").innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
-async function searchContents(){gId("browse-content").childNodes.forEach(function(a){a.style.display=(a.textContent.toLowerCase().includes(gId("search-box").value.toLowerCase())) ? "" : "none"})}
+async function browseReset(s='pushed'){browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';browseRun('https://api.github.com'+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
+async function copyCurrentUrl(f){if(f){navigator.clipboard.writeText(String(window.location).split('?')[0]+'?url='+gId('cud-inner').textContent);gId('cud-inner').innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
+async function searchContents(){gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase())) ? '' : 'none'})}
 
-github_login=()=>{localStorage.setItem("github_login_last_page", window.location.href);window.location.href=`https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback`}
+github_login=()=>{localStorage.setItem('github_login_last_page', window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 
 </script>
 
