@@ -314,25 +314,25 @@ let mediaArrayLocation="";
 let browsingCurrentRepo="";
 let ghusr="arialhamed";
 let intervalsDict={};
-let list_repositories_qURL=(github_token)?"/user/repos?per_page=100&sort=":"/users/"+ghusr+"/repos?per_page=100&sort=";
+let list_repositories_qURL=(github_token)?"/user/repos?per_page=100&sort=":`/users/${ghusr}/repos?per_page=100&sort=`;
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named "url", the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
-if (!qUrl||String(qUrl).startsWith("" + list_repositories_qURL + "")){
+if (!qUrl||String(qUrl).startsWith(list_repositories_qURL)){
 	browseReset()
 }else{
-	browsingTree.push("https://api.github.com" + list_repositories_qURL + "pushed");
-	if (qUrl.split("/contents").length>1){
-		browsingTree.push("https://api.github.com"+qUrl.split("/contents")[0]);
-		let eachClimb=qUrl.slice(qUrl.indexOf("/contents/")+10).split("?")[0].split("/");
-		let accumClimb="";
+	browsingTree.push(`https://api.github.com${list_repositories_qURL}pushed`);
+	if (qUrl.split('/contents').length>1){
+		browsingTree.push(`https://api.github.com${qUrl.split('/contents')[0]}`);
+		let eachClimb=qUrl.slice(qUrl.indexOf('/contents/')+10).split('?')[0].split('/');
+		let accumClimb='';
 		for (let i=0; i<eachClimb.length-1; i++){
-			accumClimb+="https://arialhamed.github.io/"+eachClimb[i];
-			browsingTree.push("https://api.github.com"+qUrl.slice(0, qUrl.indexOf("/contents/"))+"/contents"+accumClimb+qUrl.slice(qUrl.indexOf("?ref=")))
+			accumClimb+=`https://arialhamed.github.io/${eachClimb[i]}`;
+			browsingTree.push(`https://api.github.com${qUrl.slice(0, qUrl.indexOf('/contents/'))}/contents${accumClimb+qUrl.slice(qUrl.indexOf('?ref='))}`)
 		}
-		browseRun("https://api.github.com"+qUrl, "https://api.github.com"+qUrl.split("/contents")[0])
+		browseRun(`https://api.github.com${qUrl}`, `https://api.github.com${qUrl.split('/contents')[0]}`)
 	}else{
-		browseRun("https://api.github.com"+qUrl)
+		browseRun(`https://api.github.com${qUrl}`)
 	}
 }
 
@@ -348,13 +348,13 @@ async function browseRun(inUrl, rootRepoUrl=""){
 
 	// mediaArray=[];
 	gId("browse-content").innerHTML="";
-	gId("current-url-display").innerHTML="<span id=\"cud-inner\" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title=\"Copy current URL & position\">"+iconCopy+inUrl.slice(22)+"</span>";
+	gId("current-url-display").innerHTML=`<span id='cud-inner' onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title='Copy current URL & position'>${iconCopy}${inUrl.slice(22)}</span>`;
 
 	browseJson=await fetch(inUrl, github_api_headers).then(r=>r.json());
-	if (inUrl.startsWith("https://api.github.com" + list_repositories_qURL)){ // If current link is the start
+	if (inUrl.startsWith(`https://api.github.com${list_repositories_qURL}`)){ // If current link is the start
 		gId("browse-back").style.cursor="not-allowed"; gId("browse-back").onclick="";
 		gId("current-title").innerHTML=(github_token)?"All of Your Repositories":"Ari's Public Repositories";
-		gId("current-description").innerHTML="<span style=\"font-style: italic;\">&lt;description will be shown here when you select a repository below&gt;</span>";
+		gId("current-description").innerHTML="<span style='font-style: italic;'>&lt;description will be shown here when you select a repository below&gt;</span>";
 	}else{
 		// If repository selected or in contents of repository (not at the start of the page)
 		gId("browse-back").style.cursor="pointer"; gId("browse-back").onclick=browseBack;
@@ -376,21 +376,21 @@ async function browseRun(inUrl, rootRepoUrl=""){
 		// }
 
 		// If just at the main view of the repository (not in the contents), then set the title and description
-		if (!inUrl.includes("?ref=")||rootRepoUrl!==""){
+		if (!inUrl.includes('?ref=')||rootRepoUrl!==''){
 			// if (browsingCurrentRepo != inUrl){
-			//	 const browseReleasesResponse=await fetch("https://api.github.com/repos/"+ghusr+"/"+nork[0]+"/tags", github_api_headers);
+			//	 const browseReleasesResponse=await fetch('https://api.github.com/repos/'+ghusr+'/'+nork[0]+'/tags', github_api_headers);
 			//	 const browseReleases=await browseReleasesResponse.json();
 			//	 console.log(browseReleases)
 			// }
 			browsingCurrentRepo = inUrl			
-			gId("current-description").innerHTML=([undefined, null, ""].includes(nork[1]))? "<span style=\"font-style: italic;\">No description</span>" : nork[1];
-			let currentTitleCommon="<span id=\"current-title-inner\" onclick=\"window.location='"+browseJson["html_url"]+"'\" title=\""+browseJson["html_url"]+"\">"+nork[0]+"</span>";
-			gId("current-title").innerHTML=(nork[2])? currentTitleCommon+" <span style=\"font-size: 60%;\">(<a href=\""+nork[3]+"\" target=\"_blank\">fork</a>)</span>" : currentTitleCommon;
+			gId('current-description').innerHTML=([undefined, null, ''].includes(nork[1]))? `<span style='font-style: italic;'>No description</span>` : nork[1];
+			let currentTitleCommon=`<span id='current-title-inner' onclick='window.location=%27${browseJson['html_url']}%27' title='${browseJson['html_url']}'>${nork[0]}</span>`;
+			gId('current-title').innerHTML=(nork[2])? `${currentTitleCommon} <span style='font-size: 60%;'>(<a href='${nork[3]}' target='_blank'>fork</a>)</span>` : currentTitleCommon;
 		}
 
 		// Get contents of repository, and sort it to show directories first
-		browseJson=await fetch((inUrl.includes("?ref="))?inUrl:inUrl+"/contents", github_api_headers).then(r=>r.json());
-		browseJson.sort((a, b) => a["type"].localeCompare(b["type"]));
+		browseJson=await fetch((inUrl.includes('?ref='))?inUrl:`${inUrl}/contents`, github_api_headers).then(r=>r.json());
+		browseJson.sort((a, b) => a['type'].localeCompare(b['type']));
 	}
 	// browsingCurrentRepo = inUrl
 
@@ -400,30 +400,29 @@ async function browseRun(inUrl, rootRepoUrl=""){
 
 // The following will read each file or content (or repos) and display into the browse-content element
 function browseBuild(eachRecord){
-	let contentElement="<span class=\"col browse-cell\"";
-	if (eachRecord["git_url"].startsWith("git://")){ // Is the record from the start?
+	let contentElement=`<span class='col browse-cell'`;
+	if (eachRecord['git_url'].startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId("browse-content").insertAdjacentHTML("beforeend", contentElement+" onclick=browseRun(\""+eachRecord["url"]+"\")>"+eachRecord["name"]+"</span>");
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun('${eachRecord['url']}')>${eachRecord['name']}</span>`);
 	}else{
 		// Is the record a directory?
-		if (eachRecord["type"] == "dir"){
-			contentElement+=" onclick=browseRun(\""+eachRecord["url"]+"\") id=\""+eachRecord["sha"]+"\">"+eachRecord["name"]+"/ <br><svg height=\"1.2em\" class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z\" clip-rule=\"evenodd\"/></svg></span>";
+		if (eachRecord['type'] == 'dir'){
+			contentElement+=` onclick=browseRun('${eachRecord['url']}') id='${eachRecord['sha']}'>${eachRecord['name']}/ <br><svg height='1.2em' class='w-6 h-6 text-gray-800 dark:text-white' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z' clip-rule='evenodd'/></svg></span>`;
 		}else{
 			// This record is a file in these brackets
-			let sizeElement=`<br><span style="font-size: 70%; vertical-align: top;">${formatBytes(eachRecord["size"])}`;
-			let friendlyUrl=eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/'))+"/"+eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1);
-			let showItemElement=` onclick="showFile('${eachRecord["download_url"].replace(/'/g, '%27')}', '${eachRecord["git_url"]}')"`;
+			let sizeElement=`<br><span style='font-size: 70%; vertical-align: top;'>${formatBytes(eachRecord['size'])}`;
+			let friendlyUrl=eachRecord['download_url'].slice(0, eachRecord['download_url'].lastIndexOf('/'))+'/'+eachRecord['html_url'].slice(eachRecord['html_url'].lastIndexOf('/')+1);
+			let showItemElement=` onclick='showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')'`;
 			// Is the record an image?
-			if (extI.some(v => eachRecord["download_url"].split("?",1)[0].toLowerCase().endsWith(v))){ 
-				contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord["download_url"]}" >`;
+			if (extI.some(v => eachRecord['download_url'].split('?',1)[0].toLowerCase().endsWith(v))){ 
+				contentElement = `<img${showItemElement} class='col browse-cell' src='${eachRecord['download_url']}' >`;
 			}else{
-				contentElement += `${showItemElement}>${eachRecord["name"]}${sizeElement}</span>`;
+				contentElement += `${showItemElement}>${eachRecord['name']}${sizeElement}</span>`;
 			}
-			mediaArray.push([eachRecord["download_url"], eachRecord["git_url"]]);
-			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[eachRecord["download_url"], eachRecord["git_url"]])
+			mediaArray.push([eachRecord['download_url'], eachRecord['git_url']]);
+			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[eachRecord['download_url'], eachRecord['git_url']])
 		}
 
-		console.log(contentElement)
 		// Adds the folders and files as cells
 		gId("browse-content").insertAdjacentHTML("beforeend", contentElement);
 	}
@@ -431,7 +430,7 @@ function browseBuild(eachRecord){
 
 // When click on file, show it. Exceptions for markdown files.
 async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
-	console.log("showFile("+downloadUrl+", "+gitUrl+")");
+	console.log(`showFile(${downloadUrl}, ${gitUrl})`);
 	const bDisplay=gId("browse-display");
 	const downloadUrl_noParams = downloadUrl.split("?",1)[0];
 	// const gitContent = await 
@@ -440,7 +439,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	audioMainLoop?clearInterval(audioMainLoop):'';
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-	let browseDisplayInner="<a id=\"browse-display-close\"><svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"/></svg></a><a target=\"_blank\" href=\""+downloadUrl+"\">"+decodeURIComponent(downloadUrl_noParams.substring(downloadUrl_noParams.lastIndexOf('/')+1))+"</a>";
+	let browseDisplayInner=`<a id='browse-display-close'><svg class='w-6 h-6 text-gray-800 dark:text-white' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'><path stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'/></svg></a><a target='_blank' href='${downloadUrl}'>${decodeURIComponent(downloadUrl_noParams.substring(downloadUrl_noParams.lastIndexOf('/')+1))}</a>`;
 
 	// Add option to show parsed for markdown files
 	if (downloadUrl_noParams.toLowerCase().endsWith(".md")){browseDisplayInner+=" <span style=\"cursor:pointer;position:relative;left:3em;\">(<a onclick=\"showFile(\'"+downloadUrl+"\', \'"+gitUrl+"\', "+(mdRaw?"false)\">alt: parsed":"true)\">alt: raw")+"</a>)</span>"}
