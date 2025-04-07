@@ -327,7 +327,7 @@ if (!qUrl||String(qUrl).startsWith(list_repositories_qURL)){
 		let eachClimb=qUrl.slice(qUrl.indexOf('/contents/')+10).split('?')[0].split('/');
 		let accumClimb='';
 		for (let i=0; i<eachClimb.length-1; i++){
-			accumClimb+=`https://arialhamed.github.io/${eachClimb[i]}`;
+			accumClimb+=`/${eachClimb[i]}`;
 			browsingTree.push(`https://api.github.com${qUrl.slice(0, qUrl.indexOf('/contents/'))}/contents${accumClimb}${qUrl.slice(qUrl.indexOf('?ref='))}`)
 		}
 		browseRun(`https://api.github.com${qUrl}`, `https://api.github.com${qUrl.split('/contents')[0]}`)
