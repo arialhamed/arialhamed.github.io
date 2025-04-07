@@ -310,7 +310,7 @@ let intervalsDict={};
 let list_repositories_qURL=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
 
 // GitHub User Profile
-gId("github_user_profile").insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}"</a>).</p>`)
+gId("github_user_profile").insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
@@ -341,7 +341,7 @@ gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
 async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 	browsingTree.push(inUrl); // Adds current url to a history array
 	console.log(browsingTree);
-	gId('browse-reset').onclick=()=>{browsingTree.pop();browseRun(inUrl, refresh=true)}
+	gId('browse-reset').onclick=()=>{browsingTree.pop();browseRun(inUrl, rootRepoUrl='', refresh=true)}
 
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
