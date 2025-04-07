@@ -27,8 +27,8 @@ layout: default
 prism: true
 ---
 
-<h6 style="cursor: default; font-size: 70%; opacity: .65;">
-	<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="github_login()">login</a>).</p>
+<h6 id="github_user_profile" style="cursor: default; font-size: 70%; opacity: .65;">
+	<!-- <p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="github_signin()sign-</a>).</p> -->
 	<p style="max-width: 50%; text-align: right; float: right;" id="current-url-display"></p>
 	<div style="clear: both;"></div>
 </h6>
@@ -262,13 +262,6 @@ img.browse-cell{
 // Third-party library objects
 const mdConverter=new remarkable.Remarkable({html: true}); // Parse markdown text
 
-// GitHub sign-in
-// async function githubAuth(){
-// 	const state=crypto.randomUUID();
-// 	localStorage.setItem("latestCSRFToken", state);
-// 	window.location.assign(`https://github.com/login/oauth/authorize?client_id=e01ccbd2b58691be1411&response_type=code&scope=repo&redirect_uri=https://arialhamed.github.io/OAuth2&state=${state}`);
-// }
-
 // Constants
 const extV=['.webm','.mp4','.mov','.wmv','.avi','.flv','.swf','.mkv','.webm'];
 const extS=['.3gp','.aa','.aac','.aax','.act','.aiff','.alac','.m4a','.amr','.ape','.au','.awb','.dss','.dvf','.flac','.gsm','.iklax','.ivs','.m4b','.m4p','.mmf','.movpkg','.mp3','.mpc','.msv','.nmf','.ogg','.opus','.ra','.raw','.rf64','.tta','.voc','.vox','.wav','.wma','.wv','.8svx','.cda','.oga','.mogg','.rm'];
@@ -315,6 +308,9 @@ let browsingCurrentRepo='';
 let ghusr='arialhamed';
 let intervalsDict={};
 let list_repositories_qURL=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
+
+// GitHub User Profile
+gId("github_user_profile").insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}"</a>).</p>`)
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
@@ -553,8 +549,8 @@ async function browseReset(s='pushed'){browsingTree=[];gId('browse-display').inn
 async function copyCurrentUrl(f){if(f){navigator.clipboard.writeText(String(window.location).split('?')[0]+'?url='+gId('cud-inner').textContent);gId('cud-inner').innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 async function searchContents(){gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase())) ? '' : 'none'})}
 
-github_login=()=>{localStorage.setItem('github_login_last_page', window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
-
+github_signin=()=>{localStorage.setItem('github_signin_last_page', window.location.href);window.location.href='https://github.cosign-/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
+github_logout=()=>{localStorage.removeItem('github_token'); window.location.reload()}
 </script>
 
 
