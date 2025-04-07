@@ -344,7 +344,7 @@ gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
 async function browseRun(inUrl, rootRepoUrl=''){
 	browsingTree.push(inUrl); // Adds current url to a history array
 	console.log(browsingTree);
-	gId('browse-reset').onclick=()=>{browseRun(inUrl)}
+	gId('browse-reset').onclick=()=>{browsingTree.pop();browseRun(inUrl)}
 
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
@@ -360,7 +360,7 @@ async function browseRun(inUrl, rootRepoUrl=''){
 		gId('browse-back').style.cursor='pointer'; gId('browse-back').onclick=browseBack;
 
 		// Regarding URL passing (compressed, reason: redundant code)
-		let nork=[];if(''===rootRepoUrl)nork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl,github_api_headers),c=await b.json();nork=[c.name,c.description,c.fork],c.fork&&nork.push(c.parent.html_url)};
+		// let nork=[];if(''===rootRepoUrl)nork=[browseJson.name,browseJson.description,browseJson.fork],browseJson.fork&&nork.push(browseJson.parent.html_url);else{const b=await fetch(rootRepoUrl,github_api_headers),c=await b.json();nork=[c.name,c.description,c.fork],c.fork&&nork.push(c.parent.html_url)};
 
 		// TODO: 	Gearing towards no-store for private repos, and no-cache for non-private repos
 		//			or consider setting max-age and must-revalidate
@@ -374,6 +374,13 @@ async function browseRun(inUrl, rootRepoUrl=''){
 		// 	nork=[c.name,c.description,c.fork,c.private],
 		// 	c.fork&&nork.push(c.parent.html_url)
 		// }
+		// if(""==rootRepoUrl){
+		// const browseRootRepo = (''===rootRepoUrl)?browseJson:await fetch(rootRepoUrl, github_api_headers).then(r=>r.json());
+		// }else{
+		// 	const browseRootRepo = await fetch(rootRepoUrl, github_api_headers).then(r=>r.json())
+		// }
+		
+		// Fetch the root
 
 		// If just at the main view of the repository (not in the contents), then set the title and description
 		if (!inUrl.includes('?ref=')||rootRepoUrl!==''){
@@ -382,10 +389,11 @@ async function browseRun(inUrl, rootRepoUrl=''){
 			//	 const browseReleases=await browseReleasesResponse.json();
 			//	 console.log(browseReleases)
 			// }
-			browsingCurrentRepo = inUrl			
-			gId('current-description').innerHTML=([undefined, null, ''].includes(nork[1]))? '<span style="font-style: italic;">No description</span>' : nork[1];
-			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${browseJson['html_url']}'" title="${browseJson['html_url']}">${nork[0]}</span>`;
-			gId('current-title').innerHTML=(nork[2])? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${nork[3]}" target="_blank">fork</a>)</span>` : currentTitleCommon;
+			const browseRootRepo = (''===rootRepoUrl)?browseJson:await fetch(rootRepoUrl, github_api_headers).then(r=>r.json());
+			browsingCurrentRepo = inUrl
+			gId('current-description').innerHTML=([undefined, null, ''].includes(browseRootRepo.description))? '<span style="font-style: italic;">No description</span>' : browseRootRepo.description;
+			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${browseJson.html_url}'" title="${browseJson.html_url}">${browseRootRepo.name}</span>`;
+			gId('current-title').innerHTML=(browseRootRepo.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${browseRootRepo.private}" target="_blank">fork</a>)</span>` : currentTitleCommon;
 		}
 
 		// Get contents of repository, and sort it to show directories first
@@ -403,7 +411,7 @@ function browseBuild(eachRecord){
 	let contentElement='<span class="col browse-cell"';
 	if (eachRecord['git_url'].startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']}" data-search="${eachRecord['name']}")>${eachRecord['name']}</span>`);
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']})" data-search="${eachRecord['name']}">${eachRecord['name']}</span>`);
 	}else{
 		// Is the record a directory?
 		if (eachRecord['type'] == 'dir'){
@@ -411,7 +419,7 @@ function browseBuild(eachRecord){
 		}else{
 			// This record is a file in these brackets
 			let sizeElement=`<br><span style="font-size: 70%; vertical-align: top;">${formatBytes(eachRecord["size"])}`;
-			let friendlyUrl=eachRecord['download_url'].slice(0, eachRecord['download_url'].lastIndexOf('/'))+"/"+eachRecord['html_url'].slice(eachRecord['html_url'].lastIndexOf('/')+1);
+			let friendlyUrl=eachRecord['download_url'].slice(0, eachRecord['download_url'].lastIndexOf('/'))+"/"+eachRecord.html_url.slice(eachRecord.html_url.lastIndexOf('/')+1);
 			let showItemElement=` onclick="showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')" data-search="${eachRecord['name']}")`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord['download_url'].split('?',1)[0].toLowerCase().endsWith(v))){ 
