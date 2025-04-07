@@ -73,7 +73,7 @@
 
 	// For authentication via GitHub Apps
 	const github_token = localStorage.getItem('github_token');
-	let github_api_headers = (refresh = false, blob = false) => {return {cache: (refresh)?"no-store":"no-cache", headers: {Accept: `application/vnd.github${(blob)?'.raw':'+json'}`, Authorization: (github_token)?`token ${github_token}`:``}}}
+	let github_api_headers = ({refresh = false, blob = false}) => {return {cache: (refresh)?"no-store":"no-cache", headers: {Accept: `application/vnd.github${(blob)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
 </script>
 <style type="text/css">
     /* Built-in */
