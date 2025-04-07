@@ -314,7 +314,7 @@ let mediaArrayLocation='';
 let browsingCurrentRepo='';
 let ghusr='arialhamed';
 let intervalsDict={};
-let list_repositories_qURL=(github_token)?'/user/repos?per_page=100&sort=':`/users/'+ghusr+'/repos?per_page=100&sort=`;
+let list_repositories_qURL=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
