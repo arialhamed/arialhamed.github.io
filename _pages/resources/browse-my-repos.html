@@ -412,7 +412,7 @@ function browseBuild(eachRecord){
 			// This record is a file in these brackets
 			let sizeElement=`<br><span style="font-size: 70%; vertical-align: top;">${formatBytes(eachRecord["size"])}`;
 			let friendlyUrl=eachRecord["download_url"].slice(0, eachRecord["download_url"].lastIndexOf('/'))+"/"+eachRecord["html_url"].slice(eachRecord["html_url"].lastIndexOf('/')+1);
-			let showItemElement=` onclick="showFile('${eachRecord["download_url"].replace(/'/g, '&apos;')}', '${eachRecord["git_url"]}')"`;
+			let showItemElement=` onclick="showFile('${eachRecord["download_url"].replace(/'/g, '\'')}', '${eachRecord["git_url"]}')"`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord["download_url"].split("?",1)[0].toLowerCase().endsWith(v))){ 
 				contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord["download_url"]}" >`;
