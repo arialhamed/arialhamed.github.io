@@ -445,7 +445,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	}else if(downloadUrl_noParams.toLowerCase().endsWith(".pdf")){
 		browseDisplayInner+=`<object type="application/pdf" data="${downloadUrl}" width="500" height="375">`;
 	}else{
-		const itemTextOut=await fetch(gitUrl, github_api_headers({})).then(r=>r.json()).then(t=>atob(t['content']));
+		const itemTextOut=await fetch(gitUrl, github_api_headers()).then(r=>r.json()).then(t=>atob(t['content']));
 
 		// If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
 		if(downloadUrl_noParams.toLowerCase().endsWith('.md') && !mdRaw){
@@ -495,7 +495,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 
 
 		bDisplay.classList.add('disable-selection');
-		audioPlayer.src = '';
+		audioPlayer.src = downloadUrl;
 		fetch(gitUrl, github_api_headers({blob: true}))
 		.then(r=>r.blob())
 		.then(j=>{
