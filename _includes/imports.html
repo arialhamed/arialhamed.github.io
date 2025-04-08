@@ -22,25 +22,25 @@
 <script>
 	// Functions
 	function gId(id){return document.getElementById(id)}
-	const cipher=b=>{var c=a=>a.split("").map(a=>a.charCodeAt(0)),d=a=>("0"+(+a).toString(16)).substr(-2),a=a=>c(b).reduce((a,b)=>a^b,a);return b=>b.split("").map(c).map(a).map(d).join("")},decipher=a=>{var b=b=>(()=>a.split("").map(a=>a.charCodeAt(0)))().reduce((a,b)=>a^b,b);return a=>a.match(/.{1,2}/g).map(a=>parseInt(a,16)).map(b).map(a=>String.fromCharCode(a)).join("")};
-	function slugify(e){return String(e).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-")}
-	function formatBytes(a,b=2){if(0===a)return"0 bytes";const c=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,c)).toFixed(b))+" "+["bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][c]}
-	$(document).ready(function(){$("a").on("click",function(o){var t;""!==this.hash&&(o.preventDefault(),t=this.hash,$("html, body").animate({scrollTop:$(t).offset().top},800,function(){window.location.hash=t}))})});
-	function jmtToSrc(z){const {data,format}=z;var based="";for (let i=0;i<data.length;i++){based += String.fromCharCode(data[i])}return "data:"+format+";base64,"+window.btoa(based)}
+	const cipher=b=>{var c=a=>a.split('').map(a=>a.charCodeAt(0)),d=a=>('0'+(+a).toString(16)).substr(-2),a=a=>c(b).reduce((a,b)=>a^b,a);return b=>b.split('').map(c).map(a).map(d).join('')},decipher=a=>{var b=b=>(()=>a.split('').map(a=>a.charCodeAt(0)))().reduce((a,b)=>a^b,b);return a=>a.match(/.{1,2}/g).map(a=>parseInt(a,16)).map(b).map(a=>String.fromCharCode(a)).join('')};
+	function slugify(e){return String(e).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase().replace(/[^a-z0-9 -]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-')}
+	function formatBytes(a,b=2){if(0===a)return'0 bytes';const c=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,c)).toFixed(b))+' '+['bytes','KB','MB','GB','TB','PB','EB','ZB','YB'][c]}
+	$(document).ready(function(){$('a').on('click',function(o){var t;''!==this.hash&&(o.preventDefault(),t=this.hash,$('html, body').animate({scrollTop:$(t).offset().top},800,function(){window.location.hash=t}))})});
+	function jmtToSrc(z){const {data,format}=z;var based='';for (let i=0;i<data.length;i++){based += String.fromCharCode(data[i])}return 'data:'+format+';base64,'+window.btoa(based)}
 
 	// Show this image if img has error
-	const all_imgs = document.getElementsByTagName("img");
-	for (var i = 0;i < all_imgs.length;i++) document.getElementsByTagName("img")[i].setAttribute("onerror", 'this.src="https://github.com/arialhamed/static/raw/main/images/missing.jpeg";');
+	const all_imgs = document.getElementsByTagName('img');
+	for (var i = 0;i < all_imgs.length;i++) document.getElementsByTagName('img')[i].setAttribute('onerror', 'this.src="https://github.com/arialhamed/static/raw/main/images/missing.jpeg";');
 
-	function unlock(){
-		if (gId("password-input").value === decipher("blazelifeundaunted")("273636646f6a6a6f69685e") || gId("password-input").value === decipher("blazelifeundaunted")("3234303e333f")){
-			gId("truth").style.display = "block";
-			const e = document.createElement("meta");
-			e.setAttribute("http-equiv", "refresh"), e.setAttribute("content", "300"), document.getElementsByTagName("head")[0].appendChild(e), gId("password-input").value = "";
-			const t = gId("password-input");
-			t.parentNode.removeChild(t)
-		}
-	}
+	// function unlock(){ //lmao this is just wrong
+	// 	if (gId('password-input').value === decipher('blazelifeundaunted')('273636646f6a6a6f69685e') || gId('password-input').value === decipher('blazelifeundaunted')('3234303e333f')){
+	// 		gId('truth').style.display = 'block';
+	// 		const e = document.createElement('meta');
+	// 		e.setAttribute('http-equiv', 'refresh'), e.setAttribute('content', '300'), document.getElementsByTagName('head')[0].appendChild(e), gId('password-input').value = '';
+	// 		const t = gId('password-input');
+	// 		t.parentNode.removeChild(t)
+	// 	}
+	// }
 
 	// For if an image is needed to be shown in the animated canvas background
 	const ogilvie = new Image()
@@ -52,28 +52,36 @@
 	window.onload = function(){
 		Array.from(document.getElementsByClassName("uwu")).forEach(
 			function(a){
-				const b = "border-radius:.5em;font-family:var(--bs-font-monospace)!important;cursor:grab"
-				const c = b + ";color:white;";
-				const d = b + "bing;color:black;background:linear-gradient(90deg, #5BCFFA 20%, #F5ABB9 20% 40%, white 40% 60%, #F5ABB9 60% 80%, #5BCFFA 80% 100%);";
-				a.classList.add("disable-selection");
-				a.innerHTML = "UwU";
+				const b = 'border-radius:.5em;font-family:var(--bs-font-monospace)!important;cursor:grab'
+				const c = b + ';color:white;';
+				const d = b + 'bing;color:black;background:linear-gradient(90deg, #5BCFFA 20%, #F5ABB9 20% 40%, white 40% 60%, #F5ABB9 60% 80%, #5BCFFA 80% 100%);';
+				a.classList.add('disable-selection');
+				a.innerHTML = 'UwU';
 				a.style = c;
-				a.onmouseenter = a.onmouseup = function(){a.innerHTML = "OwO";a.style = c}
-				a.onmousedown = function(){a.innerHTML = ">w<";a.style = d;new Audio("https://github.com/arialhamed/static/raw/main/audio/uwu.m4a").play()}
-				a.onmouseout = function(){a.innerHTML = "UwU";a.style = c}
+				a.onmouseenter = a.onmouseup = function(){a.innerHTML = 'OwO';a.style = c}
+				a.onmousedown = function(){a.innerHTML = '>w<';a.style = d;new Audio('https://github.com/arialhamed/static/raw/main/audio/uwu.m4a').play()}
+				a.onmouseout = function(){a.innerHTML = 'UwU';a.style = c}
 			}
 		)
 		// document.onkeyup = e =>{e = e || window.event;if(e.key == "/"){gId("search-box").focus();gId("main-content").scrollIntoView()}}
-		gId("toggle-fullscreen").onclick = e =>{if(document.fullscreenElement!==null){document.exitFullscreen();gId("toggle-fullscreen").innerHTML = "<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8 4H4m0 0v4m0-4 5 5m7-5h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5m7 5h4m0 0v-4m0 4-5-5\"/></svg>"}else{document.documentElement.requestFullscreen();gId("toggle-fullscreen").innerHTML = "<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 9h4m0 0V5m0 4L4 4m15 5h-4m0 0V5m0 4 5-5M5 15h4m0 0v4m0-4-5 5m15-5h-4m0 0v4m0-4 5 5\"/></svg>"}}
+		gId('toggle-fullscreen').onclick = e =>{
+			if(document.fullscreenElement!==null){
+				document.exitFullscreen();
+				gId('toggle-fullscreen').innerHTML = '<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H4m0 0v4m0-4 5 5m7-5h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5m7 5h4m0 0v-4m0 4-5-5"/></svg>'
+			}else{
+				document.documentElement.requestFullscreen();
+				gId('toggle-fullscreen').innerHTML = '<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 9h4m0 0V5m0 4L4 4m15 5h-4m0 0V5m0 4 5-5M5 15h4m0 0v4m0-4-5 5m15-5h-4m0 0v4m0-4 5 5"/></svg>'
+			}
+		}
 	}
 
 	// For tracking (may not be working anymore so hey good for you)
 	connectCheck();
-	async function connectCheck(){const a=await fetch("https://arialhamed.pythonanywhere.com/track"),b=await a.json();console.log("current site:"+b.site)}
+	async function connectCheck(){const a=await fetch('https://arialhamed.pythonanywhere.com/track'),b=await a.json();console.log('current site:'+b.site)}
 
 	// For authentication via GitHub Apps
 	const github_token = localStorage.getItem('github_token');
-	let github_api_headers = ({refresh = false, blob = false} = {}) => {return {cache: (refresh)?"no-store":"no-cache", headers: {Accept: `application/vnd.github${(blob)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
+	let github_api_headers = ({refresh = false, blob = false} = {}) => {return {cache: (refresh)?'no-store':'no-cache', headers: {Accept: `application/vnd.github${(blob)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
 </script>
 <style type="text/css">
 	/* Built-in */
