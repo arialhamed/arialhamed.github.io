@@ -505,7 +505,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 				onError: err=>{console.log(err)}
 			})
 		})
-		audioPlayer.onloadstart=()=>{ogilvie.src=''}
+		audioPlayer.onloadstart=function(){ogilvie.src='';this.play()}
 		audioPlayer.onloadedmetadata=function(){
 			this.play();
 			gId('show-audio').max=this.duration*8;
