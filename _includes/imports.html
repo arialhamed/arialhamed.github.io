@@ -67,13 +67,13 @@
         gId("toggle-fullscreen").onclick = e =>{if(document.fullscreenElement!==null){document.exitFullscreen();gId("toggle-fullscreen").innerHTML = "<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8 4H4m0 0v4m0-4 5 5m7-5h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5m7 5h4m0 0v-4m0 4-5-5\"/></svg>"}else{document.documentElement.requestFullscreen();gId("toggle-fullscreen").innerHTML = "<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 9h4m0 0V5m0 4L4 4m15 5h-4m0 0V5m0 4 5-5M5 15h4m0 0v4m0-4-5 5m15-5h-4m0 0v4m0-4 5 5\"/></svg>"}}
     }
 
-	// For tracking (may not be working anymore so hey good for you )
+	// For tracking (may not be working anymore so hey good for you)
     connectCheck();
     async function connectCheck(){const a=await fetch("https://arialhamed.pythonanywhere.com/track"),b=await a.json();console.log("current site:"+b.site)}
 
 	// For authentication via GitHub Apps
 	const github_token = localStorage.getItem('github_token');
-	let github_api_headers = ({refresh = false, blob = false}) => {return {cache: (refresh)?"no-store":"no-cache", headers: {Accept: `application/vnd.github${(blob)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
+	let github_api_headers = ({refresh = false, blob = false} = {}) => {return {cache: (refresh)?"no-store":"no-cache", headers: {Accept: `application/vnd.github${(blob)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
 </script>
 <style type="text/css">
     /* Built-in */

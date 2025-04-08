@@ -495,7 +495,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 
 
 		bDisplay.classList.add('disable-selection');
-		audioPlayer.src = downloadUrl;
+		audioPlayer.src = '';
 		fetch(gitUrl, github_api_headers({blob: true}))
 		.then(r=>r.blob())
 		.then(j=>{
@@ -505,7 +505,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 				onError: err=>{console.log(err)}
 			})
 		})
-		audioPlayer.onloadstart=function(){ogilvie.src='';this.play()}
+		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
 			this.play();
 			gId('show-audio').max=this.duration*8;
