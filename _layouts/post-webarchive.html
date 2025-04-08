@@ -1,113 +1,100 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,maximum-scale=2">
+	<!-- <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}"> -->
+	{% include icon.html %}
+	{% include imports.html %}
+	{% seo %}
+	{% if page.farewell %}
+	<script>
+		function playFarewell(){
+			var audio = gId("farewell");
+			audio.play()
+		}
+	</script>
+	{% endif %}
+</head>
+<body>
+	<!-- HEADER -->
+	{% include header.html %}
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}"> -->
-    
-    {% include icon.html %}
-    
-    {% include imports.html %}
+	<!-- MAIN CONTENT -->
+	<div id="main-content-wrap" class="outer">
+		<section id="main-content" class="inner">
+			<a class="btn btn-dark w-100" style="background-color:#333;" href="{{ page.back }}">back to all {{ page.seq_type | default: "archives" }}</a>
+			<div class="container">
+				<div class="page-navigation row row-cols-auto">
+					{% assign cat = page.categories[1] %}
+					{% assign cat_list = site.categories[cat] %}
+					{% for post in cat_list %}
+						{% if post.url == page.url %}
+							{% assign pOffset = forloop.index0 | minus: 1 %}
+							{% assign nOffset = pOffset | plus: 2 %}
+							{% if forloop.first == false %}
+								{% assign next_post = cat_list[pOffset] %}
+							{% endif %}
+							{% if forloop.last == false %}
+								{% assign previous_post = cat_list[nOffset] %}
+							{% endif %}
+							{% break %}
+						{% endif %}
+					{% endfor %}
+					
+					<script>
+						document.addEventListener('keydown', function(event) {
+							//const key = event.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
+							switch (event.key) {
+							case "ArrowLeft":
+								// Left pressed
+								window.open("{{previous_post.url}}","_self")
+								break;
+							case "ArrowRight":
+								// Right pressed
+								window.open("{{next_post.url}}","_self")
+								break;
+							case "ArrowUp":
+								// Up pressed
+								break;
+							case "ArrowDown":
+								// Down pressed
+								break;
+							}
+						});
+					</script>
 
-    {% seo %}
+					{% if previous_post and next_post %}
+						<a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
+						<a class="next btn btn-dark" style="background-color:#333;" href="{{next_post.url}}">{{next_post.title}} &raquo;</a>
+					{% else %}
+						{% if previous_post %}
+						<a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
+						<a class="next btn disabled" style="color:var(--font-color);background-color:var(--font-color);" aria-disabled="true">&nbsp;</a>
+						{% endif %}
+						{% if next_post %}
+						<a class="prev btn disabled" style="color:var(--font-color);background-color:var(--font-color);" aria-disabled="true">&nbsp;</a>
+						<a class="next btn btn-dark" style="background-color:#333;" href="{{next_post.url}}">{{next_post.title}} &raquo;</a>
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+			<div class="w-100" style="text-align:center;">
+				Original last modified date: {{ page.date | date: "%-d %B %Y" }}
+			</div>
+			<div class="w-100" style="text-align:center;">
+				Original URL: <a href="{{ page.original_url }}">{{ page.original_url }}</a>
+			</div>
+			<br><br><hr><br>
 
+			{{ content }}
+			
+		</section>
+	</div>
 
-    {% if page.farewell %}
-    <script>
-      function playFarewell(){
-        var audio = gId("farewell");
-        audio.play()
-      }
-    </script>
-    {% endif %}
-    
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    {% include header.html %}
-
-    <!-- MAIN CONTENT -->
-    <div id="main-content-wrap" class="outer">
-	  
-      <section id="main-content" class="inner">
-
-
-        <a class="btn btn-dark w-100" style="background-color:#333;" href="{{ page.back }}">back to all {{ page.seq_type | default: "archives" }}</a>
-        
-        <div class="container">
-          <div class="page-navigation row row-cols-auto">
-            {% assign cat = page.categories[1] %}
-            {% assign cat_list = site.categories[cat] %}
-            {% for post in cat_list %}
-              {% if post.url == page.url %}
-                {% assign pOffset = forloop.index0 | minus: 1 %}
-                {% assign nOffset = pOffset | plus: 2 %}
-                {% if forloop.first == false %}
-                  {% assign next_post = cat_list[pOffset] %}
-                {% endif %}
-                {% if forloop.last == false %}
-                  {% assign previous_post = cat_list[nOffset] %}
-                {% endif %}
-                {% break %}
-              {% endif %}
-            {% endfor %}
-            
-            <script>
-              document.addEventListener('keydown', function(event) {
-                //const key = event.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
-                switch (event.key) {
-                case "ArrowLeft":
-                    // Left pressed
-                    window.open("{{previous_post.url}}","_self")
-                    break;
-                case "ArrowRight":
-                    // Right pressed
-                    window.open("{{next_post.url}}","_self")
-                    break;
-                case "ArrowUp":
-                    // Up pressed
-                    break;
-                case "ArrowDown":
-                    // Down pressed
-                    break;
-                }
-              });
-            </script>
-
-            {% if previous_post and next_post %}
-              <a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
-              <a class="next btn btn-dark" style="background-color:#333;" href="{{next_post.url}}">{{next_post.title}} &raquo;</a>
-            {% else %}
-              {% if previous_post %}
-              <a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
-              <a class="next btn disabled" style="color:var(--font-color);background-color:var(--font-color);" aria-disabled="true">&nbsp;</a>
-              {% endif %}
-              {% if next_post %}
-              <a class="prev btn disabled" style="color:var(--font-color);background-color:var(--font-color);" aria-disabled="true">&nbsp;</a>
-              <a class="next btn btn-dark" style="background-color:#333;" href="{{next_post.url}}">{{next_post.title}} &raquo;</a>
-              {% endif %}
-            {% endif %}
-          </div>
-        </div>
-        <div class="w-100" style="text-align:center;">
-          Original last modified date: {{ page.date | date: "%-d %B %Y" }}
-        </div>
-        <div class="w-100" style="text-align:center;">
-          Original URL: <a href="{{ page.original_url }}">{{ page.original_url }}</a>
-        </div>
-        <br><br><hr><br>
-
-        {{ content }}
-        
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    {% include footer.html %}
-    
-  </body>
+	<!-- FOOTER	-->
+	{% include footer.html %}
+	
+</body>
 </html>

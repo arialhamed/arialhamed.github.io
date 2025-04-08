@@ -37,31 +37,31 @@ prism: true
 
 listResults();
 async function listResults(){
-  let intakeText = "";
-  const response = await fetch("https://api.github.com/repos/arialhamed/convenience/contents/");
-  const all = await response.json();
-  const allSecondLayer = all.filter(object => {
-    return object["type"] == "dir";
-  })
-  allSecondLayer.forEach(addToHTML);
+	let intakeText = "";
+	const response = await fetch("https://api.github.com/repos/arialhamed/convenience/contents/");
+	const all = await response.json();
+	const allSecondLayer = all.filter(object => {
+		return object["type"] == "dir";
+	})
+	allSecondLayer.forEach(addToHTML);
 }
 async function addToHTML(details){
-  if (details["type"] == "dir"){
-    const directory = await fetch(details["url"]);
-    const directoryList = await directory.json();
-    directoryList.forEach(addToHTML);
-  } else {
-    console.log(details["download_url"])
-    const responseFile = await fetch(details["download_url"]);
-    const responseContent = await responseFile.text();
-    gId("scripts-content").insertAdjacentHTML("beforeend", "\
-      <h3 id=\"" + slugify(details["name"]) + "\">" + details["name"] + "</h3> \
-      <pre style=\"background-color: #333a;\" data-src=\"" + details["download_url"] + "\" data-download-link><code class=\"line-numbers language-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent.replace(/\</g, "&lt;") + "</code></pre> \
-      <br><br> \
-    ");
-    gId("scripts-list").insertAdjacentHTML("beforeend", "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>");
-    Prism.highlightElement(gId(details["sha"]));
-  }
+	if (details["type"] == "dir"){
+		const directory = await fetch(details["url"]);
+		const directoryList = await directory.json();
+		directoryList.forEach(addToHTML);
+	} else {
+		console.log(details["download_url"])
+		const responseFile = await fetch(details["download_url"]);
+		const responseContent = await responseFile.text();
+		gId("scripts-content").insertAdjacentHTML("beforeend", "\
+			<h3 id=\"" + slugify(details["name"]) + "\">" + details["name"] + "</h3> \
+			<pre style=\"background-color: #333a;\" data-src=\"" + details["download_url"] + "\" data-download-link><code class=\"line-numbers language-" + details["name"].split('.').pop() + "\" id=\"" + details["sha"] + "\">" + responseContent.replace(/\</g, "&lt;") + "</code></pre> \
+			<br><br> \
+		");
+		gId("scripts-list").insertAdjacentHTML("beforeend", "<li><a href=\"#" + slugify(details["name"]) + "\">" + details["name"] + "</a></li>");
+		Prism.highlightElement(gId(details["sha"]));
+	}
 }
 
 </script>

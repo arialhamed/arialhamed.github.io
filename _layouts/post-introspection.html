@@ -1,63 +1,55 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,maximum-scale=2">
+	<!-- <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}"> -->
+	<style>
+		.text-secret{
+			width: 100%!important;
+			text-align: center!important;
+			background-color:#0000;
+			border:0px;
+			cursor:default;
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}"> -->
-    <style>
-      .text-secret{
-        width: 100%!important;
-        text-align: center!important;
-        background-color:#0000;
-        border:0px;
-        cursor:default;
-  
-        display: block;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: var(--font-color);
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        border-radius: 0.25rem;
-        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-      }
-    </style>
-      
-    {% include icon.html %}
-    
-    {% include imports.html %}
+			display: block;
+			padding: 0.375rem 0.75rem;
+			font-size: 1rem;
+			font-weight: 400;
+			line-height: 1.5;
+			color: var(--font-color);
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			border-radius: 0.25rem;
+			transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
+	</style>
+		
+	{% include icon.html %}
+	{% include imports.html %}
+	{% seo %}
+</head>
 
-    {% seo %}
-  </head>
+<body>
 
-  <body>
+	<!-- HEADER -->
+	{% include header.html %}
 
-    <!-- HEADER -->
-    {% include header.html %}
+	<!-- MAIN CONTENT -->
+	<div id="main-content-wrap" class="outer">
+		<section id="main-content" class="inner">
+			<div class="w-100" style="text-align:center;">
+				Date: {{ page.date | date: "%-d %B %Y" }}
+			</div>
+			<input id="password-input" type="password" class="text-secret" onkeyup="unlock()" autocomplete="off">
+			<span class="disable-selection" id="truth" style="display:none;">{{ content }}</span>
+		</section>
+	</div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main-content-wrap" class="outer">
-	  
-      <section id="main-content" class="inner">
+	<!-- FOOTER	-->
+	{% include footer.html %}
 
-        <div class="w-100" style="text-align:center;">
-          Date: {{ page.date | date: "%-d %B %Y" }}
-        </div>
-
-        <input id="password-input" type="password" class="text-secret" onkeyup="unlock()" autocomplete="off">
-
-        <span class="disable-selection" id="truth" style="display:none;">{{ content }}</span>
-        
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    {% include footer.html %}
-
-  </body>
+</body>
 </html>

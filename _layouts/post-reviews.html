@@ -1,120 +1,112 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,maximum-scale=2">
+	<!-- <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}"> -->
+	
+	{% include icon.html %}
+	
+	{% include imports.html %}
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}"> -->
-    
-    {% include icon.html %}
-    
-    {% include imports.html %}
-
-    {% seo %}
-
-
-    {% if page.farewell %}
-    <script>
-      function playFarewell(){
-        var audio = gId("farewell");
-        audio.play()
-      }
-    </script>
-    {% endif %}
-    
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    {% include header.html %}
-
-    <!-- MAIN CONTENT -->
-    <div id="main-content-wrap" class="outer">
-	  
-      <section id="main-content" class="inner">
+	{% seo %}
 
 
-        <a class="btn btn-dark w-100" style="background-color:#333;" href="{{ page.back }}">back to all {{ page.seq_type | default: "posts" }}</a>
-        
-        <div class="container">
-          <div class="page-navigation row row-cols-auto">
-            {% assign cat = page.categories[0] %}
-            {% assign cat_list = site.categories[cat] %}
-            {% for post in cat_list %}
-              {% if post.url == page.url %}
-                {% assign pOffset = forloop.index0 | minus: 1 %}
-                {% assign nOffset = pOffset | plus: 2 %}
-                {% if forloop.first == false %}
-                  {% assign next_post = cat_list[pOffset] %}
-                {% endif %}
-                {% if forloop.last == false %}
-                  {% assign previous_post = cat_list[nOffset] %}
-                {% endif %}
-                {% break %}
-              {% endif %}
-            {% endfor %}
-            
-            <script>
-              
-              function convertTZ(date, tzString) {
-                return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
-              }
-              document.addEventListener("keydown",function(e){switch(e.key){case"ArrowLeft":window.open("{{previous_post.url}}","_self");break;case"ArrowRight":window.open("{{next_post.url}}","_self")}});
-              async function getLatestUpdateDate (){
-                const response = await fetch("https://api.github.com/repos/arialhamed/arialhamed.github.io/commits?path=_posts%2Fblogs%2Freviews%2F2018-07-21-ThinkPad-X250.md&page=1&per_page=1");
-                console.log("{{ page.url }}");
-                const all = await response.json();
-                const thisFile = all[0]["commit"]["committer"]["date"];
-                const bruh = convertTZ(current.substring(0,4)+"/"+current.substring(5,7)+"/"+current.substring(8,10)+" "+current.substring(11,14)+":"+current.substring(14,17)+":"+current.substring(17,19)+" +0000", "Asia/Singapore");
-                const zeroPad = (num, places) => String(num).padStart(places, '0');
-                gId('timestamp').innerHTML = "this post was last updated by {{ page.author | default: 'Ari'}} in "+bruh.getDate()+" "+["January","February","March","April","May","June","July","August","September","October","November","December"][bruh.getMonth()]+" "+bruh.getFullYear()+", "+zeroPad(parseInt(bruh.getHours()),2)+":"+zeroPad(parseInt(bruh.getMinutes()),2)+":"+zeroPad(parseInt(bruh.getSeconds()),2)+" (GMT+8, Singapore Time).";
-              }
-              
-              
-            </script>
+	{% if page.farewell %}
+	<script>
+		function playFarewell(){
+			var audio = gId("farewell");
+			audio.play()
+		}
+	</script>
+	{% endif %}
+</head>
+<body>
+	<!-- HEADER -->
+	{% include header.html %}
 
-            {% if previous_post and next_post %}
-              <a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
-              <a class="next btn btn-dark" style="background-color:#333;" href="{{next_post.url}}">{{next_post.title}} &raquo;</a>
-            {% else %}
-              {% if previous_post %}
-              <a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
-              <a class="next btn disabled" style="color:var(--font-color);background-color:var(--font-color);" aria-disabled="true">&nbsp;</a>
-              {% endif %}
-              {% if next_post %}
-              <a class="prev btn disabled" style="color:var(--font-color);background-color:var(--font-color);" aria-disabled="true">&nbsp;</a>
-              <a class="next btn btn-dark" style="background-color:#333;" href="{{next_post.url}}">{{next_post.title}} &raquo;</a>
-              {% endif %}
-            {% endif %}
-          </div>
-        </div>
-        <div class="w-100" style="text-align:center;">
-          Date: {{ page.date | date: "%-d %B %Y" }}
-        </div><br>
-        <div class="w-100" style="text-align:center;">
-          Author: {{ page.author | default: "Ari Hamed" }}
-        </div>
-        
-        <h1>{{ page.title }}</h1>
+	<!-- MAIN CONTENT -->
+	<div id="main-content-wrap" class="outer">
+		<section id="main-content" class="inner">
+			<a class="btn btn-dark w-100" style="background-color:#333;" href="{{ page.back }}">back to all {{ page.seq_type | default: "posts" }}</a>
+			
+			<div class="container">
+				<div class="page-navigation row row-cols-auto">
+					{% assign cat = page.categories[0] %}
+					{% assign cat_list = site.categories[cat] %}
+					{% for post in cat_list %}
+						{% if post.url == page.url %}
+							{% assign pOffset = forloop.index0 | minus: 1 %}
+							{% assign nOffset = pOffset | plus: 2 %}
+							{% if forloop.first == false %}
+								{% assign next_post = cat_list[pOffset] %}
+							{% endif %}
+							{% if forloop.last == false %}
+								{% assign previous_post = cat_list[nOffset] %}
+							{% endif %}
+							{% break %}
+						{% endif %}
+					{% endfor %}
+					
+					<script>
+						
+						function convertTZ(date, tzString) {
+							return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));	 
+						}
+						document.addEventListener("keydown",function(e){switch(e.key){case"ArrowLeft":window.open("{{previous_post.url}}","_self");break;case"ArrowRight":window.open("{{next_post.url}}","_self")}});
+						async function getLatestUpdateDate (){
+							const response = await fetch("https://api.github.com/repos/arialhamed/arialhamed.github.io/commits?path=_posts%2Fblogs%2Freviews%2F2018-07-21-ThinkPad-X250.md&page=1&per_page=1");
+							console.log("{{ page.url }}");
+							const all = await response.json();
+							const thisFile = all[0]["commit"]["committer"]["date"];
+							const bruh = convertTZ(current.substring(0,4)+"/"+current.substring(5,7)+"/"+current.substring(8,10)+" "+current.substring(11,14)+":"+current.substring(14,17)+":"+current.substring(17,19)+" +0000", "Asia/Singapore");
+							const zeroPad = (num, places) => String(num).padStart(places, '0');
+							gId('timestamp').innerHTML = "this post was last updated by {{ page.author | default: 'Ari'}} in "+bruh.getDate()+" "+["January","February","March","April","May","June","July","August","September","October","November","December"][bruh.getMonth()]+" "+bruh.getFullYear()+", "+zeroPad(parseInt(bruh.getHours()),2)+":"+zeroPad(parseInt(bruh.getMinutes()),2)+":"+zeroPad(parseInt(bruh.getSeconds()),2)+" (GMT+8, Singapore Time).";
+						}
+						
+						
+					</script>
 
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images{{ page.url }}.jpeg" onerror="this.src='https://raw.githubusercontent.com/arialhamed/static/main/images/missing.jpeg'" style="width:100%;">
+					{% if previous_post and next_post %}
+						<a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
+						<a class="next btn btn-dark" style="background-color:#333;" href="{{next_post.url}}">{{next_post.title}} &raquo;</a>
+					{% else %}
+						{% if previous_post %}
+						<a class="prev btn btn-dark" style="background-color:#333;" href="{{previous_post.url}}">&laquo; {{previous_post.title}}</a>
+						<a class="next btn disabled" style="color:var(--font-color);background-color:var(--font-color);" aria-disabled="true">&nbsp;</a>
+						{% endif %}
+						{% if next_post %}
+						<a class="prev btn disabled" style="color:var(--font-color);background-color:var(--font-color);" aria-disabled="true">&nbsp;</a>
+						<a class="next btn btn-dark" style="background-color:#333;" href="{{next_post.url}}">{{next_post.title}} &raquo;</a>
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+			<div class="w-100" style="text-align:center;">
+				Date: {{ page.date | date: "%-d %B %Y" }}
+			</div><br>
+			<div class="w-100" style="text-align:center;">
+				Author: {{ page.author | default: "Ari Hamed" }}
+			</div>
+			
+			<h1>{{ page.title }}</h1>
 
-        <!-- <span class="timestamp" id="timestamp" style="text-align:center;width:100%;"></span> -->
+			<img src="https://raw.githubusercontent.com/arialhamed/static/main/images{{ page.url }}.jpeg" onerror="this.src='https://raw.githubusercontent.com/arialhamed/static/main/images/missing.jpeg'" style="width:100%;">
 
-        {{ content }}
+			<!-- <span class="timestamp" id="timestamp" style="text-align:center;width:100%;"></span> -->
 
-        {% include comments.html url=page.url %}
-        
-      </section>
-    </div>
-    <script>
-      getLatestUpdateDate()
-    </script>
+			{{ content }}
+			{% include comments.html url=page.url %}
+			
+		</section>
+	</div>
+	<script>
+		getLatestUpdateDate()
+	</script>
 
-    <!-- FOOTER  -->
-    {% include footer.html %}
-    
-  </body>
+	<!-- FOOTER	-->
+	{% include footer.html %}
+	
+</body>
 </html>
