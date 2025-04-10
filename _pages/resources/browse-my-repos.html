@@ -507,8 +507,8 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			// })
 			return mutag.fetch(j)
 		})
-		.then(m=>{
-			debog=tags;
+		.then(t=>{
+			debog=t;
 		})
 		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
