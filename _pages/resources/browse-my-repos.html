@@ -38,6 +38,7 @@ prism: true
 	<p class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
 	<p class="title-icons disable-selection" title="Back to start" style="float: left;" id="browse-back-to-start" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></p>
 	<p class="title-icons disable-selection" title="Reset" style="float: right;" id="browse-reset"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
+	<p class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></p>
 	<h2 id="current-title"></h2>
 	<div style="clear: both"></div>
 </div>
@@ -390,7 +391,7 @@ function browseBuild(eachRecord){
 	}else{
 		// Is the record a directory?
 		if (eachRecord['type'] == 'dir'){
-			contentElement+=` onclick=browseRun("${eachRecord['url']}") id="${eachRecord['sha']}" data-search="${eachRecord['name']}")>${eachRecord['name']}/ <br><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
+			contentElement+=` onclick=browseRun("${eachRecord['url']}") id="${eachRecord['sha']}" data-search="${eachRecord['name']}")>${eachRecord['name']} / <svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
 		}else{
 			// This record is a file in these brackets
 			let sizeElement=`<br><span style="font-size: 70%; vertical-align: top;">${formatBytes(eachRecord["size"])}`;
@@ -553,7 +554,17 @@ async function browseBack(){browsingTree.pop();browseRun(browsingTree.pop())}
 async function browseReset(s='pushed'){browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';browseRun('https://api.github.com'+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
 async function copyCurrentUrl(f){if(f){navigator.clipboard.writeText(String(window.location).split('?')[0]+'?url='+gId('cud-inner').textContent);gId('cud-inner').innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 async function searchContents(){gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase())) ? '' : 'none'})}
+async function browseToggleView(){
+	if(gId('browse-content').getAttribute('class')=='row'){
+		gId('browse-content').setAttribute('class', 'list-group')
+		gId('browse-view').innerHTML=`<svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>`
+	}else{
+		gId('browse-content').setAttribute('class', 'row')
+		gId('browse-view').innerHTML=`<svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>`
+	}
+}
 
+browseToggleView()
 github_signin=()=>{localStorage.setItem('github_signin_last_page', window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 github_logout=()=>{localStorage.removeItem('github_token'); window.location.reload()}
 </script>
