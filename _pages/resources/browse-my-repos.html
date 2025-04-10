@@ -62,6 +62,7 @@ prism: true
 <script type="text/javascript" src="/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/static/js/jsmediatags.min.js" integrity="sha384-/HtQsmr4qprqyW2pdIdKjGKdCqYIP6GwQslxLlyxwmYquLZM/SQ1+1sVQbuZyxGH" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/static/js/mutag.min.js" integrity="sha384-iU2AxH5dPeDLuFEnN1HfQDO1MxgzmvTjvu0GhK9Mh3Lz5pm2//c7JzcDyyL7Mn5z" crossorigin="anonymous"></script>
 <style>
 .title-icons{
 	display: inline; 
@@ -504,10 +505,10 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 			// 	onError: err=>{console.log(err)}
 			// })
-			window.jsmediatags.read(j, {
-				onSuccess: tag=>{debog=tag;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
-				onError: err=>{console.log(err)}
-			})
+			return mutag.fetch(j)
+		})
+		.then(m=>{
+			debog=tags;
 		})
 		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
