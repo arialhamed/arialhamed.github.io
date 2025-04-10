@@ -504,8 +504,8 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 			// 	onError: err=>{console.log(err)}
 			// })
-			window.jsmediatags.Reader(j).setTagsToRead(['picture', 'lyrics']).read({
-				onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
+			window.jsmediatags.read(j, {
+				onSuccess: tag=>{debog=tag;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 				onError: err=>{console.log(err)}
 			})
 		})
