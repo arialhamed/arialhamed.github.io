@@ -263,6 +263,7 @@ img.browse-cell{
 
 // Third-party library objects
 const mdConverter=new remarkable.Remarkable({html: true}); // Parse markdown text
+const mm = await import('https://cdn.jsdelivr.net/npm/music-metadata/+esm'); // Music metadata (by Borewit)
 
 // Constants
 const extV=['.webm','.mp4','.mov','.wmv','.avi','.flv','.swf','.mkv','.webm'];
@@ -506,10 +507,10 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 			// 	onError: err=>{console.log(err)}
 			// })
-			return mutag.fetch(j)
+			return mm.parseBlob(j)
 		})
-		.then(t=>{
-			debog=t;
+		.then(m=>{
+			debog=m;
 		})
 		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
