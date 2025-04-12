@@ -501,9 +501,11 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		bDisplay.classList.add('disable-selection');
 		audioPlayer.src = '';
 		fetch(gitUrl, github_api_headers({blob: true}))
-		.then(r=>r.blob())
+		.then(r=>{console.log('creating blob');return r.blob()})
 		.then(b=>{
+			console.log('creating obj url')
 			audioPlayer.src = URL.createObjectURL(b);
+			console.log('done')
 			return mm.parseBlob(b);
 		})
 		.then(m=>{
