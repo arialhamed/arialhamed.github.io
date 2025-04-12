@@ -264,6 +264,7 @@ img.browse-cell{
 
 // Third-party library objects
 const mdConverter=new remarkable.Remarkable({html: true}); // Parse markdown text
+const mm = {}
 
 // Constants
 const extV=['.webm','.mp4','.mov','.wmv','.avi','.flv','.swf','.mkv','.webm'];
@@ -507,10 +508,8 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 			// 	onError: err=>{console.log(err)}
 			// })
-			return mm.parseBlob(j)
-		})
-		.then(m=>{
-			debog=m;
+			const curMm=mm.parseBlob(j);
+			ogilvie.src=embeddedImgToURI(curMm.common.picture[0])
 		})
 		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
