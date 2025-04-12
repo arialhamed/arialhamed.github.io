@@ -502,17 +502,13 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		audioPlayer.src = '';
 		fetch(gitUrl, github_api_headers({blob: true}))
 		.then(r=>r.blob())
-		.then(j=>{
-			audioPlayer.src = URL.createObjectURL(j);
-			// window.jsmediatags.read(j, {
-			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
-			// 	onError: err=>{console.log(err)}
-			// })
-			return mm.parseBlob(j);
+		.then(b=>{
+			audioPlayer.src = URL.createObjectURL(b);
+			return mm.parseBlob(b);
 		})
 		.then(m=>{
 			debog=m;
-			ogilvie.src=embeddedImgToURI(m.common.picture[0])
+			ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
 		})
 		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
