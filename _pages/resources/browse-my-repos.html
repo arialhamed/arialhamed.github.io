@@ -501,17 +501,51 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		bDisplay.classList.add('disable-selection');
 		audioPlayer.src = '';
 		fetch(gitUrl, github_api_headers({blob: true}))
-		.then(r=>{console.log('creating blob');return r.blob()})
+		.then(r=>{
+			audioPlayer.srcObject = r
+			return r.blob()
+		})
 		.then(b=>{
-			console.log('creating obj url')
-			audioPlayer.src = URL.createObjectURL(b);
-			console.log('done')
+			// audioPlayer.src = URL.createObjectURL(b);
 			return mm.parseBlob(b);
 		})
 		.then(m=>{
 			debog=m;
 			ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
 		})
+
+		// const mediaSource = new MediaSource();
+		// audioPlayer.src = URL.createObjectURL(mediaSource);
+		// mediaSource.addEventListener('sourceopen', async()=>{
+		// 	fetch(gitUrl, github_api_headers({blob: true}))
+		// 	.then(r=>{
+		// 		const reader = r.body.getReader();
+		// 		const mimeType = r.headers.get('Content-Type');
+		// 		const sourceBuffer = mediaSource.addSourceBuffer(mimeType);
+		// 		let isFirstChunk = true;
+		// 		while (true) {
+		// 			reader.read()
+		// 			.then((done, value) => {
+		// 				if (done) {
+		// 					sourceBuffer.endOfStream();
+		// 					// break;
+		// 				};
+		// 				sourceBuffer.appendBuffer(value);
+		// 				if (isFirstChunk) {
+		// 					audioPlayer.play().catch(error=>console.error("Error playing audio:", error));
+		// 					isFirstChunk = false;
+		// 				}
+		// 			})
+		// 		}
+		// 		return r.blob()
+		// 	})
+		// 	.then(b=>mm.parseBlob(b))
+		// 	.then(m=>{
+		// 		debog=m;
+		// 		ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
+		// 	})
+		// })
+
 		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
 			this.play();
