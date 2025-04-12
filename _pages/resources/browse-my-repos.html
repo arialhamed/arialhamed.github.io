@@ -508,8 +508,8 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			// 	onSuccess: tag=>{debog=tag.tags;ogilvie.src=(tag.tags.picture==null)?'':jmtToSrc(tag.tags.picture)},
 			// 	onError: err=>{console.log(err)}
 			// })
-			const curMm=mm.parseBlob(j);
-			ogilvie.src=embeddedImgToURI(curMm.common.picture[0])
+			debog=mm.parseBlob(j);
+			ogilvie.src=embeddedImgToURI(debog.common.picture[0])
 		})
 		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
