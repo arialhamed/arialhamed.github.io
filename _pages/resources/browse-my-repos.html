@@ -38,7 +38,7 @@ music-metadata: true
 <div style="text-align: center;">
 	<p class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
 	<p class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></p>
-	<p class="title-icons disable-selection" title="Reset" style="float: right;" id="browse-refresh" onclick="browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
+	<p class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
 	<p class="title-icons disable-selection" title="Upload here" style="float: right; visibility: hidden;" id="upload-file" onclick="uploadFileInput.click()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></p>
 	<!-- <p class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></p> -->
 	<h2 id="current-title"></h2>
@@ -316,8 +316,7 @@ let intervalsDict={};
 let list_repositories_qURL=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
 
 // GitHub User Profile
-gId("github_user_profile").insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
-gId("upload-file").setAttribute('visibility', github_token?'visible':'hidden')
+gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
@@ -360,9 +359,11 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 		gId('browse-back').style.cursor='not-allowed'; gId('browse-back').onclick='';
 		gId('current-title').innerHTML=(github_token)?'All of Your Repositories':'Ari\'s Public Repositories';
 		gId('current-description').innerHTML=`<span style="font-style: italic;">&lt;description will be shown here when you select a repository below&gt;</span>`;
+		gId('upload-file').style.visibility='hidden'; // Hide upload button
 	}else{
 		// If repository selected or in contents of repository (not at the start of the page)
 		gId('browse-back').style.cursor='pointer'; gId('browse-back').onclick=browseBack;
+		github_token?gId('upload-file').style.visibility='visible':'' // Show upload button for authenticated users
 
 		// TODO: 	Gearing towards no-store for private repos, and no-cache for non-private repos
 		//			or consider setting max-age and must-revalidate
@@ -370,7 +371,7 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 		if (!inUrl.includes('?ref=')||rootRepoUrl!==''){
 			// The current API URL may not be the API URL for the root repository. For a pre-filled URL, there is no way to get repository details to put into the title, description and more, so this part covers that
 			const browseRootRepo = (''===rootRepoUrl)?browseJson:await fetch(rootRepoUrl, github_api_headers({refresh: refresh})).then(r=>r.json());
-			// github_api_headers() = {cache: (browseRootRepo.private)?"no-store":"no-cache", headers: {Accept: `application/vnd.github+json`, Authorization: (github_token)?`token ${github_token}`:``}};
+
 			browsingCurrentRepo = inUrl
 			gId('current-description').innerHTML=([undefined, null, ''].includes(browseRootRepo.description))? '<span style="font-style: italic;">No description</span>' : browseRootRepo.description;
 			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${browseJson.html_url}'" title="${browseJson.html_url}">${browseRootRepo.name}</span>`;
