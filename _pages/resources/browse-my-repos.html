@@ -301,6 +301,7 @@ const audioPlayerHTML=`
 	</div>
 </div>
 <input id="show-audio" value="0" type="range">`;
+const uploadFileInput=Object.assign(document.createElement('input'), {type:'file'});
 
 // Browsing control variables
 let debog;
@@ -345,7 +346,7 @@ gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
 async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 	browsingTree.push(inUrl); // Adds current url to a history array
 	console.log(browsingTree);
-	gId('browse-reset').onclick=()=>{browsingTree.pop();browseRun(inUrl, rootRepoUrl='', refresh=true)}
+	gId('browse-reset').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)}
 
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
@@ -372,6 +373,11 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 			gId('current-description').innerHTML=([undefined, null, ''].includes(browseRootRepo.description))? '<span style="font-style: italic;">No description</span>' : browseRootRepo.description;
 			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${browseJson.html_url}'" title="${browseJson.html_url}">${browseRootRepo.name}</span>`;
 			gId('current-title').innerHTML=(browseRootRepo.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${browseRootRepo.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
+		}
+
+		// Add "file" that is actually to upload a file, only if user is authenticated & is in a repository
+		if(github_token){
+			gId('browse-content').insertAdjacentHTML('beforeend', `<span class="col browse-cell" onclick=uploadFileInput.click() data-search="" title="Upload a file here"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></span>`);
 		}
 
 		// Get contents of repository, and sort it to show directories first
@@ -586,6 +592,24 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		gId('audio-music-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
 
 	}
+}
+uploadFileInput.onchange=e=>{
+	const uploadedFileURL = `${browsingTree.at(-1).includes('?ref=')?browsingTree.at(-1).split('?ref=')[0]:browsingTree.at(-1)+'/contents'}/${e.target.files[0].name}`
+	const intermediaryReader = new FileReader();
+	intermediaryReader.onloadend=()=>{
+		fetch(
+			uploadedFileURL, {
+			headers: {Authorization: `token ${github_token}`},
+			method: 'PUT',
+			body: JSON.stringify({
+				message: `Upload from "${window.location.hostname}" at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
+				content: intermediaryReader.result.split(';base64,')[1]
+			})
+		})
+		.then(r=>r.json())
+		.then(j=>console.log(j))
+	}
+	intermediaryReader.readAsDataURL(e.target.files[0])
 }
 async function browseBack(){browsingTree.pop();browseRun(browsingTree.pop())}
 async function browseReset(s='pushed'){browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';browseRun('https://api.github.com'+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
