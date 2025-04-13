@@ -38,7 +38,7 @@ music-metadata: true
 <div style="text-align: center;">
 	<p class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
 	<p class="title-icons disable-selection" title="Back to start" style="float: left;" id="browse-back-to-start" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></p>
-	<p class="title-icons disable-selection" title="Reset" style="float: right;" id="browse-reset"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
+	<p class="title-icons disable-selection" title="Reset" style="float: right;" id="browse-reset" onclick="browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
 	<p class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></p>
 	<h2 id="current-title"></h2>
 	<div style="clear: both"></div>
@@ -346,7 +346,7 @@ gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
 async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 	browsingTree.push(inUrl); // Adds current url to a history array
 	console.log(browsingTree);
-	gId('browse-reset').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)}
+	// gId('browse-reset').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)}
 
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
@@ -606,8 +606,9 @@ uploadFileInput.onchange=e=>{
 				content: intermediaryReader.result.split(';base64,')[1]
 			})
 		})
-		.then(r=>r.json())
-		.then(j=>console.log(j))
+		.then(r=>gId('browse-reset').click())
+		// .then(r=>r.json())
+		// .then(j=>console.log(j))
 	}
 	intermediaryReader.readAsDataURL(e.target.files[0])
 }
