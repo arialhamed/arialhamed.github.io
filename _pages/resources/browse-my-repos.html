@@ -506,56 +506,52 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			bDisplay.classList.remove('disable-selection')
 		})
 
-
 		bDisplay.classList.add('disable-selection');
 
-		// audioPlayer.src = '';
-		// fetch(gitUrl, github_api_headers({blob: true}))
-		// .then(r=>{
-		// 	audioPlayer.srcObject = r
-		// 	return r.blob()
-		// })
-		// .then(b=>{
-		// 	// audioPlayer.src = URL.createObjectURL(b);
-		// 	return modules.parseBlob(b);
-		// })
-		// .then(m=>{
-		// 	debog=m;
-		// 	ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
-		// })
-
-		debugger;
-		const mediaSource = new MediaSource();
-		audioPlayer.src = URL.createObjectURL(mediaSource);
-		mediaSource.addEventListener('sourceopen', async ()=>{
-			const response = await fetch(gitUrl, github_api_headers({blob: true}))
-			console.log(`response: ${response}`)
-			const reader = response.body.getReader();
-			console.log(`reader: ${reader}`)
-			const mimeType = 'audio/flac' //response.headers.get('Content-Type');
-			console.log(`mimeType: ${mimeType}`)
-			const sourceBuffer = mediaSource.addSourceBuffer(mimeType);
-			console.log(`sourceBuffer: ${sourceBuffer}`)
-			let isFirstChunk = true;
-			while (true) {
-				const { done, value } = await reader.read()
-				if (done) {
-					sourceBuffer.endOfStream();
-					break;
-				};
-				sourceBuffer.appendBuffer(value);
-				if (isFirstChunk) {
-					audioPlayer.play().catch(error=>console.error("Error playing audio:", error));
-					isFirstChunk = false;
-				}
-			}
-			response.blob()
-			.then(b=>modules.parseBlob(b))
-			.then(m=>{
-				debog=m;
-				ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
-			})
+		audioPlayer.src = '';
+		fetch(gitUrl, github_api_headers({blob: true}))
+		.then(r=>r.blob())
+		.then(b=>{
+			audioPlayer.src = URL.createObjectURL(b);
+			return modules.parseBlob(b);
 		})
+		.then(m=>{
+			debog=m;
+			ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
+		})
+
+		// debugger;
+		// const mediaSource = new MediaSource();
+		// audioPlayer.src = URL.createObjectURL(mediaSource);
+		// mediaSource.addEventListener('sourceopen', async ()=>{
+		// 	const response = await fetch(gitUrl, github_api_headers({blob: true}))
+		// 	console.log(`response: ${response}`)
+		// 	const reader = response.body.getReader();
+		// 	console.log(`reader: ${reader}`)
+		// 	const mimeType = 'audio/flac' //response.headers.get('Content-Type');
+		// 	console.log(`mimeType: ${mimeType}`)
+		// 	const sourceBuffer = mediaSource.addSourceBuffer(mimeType);
+		// 	console.log(`sourceBuffer: ${sourceBuffer}`)
+		// 	let isFirstChunk = true;
+		// 	while (true) {
+		// 		const { done, value } = await reader.read()
+		// 		if (done) {
+		// 			sourceBuffer.endOfStream();
+		// 			break;
+		// 		};
+		// 		sourceBuffer.appendBuffer(value);
+		// 		if (isFirstChunk) {
+		// 			audioPlayer.play().catch(error=>console.error("Error playing audio:", error));
+		// 			isFirstChunk = false;
+		// 		}
+		// 	}
+		// 	response.blob()
+		// 	.then(b=>modules.parseBlob(b))
+		// 	.then(m=>{
+		// 		debog=m;
+		// 		ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
+		// 	})
+		// })
 
 		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
