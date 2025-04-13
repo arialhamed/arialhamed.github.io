@@ -515,13 +515,18 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		// 	ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
 		// })
 
+		debugger;
 		const mediaSource = new MediaSource();
 		audioPlayer.src = URL.createObjectURL(mediaSource);
 		mediaSource.addEventListener('sourceopen', async ()=>{
 			const response = await fetch(gitUrl, github_api_headers({blob: true}))
+			console.log(`response: ${response}`)
 			const reader = response.body.getReader();
+			console.log(`reader: ${reader}`)
 			const mimeType = response.headers.get('Content-Type');
+			console.log(`mimeType: ${mimeType}`)
 			const sourceBuffer = mediaSource.addSourceBuffer(mimeType);
+			console.log(`sourceBuffer: ${sourceBuffer}`)
 			let isFirstChunk = true;
 			while (true) {
 				const { done, value } = await reader.read()
