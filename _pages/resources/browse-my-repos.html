@@ -37,9 +37,10 @@ music-metadata: true
 <!-- back		title		reload -->
 <div style="text-align: center;">
 	<p class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
-	<p class="title-icons disable-selection" title="Back to start" style="float: left;" id="browse-back-to-start" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></p>
-	<p class="title-icons disable-selection" title="Reset" style="float: right;" id="browse-reset" onclick="browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
-	<p class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></p>
+	<p class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></p>
+	<p class="title-icons disable-selection" title="Reset" style="float: right;" id="browse-refresh" onclick="browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
+	<p class="title-icons disable-selection" title="Upload here" style="float: right; visibility: hidden;" id="upload-file" onclick="uploadFileInput.click()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></p>
+	<!-- <p class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></p> -->
 	<h2 id="current-title"></h2>
 	<div style="clear: both"></div>
 </div>
@@ -76,7 +77,7 @@ music-metadata: true
 .title-icons:hover{
 	background-color: var(--overlay-hover);
 }
-#browse-back-to-start + p svg:hover{
+#browse-refresh svg:hover{
 	rotate: 180deg;
 }
 #current-url-display{
@@ -316,6 +317,7 @@ let list_repositories_qURL=(github_token)?'/user/repos?per_page=100&sort=':`/use
 
 // GitHub User Profile
 gId("github_user_profile").insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
+gId("upload-file").setAttribute('visibility', github_token?'visible':'hidden')
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
@@ -346,7 +348,7 @@ gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
 async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 	browsingTree.push(inUrl); // Adds current url to a history array
 	console.log(browsingTree);
-	// gId('browse-reset').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)}
+	// gId('browse-refresh').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)}
 
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
@@ -376,9 +378,9 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 		}
 
 		// Add "file" that is actually to upload a file, only if user is authenticated & is in a repository
-		if(github_token){
-			gId('browse-content').insertAdjacentHTML('beforeend', `<span class="col browse-cell" onclick=uploadFileInput.click() data-search="" title="Upload a file here"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></span>`);
-		}
+		// if(github_token){
+		// 	gId('browse-content').insertAdjacentHTML('beforeend', `<span class="col browse-cell" onclick=uploadFileInput.click() data-search="" title="Upload a file here"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></span>`);
+		// }
 
 		// Get contents of repository, and sort it to show directories first
 		browseJson=await fetch((inUrl.includes('?ref='))?inUrl:inUrl+'/contents', github_api_headers({refresh: refresh})).then(r=>r.json());
@@ -606,9 +608,9 @@ uploadFileInput.onchange=e=>{
 				content: intermediaryReader.result.split(';base64,')[1]
 			})
 		})
-		.then(r=>gId('browse-reset').click())
-		// .then(r=>r.json())
-		// .then(j=>console.log(j))
+		// .then(r=>gId('browse-refresh').click())
+		.then(r=>{gId('browse-refresh').click();return r.json()})
+		.then(j=>console.log(j))
 	}
 	intermediaryReader.readAsDataURL(e.target.files[0])
 }
