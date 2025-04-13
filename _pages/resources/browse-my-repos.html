@@ -36,9 +36,9 @@ music-metadata: true
 
 <!-- back		title		reload -->
 <div style="text-align: center;">
-	<p class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back" onclick="browseBack()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
-	<p class="title-icons disable-selection" title="Back to start" style="float: left;" id="browse-reset" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></p>
-	<p class="title-icons disable-selection" title="Reset" style="float: right;" id="browse-refresh" onclick="browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
+	<p class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
+	<p class="title-icons disable-selection" title="Back to start" style="float: left;" id="browse-back-to-start" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></p>
+	<p class="title-icons disable-selection" title="Reset" style="float: right;" id="browse-reset" onclick="browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
 	<p class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></p>
 	<h2 id="current-title"></h2>
 	<div style="clear: both"></div>
@@ -76,7 +76,7 @@ music-metadata: true
 .title-icons:hover{
 	background-color: var(--overlay-hover);
 }
-#browse-reset + p svg:hover{
+#browse-back-to-start + p svg:hover{
 	rotate: 180deg;
 }
 #current-url-display{
@@ -273,8 +273,8 @@ const extA=['.7z','.zip','.apk','.apks','.xapk','.arc','.ark','.jar','.zpaq','.z
 const ext3=['.3mf','.stl','.glb','.gltf','.obj','.amf'];
 const extI=['.avif','.gif','.jpg','.jpeg','.jfif','.pjpeg','.pjp','.png','.svg','.webp','.bmp','.ico','.cur','.tif','.tiff','.kra','.jpg_large'];
 const extR=['.csv','.tsv','.xlsx'];
-const qUrl=new URLSearchParams(window.location.search).get('url');
-const iconCopy=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M18 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1V9a4 4 0 0 0-4-4h-3a2 2 0 0 0-1 .3V5c0-1.1.9-2 2-2h7Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M8 7v4H4.2c0-.2.2-.3.3-.4l2.4-2.9A2 2 0 0 1 8 7.1Zm2 0v4a2 2 0 0 1-2 2H4v6c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3Z" clip-rule="evenodd"/></svg>`;
+const qUrl=new URLSearchParams(window.location.search).get("url");
+const iconCopy="<svg class=\"w-6 h-6 text-gray-800 dark:text-white\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M18 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1V9a4 4 0 0 0-4-4h-3a2 2 0 0 0-1 .3V5c0-1.1.9-2 2-2h7Z\" clip-rule=\"evenodd\"/><path fill-rule=\"evenodd\" d=\"M8 7v4H4.2c0-.2.2-.3.3-.4l2.4-2.9A2 2 0 0 1 8 7.1Zm2 0v4a2 2 0 0 1-2 2H4v6c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3Z\" clip-rule=\"evenodd\"/></svg>";
 const audioPlayer=new Audio();
 audioPlayer.shuffle=false;
 audioPlayer.loop=true;
@@ -346,6 +346,7 @@ gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
 async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 	browsingTree.push(inUrl); // Adds current url to a history array
 	console.log(browsingTree);
+	// gId('browse-reset').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)}
 
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
@@ -354,12 +355,12 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 	// Get repository details, not the contents
 	browseJson=await fetch(inUrl, github_api_headers({refresh: refresh})).then(r=>r.json());
 	if (inUrl.startsWith(`https://api.github.com${list_repositories_qURL}`)){ // If current link is the start
-		gId('browse-back').style.cursor='not-allowed'; //gId('browse-back').onclick='';
+		gId('browse-back').style.cursor='not-allowed'; gId('browse-back').onclick='';
 		gId('current-title').innerHTML=(github_token)?'All of Your Repositories':'Ari\'s Public Repositories';
 		gId('current-description').innerHTML=`<span style="font-style: italic;">&lt;description will be shown here when you select a repository below&gt;</span>`;
 	}else{
 		// If repository selected or in contents of repository (not at the start of the page)
-		gId('browse-back').style.cursor='pointer'; //gId('browse-back').onclick=browseBack;
+		gId('browse-back').style.cursor='pointer'; gId('browse-back').onclick=browseBack;
 
 		// TODO: 	Gearing towards no-store for private repos, and no-cache for non-private repos
 		//			or consider setting max-age and must-revalidate
@@ -374,11 +375,9 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 			gId('current-title').innerHTML=(browseRootRepo.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${browseRootRepo.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
 		}
 
-		gId('browse-content').insertAdjacentHTML('beforeend', `<span class="col browse-cell" onclick=browseBack() data-search="" title="Upload a file here"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></span>`);
-
 		// Add "file" that is actually to upload a file, only if user is authenticated & is in a repository
 		if(github_token){
-			gId('browse-content').insertAdjacentHTML('beforeend', `<span class="col browse-cell" onclick=uploadFileInput.click() data-search="" title="Upload a file here"><svg width="24" height="24" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></span>`);
+			gId('browse-content').insertAdjacentHTML('beforeend', `<span class="col browse-cell" onclick=uploadFileInput.click() data-search="" title="Upload a file here"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></span>`);
 		}
 
 		// Get contents of repository, and sort it to show directories first
@@ -607,13 +606,13 @@ uploadFileInput.onchange=e=>{
 				content: intermediaryReader.result.split(';base64,')[1]
 			})
 		})
-		.then(r=>gId('browse-refresh').click())
+		.then(r=>gId('browse-reset').click())
 		// .then(r=>r.json())
 		// .then(j=>console.log(j))
 	}
 	intermediaryReader.readAsDataURL(e.target.files[0])
 }
-async function browseBack(){if(browsingTree.length>=2){browsingTree.pop();browseRun(browsingTree.pop())}}
+async function browseBack(){browsingTree.pop();browseRun(browsingTree.pop())}
 async function browseReset(s='pushed'){browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';browseRun('https://api.github.com'+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
 async function copyCurrentUrl(f){if(f){navigator.clipboard.writeText(String(window.location).split('?')[0]+'?url='+gId('cud-inner').textContent);gId('cud-inner').innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 async function searchContents(){gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase())) ? '' : 'none'})}
