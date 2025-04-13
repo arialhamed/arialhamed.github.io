@@ -264,7 +264,7 @@ img.browse-cell{
 
 // Third-party library objects
 const mdConverter=new remarkable.Remarkable({html: true}); // Parse markdown text
-const mm = {}
+const modules = {}
 
 // Constants
 const extV=['.webm','.mp4','.mov','.wmv','.avi','.flv','.swf','.mkv','.webm'];
@@ -508,7 +508,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		// })
 		// .then(b=>{
 		// 	// audioPlayer.src = URL.createObjectURL(b);
-		// 	return mm.parseBlob(b);
+		// 	return modules.parseBlob(b);
 		// })
 		// .then(m=>{
 		// 	debog=m;
@@ -523,7 +523,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			console.log(`response: ${response}`)
 			const reader = response.body.getReader();
 			console.log(`reader: ${reader}`)
-			const mimeType = response.headers.get('Content-Type');
+			const mimeType = 'audio/flac' //response.headers.get('Content-Type');
 			console.log(`mimeType: ${mimeType}`)
 			const sourceBuffer = mediaSource.addSourceBuffer(mimeType);
 			console.log(`sourceBuffer: ${sourceBuffer}`)
@@ -541,7 +541,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 				}
 			}
 			response.blob()
-			.then(b=>mm.parseBlob(b))
+			.then(b=>modules.parseBlob(b))
 			.then(m=>{
 				debog=m;
 				ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])

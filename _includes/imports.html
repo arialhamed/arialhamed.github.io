@@ -11,11 +11,17 @@
 {% endif %}
 
 {% if page.music-metadata %}
-<!-- <script type="module" src="https://cdn.jsdelivr.net/npm/music-metadata/+esm"></script> -->
 <script type="module">
 	import { parseBlob, parseBuffer } from 'https://cdn.jsdelivr.net/npm/music-metadata/+esm'
-	mm.parseBlob = parseBlob
-	mm.parseBuffer = parseBuffer
+	modules.parseBlob = parseBlob
+	modules.parseBuffer = parseBuffer
+</script>
+{% endif %}
+
+{% if page.mime-types %}
+<script type="module">
+	import mime from 'https://cdn.jsdelivr.net/npm/mime-types/+esm'
+	modules.mime = mime
 </script>
 {% endif %}
 
