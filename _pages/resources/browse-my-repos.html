@@ -606,8 +606,12 @@ uploadFileInput.onchange=e=>{
 			})
 		})
 		// .then(r=>gId('browse-refresh').click())
-		.then(r=>{gId('browse-refresh').click();return r.json()})
-		.then(j=>console.log(j))
+		.then(r=>r.json())
+		.then(j=>{
+			debog=j;
+			gId('browse-refresh').click();
+			raiseModal(`"${j.content.name}" has been uploaded`)
+		})
 	}
 	intermediaryReader.readAsDataURL(e.target.files[0])
 }
