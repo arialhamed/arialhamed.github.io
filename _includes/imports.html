@@ -102,8 +102,9 @@
 	let github_api_headers = ({refresh = false, blob = false} = {}) => {return {cache: (refresh)?'no-store':'no-cache', headers: {Accept: `application/vnd.github${(blob)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
 
 	// For when i want to tell the user something real quick
-	raiseModal=e=>{
+	raiseModal=(e='<i>empty modal</i>',ms=1000)=>{
 		gId('small-modal-text').innerHTML=e
+		gId('small-modal-progress').value=gId('small-modal-progress').max=ms
 		gId('small-modal').style.top='90vh'; // Raise it to viewport
 		setTimeout(()=>{
 			raiseModalInterval = setInterval(()=>{
@@ -113,7 +114,7 @@
 						clearInterval(raiseModalInterval);
 						gId('small-modal-progress').value=gId('small-modal-progress').max;
 						gId('small-modal-text').innerHTML=''
-					}, 500);
+					}, 333);
 				}else{gId('small-modal-progress').value-=1}
 			}, 1) // Subtract progress value per millisecond until it reaches 0
 		}, 333) // Based of .3s in the universal transition CSS style
@@ -258,33 +259,8 @@
 	.disable-selection{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}
 	.highlight{margin-left:.2rem}
 	div.highlighter-rouge{background-color:var(--overlay);border:1px solid #313131;padding:16px 16px 0 16px;border-radius:3px;overflow:auto;margin-bottom:16px;}
-	.text-secret{
-		width:100%!important;
-		text-align:center!important;
-		background-color:#0000;
-		border:0px;
-		cursor:default;
-		display:block;
-		padding:0.375rem 0.75rem;
-		font-size:1rem;
-		font-weight:400;
-		line-height:1.5;
-		color:var(--font-color);
-		-webkit-appearance:none;
-		-moz-appearance:none;
-		appearance:none;
-		border-radius:0.25rem;
-	}
-	.wide-responsive{
-		position:relative;
-		width:98vw;
-		margin-left:max(-40%, calc(50% - 49vw));
-		max-width:180%;
-		font-size:75%;
-	}
-	#site-hair{
-		float: left;
-	}
+	.wide-responsive{position:relative;width:98vw;margin-left:max(-40%, calc(50% - 49vw));max-width:180%;font-size:75%;}
+	#site-hair{float: left;}
 	#small-modal{
 		position: fixed;
 		top: 100vh;
