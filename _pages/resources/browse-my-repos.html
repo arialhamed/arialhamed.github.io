@@ -365,8 +365,6 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 		gId('browse-back').style.cursor='pointer'; gId('browse-back').onclick=browseBack;
 		github_token?gId('upload-file').style.visibility='visible':'' // Show upload button for authenticated users
 
-		// TODO: 	Gearing towards no-store for private repos, and no-cache for non-private repos
-		//			or consider setting max-age and must-revalidate
 		// If just at the main view of the repository (not in the contents), then set the title and description
 		if (!inUrl.includes('?ref=')||rootRepoUrl!==''){
 			// The current API URL may not be the API URL for the root repository. For a pre-filled URL, there is no way to get repository details to put into the title, description and more, so this part covers that
@@ -378,19 +376,18 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 			gId('current-title').innerHTML=(browseRootRepo.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${browseRootRepo.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
 		}
 
-		// Add "file" that is actually to upload a file, only if user is authenticated & is in a repository
-		// if(github_token){
-		// 	gId('browse-content').insertAdjacentHTML('beforeend', `<span class="col browse-cell" onclick=uploadFileInput.click() data-search="" title="Upload a file here"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></span>`);
-		// }
-
 		// Get contents of repository, and sort it to show directories first
 		browseJson=await fetch((inUrl.includes('?ref='))?inUrl:inUrl+'/contents', github_api_headers({refresh: refresh})).then(r=>r.json());
-		browseJson.sort((a, b) => a['type'].localeCompare(b['type']));
+		if(browseJson.status!='404'){browseJson.sort((a, b) => a['type'].localeCompare(b['type']))}
 	}
 	// browsingCurrentRepo = inUrl
 
 	// Loops through each... whatever thing. He needs some milk
-	browseJson.forEach(browseBuild);
+	if(browseJson.status!='404'){
+		browseJson.forEach(browseBuild)
+	}else{
+		gId('browse-content').insertAdjacentHTML('beforeend', `<span style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`)
+	}
 }
 
 // The following will read each file or content (or repos) and display into the browse-content element
