@@ -155,10 +155,7 @@ music-metadata: true
 .row .browse-cell span:nth-child(2){font-size:70%;}
 .row .browse-cell span:nth-child(2):not(.size){display:none;}
 .list-group .browse-cell{text-align:left;padding:.2rem .5rem;margin:2.5px;display:flex;}
-.list-group .browse-cell span:nth-child(2):not(.img-name){font-size:70%;text-align:right;}
-.list-group .browse-cell:has(img){display:block;}
-.list-group .browse-cell img{width:100%;}
-.img-name{font-size: 150%;}
+.list-group .browse-cell span:nth-child(2){font-size:70%;text-align:right;}
 .browse-cell *{margin: 0 auto;}
 .browse-cell span{
 	overflow: hidden;
@@ -414,8 +411,7 @@ function browseBuild(eachRecord){
 			let showItemElement=` onclick="showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')" data-search="${eachRecord['name']}"`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord['download_url'].split('?',1)[0].toLowerCase().endsWith(v))){ 
-				// contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord['download_url']}" >`;
-				contentElement += `${showItemElement}><img src="${eachRecord['download_url']}" ><span class="img-name">${eachRecord['name']}</span>`;
+				contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord['download_url']}" >`;
 			}else{
 				contentElement += `${showItemElement}><span>${eachRecord['name']}</span>${sizeElement}</span>`;
 			}
