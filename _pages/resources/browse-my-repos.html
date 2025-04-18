@@ -50,10 +50,13 @@ music-metadata: true
 
 <hr id="cell-seperator">
 
-<input type="search" onkeyup="searchContents()" id="search-box" placeholder="search :3">
+<div id="search-field">
+	<input type="search" onkeyup="searchContents()" id="search-box" placeholder="start typing here to search">
+	<svg onclick="gId('search-box').value='';gId('search-box').focus();searchContents()" height="2em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+</div>
 
 <!-- all cells -->
-<div id="browse-content" class="row wide-responsive"></div> <!-- alternative: list-group -->
+<div id="browse-content"></div> <!-- alternative: list-group -->
 <br>
 
 <!-- under the cells, displaying all except images already in cells -->
@@ -115,14 +118,26 @@ music-metadata: true
 #cud-inner:hover svg{
 	transform: scale(1.2);
 }
+#search-field{
+	display: flex;
+	height: 2em;
+	margin-bottom: .5em;
+}
+#search-field svg{
+	padding: 0 .5em;
+	cursor: pointer;
+	height: inherit;
+	color: var(--anchor-color)
+}
+#search-field svg:hover{color:white}
 #search-box{
 	width: 100%;
+	height: inherit;
 	background-color: rgba(0,0,0,0.2);
 	color: white;
 	border-radius: 8px;
 	border-width: 0px;
 	padding: .2em 0 .3em .5em;
-	margin-bottom: 10px;
 }
 #browse-md-parsed{
 	text-align: initial;
@@ -347,7 +362,7 @@ if (!qUrl||String(qUrl).startsWith(list_repositories_qURL)){
 
 // Resets the search box
 gId('search-box').value='';
-gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
+// gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
 
 // The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using browseBuild
 // 'refresh' boolean is to reload private repo's download_url tokens
@@ -385,7 +400,7 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 
 		// Get contents of repository, and sort it to show directories first
 		browseJson=await fetch((inUrl.includes('?ref='))?inUrl:inUrl+'/contents', github_api_headers({refresh: refresh})).then(r=>r.json());
-		if(browseJson.status!='404'){browseJson.sort((a, b) => a['type'].localeCompare(b['type']))}
+		if(browseJson.status!='404'){browseJson.sort((a, b) => a.type.localeCompare(b.type))}
 	}
 	// browsingCurrentRepo = inUrl
 
@@ -398,28 +413,27 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 }
 
 // The following will read each file or content (or repos) and display into the browse-content element
-function browseBuild(eachRecord){
+function browseBuild(e){
 	let contentElement='<span class="col browse-cell"';
-	if (eachRecord['git_url'].startsWith('git://')){ // Is the record from the start?
+	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']}") data-search="${eachRecord['name']}"><span>${eachRecord['name']}</span><span>${eachRecord.pushed_at}</span></span>`);
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${e.url}") data-search="${e.name}"><span>${e.name}</span><span>${e.pushed_at}</span></span>`);
 	}else{
 		// Is the record a directory?
-		if (eachRecord['type'] == 'dir'){
-			contentElement+=` onclick=browseRun("${eachRecord['url']}") id="${eachRecord['sha']}" data-search="${eachRecord['name']}")><span>${eachRecord['name']}</span><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
+		if (e.type == 'dir'){
+			contentElement+=` onclick=browseRun("${e.url}") id="${e.sha}" data-search="${e.name}")><span>${e.name}</span><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
 		}else{
 			// This record is a file in these brackets
-			// let sizeElement=`<span>${formatBytes(eachRecord["size"])}`;
-			let showItemElement=` onclick="showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')" data-search="${eachRecord['name']}"`;
+			let showItemElement=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')" data-search="${e.name}"`;
 			// Is the record an image?
-			if (extI.some(v => eachRecord['download_url'].split('?',1)[0].toLowerCase().endsWith(v))){ 
-				// contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord['download_url']}" >`;
-				contentElement += `${showItemElement}><img src="${eachRecord['download_url']}" ><span>${eachRecord['name']}</span></span>`;
+			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){ 
+				// contentElement = `<img${showItemElement} class="col browse-cell" src="${e.download_url}" >`;
+				contentElement += `${showItemElement}><img src="${e.download_url}" ><span><a href="${e.download_url}">${e.name}</a></span></span>`;
 			}else{
-				contentElement += `${showItemElement}><span>${eachRecord['name']}</span><span>${formatBytes(eachRecord["size"])}</span>`;
+				contentElement += `${showItemElement}><span>${e.name}</span><span class="size">${formatBytes(e.size)}</span>`;
 			}
-			mediaArray.push([eachRecord['download_url'], eachRecord['git_url']]);
-			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[eachRecord['download_url'], eachRecord['git_url']])
+			mediaArray.push([e.download_url, e.git_url]);
+			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[e.download_url, e.git_url])
 		}
 
 		// Adds the folders and files as cells
@@ -448,7 +462,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	let browseDisplayIndicator='default';
 
 	if(extI.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
-		if(gId('browse-content').classList[0]=='list-group'){return} // Images are already quite maximized, so not required here
+		if(gId('browse-content').classList[0]=='list-group'){return} // Images are already quite maximized when browse-content is in list-group mode, so not required here
 		browseDisplayIndicator="image";
 		browseDisplayInner=`<img id="show-image" src="${downloadUrl}"><span>${browseDisplayInner}</span>`;
 	}else if(extV.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
@@ -596,6 +610,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		gId('audio-music-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
 
 	}
+	if(!['image','audio'].includes(browseDisplayIndicator)){window.scrollTo({top: gId('browse-display').getBoundingClientRect().y+window.pageYOffset-70, behavior: "smooth"})}
 }
 uploadFileInput.onchange=e=>{
 	const uploadedFileURL = `${browsingTree.at(-1).includes('?ref=')?browsingTree.at(-1).split('?ref=')[0]:browsingTree.at(-1)+'/contents'}/${e.target.files[0].name}`
@@ -620,23 +635,24 @@ uploadFileInput.onchange=e=>{
 	}
 	intermediaryReader.readAsDataURL(e.target.files[0])
 }
-async function browseBack(){browsingTree.pop();browseRun(browsingTree.pop())}
-async function browseReset(s='pushed'){browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';browseRun('https://api.github.com'+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
-async function copyCurrentUrl(f){if(f){navigator.clipboard.writeText(String(window.location).split('?')[0]+'?url='+gId('cud-inner').textContent);gId('cud-inner').innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
-async function searchContents(){gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase())) ? '' : 'none'})}
-async function browseToggleView(){
+const browseBack=async()=>{browsingTree.pop();browseRun(browsingTree.pop())}
+const browseReset=async(s='pushed')=>{browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';browseRun('https://api.github.com'+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
+const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(String(window.location).split('?')[0]+'?url='+gId('cud-inner').textContent);gId('cud-inner').innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
+const searchContents=async()=>{gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase())) ? '' : 'none'})}
+const browseToggleView=async()=>{
 	if(gId('browse-content').getAttribute('class')=='row wide-responsive'){
-		gId('browse-content').setAttribute('class', 'list-group')
+		gId('browse-content').setAttribute('class','list-group')
 		gId('browse-view').innerHTML=viewIcon
 	}else{
-		gId('browse-content').setAttribute('class', 'row wide-responsive')
+		gId('browse-content').setAttribute('class','row wide-responsive')
 		gId('browse-view').innerHTML=viewList
 	}
 }
 
 gId('browse-view').innerHTML=viewList
-github_signin=()=>{localStorage.setItem('github_signin_last_page', window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
-github_logout=()=>{localStorage.removeItem('github_token'); window.location.reload()}
+gId('browse-content').setAttribute('class','row wide-responsive')
+const github_signin=()=>{localStorage.setItem('github_signin_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
+const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
 </script>
 
 
