@@ -66,9 +66,9 @@ music-metadata: true
 <script type="text/javascript" src="/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
 <style>
 .title-icons{
-	display: inline; 
-	vertical-align: middle; 
-	border-radius: .75em; 
+	display: inline;
+	vertical-align: middle;
+	border-radius: .75em;
 	cursor: pointer;
 	color: var(--anchor-color) !important;
 }
@@ -83,13 +83,14 @@ music-metadata: true
 	text-overflow: ellipsis;
 }
 #current-title{
-	max-width: 75vw; 
-	margin: auto; 
-	float: none; 
-	text-decoration: underline; 
-	background: none!important; 
+	max-width: 75vw;
+	margin: auto;
+	float: none;
+	text-decoration: underline;
+	background: none!important;
+	overflow: scroll;
 }
-/*#current-title a{color: #fff; }*/
+/*#current-title a{color: #fff;}*/
 #current-title a:hover{
 	color: var(--anchor-color) !important;
 }
@@ -151,14 +152,16 @@ music-metadata: true
 /*	text-shadow: -1px 1px 0 var(--background-solid), 1px 1px 0 var(--background-solid), -1px -1px 0 var(--background-solid), 1px -1px 0 var(--background-solid);*/
 }
 .row .browse-cell{text-align:center;padding:.375rem .75rem;margin:4px;}
-.list-group .browse-cell{text-align:left;padding:.2rem .5rem;margin:2.5px;}
-.browse-cell *{
-	margin: 0 auto;
-}
+.row .browse-cell span:nth-child(2){font-size:70%;}
+.row .browse-cell span:nth-child(2):not(.size){display:none;}
+.list-group .browse-cell{text-align:left;padding:.2rem .5rem;margin:2.5px;display:flex;}
+.list-group .browse-cell span:nth-child(2){font-size:70%;text-align:right;}
+.browse-cell *{margin: 0 auto;}
 .browse-cell span{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 100%;
+	display: block;
 }
 img.browse-cell{
 	height: min(15vh, 20vw);
@@ -397,16 +400,15 @@ function browseBuild(eachRecord){
 	let contentElement='<span class="col browse-cell"';
 	if (eachRecord['git_url'].startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']}") data-search="${eachRecord['name']}">${eachRecord['name']}</span>`);
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${eachRecord['url']}") data-search="${eachRecord['name']}"><span>${eachRecord['name']}</span><span>${eachRecord.pushed_at}</span></span>`);
 	}else{
 		// Is the record a directory?
 		if (eachRecord['type'] == 'dir'){
-			contentElement+=` onclick=browseRun("${eachRecord['url']}") id="${eachRecord['sha']}" data-search="${eachRecord['name']}")>${eachRecord['name']} / <svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
+			contentElement+=` onclick=browseRun("${eachRecord['url']}") id="${eachRecord['sha']}" data-search="${eachRecord['name']}")><span>${eachRecord['name']}</span><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
 		}else{
 			// This record is a file in these brackets
-			let sizeElement=`<br><span style="font-size: 70%; vertical-align: top;">${formatBytes(eachRecord["size"])}`;
-			let friendlyUrl=eachRecord['download_url'].slice(0, eachRecord['download_url'].lastIndexOf('/'))+"/"+eachRecord.html_url.slice(eachRecord.html_url.lastIndexOf('/')+1);
-			let showItemElement=` onclick="showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')" data-search="${eachRecord['name']}")`;
+			let sizeElement=`<span style="font-size: 70%; vertical-align: top;">${formatBytes(eachRecord["size"])}`;
+			let showItemElement=` onclick="showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')" data-search="${eachRecord['name']}"`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord['download_url'].split('?',1)[0].toLowerCase().endsWith(v))){ 
 				contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord['download_url']}" >`;
