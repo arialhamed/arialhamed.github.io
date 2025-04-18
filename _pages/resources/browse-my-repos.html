@@ -53,9 +53,7 @@ music-metadata: true
 <input type="search" onkeyup="searchContents()" id="search-box" placeholder="search :3">
 
 <!-- all cells -->
-<!-- <div class="container wide-responsive"> -->
 <div id="browse-content" class="row wide-responsive"></div> <!-- alternative: list-group -->
-<!-- </div> -->
 <br>
 
 <!-- under the cells, displaying all except images already in cells -->
@@ -65,6 +63,8 @@ music-metadata: true
 <script type="text/javascript" src="/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
 <style>
+#github_auth{cursor: pointer;}
+#github_auth:hover{color:white;}
 .title-icons{
 	display: inline;
 	vertical-align: middle;
@@ -154,8 +154,11 @@ music-metadata: true
 .row .browse-cell{text-align:center;padding:.375rem .75rem;margin:4px;}
 .row .browse-cell span:nth-child(2){font-size:70%;}
 .row .browse-cell span:nth-child(2):not(.size){display:none;}
-.list-group .browse-cell{text-align:left;padding:.2rem .5rem;margin:2.5px;display:flex;}
-.list-group .browse-cell span:nth-child(2){font-size:70%;text-align:right;}
+.list-group .browse-cell{text-align:left;padding:.2rem .5rem;margin:2.5px 0;display:flex;}
+.list-group .browse-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;}
+.list-group .browse-cell:has(img){display:block;width:100%;padding:.5em}
+.list-group .browse-cell:has(img) span{text-align:center;margin-top:.5em}
+.list-group .browse-cell img{width:100%;}
 .browse-cell *{margin: 0 auto;}
 .browse-cell span{
 	overflow: hidden;
@@ -163,10 +166,9 @@ music-metadata: true
 	width: 100%;
 	display: block;
 }
-img.browse-cell{
-	height: min(15vh, 20vw);
-	object-fit: scale-down;
-	width: max(20vw, 30vh);
+.row .browse-cell img{
+	max-width: initial;
+	height: calc(min(15vh, 20vw) - .75rem);
 }
 #show-image{
 	max-width: 100%;
@@ -321,7 +323,7 @@ let intervalsDict={};
 let list_repositories_qURL=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
 
 // GitHub User Profile
-gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
+gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github_auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
@@ -407,13 +409,14 @@ function browseBuild(eachRecord){
 			contentElement+=` onclick=browseRun("${eachRecord['url']}") id="${eachRecord['sha']}" data-search="${eachRecord['name']}")><span>${eachRecord['name']}</span><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
 		}else{
 			// This record is a file in these brackets
-			let sizeElement=`<span style="font-size: 70%; vertical-align: top;">${formatBytes(eachRecord["size"])}`;
+			// let sizeElement=`<span>${formatBytes(eachRecord["size"])}`;
 			let showItemElement=` onclick="showFile('${eachRecord['download_url'].replace(/'/g, '%27')}', '${eachRecord['git_url']}')" data-search="${eachRecord['name']}"`;
 			// Is the record an image?
 			if (extI.some(v => eachRecord['download_url'].split('?',1)[0].toLowerCase().endsWith(v))){ 
-				contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord['download_url']}" >`;
+				// contentElement = `<img${showItemElement} class="col browse-cell" src="${eachRecord['download_url']}" >`;
+				contentElement += `${showItemElement}><img src="${eachRecord['download_url']}" ><span>${eachRecord['name']}</span></span>`;
 			}else{
-				contentElement += `${showItemElement}><span>${eachRecord['name']}</span>${sizeElement}</span>`;
+				contentElement += `${showItemElement}><span>${eachRecord['name']}</span><span>${formatBytes(eachRecord["size"])}</span>`;
 			}
 			mediaArray.push([eachRecord['download_url'], eachRecord['git_url']]);
 			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[eachRecord['download_url'], eachRecord['git_url']])
@@ -445,6 +448,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	let browseDisplayIndicator='default';
 
 	if(extI.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+		if(gId('browse-content').classList[0]=='list-group'){return} // Images are already quite maximized, so not required here
 		browseDisplayIndicator="image";
 		browseDisplayInner=`<img id="show-image" src="${downloadUrl}"><span>${browseDisplayInner}</span>`;
 	}else if(extV.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
