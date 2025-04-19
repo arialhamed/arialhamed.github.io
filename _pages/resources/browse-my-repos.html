@@ -337,33 +337,6 @@ let ghusr='arialhamed';
 let intervalsDict={};
 let list_repositories_qURL=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
 
-// GitHub User Profile
-gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github_auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
-
-// Kick off when the page loads, or go straight to a stated url
-// If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
-if (!qUrl||String(qUrl).startsWith(list_repositories_qURL)){
-	browseReset()
-}else{
-	browsingTree.push(`https://api.github.com${list_repositories_qURL}pushed`);
-	if (qUrl.split('/contents').length>1){
-		browsingTree.push(`https://api.github.com${qUrl.split('/contents')[0]}`);
-		let eachClimb=qUrl.slice(qUrl.indexOf('/contents/')+10).split('?')[0].split('/');
-		let accumClimb='';
-		for (let i=0; i<eachClimb.length-1; i++){
-			accumClimb+=`/${eachClimb[i]}`;
-			browsingTree.push(`https://api.github.com${qUrl.slice(0, qUrl.indexOf('/contents/'))}/contents${accumClimb}${qUrl.slice(qUrl.indexOf('?ref='))}`)
-		}
-		browseRun(`https://api.github.com${qUrl}`, rootRepoUrl=`https://api.github.com${qUrl.split('/contents')[0]}`)
-	}else{
-		browseRun(`https://api.github.com${qUrl}`)
-	}
-}
-
-// Resets the search box
-gId('search-box').value='';
-// gId('search-box').onmousedown=e=>{gId('search-box').value='';searchContents()}
-
 // The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using browseBuild
 // 'refresh' boolean is to reload private repo's download_url tokens
 async function browseRun(inUrl, rootRepoUrl='', refresh=false){
@@ -648,11 +621,35 @@ const browseToggleView=async()=>{
 		gId('browse-view').innerHTML=viewList
 	}
 }
-
-gId('browse-view').innerHTML=viewList
-gId('browse-content').setAttribute('class','row wide-responsive')
 const github_signin=()=>{localStorage.setItem('github_signin_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
+
+// GitHub User Profile
+gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github_auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
+gId('browse-view').innerHTML=viewList
+gId('browse-content').setAttribute('class','row wide-responsive')
+gId('search-box').value='';
+
+// Kick off when the page loads, or go straight to a stated url
+// If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
+if (!qUrl||String(qUrl).startsWith(list_repositories_qURL)){
+	browseReset()
+}else{
+	browsingTree.push(`https://api.github.com${list_repositories_qURL}pushed`);
+	if (qUrl.split('/contents').length>1){
+		browsingTree.push(`https://api.github.com${qUrl.split('/contents')[0]}`);
+		let eachClimb=qUrl.slice(qUrl.indexOf('/contents/')+10).split('?')[0].split('/');
+		let accumClimb='';
+		for (let i=0; i<eachClimb.length-1; i++){
+			accumClimb+=`/${eachClimb[i]}`;
+			browsingTree.push(`https://api.github.com${qUrl.slice(0, qUrl.indexOf('/contents/'))}/contents${accumClimb}${qUrl.slice(qUrl.indexOf('?ref='))}`)
+		}
+		browseRun(`https://api.github.com${qUrl}`, rootRepoUrl=`https://api.github.com${qUrl.split('/contents')[0]}`)
+	}else{
+		browseRun(`https://api.github.com${qUrl}`)
+	}
+}
+
 </script>
 
 
