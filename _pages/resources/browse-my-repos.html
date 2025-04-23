@@ -418,45 +418,45 @@ function browseBuild(e){
 async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	console.log(`showFile(${downloadUrl}, ${gitUrl})`);
 	const bDisplay=gId('browse-display');
-	const downloadUrl_noParams = downloadUrl.split('?',1)[0];
+	var fileName=downloadUrl.split('/').pop().split('?')[0];
 	// const gitContent = await 
 
 	// Remove loops to avoid raiding the console section 
-	audioMainLoop?clearInterval(audioMainLoop):'';
+	if(audioMainLoop)clearInterval(audioMainLoop);
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-	let browseDisplayInner=`<a id="browse-display-close"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a><a target="_blank" href="${downloadUrl}">${decodeURIComponent(downloadUrl_noParams.substring(downloadUrl_noParams.lastIndexOf('/')+1))}</a>`;
+	let browseDisplayInner=`<a id="browse-display-close"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a><a target="_blank" onclick=downloadFile("${decodeURIComponent(fileName)}", "${gitUrl}")>${decodeURIComponent(fileName)}</a>`;
 
 	// Add option to show parsed for markdown files
-	if (downloadUrl_noParams.toLowerCase().endsWith('.md')){browseDisplayInner+=` <span style="cursor:pointer;position:relative;left:3em;">(<a onclick="showFile('${downloadUrl}', '${gitUrl}', ${(mdRaw?'false)">alt: parsed':'true)">alt: raw')}</a>)</span>`}
+	if (fileName.toLowerCase().endsWith('.md')){browseDisplayInner+=` <span style="cursor:pointer;position:relative;left:3em;">(<a onclick="showFile('${downloadUrl}', '${gitUrl}', ${(mdRaw?'false)">alt: parsed':'true)">alt: raw')}</a>)</span>`}
 
 	// Remove any existing browsing indicators from browse-display
 	['default', 'image', 'audio'].forEach(a => bDisplay.classList.remove('browse-display-'+a))
 	let browseDisplayIndicator='default';
 
-	if(extI.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+	if(extI.some(v => fileName.toLowerCase().endsWith(v))){
 		if(gId('browse-content').classList[0]=='list-group'){return} // Images are already quite maximized when browse-content is in list-group mode, so not required here
 		browseDisplayIndicator="image";
 		browseDisplayInner=`<img id="show-image" src="${downloadUrl}"><span>${browseDisplayInner}</span>`;
-	}else if(extV.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+	}else if(extV.some(v => fileName.toLowerCase().endsWith(v))){
 		browseDisplayInner+=`<video id="show-video" style="width: 100%;" controls><source src="${downloadUrl}" type="video/webm"></video>`;
-	}else if(extS.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+	}else if(extS.some(v => fileName.toLowerCase().endsWith(v))){
 		browseDisplayIndicator="audio";
 		browseDisplayInner+=audioPlayerHTML;
-	}else if(ext3.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+	}else if(ext3.some(v => fileName.toLowerCase().endsWith(v))){
 		browseDisplayInner+=`<model-viewer alt="${decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))}" src="${downloadUrl}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`;
-	}else if(extA.some(v => downloadUrl_noParams.toLowerCase().endsWith(v))){
+	}else if(extA.some(v => fileName.toLowerCase().endsWith(v))){
 		browseDisplayInner+="<p>Contents of this file can not be parsed here.</p>";
-	}else if(downloadUrl_noParams.toLowerCase().endsWith(".pdf")){
+	}else if(fileName.toLowerCase().endsWith(".pdf")){
 		browseDisplayInner+=`<object type="application/pdf" data="${downloadUrl}" width="500" height="375">`;
 	}else{
 		const itemTextOut=await fetch(gitUrl, github_api_headers()).then(r=>r.json()).then(t=>atob(t['content']));
 
 		// If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
-		if(downloadUrl_noParams.toLowerCase().endsWith('.md') && !mdRaw){
+		if(fileName.toLowerCase().endsWith('.md') && !mdRaw){
 			browseDisplayInner+=`<br><span id="browse-md-parsed">${mdConverter.render(itemTextOut.substring(1).split('---').pop())}</span>`;
 		}else{ // else show it parsed in Prism.js
-			browseDisplayInner+=`<br><pre style="background-color:#333a;width:100%;" data-src="${downloadUrl}" data-download-link><code id="show-text" class="line-numbers language-${downloadUrl_noParams.split('.').pop()}">${itemTextOut.replace(/\</g, '&lt;')}</code></pre>`;
+			browseDisplayInner+=`<br><pre style="background-color:#333a;width:100%;" data-src="${downloadUrl}" data-download-link><code id="show-text" class="line-numbers language-${fileName.split('.').pop()}">${itemTextOut.replace(/\</g, '&lt;')}</code></pre>`;
 		} // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 	}
 
@@ -500,8 +500,9 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 
 		bDisplay.classList.add('disable-selection');
 
+		URL.revokeObjectURL(audioPlayer.src);
 		audioPlayer.src = '';
-		fetch(gitUrl, github_api_headers({blob: true}))
+		fetch(gitUrl, github_api_headers({raw: true}))
 		.then(r=>r.blob())
 		.then(b=>{
 			audioPlayer.src = URL.createObjectURL(b);
@@ -516,7 +517,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		// const mediaSource = new MediaSource();
 		// audioPlayer.src = URL.createObjectURL(mediaSource);
 		// mediaSource.addEventListener('sourceopen', async ()=>{
-		// 	const response = await fetch(gitUrl, github_api_headers({blob: true}))
+		// 	const response = await fetch(gitUrl, github_api_headers({raw: true}))
 		// 	console.log(`response: ${response}`)
 		// 	const reader = response.body.getReader();
 		// 	console.log(`reader: ${reader}`)
@@ -572,7 +573,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 					case 40: audioPlayer.volumeAdd(-.01); break;
 					default: keyCodeUnassigned=false
 				}
-				keyCodeUnassigned?this.preventDefault():'';
+				if(keyCodeUnassigned)this.preventDefault();
 			}
 		}
 		gId('audio-volume').onwheel=e=>{e.preventDefault();audioPlayer.volumeAdd(Math.max(e.deltaX,-e.deltaY)>0?-.01:.01)}
@@ -612,22 +613,20 @@ const browseBack=async()=>{browsingTree.pop();browseRun(browsingTree.pop())}
 const browseReset=async(s='pushed')=>{browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';browseRun('https://api.github.com'+list_repositories_qURL+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(String(window.location).split('?')[0]+'?url='+gId('cud-inner').textContent);gId('cud-inner').innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 const searchContents=async()=>{gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase())) ? '' : 'none'})}
-const browseToggleView=async()=>{
-	if(gId('browse-content').getAttribute('class')=='row wide-responsive'){
-		gId('browse-content').setAttribute('class','list-group')
-		gId('browse-view').innerHTML=viewIcon
-	}else{
-		gId('browse-content').setAttribute('class','row wide-responsive')
-		gId('browse-view').innerHTML=viewList
-	}
+const browseToggleView=async(manualSet=true)=>{
+	if(manualSet)localStorage.setItem('browse-view-mode',(localStorage.getItem('browse-view-mode')=='list-group')?'row wide-responsive':'list-group');
+	gId('browse-content').setAttribute('class',localStorage.getItem('browse-view-mode'))
+	gId('browse-view').innerHTML=(localStorage.getItem('browse-view-mode')=='list-group')?viewIcon:viewList;
 }
 const github_signin=()=>{localStorage.setItem('github_signin_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
 
-// GitHub User Profile
+// GitHub display
 gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github_auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
-gId('browse-view').innerHTML=viewList
-gId('browse-content').setAttribute('class','row wide-responsive')
+
+// Browsing controls
+if(!localStorage.getItem('browse-view-mode'))localStorage.setItem('browse-view-mode','row wide-responsive');
+browseToggleView(false)
 gId('search-box').value='';
 
 // Kick off when the page loads, or go straight to a stated url

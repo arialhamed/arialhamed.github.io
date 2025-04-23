@@ -35,6 +35,9 @@
 {% endif %}
 
 <script>
+	// Custodial services
+	window.AudioContext=window.AudioContext||window.webkitAudioContext;
+
 	// Functions
 	const gId=id=>document.getElementById(id);
 	const gClass=id=>document.getElementsByClassName(id);
@@ -99,7 +102,7 @@
 
 	// For authentication via GitHub Apps
 	const github_token = localStorage.getItem('github_token');
-	let github_api_headers = ({refresh = false, blob = false} = {}) => {return {cache: (refresh)?'no-store':'no-cache', headers: {Accept: `application/vnd.github${(blob)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
+	let github_api_headers = ({refresh = false, raw = false} = {}) => {return {cache: (refresh)?'no-store':'no-cache', headers: {Accept: `application/vnd.github${(raw)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
 
 	// For when i want to tell the user something real quick
 	raiseModal=(e='<i>empty modal</i>',ms=1000)=>{
