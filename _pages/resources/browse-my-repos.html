@@ -347,6 +347,7 @@ async function browseRun(inUrl, rootRepoUrl='', refresh=false){
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
 	gId('current-url-display').innerHTML=`<span id="cud-inner" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title="Copy current URL & position">${iconCopy}${inUrl.slice(22)}</span>`;
+	window.history.pushState({}, null, `${window.location.origin}${window.location.pathname}${inUrl.slice(22)}`);
 
 	// Get repository details, not the contents
 	browseJson=await fetch(inUrl, github_api_headers({refresh: refresh})).then(r=>r.json());
