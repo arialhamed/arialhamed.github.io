@@ -93,6 +93,9 @@
 				gId('toggle-fullscreen').innerHTML = '<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 9h4m0 0V5m0 4L4 4m15 5h-4m0 0V5m0 4 5-5M5 15h4m0 0v4m0-4-5 5m15-5h-4m0 0v4m0-4 5 5"/></svg>'
 			}
 		}
+
+		// The styling of disabled checkboxes are controlled by the browser, but it looks ugly af in my color scheme, so why not let it be? <cue Cure For Me by Aurora>
+		document.querySelectorAll('.task-list-item-checkbox').forEach(e=>e.removeAttribute('disabled'))
 	}
 
 	// For tracking (may not be working anymore so hey good for you)
@@ -209,6 +212,7 @@
 		h6{font-size:12px}
 		code,pre{min-width:240px;max-width:320px;font-size:11px}
 	}
+	.task-list-item-checkbox{margin-right:.25em}
 
 	/* back-to-top fragment */
 	#back-to-top:hover{background:#444e}

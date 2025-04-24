@@ -38,8 +38,12 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 - [x] Enable a toggle between alternative views (between cells or list)
 - [x] URL changes when navigating in browse-my-repos
 - [ ] Test if GitHub Pages uses checkboxes in their markdown
+	- [x] It's a universal markdown thing lol
+	- [x] Removed 'disabled` attribute
+	- [ ] Consider making it disabled in a different way for non-authenticated users, and authenticated users (i.e. literally just me) will be able to make the changes true (somehow)
 - [ ] Enable cancellation of browseRun when a new browseRun is ran again (ref: sky cotl memories repo then back to main page)
 - [ ] Restructure to have inUrl as the root dir of repo contents instead of the url to the repo (like add /contents to standardize between all content urls, not necessary for all repo view)
+- [ ] Disable particles.js background by getting performance of device
 
 <script>
 let working_seconds=0;
