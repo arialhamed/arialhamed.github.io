@@ -21,6 +21,26 @@ I'll let this melody, harmony & rhythm of HTML, CSS & JS (respectively) do all t
 <input type="checkbox" id="check_status" checked style="display: none;">
 <span id="action_status" title="compiled &amp; hosted by GitHub Pages">Checking current status..</span>
 
+<br>
+
+To-do list for the [repo browser](/resources/browse-my-repos/):
+- [x] Alternative to `jsmediatags` as it does not return lyrics for _.flac_ files
+	- Found `music-metadata`
+- [ ] Faster audio loading
+- [x] Authentication to GitHub API via GitHub Apps
+	- [x] Saving token to localStorage
+	- [x] Login page
+- [x] Upload file to repository
+- [ ] Upload multiple files to repository
+- [ ] Homemade Modal
+	- [x] Remaining time progress bar
+	- [ ] True disappearance off-screen (display is none)
+- [x] Enable a toggle between alternative views (between cells or list)
+- [x] URL changes when navigating in browse-my-repos
+- [ ] Test if GitHub Pages uses checkboxes in their markdown
+- [ ] Enable cancellation of browseRun when a new browseRun is ran again (ref: sky cotl memories repo then back to main page)
+- [ ] Restructure to have inUrl as the root dir of repo contents instead of the url to the repo (like add /contents to standardize between all content urls, not necessary for all repo view)
+
 <script>
 let working_seconds=0;
 continuum_status_check=()=>{
