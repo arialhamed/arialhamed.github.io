@@ -44,6 +44,7 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 - [ ] Enable cancellation of browseRun when a new browseRun is ran again (ref: sky cotl memories repo then back to main page)
 - [ ] Restructure to have inUrl as the root dir of repo contents instead of the url to the repo (like add /contents to standardize between all content urls, not necessary for all repo view)
 - [ ] Disable particles.js background by getting performance of device
+- [ ] File downloading via blob (both authenticated & non-authenticated browsers)
 
 <script>
 let working_seconds=0;
