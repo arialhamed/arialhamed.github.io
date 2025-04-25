@@ -36,11 +36,11 @@ music-metadata: true
 
 <!-- back		title		reload -->
 <div style="text-align: center;">
-	<p class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></p>
-	<p class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></p>
-	<p class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></p>
-	<p class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></p>
-	<p class="title-icons disable-selection" title="Upload here" style="float: right; visibility: hidden;" id="upload-file" onclick="uploadFileInput.click()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></p>
+	<a class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
+	<a class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start" onclick="browseReset()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
+	<a class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="browseRun(browsingTree.pop())"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
+	<a class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></a>
+	<a class="title-icons disable-selection" title="Upload here" style="float: right; visibility: hidden;" id="upload-file" onclick="uploadFileInput.click()"><svg height="2.5em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
 	<h2 id="current-title"></h2>
 	<div style="clear: both"></div>
 </div>
@@ -73,11 +73,12 @@ music-metadata: true
 	vertical-align: middle;
 	border-radius: .75em;
 	cursor: pointer;
-	color: var(--anchor-color) !important;
+	color: var(--anchor-color);
 }
 .title-icons:hover{
 	background-color: var(--overlay-hover);
 }
+#browse-back[href='']{pointer-events:none;color:var(--anchor-color-hover)}
 #browse-refresh svg:hover{
 	rotate: 180deg;
 }
@@ -153,7 +154,7 @@ music-metadata: true
 }
 .browse-cell{
 	display: inline-block;
-	cursor: pointer;
+	/* cursor: pointer; */
 	/* margin: 4px; */
 	color: var(--anchor-color-solid) !important;
 	/* text-align: center; */
@@ -303,7 +304,7 @@ audioPlayer.togglePlay=function(){this.paused?this.play():this.pause()}
 audioPlayer.volumeAdd=function(f=0){this.volume=clamp(0,this.volume+f,1)}
 const pathPaused=`<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 18V6l8 6-8 6Z"/>`
 const pathPlaying=`<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6H8a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Zm7 0h-1a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Z"/>`
-const privateIcon=`<svg title="This repository is private" aria-hidden="true" fill="none" viewBox="0 0 24 24" height="1em" style="vertical-align: baseline;"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"></path></svg>`
+const privateIcon=`<svg title="This repository is private" aria-hidden="true" fill="none" viewBox="0 0 24 24" height="1em" style="vertical-align:baseline;margin:0 .3em;"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"></path></svg>`
 const audioPlayerHTML=`
 <div id="audio-controls">
 	<span id="audio-duration">--:--<br>-<br>--:--</span>
@@ -340,72 +341,74 @@ let listRepositoriesUrl=(github_token)?'/user/repos?per_page=100&sort=':`/users/
 
 // The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using browseBuild
 // 'refresh' boolean is to reload private repo's download_url tokens
-async function browseRun(inUrl, rootRepoUrl='', refresh=false){
-	browsingTree.push(inUrl); // Adds current url to a history array
+window.onhashchange=()=>{
+	browseRun(`https://api.github.com${window.location.hash.slice(1)}`)
+}
+async function browseRun(inUrl){
+	(browsingTree.at(-2)==inUrl)?browsingTree.pop():browsingTree.push(inUrl);
 	console.log(browsingTree);
-	// gId('browse-refresh').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='', refresh=true)}
+	// gId('browse-refresh').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='')}
 
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
 	gId('current-url-display').innerHTML=`<span id="cud-inner" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title="Copy current URL & position">${iconCopy}${inUrl.slice(22)}</span>`;
-	window.history.pushState({}, null, `${window.location.origin}${window.location.pathname}#${inUrl.slice(22)}`);
+	// window.history.pushState({}, null, `${window.location.origin}${window.location.pathname}#${inUrl.slice(22)}`);
 
-	// Get repository details, not the contents
-	browseJson=await fetch(inUrl, github_api_headers({refresh: refresh})).then(r=>r.json());
+	// Get repository contents or list repositories of a user
+	browseJson=await fetch(inUrl, github_api_headers()).then(r=>r.json());
 	if (inUrl.startsWith(`https://api.github.com${listRepositoriesUrl}`)){ // If current link is the start
-		gId('browse-back').style.cursor='not-allowed'; gId('browse-back').onclick='';
-		gId('current-title').innerHTML=(github_token)?'All of Your Repositories':'Ari\'s Public Repositories';
-		gId('current-description').innerHTML=`<span style="font-style: italic;">&lt;description will be shown here when you select a repository below&gt;</span>`;
+		// gId('browse-back').style.cursor='not-allowed'; 
+		// gId('browse-back').href='#';
+		gId('current-title').innerHTML=(github_token)?'All of your repositories':'My public repositories';
+		gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
 		gId('upload-file').style.visibility='hidden'; // Hide upload button
-	}else{
-		// If repository selected or in contents of repository (not at the start of the page)
-		gId('browse-back').style.cursor='pointer'; gId('browse-back').onclick=browseBack;
+	}else{ // If repository selected or in contents of repository (not at the start of the page)
+		// Set link for back button
+		// gId('browse-back').style.cursor='pointer'; 
+		gId('browse-back').href=`#${browsingTree.at(-2).slice(22)}`;
 		if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
 
+		// Get repository of current URL, regardless where you are (format is `user/repository`)
+		const rootRepoCurrent = inUrl.slice(22).split('/').slice(2,4).join('/')
 		// If just at the main view of the repository (not in the contents), then set the title and description
-		if (!inUrl.includes('?ref=')||rootRepoUrl!==''){
-			// The current API URL may not be the API URL for the root repository. For a pre-filled URL, there is no way to get repository details to put into the title, description and more, so this part covers that
-			const browseRootRepo = (''===rootRepoUrl)?browseJson:await fetch(rootRepoUrl, github_api_headers({refresh: refresh})).then(r=>r.json());
-
-			browsingCurrentRepo = inUrl
-			gId('current-description').innerHTML=`${browseJson.private?privateIcon:''}${([undefined, null, ''].includes(browseRootRepo.description))?'<i>No description</i>':browseRootRepo.description}`;
-			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${browseJson.html_url}'" title="${browseJson.html_url}">${browseRootRepo.name}</span>`;
-			gId('current-title').innerHTML=(browseRootRepo.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${browseRootRepo.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
+		if (browsingCurrentRepo!=rootRepoCurrent){ // If the browsing repo does not match the current repo
+			browsingCurrentRepo = rootRepoCurrent
+			const rootRepoDetails = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers()).then(r=>r.json())
+			gId('current-description').innerHTML=`${rootRepoDetails.private?privateIcon:''}${rootRepoDetails.description===null?'<i>No description</i>':rootRepoDetails.description}`;
+			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${rootRepoDetails.html_url}'" title="${rootRepoDetails.html_url}">${rootRepoDetails.name}</span>`;
+			gId('current-title').innerHTML=(rootRepoDetails.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${rootRepoDetails.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
 		}
 
-		// Get contents of repository, and sort it to show directories first
-		browseJson=await fetch((inUrl.includes('?ref='))?inUrl:inUrl+'/contents',github_api_headers({refresh: refresh})).then(r=>r.json());
-		if(browseJson.status!='404'){browseJson.sort((a, b) => a.type.localeCompare(b.type))}
+		// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
+		if(browseJson.status=='404'){gId('browse-content').insertAdjacentHTML('beforeend', `<span style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
+		}else{ // At this point, we are inside a repository with commits, so let's put the folders first
+			browseJson.sort((a, b) => a.type.localeCompare(b.type))
+		}
 	}
-	// browsingCurrentRepo = inUrl
 
 	// Loops through each... whatever thing. He needs some milk
-	if(browseJson.status!='404'){
-		browseJson.forEach(browseBuild)
-	}else{
-		gId('browse-content').insertAdjacentHTML('beforeend', `<span style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`)
-	}
+	browseJson.forEach(browseBuild)
 }
 
 // The following will read each file or content (or repos) and display into the browse-content element
 function browseBuild(e){
-	let contentElement='<span class="col browse-cell"';
+	let contentElement='<a class="col browse-cell"';
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} onclick=browseRun("${e.url}") data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}</span><span>${e.pushed_at}</span></span>`);
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}</span><span>${e.pushed_at}</span></a>`);
 	}else{
 		// Is the record a directory?
 		if (e.type == 'dir'){
-			contentElement+=` onclick=browseRun("${e.url}") id="${e.sha}" data-search="${e.name}")><span>${e.name}</span><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></span>`;
+			contentElement+=` href="#${e.url.slice(22)}" id="${e.sha}" data-search="${e.name}")><span>${e.name}</span><svg height="1.2em" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></a>`;
 		}else{
 			// This record is a file in these brackets
 			let showItemElement=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')" data-search="${e.name}"`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){ 
 				// contentElement = `<img${showItemElement} class="col browse-cell" src="${e.download_url}" >`;
-				contentElement += `${showItemElement}><img src="${e.download_url}" ><span><a href="${e.download_url}">${e.name}</a></span></span>`;
+				contentElement += `${showItemElement}><img src="${e.download_url}" ><span><a href="${e.download_url}">${e.name}</a></span></a>`;
 			}else{
-				contentElement += `${showItemElement}><span>${e.name}</span><span class="size">${formatBytes(e.size)}</span>`;
+				contentElement += `${showItemElement}><span>${e.name}</span><span class="size">${formatBytes(e.size)}</a>`;
 			}
 			mediaArray.push([e.download_url, e.git_url]);
 			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[e.download_url, e.git_url])
@@ -611,10 +614,10 @@ uploadFileInput.onchange=e=>{
 	}
 	intermediaryReader.readAsDataURL(e.target.files[0])
 }
-const browseBack=async()=>{browsingTree.pop();browseRun(browsingTree.pop())}
-const browseReset=async(s='pushed')=>{browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';browseRun('https://api.github.com'+listRepositoriesUrl+s);Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
+// const browseBack=async()=>{browsingTree.pop();window.location.href=`#${browsingTree.pop().slice(22)}`}
+const browseReset=async(s='pushed')=>{browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';window.location.href=`#${listRepositoriesUrl}${s}`;Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
-const searchContents=async()=>{gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase())) ? '' : 'none'})}
+const searchContents=()=>{gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase()))?'':'none'})}
 const browseToggleView=async(manualSet=true)=>{
 	if(manualSet)localStorage.setItem('browse-view-mode',(localStorage.getItem('browse-view-mode')=='list-group')?'row wide-responsive':'list-group');
 	gId('browse-content').setAttribute('class',localStorage.getItem('browse-view-mode'))
@@ -638,17 +641,17 @@ if(!qUrl||String(qUrl).startsWith(listRepositoriesUrl)){
 }else{
 	browsingTree.push(`https://api.github.com${listRepositoriesUrl}pushed`);
 	if(qUrl.split('/contents').length>1){
-		browsingTree.push(`https://api.github.com${qUrl.split('/contents')[0]}`);
+		browsingTree.push(`https://api.github.com${qUrl.split('/contents')[0]}/contents${qUrl.slice(qUrl.indexOf('?ref='))}`);
 		let eachClimb=qUrl.slice(qUrl.indexOf('/contents/')+10).split('?')[0].split('/');
 		let accumClimb='';
 		for (let i=0; i<eachClimb.length-1; i++){
 			accumClimb+=`/${eachClimb[i]}`;
 			browsingTree.push(`https://api.github.com${qUrl.slice(0, qUrl.indexOf('/contents/'))}/contents${accumClimb}${qUrl.slice(qUrl.indexOf('?ref='))}`)
 		}
-		browseRun(`https://api.github.com${qUrl}`, rootRepoUrl=`https://api.github.com${qUrl.split('/contents')[0]}`)
-	}else{
-		browseRun(`https://api.github.com${qUrl}`)
-	}
+		// browseRun(`https://api.github.com${qUrl}`, rootRepoUrl=`https://api.github.com${qUrl.split('/contents')[0]}`)
+	}//else{
+	browseRun(`https://api.github.com${qUrl}`)
+	//}
 }
 
 </script>

@@ -48,9 +48,12 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 - [ ] Disable particles.js background by getting performance of device
 - [ ] File downloading via blob (both authenticated & non-authenticated browsers)
 - [x] Private repository indicator
+- [ ] Further optimize the kick-off, seems a bit repetitive at some parts now that i'm using /content on the base root
+- [ ] Remove the classes from all SVGs in a separate commit
+- [ ] Move todo list to some other place
 
 Known limits:
-- Modified datetime for file contents
+- Unable to add modified datetime for file contents
 	- This is due to GitHub API's abuse detection or something
 
 <script>
