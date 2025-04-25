@@ -49,7 +49,7 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 - [ ] File downloading via blob (both authenticated & non-authenticated browsers)
 - [x] Private repository indicator
 - [ ] Further optimize the kick-off, seems a bit repetitive at some parts now that i'm using /content on the base root
-- [ ] Remove the classes from all SVGs in a separate commit
+- [x] Remove the classes from all SVGs in a separate commit
 - [ ] Move todo list to some other place
 
 Known limits:
