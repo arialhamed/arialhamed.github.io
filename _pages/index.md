@@ -27,6 +27,8 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 - [x] Alternative to `jsmediatags` as it does not return lyrics for _.flac_ files
 	- Found `music-metadata`
 - [ ] Faster audio loading
+	- Still need to consider between `fetch` and `XMLHttpRequest`
+	- Found out that using `.blob()` takes a lot of time. Downloading does not take too much time but it should be streaming anyway (average flacs are around 20MB to 50MB 💀).
 - [x] Authentication to GitHub API via GitHub Apps
 	- [x] Saving token to localStorage
 	- [x] Login page
@@ -45,6 +47,10 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 - [ ] Restructure to have inUrl as the root dir of repo contents instead of the url to the repo (like add /contents to standardize between all content urls, not necessary for all repo view)
 - [ ] Disable particles.js background by getting performance of device
 - [ ] File downloading via blob (both authenticated & non-authenticated browsers)
+
+Known limits:
+- Modified datetime for file contents
+	- This is due to GitHub API's abuse detection or something
 
 <script>
 let working_seconds=0;
