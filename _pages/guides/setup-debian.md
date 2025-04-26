@@ -9,14 +9,13 @@ redirect_from:
 ---
 
 <figure style="text-align:center;">
-     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/guides/Debian-OpenLogo.svg" style="width:50%;">
-     <figcaption><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Debian-OpenLogo.svg">Wikimedia Commons</a></i></figcaption>
+     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/guides/debian.svg" style="width:50%;">
+     <figcaption><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Debian-OpenLogo.svg">Wikimedia Commons</a> and modified with [Inkscape](https://inkscape.org/)</i></figcaption>
 </figure>
-<br><br>
 
 This is more, like, for me to reference to. i learned some things **and i will forget them** after a while, so here it is.
 
-A lot of what is existing here is an extension of this file 
+A lot of what is existing here is an extension of the [ubuntu setup page](/guides/ubuntu-setup), though it would be more accurate to say that Ubuntu is an extension of Debian. That's why I decided to switch over from Ubuntu (but I still like Gnome lol)
 
 ---
 

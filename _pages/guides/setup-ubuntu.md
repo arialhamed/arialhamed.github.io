@@ -8,11 +8,10 @@ redirect_from:
  - /ubuntu-setup/
 ---
 
-<div style="text-align:center;">
+<figure style="text-align:center;">
      <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/guides/ubuntu.svg" style="width:50%;">
-</div>
-
-<br><br>
+     <figcaption><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Ubuntu-logo-2022.svg">Wikimedia Commons</a> and modified with [Inkscape](https://inkscape.org/)</i></figcaption>
+</figure>
 
 This is more, like, for me to reference to. i learned some things **and i will forget them** after a while, so here it is.
 
