@@ -40,4 +40,3 @@ Then it gets more complicated when it comes to splitting into **display server p
 
 ```
 
-{{ page.last_modified_at | date: 'Last modified: %B %d, %y at %H:%M:%S' }}

@@ -16,7 +16,7 @@ plugins:
   - jekyll-pdf-embed
   - directory_tag
   - jekyll-remote-include
-  - jekyll-last-modified-at
+  # - jekyll-last-modified-at
 # languages: ["sv", "en", "my", "ch", "id"]
 kramdown:
   syntax_highlighter: coderay
@@ -31,5 +31,3 @@ collections:
   repos:
     output: true
     permalink: /:collection/:path/
-last-modified-at:
-  date-format: 'Last modified: %B %d, %y at %H:%M:%S'

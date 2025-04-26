@@ -310,10 +310,4 @@ note for ari: the command above is configured for Kubuntu, where certain package
 
 last date modified should show here
 
-{{ page.last_modified_at | date: 'Last modified: %B %d, %y at %H:%M:%S' }}
-
-{% last_modified_at %}
-
-{% last_modified_at %Y:%B:%A:%d:%S:%R %}
-
-now it shouldn't
+{{page.path}}
