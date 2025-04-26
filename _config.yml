@@ -31,3 +31,5 @@ collections:
   repos:
     output: true
     permalink: /:collection/:path/
+last-modified-at:
+  date-format: 'Last modified: %B %d, %y at %H:%M:%S'

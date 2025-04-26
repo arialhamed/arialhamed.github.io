@@ -308,5 +308,12 @@ curl -s -L https://github.com/arialhamed/convenience/raw/main/repeatables/setup.
 note for ari: the command above is configured for Kubuntu, where certain packages already exist as it's own version that belongs in KDE, such as _KDE Partition Manager_ that is the KDE version for _GParted_. This is also configured for if you're dual-booting with Windows, which would allow you to run Visual Studio instead of MonoDevelop.
 
 
+last date modified should show here
 
 {{ page.last_modified_at | date: 'Last modified: %B %d, %y at %H:%M:%S' }}
+
+{% last_modified_at %}
+
+{% last_modified_at %Y:%B:%A:%d:%S:%R %}
+
+now it shouldn't
