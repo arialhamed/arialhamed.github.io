@@ -16,6 +16,7 @@ plugins:
   - jekyll-pdf-embed
   - directory_tag
   - jekyll-remote-include
+  - jekyll-last-modified-at
 # languages: ["sv", "en", "my", "ch", "id"]
 kramdown:
   syntax_highlighter: coderay

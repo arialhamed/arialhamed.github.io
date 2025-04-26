@@ -1,22 +1,11 @@
 ---
 title: ubuntu tips
 layout: default
-permalink: /guides/ubuntu
+permalink: /guides/ubuntu-setup
 redirect_from:
- - /guides/ubuntu/
- - /ubuntu
- - /ubuntu/
- - /buntu
- - /buntu/
- - /guides/linux
- - /guides/linux/
- - /linux
- - /linux/
- - /u
- - /u/
- - /linussucksatlinux
- - /linusdroptips
- - /linushaspoorworkethics
+ - /guides/ubuntu-setup/
+ - /ubuntu-setup
+ - /ubuntu-setup/
 ---
 
 <div style="text-align:center;">
@@ -317,3 +306,7 @@ curl -s -L https://github.com/arialhamed/convenience/raw/main/repeatables/setup.
 ```
 
 note for ari: the command above is configured for Kubuntu, where certain packages already exist as it's own version that belongs in KDE, such as _KDE Partition Manager_ that is the KDE version for _GParted_. This is also configured for if you're dual-booting with Windows, which would allow you to run Visual Studio instead of MonoDevelop.
+
+
+
+{{ page.last_modified_at | date: 'Last modified: %B %d, %y at %H:%M:%S' }}
