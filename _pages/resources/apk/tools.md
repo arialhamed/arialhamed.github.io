@@ -30,7 +30,7 @@ RAR & 7z, the cornerstones of data archival. I don't want to bore you (and me) w
 
 I use this on multiple phones to check what kind of mobile GPU each phone has. For certain games, you may need to check the your device what kind of mobile GPU to get the recommended file(s) that are most compatible with it. Unfortunately, for whatever reason, it was removed from the Play Store.
 
-<**for arif: include some screenshots here**>
+<**for arial: include some screenshots here**>
 
 <div class="text-center">
     <a class="btn btn-dark btn-block w-100" onclick='apk("com.dama.hardwareinfo_4.2.6.apk")' style="text-decoration: none; background-color: #333;"> Download <b>com.dama.hardwareinfo_4.2.6.apk</b> (5.98 MB)</a>

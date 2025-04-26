@@ -16,7 +16,7 @@ redirect_from:
         <b style="font-size:140%;">HAMED, Daing Arial</b>
         <div><b>Nationality:</b> Singaporean</div>
         <div><b>Mobile:</b> <i class="disable-selection" ondblclick="this.innerHTML='(+65) 8817 4266'">double click to reveal</i></div>
-        <div><b>Email:</b> <a href="mailto:arifhamed.arial@outlook.com">daing.arial@outlook.com</a></div>
+        <div><b>Email:</b> <a href="mailto:arialhamed@outlook.com">daing.arial@outlook.com</a></div>
         <div><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/ari-hamed/">https://www.linkedin.com/in/daingarialhamed/</a></div>
         <div><b>Portfolio:</b> <a href="https://arialhamed.github.io/">https://arialhamed.github.io/</a></div>
         <div><b>Languages:</b> English (Business), Bahasa Melayu (Conversational)</div>

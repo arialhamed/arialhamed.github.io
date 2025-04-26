@@ -34,4 +34,4 @@ To file a notice of infringing material on _Arial Hamed_ please provide a notifi
 
 ## Contact Me
 If you feel that your intellectual property has been stolen, send an infringement notice to this email below.<br>
-<code onclick='this.innerHTML=decipher("arifhamed.com")("57525b5f587657445f505e575b53521855595b")' class="disable-selection">Click to reveal email</code>
+<code onclick='this.innerHTML="arialhamed@outlook.com"' class="disable-selection">Click to reveal email</code>

@@ -21,41 +21,6 @@ I'll let this melody, harmony & rhythm of HTML, CSS & JS (respectively) do all t
 <input type="checkbox" id="check_status" checked style="display: none;">
 <span id="action_status" title="compiled &amp; hosted by GitHub Pages">Checking current status..</span>
 
-<br>
-
-To-do list for the [repo browser](/resources/browse-my-repos/):
-- [x] Alternative to `jsmediatags` as it does not return lyrics for _.flac_ files
-	- Found `music-metadata`
-- [ ] Faster audio loading
-	- Still need to consider between `fetch` and `XMLHttpRequest`
-	- Found out that using `.blob()` takes a lot of time. Downloading does not take too much time but it should be streaming anyway (average flacs are around 20MB to 50MB 💀).
-- [x] Authentication to GitHub API via GitHub Apps
-	- [x] Saving token to localStorage
-	- [x] Login page
-- [x] Upload file to repository
-- [ ] Upload multiple files to repository
-- [ ] Homemade Modal
-	- [x] Remaining time progress bar
-	- [ ] True disappearance off-screen (display is none)
-- [x] Enable a toggle between alternative views (between cells or list)
-- [x] URL changes when navigating in browse-my-repos
-- [ ] Test if GitHub Pages uses checkboxes in their markdown
-	- [x] It's a universal markdown thing lol
-	- [x] Removed 'disabled` attribute
-	- [ ] Consider making it disabled in a different way for non-authenticated users, and authenticated users (i.e. literally just me) will be able to make the changes true (somehow)
-- [ ] Enable cancellation of browseRun when a new browseRun is ran again (ref: sky cotl memories repo then back to main page)
-- [ ] Restructure to have inUrl as the root dir of repo contents instead of the url to the repo (like add /contents to standardize between all content urls, not necessary for all repo view)
-- [ ] Disable particles.js background by getting performance of device
-- [ ] File downloading via blob (both authenticated & non-authenticated browsers)
-- [x] Private repository indicator
-- [ ] Further optimize the kick-off, seems a bit repetitive at some parts now that i'm using /content on the base root
-- [x] Remove the classes from all SVGs in a separate commit
-- [ ] Move todo list to some other place
-
-Known limits:
-- Unable to add modified datetime for file contents
-	- This is due to GitHub API's abuse detection or something
-
 <script>
 let working_seconds=0;
 continuum_status_check=()=>{

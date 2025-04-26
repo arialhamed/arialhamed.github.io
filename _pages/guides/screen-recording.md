@@ -7,7 +7,7 @@ redirect_from:
 ---
 # Optimized Screen Recording <span style="font-size:70%">on Android</span>
 
-_&lt;note for arif: state how android 11 or so already gives screen recording but it kinda sucks because it uses the same gpu or whatever&gt;_
+_&lt;note for ari: state how android 11 or so already gives screen recording but it kinda sucks because it uses the same gpu or whatever&gt;_
 
 A lot of commands here actually relates to the [Android Debug Bridge](https://arialhamed.github.io/guides/adb), and a few pieces of software that I will explicitly state that is needed.
 
