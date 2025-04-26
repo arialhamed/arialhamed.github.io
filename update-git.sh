@@ -13,10 +13,10 @@ else
 	echo "there are files larger than 100M, git cannot upload files that size and larger, fix it."
 fi
 
-notify-send "git operations are done" "repo in `pwd`"
-#sleep 3
-#gh run watch
-#notify-send "gh run watch" "pages & deployment is finished (from `pwd`)" --urgency=critical
+# notify-send "git operations are done" "repo in `pwd`"
+# sleep 3
+# gh run watch
+# notify-send "gh run watch" "pages & deployment is finished (from `pwd`)" --urgency=critical
 
 #test
 pause

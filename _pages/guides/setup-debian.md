@@ -10,7 +10,7 @@ redirect_from:
 
 <figure style="text-align:center;">
      <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/guides/debian.svg" style="width:50%;">
-     <figcaption><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Debian-OpenLogo.svg">Wikimedia Commons</a> and modified with [Inkscape](https://inkscape.org/)</i></figcaption>
+     <figcaption style="margin-top:1rem;"><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Debian-OpenLogo.svg">Wikimedia Commons</a> and modified with <a href="https://inkscape.org/">Inkscape</a></i></figcaption>
 </figure>
 
 This is more, like, for me to reference to. i learned some things **and i will forget them** after a while, so here it is.
@@ -96,3 +96,4 @@ killall nautilus
 ```
 Note: This does not kill all nautilus, as the nautilus is an endangered species and killing all nautilus is unethical.
 
+---

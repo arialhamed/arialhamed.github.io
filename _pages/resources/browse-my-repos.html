@@ -339,63 +339,12 @@ let ghusr='arialhamed';
 let intervalsDict={};
 let listRepositoriesUrl=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
 
-// The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using browseBuild
-// 'refresh' boolean is to reload private repo's download_url tokens
-window.onhashchange=()=>{
-	browseRun(`https://api.github.com${window.location.hash.slice(1)}`)
-}
-async function browseRun(inUrl){
-	(browsingTree.at(-2)==inUrl)?browsingTree.pop():browsingTree.push(inUrl);
-	console.log(browsingTree);
-	// gId('browse-refresh').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='')}
-
-	// mediaArray=[];
-	gId('browse-content').innerHTML='';
-	gId('current-url-display').innerHTML=`<span id="cud-inner" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title="Copy current URL & position">${iconCopy}${inUrl.slice(22)}</span>`;
-	// window.history.pushState({}, null, `${window.location.origin}${window.location.pathname}#${inUrl.slice(22)}`);
-
-	// Get repository contents or list repositories of a user
-	browseJson=await fetch(inUrl, github_api_headers()).then(r=>r.json());
-	if (inUrl.startsWith(`https://api.github.com${listRepositoriesUrl}`)){ // If current link is the start
-		// gId('browse-back').style.cursor='not-allowed'; 
-		// gId('browse-back').href='#';
-		gId('current-title').innerHTML=(github_token)?'All of your repositories':'My public repositories';
-		gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
-		gId('upload-file').style.visibility='hidden'; // Hide upload button
-	}else{ // If repository selected or in contents of repository (not at the start of the page)
-		// Set link for back button
-		// gId('browse-back').style.cursor='pointer'; 
-		gId('browse-back').href=`#${browsingTree.at(-2).slice(22)}`;
-		if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
-
-		// Get repository of current URL, regardless where you are (format is `user/repository`)
-		const rootRepoCurrent = inUrl.slice(22).split('/').slice(2,4).join('/')
-		// If just at the main view of the repository (not in the contents), then set the title and description
-		if (browsingCurrentRepo!=rootRepoCurrent){ // If the browsing repo does not match the current repo
-			browsingCurrentRepo = rootRepoCurrent
-			const rootRepoDetails = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers()).then(r=>r.json())
-			gId('current-description').innerHTML=`${rootRepoDetails.private?privateIcon:''}${rootRepoDetails.description===null?'<i>No description</i>':rootRepoDetails.description}`;
-			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${rootRepoDetails.html_url}'" title="${rootRepoDetails.html_url}">${rootRepoDetails.name}</span>`;
-			gId('current-title').innerHTML=(rootRepoDetails.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${rootRepoDetails.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
-		}
-
-		// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
-		if(browseJson.status=='404'){gId('browse-content').insertAdjacentHTML('beforeend', `<span style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
-		}else{ // At this point, we are inside a repository with commits, so let's put the folders first
-			browseJson.sort((a, b) => a.type.localeCompare(b.type))
-		}
-	}
-
-	// Loops through each... whatever thing. He needs some milk
-	browseJson.forEach(browseBuild)
-}
-
 // The following will read each file or content (or repos) and display into the browse-content element
-function browseBuild(e){
+const addObjectToView=e=>{
 	let contentElement='<a class="col browse-cell"';
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}</span><span>${e.pushed_at}</span></a>`);
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=main" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}</span><span>${e.pushed_at}</span></a>`);
 	}else{
 		// Is the record a directory?
 		if (e.type == 'dir'){
@@ -417,6 +366,56 @@ function browseBuild(e){
 		// Adds the folders and files as cells
 		gId('browse-content').insertAdjacentHTML('beforeend', contentElement);
 	}
+}
+
+// The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using addObjectToView
+// 'refresh' boolean is to reload private repo's download_url tokens
+window.onhashchange=async()=>{
+// 	browseRun(`https://api.github.com${window.location.hash.slice(1)}`)
+// }
+// async function browseRun(inUrl){
+	const inUrl = `https://api.github.com${window.location.hash.slice(1)}`;
+	(browsingTree.at(-2)==inUrl)?browsingTree.pop():browsingTree.push(inUrl);
+	console.log(browsingTree);
+	// gId('browse-refresh').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='')}
+
+	// mediaArray=[];
+	gId('browse-content').innerHTML='';
+	gId('current-url-display').innerHTML=`<span id="cud-inner" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title="Copy current URL & position">${iconCopy}${inUrl.slice(22)}</span>`;
+	// window.history.pushState({}, null, `${window.location.origin}${window.location.pathname}#${inUrl.slice(22)}`);
+
+	// Get repository contents or list repositories of a user
+	browseJson=await fetch(inUrl, github_api_headers()).then(r=>r.json());
+	if (inUrl.startsWith(`https://api.github.com${listRepositoriesUrl}`)){ // If current link is the start
+		gId('browse-back').href='';
+		gId('current-title').innerHTML=(github_token)?'All of your repositories':'My public repositories';
+		gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
+		gId('upload-file').style.visibility='hidden'; // Hide upload button
+		browsingCurrentRepo = "" // Reset value as we are not in a repo here
+	}else{ // If repository selected or in contents of repository (not at the start of the page)
+		gId('browse-back').href=`#${browsingTree.at(-2).slice(22)}`;
+		if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
+
+		// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
+		const rootRepoCurrent = inUrl.slice(22).split('/').slice(2,4).join('/')
+		// If just at the main view of the repository (not in the contents), then set the title and description
+		if (browsingCurrentRepo!=rootRepoCurrent){ // If the browsing repo does not match the current repo
+			browsingCurrentRepo = rootRepoCurrent
+			const rootRepoDetails = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers()).then(r=>r.json())
+			gId('current-description').innerHTML=`${rootRepoDetails.private?privateIcon:''}${rootRepoDetails.description===null?'<i>No description</i>':rootRepoDetails.description}`;
+			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${rootRepoDetails.html_url}'" title="${rootRepoDetails.html_url}">${rootRepoDetails.name}</span>`;
+			gId('current-title').innerHTML=(rootRepoDetails.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${rootRepoDetails.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
+		}
+
+		// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
+		if(browseJson.status=='404'){gId('browse-content').insertAdjacentHTML('beforeend', `<span style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
+		}else{ // At this point, we are inside a repository with commits, so let's put the folders first
+			browseJson.sort((a, b) => a.type.localeCompare(b.type))
+		}
+	}
+
+	// Loops through each... whatever thing. He needs some milk
+	browseJson.forEach(addObjectToView)
 }
 
 // When click on file, show it. Exceptions for markdown files.
@@ -615,7 +614,20 @@ uploadFileInput.onchange=e=>{
 	intermediaryReader.readAsDataURL(e.target.files[0])
 }
 // const browseBack=async()=>{browsingTree.pop();window.location.href=`#${browsingTree.pop().slice(22)}`}
-const browseReset=async(s='pushed')=>{browsingTree=[];gId('browse-display').innerHTML='';gId('search-box').value='';window.location.href=`#${listRepositoriesUrl}${s}`;Object.values(intervalsDict).forEach(e=>{clearInterval(intervalsDict[e])});['default','image','audio'].forEach(e=>{gId('browse-display').classList.remove('browse-display-'+e)})}
+const browseReset=async(s='pushed')=>{
+	browsingTree=[];
+	gId('browse-display').innerHTML='';
+	gId('search-box').value='';
+	console.log(window.location.hash==='');
+	window.location.href=window.location.hash===''?`#${listRepositoriesUrl}${s}`:''
+	Object.values(intervalsDict).forEach(e=>{
+		clearInterval(intervalsDict[e])
+	});
+	['default','image','audio'].forEach(e=>{
+		gId('browse-display').classList.remove('browse-display-'+e)
+	})
+	// browseRun(`https://api.github.com${qUrl}`)
+}
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 const searchContents=()=>{gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase()))?'':'none'})}
 const browseToggleView=async(manualSet=true)=>{
@@ -635,24 +647,41 @@ browseToggleView(false)
 gId('search-box').value='';
 
 // Kick off when the page loads, or go straight to a stated url
-// If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3
-if(!qUrl||String(qUrl).startsWith(listRepositoriesUrl)){
-	browseReset()
+// If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
+// if(!qUrl||String(qUrl).startsWith(listRepositoriesUrl)){
+	if(!qUrl){
+	console.log('Resetting to all-repo view')
+	window.location.href=`#${listRepositoriesUrl}pushed`
 }else{
-	browsingTree.push(`https://api.github.com${listRepositoriesUrl}pushed`);
-	if(qUrl.split('/contents').length>1){
-		browsingTree.push(`https://api.github.com${qUrl.split('/contents')[0]}/contents${qUrl.slice(qUrl.indexOf('?ref='))}`);
-		let eachClimb=qUrl.slice(qUrl.indexOf('/contents/')+10).split('?')[0].split('/');
-		let accumClimb='';
-		for (let i=0; i<eachClimb.length-1; i++){
-			accumClimb+=`/${eachClimb[i]}`;
-			browsingTree.push(`https://api.github.com${qUrl.slice(0, qUrl.indexOf('/contents/'))}/contents${accumClimb}${qUrl.slice(qUrl.indexOf('?ref='))}`)
+	let tempCurrentRepo = qUrl.slice(7).split('/').slice(0,2).join('/'); // copy of browsingCurrentRepo (not initialized yet)
+
+	// If you landed in the contents of a repository
+	if(qUrl.includes('?ref=')){
+		// And if you landed beyond the root directory of the contents of the repository
+		if(!qUrl.slice(7+tempCurrentRepo.length).startsWith('/contents?ref=')){
+			browsingTree.push(`https://api.github.com/repos/${tempCurrentRepo}/contents`)
+
+			// Take the iterative value at after a number of chars as:
+			// '/repos/' = 7 chars
+			// '{user}/{repository}' = tempCurrentRepo.length
+			// '/contents/' = 10 chars
+			let [iterative, refId] = qUrl.slice(17+tempCurrentRepo.length).split('?ref=')
+
+			// Takes the last item in browsingTree and add the value that is looping through the iterative
+			// Don't include the last item as that will be added in when it loads
+			iterative.split('/').slice(0,-1).forEach(s=>{
+				browsingTree.push(`${browsingTree.at(-1)}/${s}`)
+			})
+
+			// Add branch ID to all the links
+			browsingTree=browsingTree.map(s=>`${s}?ref=${refId}`)
 		}
-		// browseRun(`https://api.github.com${qUrl}`, rootRepoUrl=`https://api.github.com${qUrl.split('/contents')[0]}`)
-	}//else{
-	browseRun(`https://api.github.com${qUrl}`)
-	//}
+
+		// Add all-repo view URL for all times you land in the contents of a repository
+		browsingTree.unshift(`https://api.github.com${listRepositoriesUrl}pushed`);
+	}
 }
+window.onhashchange()
 
 </script>
 
