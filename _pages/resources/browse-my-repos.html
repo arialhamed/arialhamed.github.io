@@ -416,6 +416,7 @@ window.onhashchange=async()=>{
 
 	// Loops through each... whatever thing. He needs some milk
 	browseJson.forEach(addObjectToView)
+	searchContents()
 }
 
 // When click on file, show it. Exceptions for markdown files.
@@ -619,7 +620,7 @@ const browseReset=async(s='pushed')=>{
 	gId('browse-display').innerHTML='';
 	gId('search-box').value='';
 	console.log(window.location.hash==='');
-	window.location.href=window.location.hash===''?`#${listRepositoriesUrl}${s}`:''
+	window.location.href=`#${listRepositoriesUrl}${s}`
 	Object.values(intervalsDict).forEach(e=>{
 		clearInterval(intervalsDict[e])
 	});
@@ -680,8 +681,8 @@ gId('search-box').value='';
 		// Add all-repo view URL for all times you land in the contents of a repository
 		browsingTree.unshift(`https://api.github.com${listRepositoriesUrl}pushed`);
 	}
+	window.onhashchange()
 }
-window.onhashchange()
 
 </script>
 
