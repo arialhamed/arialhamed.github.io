@@ -30,7 +30,7 @@ music-metadata: true
 
 <h6 id="github_user_profile" style="cursor: default; font-size: 70%; opacity: .65;">
 	<!-- <p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="github_signin()sign-</a>).</p> -->
-	<p style="max-width: 50%; text-align: right; float: right;" id="current-url-display"></p>
+	<!-- <p style="max-width: 50%; text-align: right; float: right;" id="current-url-display"></p> -->
 	<div style="clear: both;"></div>
 </h6>
 
@@ -38,7 +38,7 @@ music-metadata: true
 <div style="text-align: center;">
 	<a class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
 	<a class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start" onclick="browseReset()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
-	<a class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="browseRun(browsingTree.pop())"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
+	<a class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="browsingTree.pop();window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
 	<a class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></a>
 	<a class="title-icons disable-selection" title="Upload here" style="float: right; visibility: hidden;" id="upload-file" onclick="uploadFileInput.click()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
 	<h2 id="current-title"></h2>
@@ -78,14 +78,14 @@ music-metadata: true
 .title-icons:hover{
 	background-color: var(--overlay-hover);
 }
-#browse-back[href='']{pointer-events:none;color:var(--anchor-color-hover)}
+#browse-back[href=''],#browse-back[href='']+#back-to-start{pointer-events:none;color:var(--anchor-color-hover)}
 #browse-refresh svg:hover{
 	rotate: 180deg;
 }
-#current-url-display{
+/* #current-url-display{
 	overflow: hidden;
 	text-overflow: ellipsis;
-}
+} */
 #current-title{
 	max-width: 75vw;
 	margin: auto;
@@ -104,6 +104,9 @@ music-metadata: true
 }
 #current-title-inner:hover{
 	color: var(--anchor-color);
+}
+#current-description{
+	margin-top: .5em;
 }
 #cud-inner{
 	cursor: pointer;
@@ -381,7 +384,7 @@ window.onhashchange=async()=>{
 
 	// mediaArray=[];
 	gId('browse-content').innerHTML='';
-	gId('current-url-display').innerHTML=`<span id="cud-inner" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title="Copy current URL & position">${iconCopy}${inUrl.slice(22)}</span>`;
+	// gId('current-url-display').innerHTML=`<span id="cud-inner" onclick=copyCurrentUrl(true) onmouseout=copyCurrentUrl(false) title="Copy current URL & position">${iconCopy}${inUrl.slice(22)}</span>`;
 	// window.history.pushState({}, null, `${window.location.origin}${window.location.pathname}#${inUrl.slice(22)}`);
 
 	// Get repository contents or list repositories of a user

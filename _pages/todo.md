@@ -17,6 +17,8 @@ redirect_from:
 
 ---
 
+*started since Apr 24, 2025
+
 # todo list
 To-do list for the [repo browser](/resources/browse-my-repos/):
 - [x] Alternative to `jsmediatags` as it does not return lyrics for _.flac_ files
@@ -31,7 +33,8 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 - [ ] Upload multiple files to repository
 - [ ] Homemade Modal
 	- [x] Remaining time progress bar
-	- [ ] True disappearance off-screen (display is none)
+	- [x] True disappearance off-screen (display is none)
+	- [ ] Handling multiple `raiseModal` calls
 - [x] Enable a toggle between alternative views (between cells or list)
 - [x] URL changes when navigating in browse-my-repos
 - [ ] Test if GitHub Pages uses checkboxes in their markdown
@@ -50,6 +53,8 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 	- [8175ede6e2ab1b8a9da204bd62a52bb8b9cfd4ba](https://github.com/arialhamed/arialhamed.github.io/commit/8175ede6e2ab1b8a9da204bd62a52bb8b9cfd4ba)
 - [x] Move todo list to some other place
 - [ ] Consider if I should leave links to commits in this todo, cuz that won't accumulate to an ungodly long todo list /s
+- [ ] Clipboard file contents to base64 to upload to repo
+	- Copy image from a website -> Go back to repo browser -> Ctrl + V -> Uploaded
 
 Known limits:
 - Unable to add modified datetime for file contents

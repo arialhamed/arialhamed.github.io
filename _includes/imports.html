@@ -105,6 +105,7 @@
 
 	// For when i want to tell the user something real quick
 	raiseModal=(e='<i>empty modal</i>',ms=1000)=>{
+		gId('small-modal').style.visibility='visible';
 		gId('small-modal-text').innerHTML=e
 		gId('small-modal-progress').value=gId('small-modal-progress').max=ms
 		gId('small-modal').style.top='90vh'; // Raise it to viewport
@@ -114,6 +115,7 @@
 					gId('small-modal').style.top='100vh'; // Lower it back to viewport
 					setTimeout(()=>{ // Point of reset when off-screen
 						clearInterval(raiseModalInterval);
+						gId('small-modal').style.visibility='hidden'
 						gId('small-modal-progress').value=gId('small-modal-progress').max;
 						gId('small-modal-text').innerHTML=''
 					}, 333);
@@ -274,9 +276,11 @@
 		border: 2px solid var(--nav-font-color);
 		border-radius: .75em;
 		width: 20em;
+		max-width: calc(98vw - 1em);
 		line-height: 1em;
 		padding: .5em;
 		/* text-align: left; */
+		visibility: hidden;
 	}
 	#small-modal-progress{
 		background-color:var(--background-solid);
