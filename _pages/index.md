@@ -28,11 +28,11 @@ continuum_status_check=()=>{
 		fetch("https://api.github.com/repos/arialhamed/arialhamed.github.io/actions/runs?per_page=1", {headers: {Accept: `application/vnd.github.raw+json`}})
 		.then(r=>r.json())
 		.then(j=>{
-			elapsed_seconds = Math.floor((new Date() - new Date(j["workflow_runs"][0]["created_at"])) / 1000);
-			if(j["workflow_runs"][0]["status"]!="completed"){
+			elapsed_seconds = Math.floor((new Date() - new Date(j.workflow_runs[0].created_at)) / 1000);
+			if(j.workflow_runs[0].status!="completed"){
 				gId("action_status").innerHTML=`i'm currently building this website! (started ${elapsed_seconds} seconds ago)`;
 			}else{
-				gId("action_status").innerHTML="latest website deployment: "+new Date(j["workflow_runs"][0]["updated_at"]).toLocaleDateString("en-US",{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'});
+				gId("action_status").innerHTML=`latest website deployment: ${new Date(j.workflow_runs[0].updated_at).toLocaleDateString("en-US",{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}${if(j.workflow_runs[0]=='failure')' (failure)';}`;
 				gId("check_status").click();
 				// upload seconds somewhere
 			}
