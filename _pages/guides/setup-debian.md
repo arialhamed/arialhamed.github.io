@@ -22,6 +22,7 @@ This is more, like, for me to reference to. i learned some things **and i will f
 A lot of what is existing here is an extension of the [ubuntu setup page](/guides/ubuntu-setup), though it would be more accurate to say that Ubuntu is an extension of Debian. That's why I decided to switch over from Ubuntu (but I still like Gnome lol)
 
 - [Nautilus](#nautilus)
+- [Samba](#samba)
 
 ---
 
@@ -163,5 +164,3 @@ In Linux:
 sudo apt install samba-client cifs-utils
 ```
 Install these, then whatever file manager you use, go to Network, find the name of your machine, open it and then you should be able to see all of your Samba Shares! These would usually come packaged by default in Debian 12
-
-I have Mullvad on my `chuwi` server and it allows fi

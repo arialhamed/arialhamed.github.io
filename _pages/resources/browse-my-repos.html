@@ -349,7 +349,9 @@ let mediaArrayLocation='';
 let browsingCurrentRepo='';
 let ghusr='arialhamed';
 let intervalsDict={};
-let listRepositoriesUrl=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
+// let listRepositoriesUrl=(github_token)?'/user/repos?per_page=100&sort=':`/users/${ghusr}/repos?per_page=100&sort=`;
+let listRepositoriesUrl=`/users/${ghusr}/repos?per_page=100&sort=`;
+let allRepoSort='pushed_at';
 
 // The following will read each file or content (or repos) and display into the browse-content element
 const addObjectToView=e=>{
@@ -404,8 +406,14 @@ window.onhashchange=async()=>{
 		gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
 		gId('upload-file').style.visibility='hidden'; // Hide upload button
 		browsingCurrentRepo = '' // Reset value as we are not in a repo here
-		gId('select-sort-or-branch').innerHTML=['created','updated','pushed','full_name'].map(v=>`<option value=\"${v}\"${v=='pushed'?'selected':''}>${v}</option>`).join('')
+		gId('select-sort-or-branch').innerHTML=['created_at','updated_at','pushed_at','full_name'].map(v=>`<option value=\"${v}\"${v==allRepoSort?'selected':''}>${v}</option>`).join('')
 		gId('select-sort-or-branch').title='Order by'
+
+		if(github_token){
+			const privateRepos=await fetch('https://api.github.com/user/repos?per_page=100&visibility=private',github_api_headers()).then(r=>r.json()).then(j=>j.filter(v=>v.owner.login==ghusr))
+			browseJson.push(...privateRepos)
+		}
+		browseJson.sort((a,b)=>b[allRepoSort].localeCompare(a[allRepoSort]))
 	}else{ // If repository selected or in contents of repository (not at the start of the page)
 		try{ // Only here is where the effects of a bad URL occurs
 			gId('browse-back').href=`#${browsingTree.at(-2).slice(22)}`
@@ -433,7 +441,7 @@ window.onhashchange=async()=>{
 			gId('browse-back').href='';
 			gId('current-description').innerHTML='';
 			gId('current-title').innerHTML='Uh oh, that URL is invalid';
-			gId('browse-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#${listRepositoriesUrl}pushed">Return to repositories view?</a>`;
+			gId('browse-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#${listRepositoriesUrl}${allRepoSort}">Return to repositories view?</a>`;
 			return
 		}
 
@@ -677,14 +685,14 @@ gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width
 if(!localStorage.getItem('browse-view-mode'))localStorage.setItem('browse-view-mode','row wide-responsive');
 browseToggleView(false)
 gId('search-box').value='';
-gId('back-to-start').href=`#${listRepositoriesUrl}pushed`;
+gId('back-to-start').href=`#${listRepositoriesUrl}${allRepoSort}`;
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
 // if(!qUrl||String(qUrl).startsWith(listRepositoriesUrl)){
 if(!qUrl){
 	console.log('Resetting to all-repo view')
-	window.location.href=`#${listRepositoriesUrl}pushed`
+	window.location.href=`#${listRepositoriesUrl}${allRepoSort}`
 }else{
 	let tempCurrentRepo = qUrl.slice(7).split('/').slice(0,2).join('/'); // copy of browsingCurrentRepo (not initialized yet)
 
@@ -711,7 +719,7 @@ if(!qUrl){
 		}
 
 		// Add all-repo view URL to the start of browsingTree for all times you land in the contents of a repository
-		browsingTree.unshift(`https://api.github.com${listRepositoriesUrl}pushed`);
+		browsingTree.unshift(`https://api.github.com${listRepositoriesUrl}${allRepoSort}`);
 	}
 	window.onhashchange()
 }

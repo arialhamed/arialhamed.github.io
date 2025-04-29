@@ -2,6 +2,15 @@
 <script type="text/javascript" src="/static/js/bootstrap/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap/bootstrap.min.js"></script>
 
+{% if page.about %}
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+{% endif %}
+
+{% if page.openscad %}
+<script src="https://www.unpkg.com/jscad@1.1.0/csg.js"></script>
+<script src="https://www.unpkg.com/jscad@1.1.0/openjscad.js"></script>
+{% endif %}
+
 {% if page.prism %}
 <link rel="stylesheet" href="/static/css/prism.css" integrity="sha384-gFgUFPYGySH8tu3nGOJPXWdfkFECatYWz+TSXR/t58zA5j6DaKzQ4kkcxkCz8hkT" crossorigin="anonymous">
 {% endif %}
