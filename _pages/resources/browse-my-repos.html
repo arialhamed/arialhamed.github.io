@@ -31,13 +31,14 @@ music-metadata: true
 <h6 id="github_user_profile" style="cursor: default; font-size: 70%; opacity: .65;">
 	<!-- <p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a onclick="github_signin()sign-</a>).</p> -->
 	<!-- <p style="max-width: 50%; text-align: right; float: right;" id="current-url-display"></p> -->
+	<select id="select-sort-or-branch"></select>
 	<div style="clear: both;"></div>
 </h6>
 
 <!-- back		title		reload -->
 <div style="text-align: center;">
 	<a class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
-	<a class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start" onclick="browseReset()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
+	<a class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
 	<a class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="browsingTree.pop();window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
 	<a class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></a>
 	<a class="title-icons disable-selection" title="Upload here" style="float: right; visibility: hidden;" id="upload-file" onclick="uploadFileInput.click()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
@@ -77,6 +78,14 @@ music-metadata: true
 }
 .title-icons:hover{
 	background-color: var(--overlay-hover);
+}
+#select-sort-or-branch{
+	max-width: 50%;
+	text-align: center;
+	float: right;
+	color: var(--font-color);
+	background-color: var(--nav-overlay);
+	border-radius: 1em;
 }
 #browse-back[href=''],#browse-back[href='']+#back-to-start{pointer-events:none;color:var(--anchor-color-hover)}
 #browse-refresh svg:hover{
@@ -379,7 +388,6 @@ window.onhashchange=async()=>{
 // async function browseRun(inUrl){
 	const inUrl = `https://api.github.com${window.location.hash.slice(1)}`;
 	(browsingTree.at(-2)==inUrl)?browsingTree.pop():browsingTree.push(inUrl);
-	console.log(browsingTree);
 	// gId('browse-refresh').onclick=()=>{browseRun(browsingTree.pop(), rootRepoUrl='')}
 
 	// mediaArray=[];
@@ -390,24 +398,43 @@ window.onhashchange=async()=>{
 	// Get repository contents or list repositories of a user
 	browseJson=await fetch(inUrl, github_api_headers()).then(r=>r.json());
 	if (inUrl.startsWith(`https://api.github.com${listRepositoriesUrl}`)){ // If current link is the start
+		browsingTree=[inUrl]
 		gId('browse-back').href='';
 		gId('current-title').innerHTML=(github_token)?'All of your repositories':'My public repositories';
 		gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
 		gId('upload-file').style.visibility='hidden'; // Hide upload button
-		browsingCurrentRepo = "" // Reset value as we are not in a repo here
+		browsingCurrentRepo = '' // Reset value as we are not in a repo here
+		gId('select-sort-or-branch').innerHTML=['created','updated','pushed','full_name'].map(v=>`<option value=\"${v}\"${v=='pushed'?'selected':''}>${v}</option>`).join('')
+		gId('select-sort-or-branch').title='Order by'
 	}else{ // If repository selected or in contents of repository (not at the start of the page)
-		gId('browse-back').href=`#${browsingTree.at(-2).slice(22)}`;
-		if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
+		try{ // Only here is where the effects of a bad URL occurs
+			gId('browse-back').href=`#${browsingTree.at(-2).slice(22)}`
+			if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
 
-		// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
-		const rootRepoCurrent = inUrl.slice(22).split('/').slice(2,4).join('/')
-		// If just at the main view of the repository (not in the contents), then set the title and description
-		if (browsingCurrentRepo!=rootRepoCurrent){ // If the browsing repo does not match the current repo
-			browsingCurrentRepo = rootRepoCurrent
-			const rootRepoDetails = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers()).then(r=>r.json())
-			gId('current-description').innerHTML=`${rootRepoDetails.private?privateIcon:''}${rootRepoDetails.description===null?'<i>No description</i>':rootRepoDetails.description}`;
-			let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${rootRepoDetails.html_url}'" title="${rootRepoDetails.html_url}">${rootRepoDetails.name}</span>`;
-			gId('current-title').innerHTML=(rootRepoDetails.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${rootRepoDetails.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
+			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
+			const rootRepoCurrent = inUrl.slice(22).split('/').slice(2,4).join('/')
+
+			// If we are changing from all-repo view to a repo, run this once.
+			if (browsingCurrentRepo!=rootRepoCurrent){ // If the browsing repo does not match the current repo
+				browsingCurrentRepo = rootRepoCurrent
+
+				// Set title & description of current repo
+				const rootRepoDetails = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers()).then(r=>{if(!r.ok){throw r}return r.json()})
+				gId('current-description').innerHTML=`${rootRepoDetails.private?privateIcon:''}${rootRepoDetails.description===null?'<i>No description</i>':rootRepoDetails.description}`;
+				let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${rootRepoDetails.html_url}'" title="${rootRepoDetails.html_url}">${rootRepoDetails.name}</span>`;
+				gId('current-title').innerHTML=(rootRepoDetails.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${rootRepoDetails.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
+
+				// Set branch choices
+				const branches = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}/branches`, github_api_headers()).then(r=>r.json())
+				gId('select-sort-or-branch').innerHTML=branches.map(v=>`<option value=\"${v.name}\">${v.name}</option>`).join('')
+				gId('select-sort-or-branch').title='Select a branch'
+			}
+		}catch(err){
+			gId('browse-back').href='';
+			gId('current-description').innerHTML='';
+			gId('current-title').innerHTML='Uh oh, that URL is invalid';
+			gId('browse-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#${listRepositoriesUrl}pushed">Return to repositories view?</a>`;
+			return
 		}
 
 		// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
@@ -416,6 +443,7 @@ window.onhashchange=async()=>{
 			browseJson.sort((a, b) => a.type.localeCompare(b.type))
 		}
 	}
+	console.log(browsingTree);
 
 	// Loops through each... whatever thing. He needs some milk
 	browseJson.forEach(addObjectToView)
@@ -618,20 +646,20 @@ uploadFileInput.onchange=e=>{
 	intermediaryReader.readAsDataURL(e.target.files[0])
 }
 // const browseBack=async()=>{browsingTree.pop();window.location.href=`#${browsingTree.pop().slice(22)}`}
-const browseReset=async(s='pushed')=>{
-	browsingTree=[];
-	gId('browse-display').innerHTML='';
-	gId('search-box').value='';
-	console.log(window.location.hash==='');
-	window.location.href=`#${listRepositoriesUrl}${s}`
-	Object.values(intervalsDict).forEach(e=>{
-		clearInterval(intervalsDict[e])
-	});
-	['default','image','audio'].forEach(e=>{
-		gId('browse-display').classList.remove('browse-display-'+e)
-	})
-	// browseRun(`https://api.github.com${qUrl}`)
-}
+// const browseReset=async(s='pushed')=>{
+// 	browsingTree=[];
+// 	gId('browse-display').innerHTML='';
+// 	gId('search-box').value='';
+// 	console.log(window.location.hash==='');
+// 	window.location.href=`#${listRepositoriesUrl}${s}`
+// 	Object.values(intervalsDict).forEach(e=>{
+// 		clearInterval(intervalsDict[e])
+// 	});
+// 	['default','image','audio'].forEach(e=>{
+// 		gId('browse-display').classList.remove('browse-display-'+e)
+// 	})
+// 	// browseRun(`https://api.github.com${qUrl}`)
+// }
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 const searchContents=()=>{gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase()))?'':'none'})}
 const browseToggleView=async(manualSet=true)=>{
@@ -649,11 +677,12 @@ gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width
 if(!localStorage.getItem('browse-view-mode'))localStorage.setItem('browse-view-mode','row wide-responsive');
 browseToggleView(false)
 gId('search-box').value='';
+gId('back-to-start').href=`#${listRepositoriesUrl}pushed`;
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
 // if(!qUrl||String(qUrl).startsWith(listRepositoriesUrl)){
-	if(!qUrl){
+if(!qUrl){
 	console.log('Resetting to all-repo view')
 	window.location.href=`#${listRepositoriesUrl}pushed`
 }else{
@@ -681,7 +710,7 @@ gId('search-box').value='';
 			browsingTree=browsingTree.map(s=>`${s}?ref=${refId}`)
 		}
 
-		// Add all-repo view URL for all times you land in the contents of a repository
+		// Add all-repo view URL to the start of browsingTree for all times you land in the contents of a repository
 		browsingTree.unshift(`https://api.github.com${listRepositoriesUrl}pushed`);
 	}
 	window.onhashchange()

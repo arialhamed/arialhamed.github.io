@@ -41,13 +41,13 @@ Then it gets more complicated when it comes to splitting into **display server p
 
 **For all intends and purposes, what I have here is for Gnome Wayland**. _Some_ of these steps are sourced from [Arch Linux Wiki](https://wiki.archlinux.org)'s [XDG user directories page](https://wiki.archlinux.org/title/XDG_user_directories)
 
-1. Run `xdg-user-dirs-update` to initialize
+1. Run `xdg-user-dirs-update` to initialize  
 ``` bash
 xdg-user-dirs-update
 ```
 This will create the file in the next step 
 
-2. Creating custom directories
+1. Creating custom directories  
 ``` bash
 nano ~/.config/user-dirs.dirs
 ```
@@ -70,7 +70,7 @@ XDG_PICTURES_DIR="/media/arial/Home Volume/Pictures"
 XDG_VIDEOS_DIR="/media/arial/Home Volume/Videos"
 ```
 
-3. Remap GTK bookmarks  
+1. Remap GTK bookmarks  
 For some reason, doing this does not remove the bookmarks of the old ones, now the system thinks that those ones are by the user. That's because those exist in a different file, aka `~/.config/gtk-3.0/bookmarks`.
 ``` bash
 nano cat ~/.config/gtk-3.0/bookmarks
@@ -93,13 +93,18 @@ file:///home/arial/Downloads
 ```
 Except Downloads, now my select directories link to my external HDD.
 
-4. Restart Nautilus
-
+1. Restart Nautilus  
 Nautilus may still show whatever was there previously, so kill Nautilus then start it again. For other apps that do no use the main Nautilus process (like when you click on Files in the DE), like the file picker in Firefox, this step does not reload the changes unless you restart those apps as well (i.e. restarting Firefox)
 ``` bash
 killall nautilus
 ```
-Note: This does not kill all nautilus, as the nautilus is an endangered species and killing all nautilus is unethical.
+Note: This does not "kill all" nautilus, as the nautilus is an endangered species and killing all nautilus is unethical. Using this command has been approved by the FDA and Linus Torvalds.
+
+Oh yeah, even with all this, I'd just prefer to delete the existing home folders and us `ln`:
+``` bash
+ln -s "/media/arial/Home Volume/Documents" Documents
+```
+Then you don't need to handle all that I mentioned up there, unless your HDD enclosure uses a JMicron controller (and it indubitably sucks) in which either way I have a different guide for that _coming soon_!
 
 ---
 
@@ -148,13 +153,15 @@ systemctl restart smbd
 ```
 1. Set up a Samba user
 ``` bash
-smbpasswd -a arial
+smbpasswd -a chuwi
 ```
+Note that only users who exist as users of the server can be added as a Samba user. This server & client setup is between you only, you may use your main account on the server (the one that you've given the name to during installation, `chuwi` in this case)
+Now you've done the super minimal setup of Samba on your server PC. The next step will address the dw
 1. How to connect to a Share  
 In Linux:
 ``` bash
 sudo apt install samba-client cifs-utils
 ```
-Install these, then whatever file manager you use, go to Network, find the name of your machine, open it and then you should be able to see all of your Samba Shares!
+Install these, then whatever file manager you use, go to Network, find the name of your machine, open it and then you should be able to see all of your Samba Shares! These would usually come packaged by default in Debian 12
 
 I have Mullvad on my `chuwi` server and it allows fi
