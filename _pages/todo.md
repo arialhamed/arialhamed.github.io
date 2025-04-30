@@ -52,10 +52,20 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 - [x] Remove the classes from all SVGs in a separate commit
 	- [8175ede6e2ab1b8a9da204bd62a52bb8b9cfd4ba](https://github.com/arialhamed/arialhamed.github.io/commit/8175ede6e2ab1b8a9da204bd62a52bb8b9cfd4ba)
 - [x] Move todo list to some other place
-- [ ] Consider if I should leave links to commits in this todo, cuz that won't accumulate to an ungodly long todo list /s
+- [x] Consider if I should leave links to commits in this todo, cuz that won't accumulate to an ungodly long todo list /s
+	- Maybe I should, as like a trace to make a large W3Schools-esque guide on JavaScript, especially the parts where I couldn't find a straightforward answer online
 - [ ] Clipboard file contents to base64 to upload to repo
 	- Copy image from a website -> Go back to repo browser -> Ctrl + V -> Uploaded
+- [ ] Pagination
+- [x] Toggle between branches
+- [x] Fork indication (like private)
+- [x] Restructure how private repos work to eliminate use of `/user/repos` (endpoint for repositories for authenticated user). This is to ensure portability of the generated URL (that will usually have a hash)
 
 Known limits:
 - Unable to add modified datetime for file contents
 	- This is due to GitHub API's abuse detection or something
+
+Other things to do that are not in browse-my-repos:
+- [ ] ``` javascript
+setInterval(()=>{window.location.href=`#${crypto.randomUUID()}`}, 200)
+```
