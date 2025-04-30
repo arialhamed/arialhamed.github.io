@@ -32,7 +32,7 @@ continuum_status_check=()=>{
 			if(j.workflow_runs[0].status!="completed"){
 				gId("action_status").innerHTML=`i'm alive, and the cloud is currently building this website! (started ${elapsed_seconds} seconds ago)`;
 			}else{
-				gId("action_status").innerHTML=`latest website deployment: ${new Date(j.workflow_runs[0].updated_at).toLocaleDateString("en-US",{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})} (${j.workflow_runs[0].conclusion})`;
+				gId("action_status").innerHTML=`latest website deployment: ${new Date(j.workflow_runs[0].updated_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})} (${j.workflow_runs[0].conclusion})`;
 				gId("check_status").click();
 				// upload seconds somewhere
 			}

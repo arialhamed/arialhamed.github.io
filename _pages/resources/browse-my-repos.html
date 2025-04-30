@@ -89,13 +89,7 @@ music-metadata: true
 }
 #select-branch:empty{visibility:hidden}
 #browse-back[href=''],#browse-back[href='']+#back-to-start{pointer-events:none;color:var(--anchor-color-hover)}
-#browse-refresh svg:hover{
-	rotate: 180deg;
-}
-/* #current-url-display{
-	overflow: hidden;
-	text-overflow: ellipsis;
-} */
+#browse-refresh svg:hover{rotate:180deg}
 #current-title{
 	max-width: 75vw;
 	margin: auto;
@@ -104,34 +98,10 @@ music-metadata: true
 	background: none!important;
 	overflow: scroll;
 }
-/*#current-title a{color: #fff;}*/
-#current-title a:hover{
-	color: var(--anchor-color) !important;
-}
-#current-title-inner{
-	color: white;
-	cursor: pointer;
-}
-#current-title-inner:hover{
-	color: var(--anchor-color);
-}
-#current-description{
-	margin-top: .5em;
-}
-#cud-inner{
-	cursor: pointer;
-}
-#cud-inner:hover{
-	color: var(--anchor-color);
-}
-#cud-inner svg{
-	position: relative;
-	right: .2em;
-	height: 1.5em;
-}
-#cud-inner:hover svg{
-	transform: scale(1.2);
-}
+#current-title-inner{color: white}
+#current-title-inner:hover{color: var(--anchor-color)}
+#current-description{margin-top: .5em;/*Repository description*/}
+#current-description svg{vertical-align:text-top;/*Private & fork icons*/}
 #search-field{
 	display: flex;
 	height: 2em;
@@ -186,7 +156,7 @@ music-metadata: true
 .row .browse-cell span:nth-child(2){font-size:70%;}
 .row .browse-cell span:nth-child(2):not(.size){display:none;}
 .list-group .browse-cell{text-align:left;padding:.2rem .5rem;margin:2.5px 0;display:flex;}
-.list-group .browse-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;}
+.list-group .browse-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
 .list-group .browse-cell:has(img){display:block;width:100%;padding:.5em}
 .list-group .browse-cell:has(img) span{text-align:center;margin-top:.5em}
 .list-group .browse-cell img{width:100%;}
@@ -362,7 +332,7 @@ const addObjectToView=e=>{
 	let contentElement='<a class="col browse-cell"';
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${e.pushed_at}</span></a>`);
+		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span></a>`);
 	}else{
 		// Is the record a directory?
 		if (e.type == 'dir'){
@@ -417,17 +387,16 @@ window.onhashchange=async()=>{
 			if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
 
 			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
-			const rootRepoCurrent = inUrl.split('/').slice(2,4).join('/')
+			const rrCurrent = inUrl.split('/').slice(2,4).join('/')
 
 			// If we are changing from all-repo view to a repo, run this once.
-			if (browsingCurrentRepo!=rootRepoCurrent){ // If the browsing repo does not match the current repo
-				browsingCurrentRepo = rootRepoCurrent
+			if (browsingCurrentRepo!=rrCurrent){ // If the browsing repo does not match the current repo
+				browsingCurrentRepo=rrCurrent
 
 				// Set title & description of current repo
-				const rootRepoDetails = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers()).then(r=>{if(!r.ok){throw r}return r.json()})
-				gId('current-description').innerHTML=`${rootRepoDetails.private?privateIcon:''}${rootRepoDetails.description===null?'<i>No description</i>':rootRepoDetails.description}`;
-				let currentTitleCommon=`<span id="current-title-inner" onclick="window.location='${rootRepoDetails.html_url}'" title="${rootRepoDetails.html_url}">${rootRepoDetails.name}</span>`;
-				gId('current-title').innerHTML=(rootRepoDetails.fork)? `${currentTitleCommon} <span style="font-size: 60%;">(<a href="${rootRepoDetails.parent.html_url}" target="_blank">fork</a>)</span>` : currentTitleCommon;
+				const rrDeets = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers()).then(r=>{if(!r.ok){throw r}return r.json()})
+				gId('current-description').innerHTML=`${rrDeets.private?privateIcon:''}${rrDeets.fork?`<a href="${rrDeets.parent.html_url}">${forkIcon}</a>`:''}${rrDeets.description===null?'<i>No description</i>':rrDeets.description}`;
+				gId('current-title').innerHTML=`<a id="current-title-inner" href="${rrDeets.html_url}">${rrDeets.name}</a>`;
 
 				// Set branch choices
 				const branches = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}/branches`, github_api_headers()).then(r=>r.json())
