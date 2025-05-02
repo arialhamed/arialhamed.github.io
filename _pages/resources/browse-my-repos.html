@@ -39,7 +39,7 @@ music-metadata: true
 <div style="text-align: center;">
 	<a class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
 	<a class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
-	<a class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="browsingTree.pop();window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
+	<a class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
 	<a class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></a>
 	<a class="title-icons disable-selection" title="Upload here" style="float: right; visibility: hidden;" id="upload-file" onclick="uploadFileInput.click()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
 	<h2 id="current-title"></h2>
@@ -139,19 +139,15 @@ music-metadata: true
 }
 .browse-cell{
 	display: inline-block;
-	/* cursor: pointer; */
-	/* margin: 4px; */
 	color: var(--anchor-color-solid) !important;
-	/* text-align: center; */
 	text-decoration: none;
 	background-color: var(--overlay);
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
-	/* padding: .375rem .75rem; */
 	font-size: 1rem;
-/*	text-shadow: -1px 1px 0 var(--background-solid), 1px 1px 0 var(--background-solid), -1px -1px 0 var(--background-solid), 1px -1px 0 var(--background-solid);*/
 }
+span.browse-cell{cursor: pointer}
 .row .browse-cell{text-align:center;padding:.375rem .75rem;margin:4px;}
 .row .browse-cell span:nth-child(2){font-size:70%;}
 .row .browse-cell span:nth-child(2):not(.size){display:none;}
@@ -342,8 +338,7 @@ const addObjectToView=e=>{
 			let showItemElement=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')" data-search="${e.name}"`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){ 
-				// contentElement = `<img${showItemElement} class="col browse-cell" src="${e.download_url}" >`;
-				contentElement += `${showItemElement}><img src="${e.download_url}" ><span><a href="${e.download_url}">${e.name}</a></span></a>`;
+				contentElement = `<span class="col browse-cell"${showItemElement}><img src="${e.download_url}" alt="${e.name}" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
 			}else{
 				contentElement += `${showItemElement}><span>${e.name}</span><span class="size">${formatBytes(e.size)}</a>`;
 			}
@@ -359,14 +354,17 @@ const addObjectToView=e=>{
 // The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using addObjectToView
 // 'refresh' boolean is to reload private repo's download_url tokens
 window.onhashchange=async()=>{
-	const inUrl = `${window.location.hash.slice(1)}`;
-	(browsingTree.at(-2)==inUrl)?browsingTree.pop():browsingTree.push(inUrl);
+	const inUrl = window.location.hash.slice(1);
+	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree & 
+
+	if(isReload){browsingTree.pop();console.log('refreshing')};
+	browsingTree.at(-2)==inUrl?browsingTree.pop():browsingTree.push(inUrl);
 
 	// mediaArray=[];
-	gId('browse-content').innerHTML='';
+	gId('browse-content').innerHTML='<span class="loader" style="margin:2em auto 0 auto"></span>';
 
 	// Get repository contents or list repositories of a user
-	browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers()).then(r=>r.json());
+	browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers({refresh: isReload})).then(r=>r.json());
 	if (inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
 		browsingTree=[inUrl]
 		gId('browse-back').href='';
@@ -377,7 +375,7 @@ window.onhashchange=async()=>{
 		gId('select-branch').innerHTML=''
 
 		if(github_token){
-			const privateRepos=await fetch('https://api.github.com/user/repos?per_page=100&visibility=private',github_api_headers()).then(r=>r.json()).then(j=>j.filter(v=>v.owner.login==ghusr))
+			const privateRepos=await fetch('https://api.github.com/user/repos?per_page=100&visibility=private',github_api_headers({refresh: isReload})).then(r=>r.json()).then(j=>j.filter(v=>v.owner.login==ghusr))
 			browseJson.push(...privateRepos)
 		}
 		browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
@@ -394,12 +392,12 @@ window.onhashchange=async()=>{
 				browsingCurrentRepo=rrCurrent
 
 				// Set title & description of current repo
-				const rrDeets = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers()).then(r=>{if(!r.ok){throw r}return r.json()})
+				const rrDeets = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers({refresh: isReload})).then(r=>{if(!r.ok){throw r}return r.json()})
 				gId('current-description').innerHTML=`${rrDeets.private?privateIcon:''}${rrDeets.fork?`<a href="${rrDeets.parent.html_url}">${forkIcon}</a>`:''}${rrDeets.description===null?'<i>No description</i>':rrDeets.description}`;
 				gId('current-title').innerHTML=`<a id="current-title-inner" href="${rrDeets.html_url}">${rrDeets.name}</a>`;
 
 				// Set branch choices
-				const branches = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}/branches`, github_api_headers()).then(r=>r.json())
+				const branches = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}/branches`, github_api_headers({refresh: isReload})).then(r=>r.json())
 				gId('select-branch').innerHTML=branches.map(v=>`<option value=\"${v.name}\"${inUrl.endsWith(v.name)?'selected':''}>${v.name}</option>`).join('')
 			}
 		}catch(err){
@@ -434,7 +432,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	if(audioMainLoop)clearInterval(audioMainLoop);
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-	let browseDisplayInner=`<a id="browse-display-close"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a><a target="_blank" onclick=downloadFile("${decodeURIComponent(fileName)}", "${gitUrl}")>${decodeURIComponent(fileName)}</a>`;
+	let browseDisplayInner=`<a id="browse-display-close"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a><a target="_blank" onclick="downloadFile('${decodeURIComponent(fileName)}', '${gitUrl}')">${decodeURIComponent(fileName)}</a>`;
 
 	// Add option to show parsed for markdown files
 	if (fileName.toLowerCase().endsWith('.md')){browseDisplayInner+=` <span style="cursor:pointer;position:relative;left:3em;">(<a onclick="showFile('${downloadUrl}', '${gitUrl}', ${(mdRaw?'false)">alt: parsed':'true)">alt: raw')}</a>)</span>`}
@@ -636,7 +634,7 @@ const github_logout=()=>{localStorage.removeItem('github_token');window.location
 gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github_auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
 
 // Browsing controls
-if(!localStorage.getItem('browse-view-mode'))localStorage.setItem('browse-view-mode','row wide-responsive');
+if(!localStorage.getItem('browse-view-mode'))localStorage.setItem('browse-view-mode','list-group');
 browseToggleView(false)
 gId('search-box').value='';
 gId('back-to-start').href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;

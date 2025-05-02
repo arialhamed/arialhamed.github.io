@@ -100,7 +100,7 @@
 
 	// For authentication via GitHub Apps
 	const github_token = localStorage.getItem('github_token');
-	let github_api_headers = ({refresh = false, raw = false} = {}) => {return {cache: (refresh)?'no-store':'no-cache', headers: {Accept: `application/vnd.github${(raw)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
+	let github_api_headers = ({refresh = false, raw = false} = {}) => {return {cache: (refresh)?'no-store':'no-cache, max-age=300', headers: {Accept: `application/vnd.github${(raw)?'.raw':''}+json`, Authorization: (github_token)?`token ${github_token}`:``}}}
 
 	// For when i want to tell the user something real quick
 	raiseModal=(e='<i>empty modal</i>',ms=1000)=>{
@@ -292,6 +292,9 @@
 	#small-modal-text{
 		color: var(--nav-font-color);
 	}
+	/* Loading icon source: https://cssloaders.github.io/ */
+	.loader{width:48px;height:48px;border-radius:50%;display:inline-block;position:relative;border:3px solid;border-color:#FFF #FFF transparent transparent;box-sizing:border-box;animation:rotation 1s linear infinite;margin:0 auto;}.loader::after,.loader::before{content:'';box-sizing:border-box;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;border:3px solid;border-color:transparent transparent var(--anchor-color) var(--anchor-color);width:40px;height:40px;border-radius:50%;box-sizing:border-box;animation:rotationBack .5s linear infinite;transform-origin:center center}.loader::before{width:32px;height:32px;border-color:#FFF #FFF transparent transparent;animation:rotation 1.5s linear infinite}@keyframes rotation{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes rotationBack{0%{transform:rotate(0deg)}100%{transform:rotate(-360deg)}}
+	#browse-content:has(.browse-cell) .loader{display:none}
 
 	/* MOBILE STYLE */
 	@media only screen and (max-width:578px){
