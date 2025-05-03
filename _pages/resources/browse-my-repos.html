@@ -361,7 +361,7 @@ window.onhashchange=async()=>{
 	browsingTree.at(-2)==inUrl?browsingTree.pop():browsingTree.push(inUrl);
 
 	// mediaArray=[];
-	gId('browse-content').innerHTML='<span class="loader" style="margin:2em auto 0 auto"></span>';
+	gId('browse-content').innerHTML='<span class="loader" style="margin:2em auto 0 auto" data-search=""></span>';
 
 	// Get repository contents or list repositories of a user
 	browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers({refresh: isReload})).then(r=>r.json());

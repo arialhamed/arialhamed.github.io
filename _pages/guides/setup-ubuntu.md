@@ -17,8 +17,8 @@ This is more, like, for me to reference to. i learned some things **and i will f
 
 I also have some [preference commands](#preference-commands) that i can input when installing ubuntu (and it's derivatives) fresh
 
-All commands here are tested on Ubuntu 22.04
-
+# All commands here are tested on Ubuntu 22.04  
+and all may be obsolete already
 
 <br><br><br>
 
