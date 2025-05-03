@@ -93,9 +93,7 @@
 		document.querySelectorAll('.task-list-item-checkbox').forEach(e=>e.removeAttribute('disabled'))
 	}
 
-	// For tracking (may not be working anymore so hey good for you)
-	// connectCheck();
-	// async function connectCheck(){const a=await fetch('https://arialhamed.pythonanywhere.com/track'),b=await a.json();console.log('current site:'+b.site)}
+	// For tracking
 	fetch('https://arialhamed.pythonanywhere.com/track').then(r=>r.json()).then(j=>{console.log(`current site: ${j.site}`)})
 
 	// For authentication via GitHub Apps

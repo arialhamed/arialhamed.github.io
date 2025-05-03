@@ -191,8 +191,7 @@ Right-click on ESO in your library, select "**Properties**". You should see fiel
 PROTON_SET_GAME_DRIVE=1 %command%
 ```
 This will enable ESO to see that there is more than 20GB of available space that Proton allocates by default.  
-Next, navigate to "**Compatibility**", check "**Force the use of a specific Steam Play compatibility tool**", then select "**Proton 9.0-4**". For some reason, this version is the only one working (not Hotfix or Experimental)
-<video muted loop autoplay nocontrols><source src="https://github.com/arialhamed/static/raw/refs/heads/main/video/resources/debian-eso-steam-config.webm" type="video/webm">Your browser does not support the video tag.</video>
+Next, navigate to "**Compatibility**", check "**Force the use of a specific Steam Play compatibility tool**", then select "**Proton 9.0-4**". For some reason, this version is the only one working (not Hotfix or Experimental) <video muted loop autoplay nocontrols><source src="https://github.com/arialhamed/static/raw/refs/heads/main/video/guides/debian-eso-steam-config.webm" type="video/webm">Your browser does not support the video tag.</video>
 1. Installing Minion  
 Thanks to Reddit user [enigmatic_bread](https://www.reddit.com/r/elderscrollsonline/comments/13jzw2o/for_steam_deck_and_linux_users_minion_in_a_flatpak/), ESO & WOW players on Linux (including Steam Deck) now have Minion on Flatpak!:
 ``` bash
