@@ -66,6 +66,5 @@ Known limits:
 	- This is due to GitHub API's abuse detection or something
 
 Other things to do that are not in browse-my-repos:
-- [ ] ``` javascript
-setInterval(()=>{window.location.href=`#${crypto.randomUUID()}`}, 200)
-```
+- [ ] ```setInterval(()=>{window.location.href=`#${crypto.randomUUID()}`}, 200)```
+- [ ] Create a browser-side JavaScript application that does something like WizTree. GitHub already shows the percentage of code in the root repository view, but it is not organized by folders.

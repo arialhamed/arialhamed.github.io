@@ -17,6 +17,3 @@ fi
 # sleep 3
 # gh run watch
 # notify-send "gh run watch" "pages & deployment is finished (from `pwd`)" --urgency=critical
-
-#test
-pause
