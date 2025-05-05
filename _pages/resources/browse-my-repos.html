@@ -592,7 +592,8 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	if(!['image','audio'].includes(browseDisplayIndicator)){window.scrollTo({top: gId('browse-display').getBoundingClientRect().y+window.pageYOffset-70, behavior: "smooth"})}
 }
 uploadFileInput.onchange=e=>{
-	const uploadedFileURL = `${browsingTree.at(-1).includes('?ref=')?browsingTree.at(-1).split('?ref=')[0]:browsingTree.at(-1)+'/contents'}/${e.target.files[0].name}`
+	const [location, refId] = browsingTree.at(-1).split('?ref=')
+	const uploadedFileURL = `https://api.github.com${location}/${e.target.files[0].name}?ref=${refId}`
 	const intermediaryReader = new FileReader();
 	intermediaryReader.onloadend=()=>{
 		fetch(
