@@ -277,7 +277,6 @@ const extA=['.7z','.zip','.apk','.apks','.xapk','.arc','.ark','.jar','.zpaq','.z
 const ext3=['.3mf','.stl','.glb','.gltf','.obj','.amf'];
 const extI=['.avif','.gif','.jpg','.jpeg','.jfif','.pjpeg','.pjp','.png','.svg','.webp','.bmp','.ico','.cur','.tif','.tiff','.kra','.jpg_large'];
 const extR=['.csv','.tsv','.xlsx'];
-const qUrl=window.location.hash.substring(1)//new URLSearchParams(window.location.search).get('url');
 const iconCopy=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M18 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1V9a4 4 0 0 0-4-4h-3a2 2 0 0 0-1 .3V5c0-1.1.9-2 2-2h7Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M8 7v4H4.2c0-.2.2-.3.3-.4l2.4-2.9A2 2 0 0 1 8 7.1Zm2 0v4a2 2 0 0 1-2 2H4v6c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3Z" clip-rule="evenodd"/></svg>`;
 const audioPlayer=new Audio();
 audioPlayer.shuffle=false;
@@ -353,6 +352,14 @@ const addObjectToView=e=>{
 // 'refresh' boolean is to reload private repo's download_url tokens
 window.onhashchange=async()=>{
 	const inUrl = window.location.hash.slice(1);
+	if(inUrl.startsWith('/download')){
+		const fileDetails = await fetch(`https://api.github.com${inUrl.replace('/download','')}`, github_api_headers()).then(r=>r.json())
+		fetch(fileDetails.git_url, github_api_headers({raw: true}))
+		.then(r=>r.blob())
+		.then(b=>Object.assign(document.createElement('a'),{href:window.URL.createObjectURL(b),download:fileDetails.name}).click())
+		.then(z=>history.back())
+		return
+	}
 	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree & 
 
 	if(isReload){browsingTree.pop();console.log('refreshing')};
@@ -430,7 +437,8 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	if(audioMainLoop)clearInterval(audioMainLoop);
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-	let browseDisplayInner=`<a id="browse-display-close"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a><a target="_blank" onclick="downloadFile('${decodeURIComponent(fileName)}', '${gitUrl}')">${decodeURIComponent(fileName)}</a>`;
+	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
+	let browseDisplayInner=`<a id="browse-display-close"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a><a href="#/download${locationId}/${fileName}?ref=${refId}">${decodeURIComponent(fileName)}</a>`;
 
 	// Add option to show parsed for markdown files
 	if (fileName.toLowerCase().endsWith('.md')){browseDisplayInner+=` <span style="cursor:pointer;position:relative;left:3em;">(<a onclick="showFile('${downloadUrl}', '${gitUrl}', ${(mdRaw?'false)">alt: parsed':'true)">alt: raw')}</a>)</span>`}
@@ -592,8 +600,8 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	if(!['image','audio'].includes(browseDisplayIndicator)){window.scrollTo({top: gId('browse-display').getBoundingClientRect().y+window.pageYOffset-70, behavior: "smooth"})}
 }
 uploadFileInput.onchange=e=>{
-	const [location, refId] = browsingTree.at(-1).split('?ref=')
-	const uploadedFileURL = `https://api.github.com${location}/${e.target.files[0].name}?ref=${refId}`
+	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
+	const uploadedFileURL = `https://api.github.com${locationId}/${e.target.files[0].name}?ref=${refId}`
 	const intermediaryReader = new FileReader();
 	intermediaryReader.onloadend=()=>{
 		fetch(
@@ -640,10 +648,12 @@ gId('back-to-start').href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
+let qUrl=window.location.hash.substring(1)
 if(!qUrl){
 	console.log('Resetting to all-repo view')
 	window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`
 }else{
+	if(qUrl.startsWith('/download'))qUrl=qUrl.replace('/download','');
 	let tempCurrentRepo = qUrl.slice(7).split('/').slice(0,2).join('/'); // copy of browsingCurrentRepo (not initialized yet)
 
 	// If you landed in the contents of a repository
