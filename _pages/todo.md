@@ -61,6 +61,7 @@ To-do list for the [repo browser](/resources/explore-my-repos/):
 - [x] Toggle between branches
 - [x] Fork indication (like private)
 - [x] Restructure how private repos work to eliminate use of `/user/repos` (endpoint for repositories for authenticated user). This is to ensure portability of the generated URL (that will usually have a hash)
+- [ ] Fix PDF viewer
 
 Known limits:
 - Unable to add modified datetime for file contents
