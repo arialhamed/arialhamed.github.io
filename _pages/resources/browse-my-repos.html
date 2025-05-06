@@ -28,55 +28,50 @@ prism: true
 music-metadata: true
 ---
 
-<h6 id="github_user_profile" style="cursor: default; font-size: 70%; opacity: .65;">
+<div id="github-user-profile">
 	<select id="select-branch" title="Select a branch"></select>
 	<div style="clear: both;"></div>
-</h6>
+</div>
 
-<!-- back		title		reload -->
-<div style="text-align: center;">
-	<a class="title-icons disable-selection" title="Back" style="float: left;" id="browse-back"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
-	<a class="title-icons disable-selection" title="Back to start" style="float: left;" id="back-to-start"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
-	<a class="title-icons disable-selection" title="Refresh" style="float: right;" id="browse-refresh" onclick="window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
-	<a class="title-icons disable-selection" title="View" style="float: right;" id="browse-view" onclick="browseToggleView()"></a>
-	<a class="title-icons disable-selection" title="Upload here" style="float: right; visibility: hidden;" id="upload-file" onclick="uploadFileInput.click()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
-	<h2 id="current-title"></h2>
+<!-- title -->
+<h2 id="current-title"></h2>
+
+<!-- description -->
+<div>
+	<span id="current-description"></span>
+	<!-- <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="1.5em" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"/></svg> -->
+</div>
+
+<!-- browsing controls -->
+<div id="control-icons">
+	<a title="Back" id="explore-back"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
+	<a title="Back to start" id="back-to-start"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
+	<a title="Upload here" id="upload-file" href="javascript:uploadFileInput.click()" style="visibility:hidden"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
+	<a title="Refresh" id="explore-refresh" href="javascript:window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
+	<a title="View" id="browse-view" href="javascript:browseToggleView()"></a>
+	<a title="Download as repository as .zip" id="download-repo" href="javascript:downloadRepo()" style="visibility:hidden"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg></a>
+	<div id="search-field">
+		<input type="search" onkeyup="searchContents()" onclick="searchContents()" id="search-input" placeholder="start typing here to search">
+		<svg onclick="gId('search-input').value='';gId('search-input').focus();searchContents()" height="2em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+	</div>
 	<div style="clear: both"></div>
 </div>
 
-<!-- description -->
-<p id="current-description"></p>
-
-<hr id="cell-seperator">
-
-<div id="search-field">
-	<input type="search" onkeyup="searchContents()" id="search-box" placeholder="start typing here to search">
-	<svg onclick="gId('search-box').value='';gId('search-box').focus();searchContents()" height="2em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
-</div>
-
 <!-- all cells -->
-<div id="browse-content"></div> <!-- alternative: list-group -->
+<div id="explore-content"></div> <!-- alternative: list-group -->
 <br>
 
 <!-- under the cells, displaying all except images already in cells -->
-<div class="container wide-responsive" id="browse-display">
+<div class="container wide-responsive" id="explore-display">
 </div>
 
-<script type="text/javascript" src="/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://arialhamed.github.io/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
 <style>
-#github_auth{cursor: pointer;}
-#github_auth:hover{color:white;}
-.title-icons{
-	display: inline;
-	vertical-align: middle;
-	border-radius: .75em;
-	cursor: pointer;
-	color: var(--anchor-color);
-}
-.title-icons:hover{
-	background-color: var(--overlay-hover);
-}
+/* GitHub credits & login, and branch toggle */
+#github-user-profile{cursor:default;font-size:70%;opacity:.65}
+#github-auth{cursor:pointer}
+#github-auth:hover{color:white}
 #select-branch{
 	max-width: 50%;
 	text-align: center;
@@ -85,57 +80,62 @@ music-metadata: true
 	background-color: var(--nav-overlay);
 	border-radius: 1em;
 }
-#select-branch:empty{visibility:hidden}
-#browse-back[href=''],#browse-back[href='']+#back-to-start{pointer-events:none;color:var(--anchor-color-hover)}
-#browse-refresh svg:hover{rotate:180deg}
+#select-branch:empty{display:none}
+
+/* Title & description */
 #current-title{
-	max-width: 75vw;
-	margin: auto;
-	float: none;
 	text-decoration: underline;
-	background: none!important;
+	text-align: center;
 	overflow: scroll;
 }
-#current-title-inner{color: white}
-#current-title-inner:hover{color: var(--anchor-color)}
-#current-description{margin-top: .5em;/*Repository description*/}
+#current-title-inner{color:var(--font-color)}
+#current-title-inner:hover{color:var(--anchor-color)}
+#current-description{margin-top:.5em;/*Repository description*/}
 #current-description svg{vertical-align:text-top;/*Private & fork icons*/}
+#current-description + svg{float:right;/*Edit description icon*/}
+
+/* Explorer control icons & search */
+#control-icons{
+	/* position:sticky; */
+	top:88px;
+	text-align:center;
+	background-color:var(--background-solid);
+	padding:.5em 0;
+	border-radius:3em;
+}
+#control-icons a{border-radius:.75em;fill:var(--anchor-color)}
+#control-icons a:hover{background-color:var(--overlay-hover)}
+#explore-back{float:left}#back-to-start{float:left}#upload-file{float:left}
+#download-repo{float:right}#browse-view{float:right}#explore-refresh{float:right}
+#explore-back[href=''],#explore-back[href='']+#back-to-start{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
+#explore-refresh svg:hover{rotate:180deg}
 #search-field{
 	display: flex;
-	height: 2em;
-	margin-bottom: .5em;
+	height: 2.5em;
+	/* margin-bottom: .5em; */
+	background-color: rgba(0,0,0,0.2);
+	border-radius: 8px;
 }
-#search-field svg{
-	padding: 0 .5em;
+#search-field svg{/*Cancel icon*/
+	padding: .3em;
 	cursor: pointer;
 	height: inherit;
 	color: var(--anchor-color)
 }
-#search-field svg:hover{color:white}
-#search-box{
+#search-field svg:hover{color:var(--font-color)}
+#search-input{
 	width: 100%;
 	height: inherit;
-	background-color: rgba(0,0,0,0.2);
-	color: white;
-	border-radius: 8px;
+	background-color: transparent;
+	color: var(--font-color);
 	border-width: 0px;
 	padding: .2em 0 .3em .5em;
 }
-#browse-md-parsed{
-	text-align: initial;
-	/* left: clamp(.75rem, calc(50vw - 400px), 24%); */
-	position: inherit;
-	display: block;
-	/* width: min(calc(var(--inner-width) - 1.75rem), 98vw - 1.5rem); */
-	padding: 1rem;
-	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-	max-width: calc(var(--inner-width) - 20px);
-	margin: 0 auto;
-}
-.browse-cell:hover{
-	background-color: var(--overlay-hover);
-}
-.browse-cell{
+
+/* Explorer content & items within */
+#explore-content:has(>:nth-child(2)) .loader{display:none;/*Hide when there are at least 2 items in #explore-content (i.e. if .loader is not alone)*/}
+.explore-cell:hover{background-color:var(--overlay-hover)}
+.explore-cell{
 	display: inline-block;
 	color: var(--anchor-color-solid) !important;
 	text-decoration: none;
@@ -145,28 +145,41 @@ music-metadata: true
 	user-select: none;
 	font-size: 1rem;
 }
-span.browse-cell{cursor: pointer}
-.row .browse-cell{text-align:center;padding:.375rem .75rem;margin:4px;}
-.row .browse-cell span:nth-child(2){font-size:70%;}
-.row .browse-cell span:nth-child(2):not(.size){display:none;}
-.list-group .browse-cell{text-align:left;padding:.2rem .5rem;margin:2.5px 0;display:flex;}
-.list-group .browse-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
-.list-group .browse-cell:has(img){display:block;width:100%;padding:.5em}
-.list-group .browse-cell:has(img) span{text-align:center;margin-top:.5em}
-.list-group .browse-cell img{width:100%;}
-.browse-cell *{margin: 0 auto;}
-.browse-cell span{
+span.explore-cell{cursor: pointer}
+.row .explore-cell{text-align:center;padding:.375rem .75rem;margin:4px;}
+.row .explore-cell span:nth-child(2){font-size:70%;}
+.row .explore-cell span:nth-child(2):not(.size){display:none;}
+.list-group .explore-cell{text-align:left;padding:.2rem .5rem;margin:2.5px 0;display:flex;}
+.list-group .explore-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
+.list-group .explore-cell:has(img){display:block;width:100%;padding:.5em}
+.list-group .explore-cell:has(img) span{text-align:center;margin-top:.5em}
+.list-group .explore-cell img{width:100%;}
+.explore-cell *{margin: 0 auto;}
+.explore-cell span{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 100%;
 	display: block;
 }
-.row .browse-cell img{
+.row .explore-cell img{
 	max-width: initial;
 	height: calc(min(15vh, 20vw) - .75rem);
 }
-.list-group .browse-cell span svg{ /* Private & fork icons */
+.list-group .explore-cell span svg{ /* Private & fork icons */
 	margin-left: .3em
+}
+
+/* Specific file styles when chosen to display */
+#md-parsed{
+	text-align: initial;
+	/* left: clamp(.75rem, calc(50vw - 400px), 24%); */
+	position: inherit;
+	display: block;
+	/* width: min(calc(var(--inner-width) - 1.75rem), 98vw - 1.5rem); */
+	padding: 1rem;
+	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+	max-width: calc(var(--inner-width) - 20px);
+	margin: 0 auto;
 }
 #show-image{
 	max-width: 100%;
@@ -178,18 +191,18 @@ span.browse-cell{cursor: pointer}
 	width: 90%;
 	accent-color: var(--anchor-color);
 }
-.browse-display-image #browse-display span:first-child{ 
+.explore-display-image #explore-display span:first-child{ 
 	background-color: var(--popup-background-color);
 	padding: 1em;
 	border-radius: 2em;
 }
-.browse-display-default{
+.explore-display-default{
 	display: block;
 	float: none; 
 	text-align: center; 
 	padding: 12px 0; 
 }
-.browse-display-image{
+.explore-display-image{
 	display: flex;
 	flex-direction: column;
 	text-align: center; 
@@ -205,7 +218,7 @@ span.browse-cell{cursor: pointer}
 	z-index: 6; 
 	margin: 0;
 }
-.browse-display-audio{
+.explore-display-audio{
 	display: block;
 	text-align: center;
 	position: sticky;
@@ -222,8 +235,8 @@ span.browse-cell{cursor: pointer}
 	border-radius: 2em;
 	margin: auto;
 }
-#browse-display-close:hover svg{transform: rotate(180deg) scale(1.5); }
-#browse-display-close{
+#explore-display-close:hover svg{transform: rotate(180deg) scale(1.5); }
+#explore-display-close{
 	float: right;
 	cursor: pointer;
 	margin: auto 10px auto 10px;
@@ -232,23 +245,25 @@ span.browse-cell{cursor: pointer}
 	top: -.4em;
 	position: relative;
 }
-.browse-display-image #browse-display-close{
+.explore-display-image #explore-display-close{
 	top: unset;
 	left: 1.5em;
 	/* bottom: -1.5em; */
 }
-.browse-display-audio #browse-display-close{
+.explore-display-audio #explore-display-close{
 	top: -.2em;
 	right: -.5em;
 }
-#browse-display-close + a{
+#explore-display-close + a{
 	font-size: 175%;
 	position: relative;
 	left: 1.5em;
 	word-wrap: anywhere;
 }
-.browse-display-image #browse-display-close + a{width:calc(100% - 3em);display:block}
-.browse-display-audio #browse-display-close + a{left:0;padding:.4em;border-radius:.75em;-webkit-box-decoration-break:clone;-o-box-decoration-break:clone;box-decoration-break:clone}
+.explore-display-image #explore-display-close + a{width:calc(100% - 3em);display:block}
+.explore-display-audio #explore-display-close + a{left:0;padding:.4em;border-radius:.75em;-webkit-box-decoration-break:clone;-o-box-decoration-break:clone;box-decoration-break:clone}
+
+/* Audio specific controls */
 #audio-controls{display:flex;height:6em}
 #audio-controls svg{cursor:pointer}
 #audio-controls span{font-family:var(--bs-font-monospace);font-size:1.2em;line-height:1em;margin-top:1em}
@@ -320,12 +335,12 @@ let browsingCurrentRepo='';
 let ghusr='arialhamed';
 let intervalsDict={};
 
-// The following will read each file or content (or repos) and display into the browse-content element
+// The following will read each file or content (or repos) and display into the explore-content element
 const addObjectToView=e=>{
-	let contentElement='<a class="col browse-cell"';
+	let contentElement='<a class="col explore-cell"';
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span></a>`);
+		gId('explore-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span></a>`);
 	}else{
 		// Is the record a directory?
 		if (e.type == 'dir'){
@@ -335,7 +350,7 @@ const addObjectToView=e=>{
 			let showItemElement=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')" data-search="${e.name}"`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){ 
-				contentElement = `<span class="col browse-cell"${showItemElement}><img src="${e.download_url}" alt="${e.name}" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
+				contentElement = `<span class="col explore-cell"${showItemElement}><img src="${e.download_url}" alt="${e.name}" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
 			}else{
 				contentElement += `${showItemElement}><span>${e.name}</span><span class="size">${formatBytes(e.size)}</a>`;
 			}
@@ -344,7 +359,7 @@ const addObjectToView=e=>{
 		}
 
 		// Adds the folders and files as cells
-		gId('browse-content').insertAdjacentHTML('beforeend', contentElement);
+		gId('explore-content').insertAdjacentHTML('beforeend', contentElement);
 	}
 }
 
@@ -352,30 +367,23 @@ const addObjectToView=e=>{
 // 'refresh' boolean is to reload private repo's download_url tokens
 window.onhashchange=async()=>{
 	const inUrl = window.location.hash.slice(1);
-	if(inUrl.startsWith('/download')){
-		const fileDetails = await fetch(`https://api.github.com${inUrl.replace('/download','')}`, github_api_headers()).then(r=>r.json())
-		fetch(fileDetails.git_url, github_api_headers({raw: true}))
-		.then(r=>r.blob())
-		.then(b=>Object.assign(document.createElement('a'),{href:window.URL.createObjectURL(b),download:fileDetails.name}).click())
-		.then(z=>history.back())
-		return
-	}
 	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree & 
 
 	if(isReload){browsingTree.pop();console.log('refreshing')};
 	browsingTree.at(-2)==inUrl?browsingTree.pop():browsingTree.push(inUrl);
 
 	// mediaArray=[];
-	gId('browse-content').innerHTML='<span class="loader" style="margin:2em auto 0 auto" data-search=""></span>';
+	gId('explore-content').innerHTML='<span class="loader" style="margin:2em auto 0 auto" data-search=""></span>';
 
 	// Get repository contents or list repositories of a user
 	browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers({refresh: isReload})).then(r=>r.json());
 	if (inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
 		browsingTree=[inUrl]
-		gId('browse-back').href='';
+		gId('explore-back').href='';
 		gId('current-title').innerHTML='My GitHub repositories';
 		gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
 		gId('upload-file').style.visibility='hidden'; // Hide upload button
+		gId('download-repo').style.visibility='hidden'; // Hide download button
 		browsingCurrentRepo = '' // Reset value as we are not in a repo here
 		gId('select-branch').innerHTML=''
 
@@ -386,8 +394,9 @@ window.onhashchange=async()=>{
 		browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
 	}else{ // If repository selected or in contents of repository (not at the start of the page)
 		try{ // Only here is where the effects of a bad URL occurs
-			gId('browse-back').href=`#${browsingTree.at(-2)}`
+			gId('explore-back').href=`#${browsingTree.at(-2)}`
 			if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
+			gId('download-repo').style.visibility='visible'; // Show download button
 
 			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
 			const rrCurrent = inUrl.split('/').slice(2,4).join('/')
@@ -406,15 +415,16 @@ window.onhashchange=async()=>{
 				gId('select-branch').innerHTML=branches.map(v=>`<option value=\"${v.name}\"${inUrl.endsWith(v.name)?'selected':''}>${v.name}</option>`).join('')
 			}
 		}catch(err){
-			gId('browse-back').href='';
+			gId('explore-back').href='';
 			gId('current-description').innerHTML='';
 			gId('current-title').innerHTML='Uh oh, that URL is invalid';
-			gId('browse-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#/users/${ghusr}/repos?per_page=100&sort=pushed">Return to repositories view?</a>`;
+			gId('explore-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#/users/${ghusr}/repos?per_page=100&sort=pushed">Return to repositories view?</a>`;
 			return
 		}
 
 		// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
-		if(browseJson.status=='404'){gId('browse-content').insertAdjacentHTML('beforeend', `<span style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
+		if(browseJson.status=='404'){
+			gId('explore-content').insertAdjacentHTML('beforeend', `<span id="repo-is-empty" style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
 		}else{ // At this point, we are inside a repository with commits, so let's put the folders first
 			browseJson.sort((a, b) => a.type.localeCompare(b.type))
 		}
@@ -425,11 +435,25 @@ window.onhashchange=async()=>{
 	browseJson.forEach(addObjectToView)
 	searchContents()
 }
+const downloadFile=async(inUrl)=>{
+	const fileDetails = await fetch(`https://api.github.com${inUrl}`, github_api_headers()).then(r=>r.json())
+	fetch(fileDetails.git_url, github_api_headers({raw: true}))
+	.then(r=>r.blob())
+	.then(b=>Object.assign(document.createElement('a'),{href:window.URL.createObjectURL(b),download:fileDetails.name}).click())
+	.then(f=>console.log(`"${fileDetails.name}" has been downloaded`))
+	// const xhr = new XMLHttpRequest();
+	// xhr.progress=e=>console.log(e.loaded/fileDetails.size);
+	// xhr.open('GET', fileDetails.git_url)
+	// xhr.setRequestHeader('Accept', `application/vnd.github.v3+json`)
+	// xhr.setRequestHeader('Authorization', (github_token)?`token ${github_token}`:``)
+	// xhr.send()
+	// console.log("what")
+}
 
 // When click on file, show it. Exceptions for markdown files.
 async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	console.log(`showFile(${downloadUrl}, ${gitUrl})`);
-	const bDisplay=gId('browse-display');
+	const bDisplay=gId('explore-display');
 	var fileName=downloadUrl.split('/').pop().split('?')[0];
 	// const gitContent = await 
 
@@ -438,17 +462,21 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
 	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
-	let browseDisplayInner=`<a id="browse-display-close"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a><a href="#/download${locationId}/${fileName}?ref=${refId}">${decodeURIComponent(fileName)}</a>`;
+	let browseDisplayInner=`<a id="explore-display-close">
+		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+	</a>
+	<a href="${downloadUrl.includes('?token=')?`javascript:downloadFile('${locationId}/${fileName}?ref=${refId}')}`:downloadUrl}">${decodeURIComponent(fileName)}</a>`;
+	// If we are in a private repo, the 'downloadUrl' will have '?token=' appended to it. That's only temporary.
 
 	// Add option to show parsed for markdown files
 	if (fileName.toLowerCase().endsWith('.md')){browseDisplayInner+=` <span style="cursor:pointer;position:relative;left:3em;">(<a onclick="showFile('${downloadUrl}', '${gitUrl}', ${(mdRaw?'false)">alt: parsed':'true)">alt: raw')}</a>)</span>`}
 
-	// Remove any existing browsing indicators from browse-display
-	['default', 'image', 'audio'].forEach(a => bDisplay.classList.remove('browse-display-'+a))
+	// Remove any existing browsing indicators from explore-display
+	['default', 'image', 'audio'].forEach(a => bDisplay.classList.remove('explore-display-'+a))
 	let browseDisplayIndicator='default';
 
 	if(extI.some(v => fileName.toLowerCase().endsWith(v))){
-		if(gId('browse-content').classList[0]=='list-group'){return} // Images are already quite maximized when browse-content is in list-group mode, so not required here
+		if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
 		browseDisplayIndicator="image";
 		browseDisplayInner=`<img id="show-image" src="${downloadUrl}"><span>${browseDisplayInner}</span>`;
 	}else if(extV.some(v => fileName.toLowerCase().endsWith(v))){
@@ -467,20 +495,20 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 
 		// If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
 		if(fileName.toLowerCase().endsWith('.md') && !mdRaw){
-			browseDisplayInner+=`<br><span id="browse-md-parsed">${mdConverter.render(itemTextOut.substring(1).split('---').pop())}</span>`;
+			browseDisplayInner+=`<br><span id="md-parsed">${mdConverter.render(itemTextOut.substring(1).split('---').pop())}</span>`;
 		}else{ // else show it parsed in Prism.js
 			browseDisplayInner+=`<br><pre style="background-color:#333a;width:100%;" data-src="${downloadUrl}" data-download-link><code id="show-text" class="line-numbers language-${fileName.split('.').pop()}">${itemTextOut.replace(/\</g, '&lt;')}</code></pre>`;
 		} // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 	}
 
-	// Clear inline styles, push contents to browse-display's innerHTML, and add custom-by-file styles via class
+	// Clear inline styles, push contents to explore-display's innerHTML, and add custom-by-file styles via class
 	bDisplay.style='';
 	bDisplay.innerHTML=browseDisplayInner;
-	bDisplay.classList.add('browse-display-'+browseDisplayIndicator);
-	gId('browse-display-close').onclick=()=>{
+	bDisplay.classList.add('explore-display-'+browseDisplayIndicator);
+	gId('explore-display-close').onclick=()=>{
 		bDisplay.innerHTML='';
-		bDisplay.classList.remove('browse-display-'+browseDisplayIndicator);
-		['default','image','audio'].forEach(e=>{bDisplay.classList.remove('browse-display-'+e)})
+		bDisplay.classList.remove('explore-display-'+browseDisplayIndicator);
+		['default','image','audio'].forEach(e=>{bDisplay.classList.remove('explore-display-'+e)})
 	}
 
 
@@ -503,7 +531,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 			volVal.value=audioPlayer.volume*100;
 
 		}, 125)
-		gId('browse-display-close').addEventListener('click',()=>{
+		gId('explore-display-close').addEventListener('click',()=>{
 			ogilvie.src='';
 			window.onkeydown=()=>{};
 			audioPlayer.pause()
@@ -597,7 +625,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		gId('audio-music-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
 
 	}
-	if(!['image','audio'].includes(browseDisplayIndicator)){window.scrollTo({top: gId('browse-display').getBoundingClientRect().y+window.pageYOffset-70, behavior: "smooth"})}
+	if(!['image','audio'].includes(browseDisplayIndicator)){window.scrollTo({top: gId('explore-display').getBoundingClientRect().y+window.pageYOffset-70, behavior: "smooth"})}
 }
 uploadFileInput.onchange=e=>{
 	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
@@ -613,12 +641,12 @@ uploadFileInput.onchange=e=>{
 				content: intermediaryReader.result.split(';base64,')[1]
 			})
 		})
-		// .then(r=>gId('browse-refresh').click())
+		// .then(r=>gId('explore-refresh').click())
 		.then(r=>r.json())
 		.then(j=>{
 			debog=j;
-			gId('browse-refresh').click();
-			raiseModal(`"${j.content.name}" has been uploaded`)
+			gId('explore-refresh').click();
+			raiseToast(`"${j.content.name}" has been uploaded`)
 		})
 	}
 	intermediaryReader.readAsDataURL(e.target.files[0])
@@ -628,32 +656,31 @@ gId('select-branch').onchange=e=>{
 	window.location.href = `#${browsingTree.pop()}`
 }
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
-const searchContents=()=>{gId('browse-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-box').value.toLowerCase()))?'':'none'})}
+const searchContents=()=>{gId('explore-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
 const browseToggleView=async(manualSet=true)=>{
 	if(manualSet)localStorage.setItem('browse-view-mode',(localStorage.getItem('browse-view-mode')=='list-group')?'row wide-responsive':'list-group');
-	gId('browse-content').setAttribute('class',localStorage.getItem('browse-view-mode'))
+	gId('explore-content').setAttribute('class',localStorage.getItem('browse-view-mode'))
 	gId('browse-view').innerHTML=(localStorage.getItem('browse-view-mode')=='list-group')?viewIcon:viewList;
 }
 const github_signin=()=>{localStorage.setItem('github_signin_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
 
 // GitHub display
-gId('github_user_profile').insertAdjacentHTML('afterbegin', `<p style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github_auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</p>`)
+gId('github-user-profile').insertAdjacentHTML('afterbegin', `<span style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github-auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</span>`)
 
 // Browsing controls
 if(!localStorage.getItem('browse-view-mode'))localStorage.setItem('browse-view-mode','list-group');
 browseToggleView(false)
-gId('search-box').value='';
+// gId('search-input').value='';
 gId('back-to-start').href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
-let qUrl=window.location.hash.substring(1)
+const qUrl=window.location.hash.substring(1)
 if(!qUrl){
 	console.log('Resetting to all-repo view')
 	window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`
 }else{
-	if(qUrl.startsWith('/download'))qUrl=qUrl.replace('/download','');
 	let tempCurrentRepo = qUrl.slice(7).split('/').slice(0,2).join('/'); // copy of browsingCurrentRepo (not initialized yet)
 
 	// If you landed in the contents of a repository
