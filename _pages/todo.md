@@ -20,7 +20,7 @@ redirect_from:
 *started since Apr 24, 2025
 
 # todo list
-To-do list for the [repo browser](/resources/browse-my-repos/):
+To-do list for the [repo browser](/resources/explore-my-repos/):
 - [x] Alternative to `jsmediatags` as it does not return lyrics for _.flac_ files
 	- Found `music-metadata`
 - [ ] Faster audio loading
@@ -43,7 +43,8 @@ To-do list for the [repo browser](/resources/browse-my-repos/):
 	- [ ] Consider making it disabled in a different way for non-authenticated users, and authenticated users (i.e. literally just me) will be able to make the changes true (somehow)
 - [ ] Enable cancellation of browseRun when a new browseRun is ran again (ref: sky cotl memories repo then back to main page)
 - [ ] Disable particles.js background by getting performance of device
-- [ ] File downloading via blob (both authenticated & non-authenticated browsers)
+- [x] File downloading via blob (both authenticated & non-authenticated browsers)
+	- [ ] I may need to add some indicator that the download is happening, but not's a priority
 - [x] Private repository indicator
 	- [9d2a80102ab81e8cfbd8409235be4af6e4eccea8](https://github.com/arialhamed/arialhamed.github.io/commit/9d2a80102ab81e8cfbd8409235be4af6e4eccea8)
 - [x] Further optimize the kick-off, seems a bit repetitive at some parts now that i'm using /content on the base root
