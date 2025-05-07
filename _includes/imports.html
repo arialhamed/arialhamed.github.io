@@ -2,42 +2,19 @@
 <script type="text/javascript" src="/static/js/bootstrap/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap/bootstrap.min.js"></script>
 
-{% if page.about %}
-<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-{% endif %}
-
-{% if page.openscad %}
-<script src="https://www.unpkg.com/jscad@1.1.0/csg.js"></script>
-<script src="https://www.unpkg.com/jscad@1.1.0/openjscad.js"></script>
-{% endif %}
-
-{% if page.prism %}
-<link rel="stylesheet" href="/static/css/prism.css" integrity="sha384-gFgUFPYGySH8tu3nGOJPXWdfkFECatYWz+TSXR/t58zA5j6DaKzQ4kkcxkCz8hkT" crossorigin="anonymous">
-{% endif %}
-
-{% if page.music-metadata %}
+{% if page.about %}<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>{% endif %}
+{% if page.openscad %}<script src="https://www.unpkg.com/jscad@1.1.0/csg.js"></script><script src="https://www.unpkg.com/jscad@1.1.0/openjscad.js"></script>{% endif %}
+{% if page.prism %}<link rel="stylesheet" href="/static/css/prism.css" integrity="sha384-gFgUFPYGySH8tu3nGOJPXWdfkFECatYWz+TSXR/t58zA5j6DaKzQ4kkcxkCz8hkT" crossorigin="anonymous">{% endif %}
+{% if page.modelviewer %}<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>{% endif %}
 <script type="module">
+	// {% if page.music-metadata %}
 	import { parseBlob, parseBuffer } from 'https://cdn.jsdelivr.net/npm/music-metadata/+esm'
 	modules.parseBlob = parseBlob
 	modules.parseBuffer = parseBuffer
+	// {% endif %}
 </script>
-{% endif %}
+{% if page.pdf %}<script type="module" src="https://mozilla.github.io/pdf.js/build/pdf.mjs"></script>{% endif %}
 
-{% if page.mime-types %}
-<script type="module">
-	import mime from 'https://cdn.jsdelivr.net/npm/mime-types/+esm'
-	modules.mime = mime
-</script>
-{% endif %}
-
-{% if page.modelviewer %}
-<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-{% endif %}
-
-{% if page.music %}
-<link rel="stylesheet" href="bor" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-{% endif %}
 
 <script>
 	// Custodial services
@@ -90,6 +67,11 @@
 
 		// The styling of disabled checkboxes are controlled by the browser, but it looks ugly af in my color scheme, so why not let it be? <cue Cure For Me by Aurora>
 		document.querySelectorAll('.task-list-item-checkbox').forEach(e=>e.removeAttribute('disabled'))
+
+		/*{% if page.pdf %}*/
+		// For displaying PDFs (using Mozilla's PDF.js)
+		pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.mjs'
+		/*{% endif %}*/
 	}
 
 	// For tracking

@@ -20,6 +20,7 @@ redirect_from:
 layout: default
 prism: true
 music-metadata: true
+pdf: true
 ---
 
 <div id="github-user-profile">
@@ -185,6 +186,7 @@ span.explore-cell{cursor: pointer}
 	width: 90%;
 	accent-color: var(--anchor-color);
 }
+#show-pdf img{max-width:100%}
 .explore-display-image #explore-display span:first-child{ 
 	background-color: var(--popup-background-color);
 	padding: 1em;
@@ -229,15 +231,11 @@ span.explore-cell{cursor: pointer}
 	border-radius: 2em;
 	margin: auto;
 }
-#explore-display-close:hover svg{transform: rotate(180deg) scale(1.5); }
+#explore-display-close:hover{transform: rotate(180deg) scale(1.5)}
 #explore-display-close{
 	float: right;
 	cursor: pointer;
-	margin: auto 10px auto 10px;
-	font-size: 200%;
-	width: 1.5em;
-	top: -.4em;
-	position: relative;
+	width: 3em;
 }
 .explore-display-image #explore-display-close{
 	top: unset;
@@ -251,7 +249,6 @@ span.explore-cell{cursor: pointer}
 #explore-display-close + a{
 	font-size: 175%;
 	position: relative;
-	left: 1.5em;
 	word-wrap: anywhere;
 }
 .explore-display-image #explore-display-close + a{width:calc(100% - 3em);display:block}
@@ -369,25 +366,25 @@ window.onhashchange=async()=>{
 	// mediaArray=[];
 	gId('explore-content').innerHTML='<span class="loader" style="margin:2em auto 0 auto" data-search=""></span>';
 
-	// Get repository contents or list repositories of a user
-	browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers({refresh: isReload})).then(r=>r.json());
-	if (inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
-		browsingTree=[inUrl]
-		gId('explore-back').href='';
-		gId('current-title').innerHTML='My GitHub repositories';
-		gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
-		gId('upload-file').style.visibility='hidden'; // Hide upload button
-		gId('download-repo').style.visibility='hidden'; // Hide download button
-		browsingCurrentRepo = '' // Reset value as we are not in a repo here
-		gId('select-branch').innerHTML=''
+	try{
+		// Get repository contents or list repositories of a user
+		browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers({refresh: isReload})).then(r=>r.json());
+		if (inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
+			browsingTree=[inUrl]
+			gId('explore-back').href='';
+			gId('current-title').innerHTML='My GitHub repositories';
+			gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
+			gId('upload-file').style.visibility='hidden'; // Hide upload button
+			gId('download-repo').style.visibility='hidden'; // Hide download button
+			browsingCurrentRepo = '' // Reset value as we are not in a repo here
+			gId('select-branch').innerHTML=''
 
-		if(github_token){
-			const privateRepos=await fetch('https://api.github.com/user/repos?per_page=100&visibility=private',github_api_headers({refresh: isReload})).then(r=>r.json()).then(j=>j.filter(v=>v.owner.login==ghusr))
-			browseJson.push(...privateRepos)
-		}
-		browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
-	}else{ // If repository selected or in contents of repository (not at the start of the page)
-		try{ // Only here is where the effects of a bad URL occurs
+			if(github_token){
+				const privateRepos=await fetch('https://api.github.com/user/repos?per_page=100&visibility=private',github_api_headers({refresh: isReload})).then(r=>r.json()).then(j=>j.filter(v=>v.owner.login==ghusr))
+				browseJson.push(...privateRepos)
+			}
+			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
+		}else{ // If repository selected or in contents of repository (not at the start of the page)
 			gId('explore-back').href=`#${browsingTree.at(-2)}`
 			if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
 			gId('download-repo').style.visibility='visible'; // Show download button
@@ -408,26 +405,26 @@ window.onhashchange=async()=>{
 				const branches = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}/branches`, github_api_headers({refresh: isReload})).then(r=>r.json())
 				gId('select-branch').innerHTML=branches.map(v=>`<option value=\"${v.name}\"${inUrl.endsWith(v.name)?'selected':''}>${v.name}</option>`).join('')
 			}
-		}catch(err){
-			gId('explore-back').href='';
-			gId('current-description').innerHTML='';
-			gId('current-title').innerHTML='Uh oh, that URL is invalid';
-			gId('explore-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#/users/${ghusr}/repos?per_page=100&sort=pushed">Return to repositories view?</a>`;
-			return
-		}
 
-		// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
-		if(browseJson.status=='404'){
-			gId('explore-content').insertAdjacentHTML('beforeend', `<span id="repo-is-empty" style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
-		}else{ // At this point, we are inside a repository with commits, so let's put the folders first
-			browseJson.sort((a, b) => a.type.localeCompare(b.type))
+			// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
+			if(browseJson.status=='404'){
+				gId('explore-content').insertAdjacentHTML('beforeend', `<span id="repo-is-empty" style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
+			}else{ // At this point, we are inside a repository with commits, so let's put the folders first
+				browseJson.sort((a, b) => a.type.localeCompare(b.type))
+			}
 		}
+		console.log(browsingTree);
+
+		// Loops through each... whatever thing. He needs some milk
+		browseJson.forEach(addObjectToView)
+		searchContents()
+	}catch(err){
+		gId('explore-back').href='';
+		gId('current-description').innerHTML='';
+		gId('current-title').innerHTML='Uh oh, that URL is invalid';
+		gId('explore-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#/users/${ghusr}/repos?per_page=100&sort=pushed">Return to repositories view?</a>`;
+		return
 	}
-	console.log(browsingTree);
-
-	// Loops through each... whatever thing. He needs some milk
-	browseJson.forEach(addObjectToView)
-	searchContents()
 }
 const downloadFile=async(inUrl)=>{
 	const fileDetails = await fetch(`https://api.github.com${inUrl}`, github_api_headers()).then(r=>r.json())
@@ -456,10 +453,10 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
 	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
-	let browseDisplayInner=`<a id="explore-display-close">
-		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-	</a>
-	<a href="${downloadUrl.includes('?token=')?`javascript:downloadFile('${locationId}/${fileName}?ref=${refId}')}`:downloadUrl}">${decodeURIComponent(fileName)}</a>`;
+	let browseDisplayInner=`<div>
+	<svg id="explore-display-close" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+	<a href="${downloadUrl.includes('?token=')?`javascript:downloadFile('${locationId}/${fileName}?ref=${refId}')}`:downloadUrl}">${decodeURIComponent(fileName)}</a>
+	</div>`;
 	// If we are in a private repo, the 'downloadUrl' will have '?token=' appended to it. That's only temporary.
 
 	// Add option to show parsed for markdown files
@@ -483,7 +480,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	}else if(extA.some(v => fileName.toLowerCase().endsWith(v))){
 		browseDisplayInner+="<p>Contents of this file can not be parsed here.</p>";
 	}else if(fileName.toLowerCase().endsWith(".pdf")){
-		browseDisplayInner+=`<object type="application/pdf" data="${downloadUrl}" width="500" height="375">`;
+		browseDisplayInner+=`<br><div id="show-pdf"></div>`
 	}else{
 		const itemTextOut=await fetch(gitUrl, github_api_headers()).then(r=>r.json()).then(t=>atob(t['content']));
 
@@ -509,6 +506,32 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	// Set volume to half and play the media automatically
 	if (gId('show-video')!==null){gId('show-video').volume=.5;gId('show-video').play()}
 	if (gId('show-text')!==null){Prism.highlightElement(gId('show-text'))}
+	if (gId('show-pdf')!==null){
+		let loadingTask = pdfjsLib.getDocument(downloadUrl);
+		loadingTask.promise.then(function(pdf) {
+			for(let pageNumber=1;pageNumber<pdf.numPages+1;pageNumber++){
+				pdf.getPage(pageNumber).then(function(page) {
+					let viewport = page.getViewport({scale: 1});
+					let canvas = document.createElement('canvas');
+					let context = canvas.getContext('2d');
+					canvas.height = viewport.height;
+					canvas.width = viewport.width;
+
+					// Render PDF page into canvas context
+					let renderContext = {
+						canvasContext: context,
+						viewport: viewport
+					};
+					let renderTask = page.render(renderContext);
+					renderTask.promise.then(async()=>{
+						gId('show-pdf').insertAdjacentHTML('beforeend', `<img src="${canvas.toDataURL()}">`)
+					})
+				})
+			}
+		},(err)=>{
+			console.error(err);
+		})
+	}
 	if (gId('show-audio')!==null){
 		console.log('Playing audio')
 		function aPnext(){var queue=audioPlayer.shuffle?mediaArrayRandom:mediaArray;showFile.apply(this,queue[queue.findIndex(x=>x[0]==downloadUrl)==queue.length-1?0:queue.findIndex(x=>x[0]==downloadUrl)+1])}
