@@ -71,3 +71,5 @@ Known limits:
 Other things to do that are not in browse-my-repos:
 - [ ] ```setInterval(()=>{window.location.href=`#${crypto.randomUUID()}`}, 200)```
 - [ ] Create a browser-side JavaScript application that does something like WizTree. GitHub already shows the percentage of code in the root repository view, but it is not organized by folders.
+- [ ] Remove bootstrap. Go custom, go hard.
+	- [ ] Navigation bar

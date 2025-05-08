@@ -1,93 +1,152 @@
-<nav id="navbar" class="navbar navbar-expand-sm navbar-dark disable-selection">
-	<div class="container-fluid">
-		<!-- HAMBURGER -->
-		<button class="navbar-toggler w-100" style="margin-right:5px!important;border-radius:2em;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-sm-0">
-				<!-- HOME -->
-				<li class="nav-item">
-					<a class="nav-link {% if page.url == '/' %}active{% endif %}" aria-current="page" href="/">
-						<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.3 3.3a1 1 0 0 1 1.4 0l6 6 2 2a1 1 0 0 1-1.4 1.4l-.3-.3V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3c0 .6-.4 1-1 1H7a2 2 0 0 1-2-2v-6.6l-.3.3a1 1 0 0 1-1.4-1.4l2-2 6-6Z" clip-rule="evenodd"/></svg>
-					</a>
-				</li>
-				<!-- ABOUT -->
-				<li class="nav-item">
-					<a class="nav-link {% if page.url == '/about' %}active{% endif %}" href="/about">about</a>
-				</li>
-				<!-- GUIDES -->
-				<li class="nav-item dropdown">
-					<a class="nav-link {% if page.url contains '/guides' %}active{% endif %} dropdown-toggle" id="navbarGuides" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						guides
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarGuides">
-						<li><a class="dropdown-item {% if page.url == '/guides/markdown' %}active{% endif %}" href="/guides/markdown">markdown</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/git' %}active{% endif %}" href="/guides/git">git</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/android-debug-bridge' %}active{% endif %}" href="/guides/android-debug-bridge">android debug</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/screen-recording' %}active{% endif %}" href="/guides/screen-recording">android record</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/webdev-tips' %}active{% endif %}" href="/guides/webdev-tips">webdev tips</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/comments' %}active{% endif %}" href="/guides/comments">comments</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/media-tips' %}active{% endif %}" href="/guides/media-tips">media tips</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/ubuntu-setup' %}active{% endif %}" href="/guides/ubuntu-setup">ubuntu setup</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/debian-setup' %}active{% endif %}" href="/guides/debian-setup">debian setup</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/thinkpad' %}active{% endif %}" href="/guides/thinkpad">thinkpad tips</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/overpowered-android-gaming' %}active{% endif %}" href="/guides/overpowered-android-gaming">op android gaming</a></li>
-						<li><a class="dropdown-item {% if page.url == '/guides/bcache-ubuntu' %}active{% endif %}" href="/guides/bcache-ubuntu">ubuntu bcache</a></li>
-					</ul>
-				</li>
-				<!-- BLOGS -->
-				<li class="nav-item dropdown">
-					<a class="nav-link {% if page.url contains '/blogs' %}active{% endif %} dropdown-toggle" id="navbarBlogs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						blogs
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarBlogs">
-						<li><a class="dropdown-item {% if page.url == '/blogs/reviews' %}active{% endif %}" href="/blogs/reviews">product reviews</a></li>
-						<li><a class="dropdown-item {% if page.url == '/blogs/upgrades' %}active{% endif %}" href="/blogs/upgrades">upgrades</a></li>
-						<!-- <li><a class="dropdown-item {% if page.url == '/blogs/if-i-had-a-3d-printer' %}active{% endif %}" href="/blogs/if-i-had-a-3d-printer">if i had a 3d printer</a></li> -->
-						<!-- <li><a class="dropdown-item {% if page.url == '/blogs/needlework' %}active{% endif %}" href="/blogs/needlework">needlework</a></li> -->
-					</ul>
-				</li>
-				<!-- RESOURCES -->
-				<li class="nav-item dropdown">
-					<a class="nav-link {% if page.url contains '/resources' %}active{% endif %} dropdown-toggle" id="navbarResources" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						resources
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarResources">
-						<li><a class="dropdown-item {% if page.url == '/resources/explore-my-repos/' %}active{% endif %}" href="/resources/explore-my-repos/">explore my repos</a></li>
-						<li><a class="dropdown-item {% if page.url == '/resources/automation' %}active{% endif %}" href="/resources/automation">automation</a></li>
-						<li><a class="dropdown-item {% if page.url == '/resources/emulator' %}active{% endif %}" href="/resources/emulator">emulator</a></li>
-						<li><a class="dropdown-item {% if page.url == '/resources/chatgpt' %}active{% endif %}" href="/resources/chatgpt">chatgpt responses</a></li>
-						<li><a class="dropdown-item {% if page.url == '/resources/markdown-live-preview' %}active{% endif %}" href="/resources/markdown-live-preview">md preview</a></li>
-						<li><a class="dropdown-item {% if page.url == '/resources/logitech-unifying-catalog' %}active{% endif %}" href="/resources/logitech-unifying-catalog">logitech unifying catalog</a></li>
-						<li><a class="dropdown-item {% if page.url == '/resources/expresscard' %}active{% endif %}" href="/resources/expresscard">expresscard</a></li>
-						<!-- <li><a class="dropdown-item {% if page.url == '/resources/thinkpad-records' %}active{% endif %}" href="/resources/thinkpad-records">thinkpad-records</a></li> -->
-					</ul>
-				</li>
-				<!-- GAMES -->
-				<!-- <li class="nav-item dropdown">
-					<a class="nav-link {% if page.url contains '/games' %}active{% endif %} dropdown-toggle" id="navbarGames" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						games
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarGames">
-						<li><a class="dropdown-item {% if page.url == '/games/wordle' %}active{% endif %}" href="/games/wordle">wordle</a></li>
-						<li><a class="dropdown-item {% if page.url == '/games/sudoku' %}active{% endif %}" href="/games/sudoku">sudoku</a></li>
-						<li><a class="dropdown-item {% if page.url == '/games/minesweeper' %}active{% endif %}" href="/games/minesweeper">minesweeper</a></li>
-					</ul>
-				</li> -->
-				<!-- TOOLS -->
-				<li class="nav-item dropdown">
-					<a class="nav-link {% if page.url contains '/tools' %}active{% endif %} dropdown-toggle" id="navbarTools" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						tools
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarTools">
-						<li><a class="dropdown-item {% if page.url == '/tools/srihash' %}active{% endif %}" href="/tools/srihash">srihash</a></li>
-						<li><a class="dropdown-item {% if page.url == '/tools/jscompress' %}active{% endif %}" href="/tools/jscompress">jscompress</a></li>
-						<li><a class="dropdown-item {% if page.url == '/tools/html-to-escape' %}active{% endif %}" href="/tools/html-to-escape">html to escape</a></li>
-					</ul>
-				</li>
+<style type="text/css">
+	/* Navbar */
+	a[href="{{ page.url }}"]{
+		color:var(--anchor-color)!important
+	}
+	.dropdown-menu{
+		display:none;/*Hide first*/
+		position:absolute;/*Set to avoid displacement of root nav*/
+		margin-left:100%;/*Override default margin decided by ul tag*/
+		margin-top:-2.65em;/*Move up first item to same line as clicked*/
+	}
+	.dropdown-toggle::after{
+		display: inline-block;
+		content:"+";
+	}
+	.dropdown-toggle:hover::after{
+		content:"‒";
+	}
+	#navbar{
+		position:fixed;/*Keep navbar at where it is*/
+		z-index:10;/*Keep navbar above everything else*/
+		width:8em;
+		margin-left:calc(50% - var(--inner-width) / 2 - 9em);
+	}
+	#navbar *{user-select:none;/*Disallow selecting of text*/}
+	#navbar ul{/*Both main & dropdown menu*/
+		list-style:none;/*Remove bullets*/
+		background-color:var(--nav-overlay);
+		border-radius:1em;
+		padding:.5em;
+	}
+	#navbar > ul{margin:0}
+	#navbar li{padding:0;/*Readjust for missing bullets*/border-radius:.5em}
+	#navbar li:hover{background-color:var(--overlay)}
+	#navbar a{
+		padding:.5em;
+		display:block;
+		width:calc(100% - 0em);/*This & above sets the width of each link to be equal to the list item*/
+		color:var(--font-color)/*Apply only to anchors, not ar*/
+	}
+	#navribbon{
+		position:absolute;
+		left:calc(100% - 3em);/*Align to right side of nav, 3em from size + padding of ribbon*/
+		background-color:var(--nav-overlay);
+		border-top-right-radius:1em;
+		border-bottom-right-radius:1em;
+		padding:.5em;
+		cursor:pointer;
+		top:0;
+		color:transparent;
+		z-index:-1;
+	}
+	.dropdown-toggle:hover + .dropdown-menu,.dropdown-menu:hover{display:block;/*Preserve dropdowns at any point when engaged*/}
+	@media only screen and (max-width:1080px){
+		#navbar{margin-left:-8em;/*Retract whole nav to side*/}
+		#navbar:hover{margin-left:0;/*Show when any part is engaged (including ribbon)*/}
+		#navribbon{/*Show ribbon gloriously*/
+			display: block;
+			left:100%;
+			color:var(--font-color)
+		}
+		#navbar > ul{border-top-right-radius:0;/*Smoothen for ribbon at the top*/}
+		/* #navbar a{pointer-events:none} */
+		/* #navbar:hover a{pointer-events:auto} */
+	}
+</style>
+<nav id="navbar">
+	<svg id="navribbon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="2em" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"></path></svg>
+	<ul>
+		<!-- HOME -->
+		<li>
+			<a class="nav-link" aria-current="page" href="/">
+				<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.3 3.3a1 1 0 0 1 1.4 0l6 6 2 2a1 1 0 0 1-1.4 1.4l-.3-.3V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3c0 .6-.4 1-1 1H7a2 2 0 0 1-2-2v-6.6l-.3.3a1 1 0 0 1-1.4-1.4l2-2 6-6Z" clip-rule="evenodd"/></svg>
+				home
+			</a>
+		</li>
+		<!-- ABOUT -->
+		<li>
+			<a class="nav-link" href="/about">about</a>
+		</li>
+		<!-- GUIDES -->
+		<li>
+			<a class="nav-link dropdown-toggle" id="navbarGuides" role="button" aria-expanded="false">
+				guides
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="navbarGuides">
+				<li><a href="/guides/markdown">markdown</a></li>
+				<li><a href="/guides/git">git</a></li>
+				<li><a href="/guides/android-debug-bridge">android debug</a></li>
+				<li><a href="/guides/screen-recording">android record</a></li>
+				<li><a href="/guides/webdev-tips">webdev tips</a></li>
+				<li><a href="/guides/comments">comments</a></li>
+				<li><a href="/guides/media-tips">media tips</a></li>
+				<li><a href="/guides/ubuntu-setup">ubuntu setup</a></li>
+				<li><a href="/guides/debian-setup">debian setup</a></li>
+				<li><a href="/guides/thinkpad">thinkpad tips</a></li>
+				<li><a href="/guides/overpowered-android-gaming">op android gaming</a></li>
+				<li><a href="/guides/bcache-ubuntu">ubuntu bcache</a></li>
 			</ul>
-			<div id="toggle-fullscreen"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H4m0 0v4m0-4 5 5m7-5h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5m7 5h4m0 0v-4m0 4-5-5"/></svg></div>
-		</div>
-	</div>
+		</li>
+		<!-- BLOGS -->
+		<li>
+			<a class="nav-link dropdown-toggle" id="navbarBlogs" role="button" aria-expanded="false">
+				blogs
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="navbarBlogs">
+				<li><a href="/blogs/reviews">product reviews</a></li>
+				<li><a href="/blogs/upgrades">upgrades</a></li>
+				<!-- <li><a href="/blogs/if-i-had-a-3d-printer">if i had a 3d printer</a></li> -->
+				<!-- <li><a href="/blogs/needlework">needlework</a></li> -->
+			</ul>
+		</li>
+		<!-- RESOURCES -->
+		<li>
+			<a class="nav-link dropdown-toggle" class="nav-link active dropdown-toggle" id="navbarResources" role="button" aria-expanded="false">
+				resources
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="navbarResources">
+				<li><a href="/resources/explore-my-repos/">explore my repos</a></li>
+				<li><a href="/resources/automation">automation</a></li>
+				<li><a href="/resources/emulator">emulator</a></li>
+				<li><a href="/resources/chatgpt">chatgpt responses</a></li>
+				<li><a href="/resources/markdown-live-preview">md preview</a></li>
+				<li><a href="/resources/logitech-unifying-catalog">logitech unifying catalog</a></li>
+				<li><a href="/resources/expresscard">expresscard</a></li>
+				<!-- <li><a href="/resources/thinkpad-records">thinkpad-records</a></li> -->
+			</ul>
+		</li>
+		<!-- GAMES -->
+		<!-- <li>
+			<a class="nav-link dropdown-toggle" id="navbarGames" role="button" aria-expanded="false">
+				games
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="navbarGames">
+				<li><a href="/games/wordle">wordle</a></li>
+				<li><a href="/games/sudoku">sudoku</a></li>
+				<li><a href="/games/minesweeper">minesweeper</a></li>
+			</ul>
+		</li> -->
+		<!-- TOOLS -->
+		<li>
+			<a class="nav-link dropdown-toggle" id="navbarTools" role="button" aria-expanded="false">
+				tools
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="navbarTools">
+				<li><a href="/tools/srihash">srihash</a></li>
+				<li><a href="/tools/jscompress">jscompress</a></li>
+				<li><a href="/tools/html-to-escape">html to escape</a></li>
+			</ul>
+		</li>
+	</ul>
 </nav>

@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="/static/css/bootstrap/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="/static/css/bootstrap/bootstrap.min.css"> -->
 <script type="text/javascript" src="/static/js/bootstrap/jquery.min.js"></script>
-<script type="text/javascript" src="/static/js/bootstrap/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/static/js/bootstrap/bootstrap.min.js"></script> -->
 
 {% if page.about %}<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>{% endif %}
 {% if page.openscad %}<script src="https://www.unpkg.com/jscad@1.1.0/csg.js"></script><script src="https://www.unpkg.com/jscad@1.1.0/openjscad.js"></script>{% endif %}
@@ -55,15 +55,6 @@
 				a.onmouseout = function(){a.innerHTML = 'UwU';a.style = c}
 			}
 		)
-		gId('toggle-fullscreen').onclick = e =>{
-			if(document.fullscreenElement!==null){
-				document.exitFullscreen();
-				gId('toggle-fullscreen').innerHTML = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H4m0 0v4m0-4 5 5m7-5h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5m7 5h4m0 0v-4m0 4-5-5"/></svg>'
-			}else{
-				document.documentElement.requestFullscreen();
-				gId('toggle-fullscreen').innerHTML = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 9h4m0 0V5m0 4L4 4m15 5h-4m0 0V5m0 4 5-5M5 15h4m0 0v4m0-4-5 5m15-5h-4m0 0v4m0-4 5 5"/></svg>'
-			}
-		}
 
 		// The styling of disabled checkboxes are controlled by the browser, but it looks ugly af in my color scheme, so why not let it be? <cue Cure For Me by Aurora>
 		document.querySelectorAll('.task-list-item-checkbox').forEach(e=>e.removeAttribute('disabled'))
@@ -129,7 +120,7 @@
 	input[type=search]::-webkit-search-cancel-button{appearance:none;/*Any text input should have a custom svg to aid in clearing value*/}
 	audio::-webkit-media-controls-panel{background-color:#0000;color:#0000}
 	footer a:hover{color:#888}
-	h1, h2, h3, h4, h5, h6{color:var(--font-color)}
+	h1,h2,h3,h4,h5,h6{color:var(--font-color);font-weight:500;margin-top:0;margin-bottom:.5rem}
 	figcaption{font-size:70%;text-align:center}
 	video{max-width:100%;height:auto}
 	img{margin-top:.7em}
@@ -145,7 +136,7 @@
 	/* Jekyll */
 	footer p{color:var(--font-color)}
 	a{text-decoration:none;color:var(--anchor-color);text-shadow:none;transition:color 0.5s ease;transition:text-shadow 0.5s ease;-webkit-transition:color 0.5s ease;-webkit-transition:text-shadow 0.5s ease;-moz-transition:color 0.5s ease;-moz-transition:text-shadow 0.5s ease;-o-transition:color 0.5s ease;-o-transition:text-shadow 0.5s ease;-ms-transition:color 0.5s ease;-ms-transition:text-shadow 0.5s ease}
-	a:hover,a:focus{text-decoration:underline;color:var(--anchor-color-hover)}
+	a:hover,a:focus{color:var(--anchor-color-hover)}
 	footer a{color:var(--font-color);text-decoration:underline}
 	.outer{width:100%}
 	.inner{position:relative;max-width:var(--inner-width);padding:20px 10px;margin:0 auto}
@@ -214,22 +205,22 @@
 	.accordion-button::after{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23eeeeee'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e")!important}
 	.accordion-button:focus{border-color:#0000!important;box-shadow:0 0 0 0px #0000!important}
 	.accordion-header{background:none}
-	.dropdown-menu{background-color:var(--nav-overlay);border:0px solid var(--font-color);border-radius:1em;box-shadow:0 0 1em #111}
-	.dropdown-item, .navbar-dark .navbar-nav .nav-link{color:var(--nav-font-color)}
-	.dropdown-item:focus, .dropdown-item:hover{color:var(--nav-font-color-hover);background-color:var(--overlay-hover)}
-	.dropdown-toggle::after{margin-left:unset}
-	.navbar-toggler:focus{box-shadow:none}
+	/* .dropdown-menu{background-color:var(--nav-overlay);border:0px solid var(--font-color);border-radius:1em;box-shadow:0 0 1em #111} */
+	/* .dropdown-item, .navbar-dark .navbar-nav .nav-link{color:var(--nav-font-color)} */
+	/* .dropdown-item:focus, .dropdown-item:hover{color:var(--nav-font-color-hover);background-color:var(--overlay-hover)} */
+	/* .dropdown-toggle::after{margin-left:unset} */
+	/* .navbar-toggler:focus{box-shadow:none} */
 	.captioned-container{position:relative;max-width:800px;margin:0 auto}
 	.captioned-container .content{position:absolute;bottom:0;background:rgb(0, 0, 0);background:rgba(0, 0, 0, 0.5);color:#f1f1f1!important;width:100%;padding:20px}
 	.active-dropdown{color:#1e2125;background-color:#e9ecef}
 	.caption-middle{position:absolute;bottom:5%;left:50%;transform:translate(-50%, -50%)}
-	.navbar{background-color:var(--nav-overlay);position:sticky;top:1em;z-index:5;margin-top:.5em;margin-bottom:-.5em;box-shadow:0 0 1em #111;border-radius:2em;}
-	.navbar-collapse:not(.show) .navbar-nav .nav-item .dropdown-menu{margin-left:-3em}
-	.nav-link svg{height:2.2em;margin:-.5em 0}
-	.nav-link:hover svg{transform:scale(1.2)}
-	.dropdown-item:hover, .dropdown-item:active{text-decoration: underline}
-	.navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show>.nav-link, .navbar-dark .navbar-nav .dropdown-menu .dropdown-item.active{color:var(--anchor-color);background-color:var(--nav-color)}
-	.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .dropdown-menu .dropdown-item.active:hover{background-color:var(--overlay)}
+	/* .navbar{background-color:var(--nav-overlay);position:sticky;top:1em;z-index:5;margin-top:.5em;margin-bottom:-.5em;box-shadow:0 0 1em #111;border-radius:2em;} */
+	/* .navbar-collapse:not(.show) .navbar-nav .nav-item .dropdown-menu{margin-left:-3em} */
+	/* .nav-link svg{height:2.2em;margin:-.5em 0} */
+	/* .nav-link:hover svg{transform:scale(1.2)} */
+	/* .dropdown-item:hover, .dropdown-item:active{text-decoration: underline} */
+	/* .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show>.nav-link, .navbar-dark .navbar-nav .dropdown-menu .dropdown-item.active{color:var(--anchor-color);background-color:var(--nav-color)} */
+	/* .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .dropdown-menu .dropdown-item.active:hover{background-color:var(--overlay)} */
 
 	/* Custom */
 	#animated-background{position:fixed;width:100%;height:100%;background-color:transparent;background-image:url("");background-repeat:no-repeat;background-size:cover;background-position:50% 50%;z-index:-1}
@@ -287,12 +278,11 @@
 		#particles-mobile{display:block!important}
 		.inner table tbody tr td{padding:unset}
 		#site-hair{text-align:center;float:right}
-		.navbar{width:min-content;position:fixed}
-		.dropdown-menu.show{position:absolute;margin-left:130%;top:0}
+		/* .navbar{width:min-content;position:fixed}
+		.dropdown-menu.show{position:absolute;margin-left:130%;top:0} */
 	}
 
 	/* testing out stuff here owo */
-	.dropdown-submenu{position:relative}
 	::-webkit-scrollbar{
 		width:0;
 		height:0;
