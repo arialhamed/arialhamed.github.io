@@ -100,7 +100,7 @@
 	:root{
 		--overlay:#fff1;
 		--overlay-hover:#fff2;
-		--nav-overlay:#333333e5;
+		--nav-overlay:#333;/*#333333e5*/
 		--nav-font-color:#dddf/*rgba(255,255,255,.55)*/;
 		--nav-font-color-hover:#dddd/*rgba(255,255,255,.75)*/;
 		--font-color:#ddd;
@@ -181,6 +181,75 @@
 		code,pre{min-width:240px;max-width:320px;font-size:11px}
 	}
 	.task-list-item-checkbox{margin-right:.25em;pointer-events:none;accent-color:var(--anchor-color)}
+
+
+	/* Navbar */
+		a[href="{{ page.url }}"]{color:var(--anchor-color)!important;/*Color current anchor*/}
+	.dropdown-toggle:has(+ ul > li > a[href="{{ page.url }}"]){color:var(--anchor-color)!important;/*Color current dropdown anchor*/}
+	.dropdown-menu{
+		display:none;/*Hide first*/
+		position:absolute;/*Set to avoid displacement of root nav*/
+		margin-left:100%;/*Override default margin decided by ul tag*/
+		margin-top:-2.65em;/*Move up first item to same line as clicked*/
+	}
+	.dropdown-toggle::after{/*Plus/minus sign for toggles*/content:"+";float:right;margin-right:1em}
+	.dropdown-toggle:hover::after, li:has(.dropdown-menu:hover) > .dropdown-toggle::after{
+		content:"−";/*Change this when hover over dropdown-toggle OR the ul next to it*/
+	}
+	#navbar{
+		position:fixed;/*Keep navbar at where it is*/
+		z-index:10;/*Keep navbar above everything else*/
+		width:8em;/*le standardize*/
+		margin-left:calc(50% - var(--inner-width) / 2 - 9em);
+	}
+	#navbar *{user-select:none;/*Disallow selecting of text*/}
+	#navbar ul{/*Both main & dropdown menu*/
+		list-style:none;/*Remove bullets*/
+		background-color:var(--nav-overlay);
+		border-radius:1em;
+		padding:.5em;
+	}
+	#navbar > ul{margin:0}
+	#navbar li{padding:0;/*Readjust for missing bullets*/border-radius:.5em}
+	#navbar li:hover{background-color:var(--overlay)}
+	#navbar a{
+		padding:.5em;
+		display:block;/*Stretches it to have a consistent shape along with the other anchors*/
+		width:calc(100% - 0em);/*This & above sets the width of each link to be equal to the list item*/
+		color:var(--nav-font-color)/*Apply only to anchors*/
+	}
+	#navribbon{
+		position:absolute;
+		left:calc(100% - 3em);/*Align to right side of nav, 3em from size + padding of ribbon*/
+		background-color:var(--nav-overlay);
+		border-top-right-radius:1em;
+		border-bottom-right-radius:1em;
+		padding:.5em;
+		cursor:pointer;
+		top:0;
+		color:var(--font-color);
+		z-index:-1;/*Avoid blocking anchor*/
+	}
+	.dropdown-toggle:hover + .dropdown-menu,.dropdown-menu:hover{
+		display:block;/*Preserve dropdowns at any point when engaged*/
+	}
+	@media only screen and (max-width:1080px){
+		#navbar{margin-left:-8em;/*Retract whole nav to side*/}
+		#navbar:hover{margin-left:0;/*Show nav when any part of nav is engaged (including ribbon)*/}
+		#navribbon{
+			left:100%;/*Stick out ribbon*/
+			z-index:1;/*Bring to front*/
+		}
+		#navbar:hover #navribbon{
+			left:calc(50% - 1.5em);/*Center ribbon when engaged*/
+		}
+		#navbar > ul{
+			border-top-right-radius:0;/*Straighten for ribbon at the top*/
+			padding-top:3em;/*Give way for navribbon (when retracted)*/
+		}
+		#navbar:hover > ul{border-top-right-radius:1em;/*Round when ribbon retracts to centre*/}
+	}
+
 
 	/* back-to-top fragment */
 	#back-to-top:hover{background:#444e}
