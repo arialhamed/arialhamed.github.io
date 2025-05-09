@@ -1,8 +1,7 @@
 <style type="text/css">
 	/* Navbar */
-	a[href="{{ page.url }}"]{
-		color:var(--anchor-color)!important
-	}
+	a[href="/resources/explore-my-repos/"]{color:var(--anchor-color)!important;/*Color current anchor*/}
+	.dropdown-toggle:has(+ ul > li > a[href="/resources/explore-my-repos/"]){color:var(--anchor-color)!important;/*Color current dropdown anchor*/}
 	.dropdown-menu{
 		display:none;/*Hide first*/
 		position:absolute;/*Set to avoid displacement of root nav*/
@@ -10,11 +9,13 @@
 		margin-top:-2.65em;/*Move up first item to same line as clicked*/
 	}
 	.dropdown-toggle::after{
-		display: inline-block;
+		/* display: inline-block; */
 		content:"+";
+		float:right;
+		margin-right:1em
 	}
-	.dropdown-toggle:hover::after{
-		content:"‒";
+	.dropdown-toggle:hover::after, li:has(.dropdown-menu:hover) > .dropdown-toggle::after{
+		content:"−";/*Change this when hover over dropdown-toggle OR the ul next to it*/
 	}
 	#navbar{
 		position:fixed;/*Keep navbar at where it is*/
@@ -28,6 +29,7 @@
 		background-color:var(--nav-overlay);
 		border-radius:1em;
 		padding:.5em;
+		box-shadow: 0 0 1em black;
 	}
 	#navbar > ul{margin:0}
 	#navbar li{padding:0;/*Readjust for missing bullets*/border-radius:.5em}
@@ -41,31 +43,60 @@
 	#navribbon{
 		position:absolute;
 		left:calc(100% - 3em);/*Align to right side of nav, 3em from size + padding of ribbon*/
+		cursor:pointer;
+		color:transparent;
+		z-index:-1;/*Avoid blocking anchor*/
+	}
+	#navribbon > svg{
 		background-color:var(--nav-overlay);
+		width:2em;
+		height:2em;
 		border-top-right-radius:1em;
 		border-bottom-right-radius:1em;
-		padding:.5em;
-		cursor:pointer;
-		top:0;
-		color:transparent;
-		z-index:-1;
+		padding:.5em
 	}
-	.dropdown-toggle:hover + .dropdown-menu,.dropdown-menu:hover{display:block;/*Preserve dropdowns at any point when engaged*/}
+	.dropdown-toggle:hover + .dropdown-menu,.dropdown-menu:hover{
+		display:block;/*Preserve dropdowns at any point when engaged*/
+	}
 	@media only screen and (max-width:1080px){
 		#navbar{margin-left:-8em;/*Retract whole nav to side*/}
-		#navbar:hover{margin-left:0;/*Show when any part is engaged (including ribbon)*/}
-		#navribbon{/*Show ribbon gloriously*/
-			display: block;
-			left:100%;
-			color:var(--font-color)
+		#navbar:hover{
+			margin-left:0;/*Show nav when any part of nav is engaged (including ribbon)*/
 		}
-		#navbar > ul{border-top-right-radius:0;/*Smoothen for ribbon at the top*/}
+		#navribbon{/*Show ribbon gloriously*/
+			z-index:1;/*Bring to front*/
+			left:100%;
+			color:var(--font-color);
+			/* box-shadow: 0 0 1em black; */
+		}
+		#navribbon:after{/*Box-shadow only to top, right & bottom of navribbon*/
+			position:absolute;
+			content:'';
+			width:80%;
+			height:3em;
+			right:0;
+			top:0;
+			box-shadow:0 0 1em black;
+			z-index:-1;
+			border-radius:1em;
+			transition:box-shadow 0.3s ease-in 0s;/*Box-shadow will only appear when most of navribbon is not over nav*/
+		}
+		#navbar:hover #navribbon{left:calc(50% - 1.5em);/*Move navribbon to inside of nav*/}
+		#navbar:hover #navribbon:after{
+			box-shadow:none;
+			transition:box-shadow 0.3s ease-out 0s;/*Box-shadow disappears early*/
+		}
+		#navbar > ul{
+			border-top-right-radius:0;/*Smoothen for ribbon at the top*/
+			padding-top:3em;/*Give way for navribbon*/
+		}
+		#navbar:hover > ul{border-top-right-radius:1em;/*Smoothen for ribbon at the top*/}
 		/* #navbar a{pointer-events:none} */
 		/* #navbar:hover a{pointer-events:auto} */
 	}
 </style>
 <nav id="navbar">
-	<svg id="navribbon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="2em" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"></path></svg>
+	<div id="navribbon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="2em" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"></path></svg></div>
 	<ul>
 		<!-- HOME -->
 		<li>
