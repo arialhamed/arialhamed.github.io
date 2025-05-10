@@ -97,6 +97,7 @@
 	/* Built-in */
 	*{transition:all ease-in-out .3s}
 	/* fun -> cubic-bezier(.39,.99,0,-0.73) */
+	*,::after,::before{box-sizing:border-box}
 	:root{
 		--overlay:#fff1;
 		--overlay-hover:#fff2;
@@ -124,6 +125,7 @@
 	figcaption{font-size:70%;text-align:center}
 	video{max-width:100%;height:auto}
 	img{margin-top:.7em}
+	img,svg{vertical-align:middle}
 	table *:not(thead *){font-weight: normal}
 	table:not(#header-table){background-color:#0003;color:#ddd;font-size:1em;display:block;overflow-x:auto;white-space:nowrap;border:1px solid white;}
 	body{display:flex;min-height:100vh;flex-direction:column}
@@ -135,11 +137,11 @@
 
 	/* Jekyll */
 	footer p{color:var(--font-color)}
-	a{text-decoration:none;color:var(--anchor-color);text-shadow:none;transition:color 0.5s ease;transition:text-shadow 0.5s ease;-webkit-transition:color 0.5s ease;-webkit-transition:text-shadow 0.5s ease;-moz-transition:color 0.5s ease;-moz-transition:text-shadow 0.5s ease;-o-transition:color 0.5s ease;-o-transition:text-shadow 0.5s ease;-ms-transition:color 0.5s ease;-ms-transition:text-shadow 0.5s ease}
+	a{text-decoration:none;color:var(--anchor-color);text-shadow:none;/*transition:color 0.5s ease;transition:text-shadow 0.5s ease;-webkit-transition:color 0.5s ease;-webkit-transition:text-shadow 0.5s ease;-moz-transition:color 0.5s ease;-moz-transition:text-shadow 0.5s ease;-o-transition:color 0.5s ease;-o-transition:text-shadow 0.5s ease;-ms-transition:color 0.5s ease;-ms-transition:text-shadow 0.5s ease*/}
 	a:hover,a:focus{color:var(--anchor-color-hover)}
 	footer a{color:var(--font-color);text-decoration:underline}
 	.outer{width:100%}
-	.inner{position:relative;max-width:var(--inner-width);padding:20px 10px;margin:0 auto}
+	.inner{position:relative;max-width:var(--inner-width);padding:0 10px;margin:0 auto}
 	.inner table tbody tr td{padding:0 10px}
 	#header-wrap, body, #footer-wrap{background:transparent;}
 	#header-wrap{padding-top:10px}
@@ -153,8 +155,7 @@
 	#main-content{padding-top:0}
 	.language-plaintext{background-color:#333!important;mix-blend-mode:difference;font-family:monospace;padding:.1em .3em;border-radius:.35em;color:wheat}
 	.highlight table td{padding:5px}.highlight table pre{margin:0}.highlight .cm{color:#777772;font-style:italic}.highlight .cp{color:#797676;font-weight:700}.highlight .c1{color:#777772;font-style:italic}.highlight .cs{color:#797676;font-weight:700;font-style:italic}.highlight .c,.highlight .cd{color:#777772;font-style:italic}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .gd{color:#000;background-color:#fdd}.highlight .ge{color:#000;font-style:italic}.highlight .gr{color:#a00}.highlight .gh{color:#797676}.highlight .gi{color:#000;background-color:#dfd}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:700}.highlight .gu{color:#aaa}.highlight .gt{color:#a00}.highlight .kc{color:#000;font-weight:700}.highlight .kd{color:#000;font-weight:700}.highlight .kn{color:#000;font-weight:700}.highlight .kp{color:#000;font-weight:700}.highlight .kr{color:#000;font-weight:700}.highlight .kt{color:#458;font-weight:700}.highlight .k,.highlight .kv{color:#dd0;font-weight:700}.highlight .mf{color:#099}.highlight .mh{color:#099}.highlight .il{color:#099}.highlight .mi{color:#099}.highlight .mo{color:#099}.highlight .m,.highlight .mb,.highlight .mx{color:#099}.highlight .sb{color:#d14}.highlight .sc{color:#d14}.highlight .sd{color:#d14}.highlight .s2{color:#d14}.highlight .se{color:#d14}.highlight .sh{color:#d14}.highlight .si{color:#d14}.highlight .sx{color:#d14}.highlight .s1{color:#d14}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .bp{color:#797676}.highlight .nb{color:#0086B3}.highlight .nc{color:#458;font-weight:700}.highlight .no{color:teal}.highlight .nd{color:#3c5d5d;font-weight:700}.highlight .ni{color:purple}.highlight .ne{color:#900;font-weight:700}.highlight .nf{color:#900;font-weight:700}.highlight .nl{color:#900;font-weight:700}.highlight .nn{color:#555}.highlight .nt{color:#5f5ff0}.highlight .vc{color:teal}.highlight .vg{color:teal}.highlight .vi{color:teal}.highlight .nv{color:teal}.highlight .ow{color:#000;font-weight:700}.highlight .w{color:#bbb}
-	@media screen and (max-width:992px){img{max-width:100%}}
-	@media screen and (max-width:480px){
+	/*@media screen and (max-width:480px){
 		body{font-size:14px}
 		#downloads{display:none}
 		.inner{min-width:320px;max-width:480px}
@@ -179,7 +180,7 @@
 		h5{font-size:14px}
 		h6{font-size:12px}
 		code,pre{min-width:240px;max-width:320px;font-size:11px}
-	}
+	} */
 	.task-list-item-checkbox{margin-right:.25em;pointer-events:none;accent-color:var(--anchor-color)}
 
 
@@ -199,7 +200,7 @@
 	}
 	#navbar{
 		position:fixed;/*Keep navbar at where it is*/
-		z-index:10;/*Keep navbar above everything else*/
+		z-index:5;/*Keep navbar above everything else*/
 		width:8em;/*le standardize*/
 		margin-left:calc(50% - var(--inner-width) / 2 - 9em);/*Needs to be tweaked over time*/
 		top:3em;
@@ -213,16 +214,19 @@
 		box-shadow:inset 0 0 0 1px var(--anchor-color);/*Set this instead of border to ensure there are no gaps between 'ul's*/
 	}
 	#navbar > ul{margin:0}
-	#navbar li{padding:0;/*Readjust for missing bullets*/border-radius:.5em}
-	#navbar li:hover{background-color:var(--overlay)}
+	#navbar li{padding:0;/*Readjust for missing bullets*/border-radius:.5em;transition:none}
+	#navbar li:hover{box-shadow:inset 0 0 0 1px var(--anchor-color)}
 	#navbar a{
 		padding:.5em;
 		display:block;/*Stretches it to have a consistent shape along with the other anchors*/
 		width:calc(100% - 0em);/*This & above sets the width of each link to be equal to the list item*/
-		color:var(--nav-font-color)/*Apply only to anchors*/
+		color:var(--nav-font-color);/*Apply only to anchors*/
+		box-sizing:content-box;/*Extend anchor to reach dropdown-menu*/
 	}
 	#navribbon{
 		position:absolute;
+		width:3em;
+		height:3em;
 		right:0;/*Align to right side of nav*/
 		background-color:var(--nav-overlay);
 		border-top-right-radius:1em;
@@ -237,7 +241,7 @@
 		display:block;/*Preserve dropdowns at any point when engaged*/
 	}
 	@media only screen and (max-width:1080px){
-		#navbar{margin-left:-8em;/*Retract whole nav to side*/}
+		#navbar{margin-left:-8em;/*Retract whole nav to side*/z-index:7;}
 		#navbar:hover{margin-left:0;/*Show nav when any part of nav is engaged (including ribbon)*/}
 		#navribbon{
 			right:calc(-3em + 1px);/*Stick out ribbon, 1px to cover ul border*/
@@ -299,6 +303,8 @@
 	/* .dropdown-item:hover, .dropdown-item:active{text-decoration: underline} */
 	/* .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show>.nav-link, .navbar-dark .navbar-nav .dropdown-menu .dropdown-item.active{color:var(--anchor-color);background-color:var(--nav-color)} */
 	/* .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .dropdown-menu .dropdown-item.active:hover{background-color:var(--overlay)} */
+	.row{--bs-gutter-x:1.5rem;--bs-gutter-y:0;display:flex;flex-wrap:wrap;margin-top:calc(var(--bs-gutter-y) * -1);margin-right:calc(var(--bs-gutter-x) * -.5);margin-left:calc(var(--bs-gutter-x) * -.5)}
+	.list-group{display:flex;flex-direction:column}
 
 	/* Custom */
 	#animated-background{position:fixed;width:100%;height:100%;background-color:transparent;background-image:url("");background-repeat:no-repeat;background-size:cover;background-position:50% 50%;z-index:-1}
@@ -346,18 +352,15 @@
 
 	/* MOBILE STYLE */
 	@media only screen and (max-width:578px){
-		#header-wrap{position:absolute;padding:unset}
-		header.inner{padding:10px 0 0 0}
-		#project-tagline{text-align:right}
-		#project-title a{font-size:80%}
-		#main-content-wrap{padding-top: 5em}
+		/* #header-wrap{position:absolute;padding:unset} */
+		/* header.inner{padding:10px 0 0 0} */
+		/* #project-tagline{text-align:right} */
+		/* #project-title a{font-size:80%} */
+		/* #main-content-wrap{padding-top: 5em} */
 		#footer-wrap footer p{float:unset!important}
-		#particles-js, canvas.particles-js-canvas-el, #github-redirect{display:none!important}
-		#particles-mobile{display:block!important}
-		.inner table tbody tr td{padding:unset}
-		#site-hair{text-align:center;float:right}
-		/* .navbar{width:min-content;position:fixed}
-		.dropdown-menu.show{position:absolute;margin-left:130%;top:0} */
+		/* #particles-js, canvas.particles-js-canvas-el, #github-redirect{display:none!important} */
+		/* #particles-mobile{display:block!important} */
+		/* .inner table tbody tr td{padding:unset} */
 	}
 
 	/* testing out stuff here owo */

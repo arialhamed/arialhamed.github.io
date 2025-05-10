@@ -9,16 +9,12 @@
 {% seo %}
 </head>
 <body>
-<!--{% unless page.disable_nav %}-->
-{% include nav.html %}
-<!--{% endunless %}-->
 {% include header.html %}
 <!--{% if page.browserOS %}-->
 {{ content }}
 <!--{% endif %}-->
 <div id="main-content-wrap" class="outer" >
 <section id="main-content" class="inner">
-<br>
 <!--{% unless page.browserOS %}-->
 {{ content }}
 <!--{% endunless %}-->

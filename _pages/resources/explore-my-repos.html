@@ -29,7 +29,7 @@ pdf: true
 </div>
 
 <!-- title -->
-<h2 id="current-title"></h2>
+<a id="current-title"></a>
 
 <!-- description -->
 <div>
@@ -57,7 +57,7 @@ pdf: true
 <br>
 
 <!-- under the cells, displaying all except images already in cells -->
-<div class="container wide-responsive" id="explore-display">
+<div id="explore-display">
 </div>
 
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
@@ -75,16 +75,22 @@ pdf: true
 	background-color: var(--nav-overlay);
 	border-radius: 1em;
 }
-#select-branch:empty{display:none}
+#select-branch:empty{visibility:hidden}
 
 /* Title & description */
 #current-title{
-	text-decoration: underline;
-	text-align: center;
-	overflow: scroll;
+	text-decoration:underline;
+	text-align:center;
+	overflow:scroll;
+	font-size:200%;
+	font-weight:500;
+	margin:.1em 0;
+	color:var(--font-color);
+	display:flex;
+	flex-direction:column;
+	line-height:1.8em;
 }
-#current-title-inner{color:var(--font-color)}
-#current-title-inner:hover{color:var(--anchor-color)}
+#current-title:hover{color:var(--anchor-color)}
 #current-description{margin-top:.5em;/*Repository description*/}
 #current-description svg{vertical-align:text-top;/*Private & fork icons*/}
 #current-description + svg{float:right;/*Edit description icon*/}
@@ -129,6 +135,9 @@ pdf: true
 
 /* Explorer content & items within */
 #explore-content:has(>:nth-child(2)) .loader{display:none;/*Hide when there are at least 2 items in #explore-content (i.e. if .loader is not alone)*/}
+.loader{margin:2em auto;grid-column:1 / 5;/*"rowspan" for grid display*/}
+#explore-content img{/*Only explore-content image descendants*/max-width:100%;margin:auto}
+#explore-content > a{padding:.3em}
 .explore-cell:hover{background-color:var(--overlay-hover)}
 .explore-cell{
 	display: inline-block;
@@ -141,9 +150,11 @@ pdf: true
 	font-size: 1rem;
 }
 span.explore-cell{cursor: pointer}
-.row .explore-cell{text-align:center;padding:.375rem .75rem;margin:4px;}
-.row .explore-cell span:nth-child(2){font-size:70%;}
-.row .explore-cell span:nth-child(2):not(.size){display:none;}
+.grid{display:grid;grid-template-columns:25% 25% 25% 25%;}
+.grid .explore-cell{text-align:center;/*padding:.375rem .75rem;*/margin:4px;}
+.grid .explore-cell span:nth-child(2){font-size:70%;}
+.grid .explore-cell span:nth-child(2):not(.size){display:none;}
+.grid .explore-cell:has(img){display:flex}
 .list-group .explore-cell{text-align:left;padding:.2rem .5rem;margin:2.5px 0;display:flex;}
 .list-group .explore-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
 .list-group .explore-cell:has(img){display:block;width:100%;padding:.5em}
@@ -364,7 +375,7 @@ window.onhashchange=async()=>{
 	browsingTree.at(-2)==inUrl?browsingTree.pop():browsingTree.push(inUrl);
 
 	// mediaArray=[];
-	gId('explore-content').innerHTML='<span class="loader" style="margin:2em auto 0 auto" data-search=""></span>';
+	gId('explore-content').innerHTML='<span class="loader" data-search=""></span>';
 
 	try{
 		// Get repository contents or list repositories of a user
@@ -372,7 +383,8 @@ window.onhashchange=async()=>{
 		if (inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
 			browsingTree=[inUrl]
 			gId('explore-back').href='';
-			gId('current-title').innerHTML='My GitHub repositories';
+			gId('current-title').textContent='My GitHub repositories';
+			gId('current-title').removeAttribute('href');
 			gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
 			gId('upload-file').style.visibility='hidden'; // Hide upload button
 			gId('download-repo').style.visibility='hidden'; // Hide download button
@@ -399,7 +411,8 @@ window.onhashchange=async()=>{
 				// Set title & description of current repo
 				const rrDeets = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}`, github_api_headers({refresh: isReload})).then(r=>{if(!r.ok){throw r}return r.json()})
 				gId('current-description').innerHTML=`${rrDeets.private?privateIcon:''}${rrDeets.fork?`<a href="${rrDeets.parent.html_url}">${forkIcon}</a>`:''}${rrDeets.description===null?'<i>No description</i>':rrDeets.description}`;
-				gId('current-title').innerHTML=`<a id="current-title-inner" href="${rrDeets.html_url}">${rrDeets.name}</a>`;
+				gId('current-title').textContent=rrDeets.name;
+				gId('current-title').href=rrDeets.html_url
 
 				// Set branch choices
 				const branches = await fetch(`https://api.github.com/repos/${browsingCurrentRepo}/branches`, github_api_headers({refresh: isReload})).then(r=>r.json())
@@ -421,7 +434,7 @@ window.onhashchange=async()=>{
 	}catch(err){
 		gId('explore-back').href='';
 		gId('current-description').innerHTML='';
-		gId('current-title').innerHTML='Uh oh, that URL is invalid';
+		gId('current-title').textContent='Uh oh, that URL is invalid';
 		gId('explore-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#/users/${ghusr}/repos?per_page=100&sort=pushed">Return to repositories view?</a>`;
 		return
 	}
@@ -488,7 +501,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		if(fileName.toLowerCase().endsWith('.md') && !mdRaw){
 			browseDisplayInner+=`<br><span id="md-parsed">${mdConverter.render(itemTextOut.substring(1).split('---').pop())}</span>`;
 		}else{ // else show it parsed in Prism.js
-			browseDisplayInner+=`<br><pre style="background-color:#333a;width:100%;" data-src="${downloadUrl}" data-download-link><code id="show-text" class="line-numbers language-${fileName.split('.').pop()}">${itemTextOut.replace(/\</g, '&lt;')}</code></pre>`;
+			browseDisplayInner+=`<br><pre style="background-color:#333a;/*width:100%;*/" data-src="${downloadUrl}" data-download-link><code id="show-text" class="line-numbers language-${fileName.split('.').pop()}">${itemTextOut.replace(/\</g, '&lt;')}</code></pre>`;
 		} // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 	}
 
@@ -508,9 +521,9 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	if (gId('show-text')!==null){Prism.highlightElement(gId('show-text'))}
 	if (gId('show-pdf')!==null){
 		let loadingTask = pdfjsLib.getDocument(downloadUrl);
-		loadingTask.promise.then(function(pdf) {
+		loadingTask.promise.then((pdf)=>{
 			for(let pageNumber=1;pageNumber<pdf.numPages+1;pageNumber++){
-				pdf.getPage(pageNumber).then(function(page) {
+				pdf.getPage(pageNumber).then((page)=>{
 					let viewport = page.getViewport({scale: 1});
 					let canvas = document.createElement('canvas');
 					let context = canvas.getContext('2d');
@@ -523,7 +536,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 						viewport: viewport
 					};
 					let renderTask = page.render(renderContext);
-					renderTask.promise.then(async()=>{
+					renderTask.promise.then(()=>{
 						gId('show-pdf').insertAdjacentHTML('beforeend', `<img src="${canvas.toDataURL()}">`)
 					})
 				})
@@ -675,7 +688,7 @@ gId('select-branch').onchange=e=>{
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 const searchContents=()=>{gId('explore-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
 const browseToggleView=async(manualSet=true)=>{
-	if(manualSet)localStorage.setItem('browse-view-mode',(localStorage.getItem('browse-view-mode')=='list-group')?'row wide-responsive':'list-group');
+	if(manualSet)localStorage.setItem('browse-view-mode',(localStorage.getItem('browse-view-mode')=='list-group')?'grid':'list-group');
 	gId('explore-content').setAttribute('class',localStorage.getItem('browse-view-mode'))
 	gId('browse-view').innerHTML=(localStorage.getItem('browse-view-mode')=='list-group')?viewIcon:viewList;
 }
