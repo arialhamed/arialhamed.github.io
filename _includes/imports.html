@@ -191,6 +191,7 @@
 		position:absolute;/*Set to avoid displacement of root nav*/
 		margin-left:100%;/*Override default margin decided by ul tag*/
 		margin-top:-2.65em;/*Move up first item to same line as clicked*/
+		width:max-content;/*Avoids newline for each li*/
 	}
 	.dropdown-toggle::after{/*Plus/minus sign for toggles*/content:"+";float:right;margin-right:1em}
 	.dropdown-toggle:hover::after, li:has(.dropdown-menu:hover) > .dropdown-toggle::after{
@@ -200,7 +201,8 @@
 		position:fixed;/*Keep navbar at where it is*/
 		z-index:10;/*Keep navbar above everything else*/
 		width:8em;/*le standardize*/
-		margin-left:calc(50% - var(--inner-width) / 2 - 9em);
+		margin-left:calc(50% - var(--inner-width) / 2 - 9em);/*Needs to be tweaked over time*/
+		top:3em;
 	}
 	#navbar *{user-select:none;/*Disallow selecting of text*/}
 	#navbar ul{/*Both main & dropdown menu*/
@@ -208,6 +210,7 @@
 		background-color:var(--nav-overlay);
 		border-radius:1em;
 		padding:.5em;
+		box-shadow:inset 0 0 0 1px var(--anchor-color);/*Set this instead of border to ensure there are no gaps between 'ul's*/
 	}
 	#navbar > ul{margin:0}
 	#navbar li{padding:0;/*Readjust for missing bullets*/border-radius:.5em}
@@ -220,7 +223,7 @@
 	}
 	#navribbon{
 		position:absolute;
-		left:calc(100% - 3em);/*Align to right side of nav, 3em from size + padding of ribbon*/
+		right:0;/*Align to right side of nav*/
 		background-color:var(--nav-overlay);
 		border-top-right-radius:1em;
 		border-bottom-right-radius:1em;
@@ -237,17 +240,23 @@
 		#navbar{margin-left:-8em;/*Retract whole nav to side*/}
 		#navbar:hover{margin-left:0;/*Show nav when any part of nav is engaged (including ribbon)*/}
 		#navribbon{
-			left:100%;/*Stick out ribbon*/
+			right:calc(-3em + 1px);/*Stick out ribbon, 1px to cover ul border*/
 			z-index:1;/*Bring to front*/
+			box-shadow:inset -1px 0px 0px 1px var(--anchor-color);/*Inner border*/
 		}
 		#navbar:hover #navribbon{
-			left:calc(50% - 1.5em);/*Center ribbon when engaged*/
+			right:calc(50% - 1.5em);/*Center ribbon when engaged*/
+			background-color:transparent;/*For the sake of the pseudo-border's appearance*/
+			box-shadow:none;/*Remove inner border*/
 		}
 		#navbar > ul{
 			border-top-right-radius:0;/*Straighten for ribbon at the top*/
 			padding-top:3em;/*Give way for navribbon (when retracted)*/
 		}
 		#navbar:hover > ul{border-top-right-radius:1em;/*Round when ribbon retracts to centre*/}
+		/* body:has(#navbar:hover){
+			opacity: .5;
+		} */
 	}
 
 
