@@ -128,7 +128,7 @@
 	img,svg{vertical-align:middle}
 	table *:not(thead *){font-weight: normal}
 	table:not(#header-table){background-color:#0003;color:#ddd;font-size:1em;display:block;overflow-x:auto;white-space:nowrap;border:1px solid white;}
-	body{display:flex;min-height:100vh;flex-direction:column}
+	body{display:flex;min-height:100vh;flex-direction:column;margin:0;font-size:1rem;line-height:1.5}
 	html{background-color:var(--background-solid)}
 	progress{appearance:none;border:none;/*Modal progress bar*/}
 	::-webkit-progress-value{background-color:var(--nav-font-color)}
@@ -191,7 +191,7 @@
 		display:none;/*Hide first*/
 		position:absolute;/*Set to avoid displacement of root nav*/
 		margin-left:100%;/*Override default margin decided by ul tag*/
-		margin-top:-2.65em;/*Move up first item to same line as clicked*/
+		margin-top:-3em;/*Move up first item to same line as clicked*/
 		width:max-content;/*Avoids newline for each li*/
 	}
 	.dropdown-toggle::after{/*Plus/minus sign for toggles*/content:"+";float:right;margin-right:1em}
@@ -203,7 +203,7 @@
 		z-index:5;/*Keep navbar above everything else*/
 		width:8em;/*le standardize*/
 		margin-left:calc(50% - var(--inner-width) / 2 - 9em);/*Needs to be tweaked over time*/
-		top:3em;
+		top:2.5em;
 	}
 	#navbar *{user-select:none;/*Disallow selecting of text*/}
 	#navbar ul{/*Both main & dropdown menu*/

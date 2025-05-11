@@ -81,14 +81,16 @@ pdf: true
 #current-title{
 	text-decoration:underline;
 	text-align:center;
-	overflow:scroll;
 	font-size:200%;
 	font-weight:500;
-	margin:.1em 0;
+	margin:.1em 1.5em;
 	color:var(--font-color);
 	display:flex;
 	flex-direction:column;
 	line-height:1.8em;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
 }
 #current-title:hover{color:var(--anchor-color)}
 #current-description{margin-top:.5em;/*Repository description*/}
