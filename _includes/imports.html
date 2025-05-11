@@ -190,7 +190,7 @@
 	.dropdown-menu{
 		display:none;/*Hide first*/
 		position:absolute;/*Set to avoid displacement of root nav*/
-		margin-left:100%;/*Override default margin decided by ul tag*/
+		margin-left:calc(100% - .5em);/*Override default margin decided by ul tag (.5em offset for gap between nav and left edge of screen*/
 		margin-top:-3em;/*Move up first item to same line as clicked*/
 		width:max-content;/*Avoids newline for each li*/
 	}
@@ -201,9 +201,10 @@
 	#navbar{
 		position:fixed;/*Keep navbar at where it is*/
 		z-index:5;/*Keep navbar above everything else*/
-		width:8em;/*le standardize*/
+		width:9em;/*le standardize*/
 		margin-left:calc(50% - var(--inner-width) / 2 - 9em);/*Needs to be tweaked over time*/
 		top:2.5em;
+		padding-left:.5em;
 	}
 	#navbar *{user-select:none;/*Disallow selecting of text*/}
 	#navbar ul{/*Both main & dropdown menu*/
@@ -240,8 +241,8 @@
 	.dropdown-toggle:hover + .dropdown-menu,.dropdown-menu:hover{
 		display:block;/*Preserve dropdowns at any point when engaged*/
 	}
-	@media only screen and (max-width:1080px){
-		#navbar{margin-left:-8em;/*Retract whole nav to side*/z-index:7;}
+	@media only screen and (max-width:calc(800px + 8.5em * 2)){
+		#navbar{margin-left:-8.5em;/*Retract whole nav to side*/z-index:7;}
 		#navbar:hover{margin-left:0;/*Show nav when any part of nav is engaged (including ribbon)*/}
 		#navribbon{
 			right:calc(-3em + 1px);/*Stick out ribbon, 1px to cover ul border*/
@@ -249,7 +250,7 @@
 			box-shadow:inset -1px 0px 0px 1px var(--anchor-color);/*Inner border*/
 		}
 		#navbar:hover #navribbon{
-			right:calc(50% - 1.5em);/*Center ribbon when engaged*/
+			right:calc(50% - 1.75em);/*Center ribbon when engaged*/
 			background-color:transparent;/*For the sake of the pseudo-border's appearance*/
 			box-shadow:none;/*Remove inner border*/
 		}

@@ -327,7 +327,7 @@ const audioPlayerHTML=`
 <input id="show-audio" value="0" type="range">`;
 const viewIcon = `<svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>`
 const viewList = `<svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>`
-const uploadFileInput=Object.assign(document.createElement('input'), {type:'file'});
+const uploadFileInput=Object.assign(document.createElement('input'), {type:'file',multiple:true});
 
 // Browsing control variables
 let debog;
@@ -673,15 +673,19 @@ uploadFileInput.onchange=e=>{
 				content: intermediaryReader.result.split(';base64,')[1]
 			})
 		})
-		// .then(r=>gId('explore-refresh').click())
-		.then(r=>r.json())
-		.then(j=>{
-			debog=j;
-			gId('explore-refresh').click();
-			raiseToast(`"${j.content.name}" has been uploaded`)
-		})
+	// 	// .then(r=>gId('explore-refresh').click())
+	// 	.then(r=>r.json())
+	// 	.then(j=>{
+	// 		debog=j;
+	// 		gId('explore-refresh').click();
+	// 		raiseToast(`"${j.content.name}" has been uploaded`)
+	// 	})
 	}
-	intermediaryReader.readAsDataURL(e.target.files[0])
+	// intermediaryReader.readAsDataURL(e.target.files[0])
+	const listOfFiles = Array.from(e.target.files);
+	listOfFiles.forEach(f=>intermediaryReader.readAsDataURL(f));
+	gId('explore-refresh').click();
+	raiseToast(`${listOfFiles.length} file(s) has been uploaded`)
 }
 gId('select-branch').onchange=e=>{
 	browsingTree=browsingTree.map(v=>v.includes('?ref=')?`${v.split('?ref=',1)[0]}?ref=${e.target.value}`:v)
