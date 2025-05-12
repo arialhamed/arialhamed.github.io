@@ -136,8 +136,8 @@ pdf: true
 }
 
 /* Explorer content & items within */
-#explore-content:has(>:nth-child(2)) .loader{display:none;/*Hide when there are at least 2 items in #explore-content (i.e. if .loader is not alone)*/}
-.loader{margin:2em auto;grid-column:1 / 5;/*"rowspan" for grid display*/}
+:has(>:nth-child(2)) > .loader{display:none;/*Hide when there are at least 2 items in #explore-content or show-* (i.e. if .loader is not alone)*/}
+#explore-content > .loader{margin:2em auto;grid-column:1 / 5;/*"rowspan" for grid display*/}
 #explore-content img{/*Only explore-content image descendants*/max-width:100%;margin:auto}
 #explore-content > a{padding:.3em}
 .explore-cell:hover{background-color:var(--overlay-hover)}
@@ -199,6 +199,7 @@ span.explore-cell{cursor: pointer}
 	width: 90%;
 	accent-color: var(--anchor-color);
 }
+#show-pdf{min-height:65vh;display:flex;flex-direction:column}
 #show-pdf img{max-width:100%}
 .explore-display-image #explore-display span:first-child{ 
 	background-color: var(--popup-background-color);
@@ -461,7 +462,6 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	console.log(`showFile(${downloadUrl}, ${gitUrl})`);
 	const bDisplay=gId('explore-display');
 	var fileName=downloadUrl.split('/').pop().split('?')[0];
-	// const gitContent = await 
 
 	// Remove loops to avoid raiding the console section 
 	if(audioMainLoop)clearInterval(audioMainLoop);
@@ -495,7 +495,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	}else if(extA.some(v => fileName.toLowerCase().endsWith(v))){
 		browseDisplayInner+="<p>Contents of this file can not be parsed here.</p>";
 	}else if(fileName.toLowerCase().endsWith(".pdf")){
-		browseDisplayInner+=`<br><div id="show-pdf"></div>`
+		browseDisplayInner+=`<br><div id="show-pdf"><span class="loader"></span></div>`
 	}else{
 		const itemTextOut=await fetch(gitUrl, github_api_headers()).then(r=>r.json()).then(t=>atob(t['content']));
 
@@ -517,35 +517,38 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		['default','image','audio'].forEach(e=>{bDisplay.classList.remove('explore-display-'+e)})
 	}
 
+	// Automatically scroll down
+	if(!['image','audio'].includes(browseDisplayIndicator)){window.scrollTo({top: gId('explore-display').getBoundingClientRect().y+window.pageYOffset, behavior: "smooth"})}
 
 	// Set volume to half and play the media automatically
 	if (gId('show-video')!==null){gId('show-video').volume=.5;gId('show-video').play()}
 	if (gId('show-text')!==null){Prism.highlightElement(gId('show-text'))}
 	if (gId('show-pdf')!==null){
-		let loadingTask = pdfjsLib.getDocument(downloadUrl);
-		loadingTask.promise.then((pdf)=>{
-			for(let pageNumber=1;pageNumber<pdf.numPages+1;pageNumber++){
-				pdf.getPage(pageNumber).then((page)=>{
-					let viewport = page.getViewport({scale: 1});
-					let canvas = document.createElement('canvas');
-					let context = canvas.getContext('2d');
-					canvas.height = viewport.height;
-					canvas.width = viewport.width;
+		let pdf = await fetch(gitUrl, github_api_headers({raw:true}))
+		.then(r=>r.arrayBuffer())
+		.then(pdfData=>pdfjsLib.getDocument({data: pdfData}).promise)
+		const getSinglePage=async(pageNumber)=>{
+		// for(let pageNumber=1;pageNumber<pdf.numPages+1;pageNumber++){
+			pdf.getPage(pageNumber).then(page=>{
+				let viewport = page.getViewport({scale: 1});
+				let canvas = document.createElement('canvas');
+				let context = canvas.getContext('2d');
+				canvas.height = viewport.height;
+				canvas.width = viewport.width;
 
-					// Render PDF page into canvas context
-					let renderContext = {
-						canvasContext: context,
-						viewport: viewport
-					};
-					let renderTask = page.render(renderContext);
-					renderTask.promise.then(()=>{
-						gId('show-pdf').insertAdjacentHTML('beforeend', `<img src="${canvas.toDataURL()}">`)
-					})
+				// Render PDF page into canvas context
+				let renderContext = {
+					canvasContext: context,
+					viewport: viewport
+				};
+				// let renderTask = page.render(renderContext);
+				page.render(renderContext).promise.then(()=>{
+					gId('show-pdf').insertAdjacentHTML('beforeend', `<img src="${canvas.toDataURL()}">`)
+					if(pdf.numPages>pageNumber)getSinglePage(pageNumber+1);
 				})
-			}
-		},(err)=>{
-			console.error(err);
-		})
+			})
+		}
+		getSinglePage(1)
 	}
 	if (gId('show-audio')!==null){
 		console.log('Playing audio')
@@ -657,7 +660,6 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		gId('audio-music-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
 
 	}
-	if(!['image','audio'].includes(browseDisplayIndicator)){window.scrollTo({top: gId('explore-display').getBoundingClientRect().y+window.pageYOffset-70, behavior: "smooth"})}
 }
 uploadFileInput.onchange=e=>{
 	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
