@@ -63,6 +63,7 @@ To-do list for the [repo browser](/resources/explore-my-repos/):
 - [x] Restructure how private repos work to eliminate use of `/user/repos` (endpoint for repositories for authenticated user). This is to ensure portability of the generated URL (that will usually have a hash)
 - [x] Fix PDF viewer
 	- [ ] Optimize it to add one-by-one asynchronously, maybe pagination option
+- [ ] `showFile` function to clear page and utilize the `browse-content` & remove `browse-display` OR move it up like in OneDrive.
 
 Known limits:
 - Unable to add modified datetime for file contents

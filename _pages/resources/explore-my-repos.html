@@ -470,7 +470,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
 	let browseDisplayInner=`<div>
 	<svg id="explore-display-close" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-	<a href="${downloadUrl.includes('?token=')?`javascript:downloadFile('${locationId}/${fileName}?ref=${refId}')}`:downloadUrl}">${decodeURIComponent(fileName)}</a>
+	<a href="${downloadUrl.includes('?token=')?`javascript:downloadFile('${locationId}/${fileName}?ref=${refId}')`:downloadUrl}">${decodeURIComponent(fileName)}</a>
 	</div>`;
 	// If we are in a private repo, the 'downloadUrl' will have '?token=' appended to it. That's only temporary.
 
@@ -528,9 +528,8 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 		.then(r=>r.arrayBuffer())
 		.then(pdfData=>pdfjsLib.getDocument({data: pdfData}).promise)
 		const getSinglePage=async(pageNumber)=>{
-		// for(let pageNumber=1;pageNumber<pdf.numPages+1;pageNumber++){
 			pdf.getPage(pageNumber).then(page=>{
-				let viewport = page.getViewport({scale: 1});
+				let viewport = page.getViewport({scale: 4});
 				let canvas = document.createElement('canvas');
 				let context = canvas.getContext('2d');
 				canvas.height = viewport.height;
@@ -662,10 +661,10 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){
 	}
 }
 uploadFileInput.onchange=e=>{
-	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
-	const uploadedFileURL = `https://api.github.com${locationId}/${e.target.files[0].name}?ref=${refId}`
+	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 	const intermediaryReader = new FileReader();
 	intermediaryReader.onloadend=()=>{
+		const uploadedFileURL = `https://api.github.com${locationId}/${e.target.files[0].name}?ref=${refId}`;
 		fetch(
 			uploadedFileURL, {
 			headers: {Authorization: `token ${github_token}`},
@@ -676,12 +675,12 @@ uploadFileInput.onchange=e=>{
 			})
 		})
 	// 	// .then(r=>gId('explore-refresh').click())
-	// 	.then(r=>r.json())
-	// 	.then(j=>{
-	// 		debog=j;
-	// 		gId('explore-refresh').click();
-	// 		raiseToast(`"${j.content.name}" has been uploaded`)
-	// 	})
+		.then(r=>r.json())
+		.then(j=>{
+			// debog=j;
+			// gId('explore-refresh').click();
+			raiseToast(`"${j.content.name}" has been uploaded`)
+		})
 	}
 	// intermediaryReader.readAsDataURL(e.target.files[0])
 	const listOfFiles = Array.from(e.target.files);
