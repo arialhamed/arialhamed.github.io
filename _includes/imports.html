@@ -191,7 +191,7 @@
 	.dropdown-menu{
 		display:none;/*Hide first*/
 		position:absolute;/*Set to avoid displacement of root nav*/
-		margin-left:calc(100% - .5em);/*Override default margin decided by ul tag (.5em offset for gap between nav and left edge of screen*/
+		margin-left:8.5em/*calc(100% - .5em)*/;/*Override default margin decided by ul tag (.5em offset for gap between nav and left edge of screen*/
 		margin-top:-3em;/*Move up first item to same line as clicked*/
 		width:max-content;/*Avoids newline for each li*/
 	}
@@ -206,6 +206,7 @@
 		margin-left:0;/*Set by width of header*/
 		/* top:1em; */
 		padding-left:.5em;
+		/* bottom:0 */
 	}
 	#navbar *{user-select:none;/*Disallow selecting of text*/}
 	#navbar ul{/*Both main & dropdown menu*/
@@ -235,7 +236,7 @@
 		border-bottom-right-radius:1em;
 		padding:.5em;
 		cursor:pointer;
-		top:0;
+		bottom:0;
 		color:var(--font-color);
 		z-index:-1;/*Avoid blocking anchor*/
 	}
@@ -243,7 +244,7 @@
 		display:block;/*Preserve dropdowns at any point when engaged*/
 	}
 	@media only screen and (max-width:calc(800px + 8.5em * 2)){
-		#navbar{margin-left:-9.5em;/*Retract whole nav to side (-9em) & "padding" (-.5em)*/z-index:7;}
+		#navbar{margin-left:-9.5em;/*Retract whole nav to side (-9em) & "padding" (-.5em)*/z-index:7;bottom:.5em}
 		#navbar:hover{margin-left:0;/*Show nav when any part of nav is engaged (including ribbon)*/}
 		#navribbon{
 			right:calc(-3em - .3em);/*Stick out ribbon, -.3em to */
@@ -257,12 +258,16 @@
 		}
 		#navbar > ul{
 			border-top-right-radius:0;/*Straighten for ribbon at the top*/
-			padding-top:3em;/*Give way for navribbon (when retracted)*/
+			padding-bottom:3em;/*Give way for navribbon (when retracted)*/
 		}
 		#navbar:hover > ul{border-top-right-radius:1em;/*Round when ribbon retracts to centre*/}
 		/* body:has(#navbar:hover){
 			opacity: .5;
 		} */
+		.dropdown-menu{
+			margin-top:unset;
+			transform:translateY(calc(-100% + .5em));
+		}
 	}
 
 
