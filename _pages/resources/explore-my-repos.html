@@ -52,7 +52,7 @@ pdf: true
 		<div id="create-item">
 			<a title="Create"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a>
 			<a title="New file" id="create-file"><svg height="0	" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg></a>
-			<a title="New folder" id="create-folder"><svg height="0	" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg></a>
+			<a title="New folder" id="create-folder" href="javascript:createFolder()"><svg height="0	" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg></a>
 		</div>
 		<a title="Upload here" id="upload-file" href="javascript:uploadFileInput.click()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
 		<a title="View" id="browse-view" href="javascript:browseToggleView()"></a>
@@ -714,6 +714,29 @@ uploadFileInput.onchange=e=>{
 	listOfFiles.forEach(f=>intermediaryReader.readAsDataURL(f));
 	gId('explore-refresh').click();
 	raiseToast(`${listOfFiles.length} file(s) has been uploaded`)
+}
+const createFolder=async()=>{
+	let folderName = prompt('New folder name')
+	if(folderName!=null){
+		let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+		let uploadedFileURL = `https://api.github.com${locationId}/${folderName}/.gitkeep?ref=${refId}`;
+		fetch(
+			uploadedFileURL, {
+			headers: {Authorization: `token ${github_token}`},
+			method: 'PUT',
+			body: JSON.stringify({
+				message: `Create this folder from "${window.location.hostname}" at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
+				content: ''
+			})
+		})
+	// 	// .then(r=>gId('explore-refresh').click())
+		.then(r=>r.json())
+		.then(j=>{
+			// debog=j;
+			// gId('explore-refresh').click();
+			raiseToast(`"${j.content.name}" has been uploaded`)
+		})
+	}
 }
 gId('select-branch').onchange=e=>{
 	browsingTree=browsingTree.map(v=>v.includes('?ref=')?`${v.split('?ref=',1)[0]}?ref=${e.target.value}`:v)
