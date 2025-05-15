@@ -39,17 +39,27 @@ pdf: true
 
 <!-- browsing controls -->
 <div id="control-icons">
-	<a title="Back" id="explore-back"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
-	<a title="Back to start" id="back-to-start"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
-	<a title="Upload here" id="upload-file" href="javascript:uploadFileInput.click()" style="visibility:hidden"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
-	<a title="Refresh" id="explore-refresh" href="javascript:window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
-	<a title="View" id="browse-view" href="javascript:browseToggleView()"></a>
-	<a title="Download as repository as .zip" id="download-repo" href="javascript:downloadRepo()" style="visibility:hidden"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg></a>
-	<div id="search-field">
-		<input type="search" onkeyup="searchContents()" onclick="searchContents()" id="search-input" placeholder="start typing here to search">
-		<svg onclick="gId('search-input').value='';gId('search-input').focus();searchContents()" height="2em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+	<div>
+		<a title="Back" id="explore-back"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
+		<a title="Back to start" id="back-to-start"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
+		<a title="Refresh" id="explore-refresh" href="javascript:window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
+		<div id="search-field">
+			<input type="search" onkeyup="searchContents()" onclick="searchContents()" id="search-input" placeholder="start typing here to search">
+			<svg onclick="gId('search-input').value='';gId('search-input').focus();searchContents()" height="2em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+		</div>
 	</div>
-	<div style="clear: both"></div>
+	<div>
+		<div id="create-item">
+			<a title="Create"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></a>
+			<a title="New file" id="create-file"><svg height="0	" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg></a>
+			<a title="New folder" id="create-folder"><svg height="0	" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg></a>
+		</div>
+		<a title="Upload here" id="upload-file" href="javascript:uploadFileInput.click()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
+		<a title="View" id="browse-view" href="javascript:browseToggleView()"></a>
+		<a title="Download as repository as .zip" id="download-repo" href="javascript:downloadRepo()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg></a>
+		<div style="clear:both"></div>
+	</div>
+	<!-- <div style="clear: both"></div> -->
 </div>
 
 <!-- all cells -->
@@ -99,17 +109,25 @@ pdf: true
 
 /* Explorer control icons & search */
 #control-icons{
-	/* position:sticky; */
-	top:88px;
-	text-align:center;
-	background-color:var(--background-solid);
+	position:sticky;
+	top:0;
 	padding:.5em 0;
+	background-color:var(--background-solid);
+}
+#control-icons > div{
+	text-align:center;
 	border-radius:3em;
 }
 #control-icons a{border-radius:.75em;fill:var(--anchor-color)}
-#control-icons a:hover{background-color:var(--overlay-hover)}
-#explore-back{float:left}#back-to-start{float:left}#upload-file{float:left}
-#download-repo{float:right}#browse-view{float:right}#explore-refresh{float:right}
+#control-icons a:hover{/*background-color:var(--overlay-hover);*/color:var(--nav-font-color)}
+#explore-back{float:left}#back-to-start{float:left}#upload-file{margin-left:2.5em;float:left}#explore-refresh{float:left}
+#create-item{display:flex;position:absolute;flex-direction:column;border-radius:1.25em;float:left}#download-repo{float:right}#browse-view{float:right}
+/* #create-item *{padding-bottom:.5em;} */
+#create-item > *:not(:first-child) > svg{height:0}
+#create-item:hover{background-color:var(--nav-overlay);box-shadow:inset 0 0 0 1px var(--anchor-color)}
+#create-item:hover > *{display:block;padding-bottom:.5em}
+#create-item:hover > * > svg{height:2.5em}
+#create-item + div > *{padding-top:.5em}
 #explore-back[href=''],#explore-back[href='']+#back-to-start{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
 #explore-refresh svg:hover{rotate:180deg}
 #search-field{
@@ -389,8 +407,8 @@ window.onhashchange=async()=>{
 			gId('current-title').textContent='My GitHub repositories';
 			gId('current-title').removeAttribute('href');
 			gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
-			gId('upload-file').style.visibility='hidden'; // Hide upload button
-			gId('download-repo').style.visibility='hidden'; // Hide download button
+			// gId('upload-file').style.visibility='hidden'; // Hide upload button
+			// gId('download-repo').style.visibility='hidden'; // Hide download button
 			browsingCurrentRepo = '' // Reset value as we are not in a repo here
 			gId('select-branch').innerHTML=''
 
@@ -401,7 +419,7 @@ window.onhashchange=async()=>{
 			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
 		}else{ // If repository selected or in contents of repository (not at the start of the page)
 			gId('explore-back').href=`#${browsingTree.at(-2)}`
-			if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
+			// if(github_token)gId('upload-file').style.visibility='visible'; // Show upload button for authenticated users
 			gId('download-repo').style.visibility='visible'; // Show download button
 
 			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
