@@ -243,10 +243,10 @@
 		display:block;/*Preserve dropdowns at any point when engaged*/
 	}
 	@media only screen and (max-width:calc(800px + 8.5em * 2)){
-		#navbar{margin-left:-9em;/*Retract whole nav to side*/z-index:7;}
+		#navbar{margin-left:-9.5em;/*Retract whole nav to side (-9em) & "padding" (-.5em)*/z-index:7;}
 		#navbar:hover{margin-left:0;/*Show nav when any part of nav is engaged (including ribbon)*/}
 		#navribbon{
-			right:calc(-3em + 1px);/*Stick out ribbon, 1px to cover ul border*/
+			right:calc(-3em - .3em);/*Stick out ribbon, -.3em to */
 			z-index:1;/*Bring to front*/
 			box-shadow:inset -1px 0px 0px 1px var(--anchor-color);/*Inner border*/
 		}
