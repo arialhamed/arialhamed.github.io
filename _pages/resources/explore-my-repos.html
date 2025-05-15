@@ -729,12 +729,10 @@ const createFolder=async()=>{
 				content: ''
 			})
 		})
-	// 	// .then(r=>gId('explore-refresh').click())
-		.then(r=>r.json())
+		// .then(r=>r.json())
 		.then(j=>{
-			// debog=j;
-			// gId('explore-refresh').click();
-			raiseToast(`"${j.content.name}" has been uploaded`)
+			gId('explore-refresh').click();
+			raiseToast(`"${folderName}" folder has been created`)
 		})
 	}
 }
