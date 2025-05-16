@@ -787,7 +787,7 @@ uploadFileInput.onchange=async(e)=>{
 	// const listOfFiles = Array.from(e.target.files);
 	// listOfFiles.forEach(f=>intermediaryReader.readAsDataURL(f));
 	gId('explore-refresh').click();
-	raiseToast(`${listOfFiles.length} file(s) has been uploaded`)
+	raiseToast(`${files.length} file(s) has been uploaded`)
 }
 const createFolder=async()=>{
 	let folderName = prompt('New folder name')
