@@ -696,7 +696,7 @@ uploadFileInput.onchange=async(e)=>{
 		let reader=new FileReader();
 		return new Promise(resolve=>{
 			reader.onload=()=>resolve({path:`${locationId.slice(17+browsingCurrentRepo.length)}/${file.name}`,content:reader.result});
-			reader.readAsDataURL(file)
+			reader.readAsArrayBuffer(file)
 		})
 	}))
 	
@@ -709,7 +709,7 @@ uploadFileInput.onchange=async(e)=>{
 			method: 'POST',
 			headers: {Authorization: `token ${github_token}`},
 			body: JSON.stringify({
-				content: atob(file.content.split(';base64,')[1]),
+				content: file.content,// atob(file.content.split(';base64,')[1]),
 				encoding: 'utf-8'
 			})
 		}).then(res => res.json())
