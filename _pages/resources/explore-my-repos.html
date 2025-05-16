@@ -709,8 +709,8 @@ uploadFileInput.onchange=async(e)=>{
 			method: 'POST',
 			headers: {Authorization: `token ${github_token}`},
 			body: JSON.stringify({
-				content: atob(file.content.split(';base64,')[1]),
-				encoding: 'utf-8'
+				content: file.content.split(';base64,')[1],
+				encoding: 'base64'
 			})
 		}).then(res => res.json())
 	));
