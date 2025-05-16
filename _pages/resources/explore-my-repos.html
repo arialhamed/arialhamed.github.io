@@ -699,16 +699,12 @@ uploadFileInput.onchange=async(e)=>{
 			reader.readAsDataURL(file)
 		})
 	}))
-
-	let commitMessage = `Uploaded ${files.length} file(s)`
 	
 	// 2. Get the latest commit reference
-	const refResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}});
-	const refData = await refResponse.json();
-	const latestCommitSha = refData.object.sha;
+	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).object.sha;
 
 	// 3. Create blobs for each file
-	const blobPromises = files.map(file =>
+	const blobData = await Promise.all(files.map(file =>
 		fetch(`${apiUrl}/blobs`, {
 			method: 'POST',
 			headers: {Authorization: `token ${github_token}`},
@@ -717,37 +713,33 @@ uploadFileInput.onchange=async(e)=>{
 				encoding: 'utf-8'
 			})
 		}).then(res => res.json())
-	);
-	const blobData = await Promise.all(blobPromises);
+	));
 
 	// 4. Create the tree
-	const treeItems = blobData.map((blob, index) => ({
-		path: files[index].path,
-		mode: '100644',
-		type: 'blob',
-		sha: blob.sha
-	}));
-	const treeResponse = await fetch(`${apiUrl}/trees`, {
+	const treeData = await fetch(`${apiUrl}/trees`, {
 		method: 'POST',
 		headers: {Authorization: `token ${github_token}`},
 		body: JSON.stringify({
 			base_tree: latestCommitSha,
-			tree: treeItems
+			tree: blobData.map((blob, index) => ({
+				path: files[index].path,
+				mode: '100644',
+				type: 'blob',
+				sha: blob.sha
+			}))
 		})
-	});
-	const treeData = await treeResponse.json();
+	}).then(r=>r.json());
 
 	// 5. Create the commit
-	const commitResponse = await fetch(`${apiUrl}/commits`, {
+	const commitData = await fetch(`${apiUrl}/commits`, {
 		method: 'POST',
 		headers: {Authorization: `token ${github_token}`},
 		body: JSON.stringify({
-			message: commitMessage,
+			message: `Uploaded ${files.length} file(s)`,
 			tree: treeData.sha,
 			parents: [latestCommitSha]
 		})
-	});
-	const commitData = await commitResponse.json();
+	}).then(r=>r.json());
 
 	// 6. Update the branch reference
 	const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
@@ -763,29 +755,6 @@ uploadFileInput.onchange=async(e)=>{
 	} else {
 		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
 	}
-	// const intermediaryReader = new FileReader();
-	// intermediaryReader.onloadend=()=>{
-	// 	const uploadedFileURL = `https://api.github.com${locationId}/${e.target.files[0].name}?ref=${refId}`;
-	// 	fetch(
-	// 		uploadedFileURL, {
-	// 		headers: {Authorization: `token ${github_token}`},
-	// 		method: 'PUT',
-	// 		body: JSON.stringify({
-	// 			message: `Upload from "${window.location.hostname}" at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
-	// 			content: intermediaryReader.result.split(';base64,')[1]
-	// 		})
-	// 	})
-	// // 	// .then(r=>gId('explore-refresh').click())
-	// 	.then(r=>r.json())
-	// 	.then(j=>{
-	// 		// debog=j;
-	// 		// gId('explore-refresh').click();
-	// 		raiseToast(`"${j.content.name}" has been uploaded`)
-	// 	})
-	// }
-	// // intermediaryReader.readAsDataURL(e.target.files[0])
-	// const listOfFiles = Array.from(e.target.files);
-	// listOfFiles.forEach(f=>intermediaryReader.readAsDataURL(f));
 	gId('explore-refresh').click();
 	raiseToast(`${files.length} file(s) has been uploaded`)
 }
