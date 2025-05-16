@@ -700,7 +700,7 @@ uploadFileInput.onchange=async(e)=>{
 		})
 	}))
 
-	let commitMessage = `Uploaded ${gasoline.length} file(s)`
+	let commitMessage = `Uploaded ${files.length} file(s)`
 	
 	// 2. Get the latest commit reference
 	const refResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}});
