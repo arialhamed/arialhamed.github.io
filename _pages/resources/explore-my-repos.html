@@ -709,7 +709,7 @@ uploadFileInput.onchange=async(e)=>{
 			method: 'POST',
 			headers: {Authorization: `token ${github_token}`},
 			body: JSON.stringify({
-				content: file.content.split(';base64,')[1],
+				content: file.content, //.split(';base64,')[1]
 				encoding: 'utf-8'
 			})
 		}).then(res => res.json())
