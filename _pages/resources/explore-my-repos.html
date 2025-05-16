@@ -701,7 +701,7 @@ uploadFileInput.onchange=async(e)=>{
 	}))
 	
 	// 2. Get the latest commit reference
-	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).object.sha;
+	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
 
 	// 3. Create blobs for each file
 	const blobData = await Promise.all(files.map(file =>
