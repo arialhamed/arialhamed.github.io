@@ -692,17 +692,13 @@ uploadFileInput.onchange=async(e)=>{
 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
 
 	// 1. Process picked files
-	// let files = await Promise.all(Array.from(e.target.files).map(file=>{
-	// 	let reader=new FileReader();
-	// 	return new Promise(resolve=>{
-	// 		reader.onload=()=>resolve({path:`${locationId.slice(17+browsingCurrentRepo.length)}/${file.name}`,content:reader.result});
-	// 		reader.readAsDataURL(file)
-	// 	})
-	// }))
-	let files = Array.from(e.target.files).map(file=>{
-		return {path:`${locationId.slice(17+browsingCurrentRepo.length)}/${file.name}`,content:file}
-	})
-	console.log(files);
+	let files = await Promise.all(Array.from(e.target.files).map(file=>{
+		let reader=new FileReader();
+		return new Promise(resolve=>{
+			reader.onload=()=>resolve({content:reader.result,path:`${locationId.slice(17+browsingCurrentRepo.length)}/${file.name}`});
+			reader.readAsDataURL(file)
+		})
+	}))
 	
 	// 2. Get the latest commit reference
 	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
@@ -713,7 +709,7 @@ uploadFileInput.onchange=async(e)=>{
 			method: 'POST',
 			headers: {Authorization: `token ${github_token}`},
 			body: JSON.stringify({
-				content: file.content, //.split(';base64,')[1],
+				content: atob(file.content.split(';base64,')[1]),
 				encoding: 'utf-8'
 			})
 		}).then(res => res.json())
