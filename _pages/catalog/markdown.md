@@ -1,10 +1,10 @@
 ---
 title: "Markdown Guide"
-permalink: /guides/markdown
+permalink: /catalog/markdown
 redirect_from:
- - /guides/markdown/
- - /guides/md
- - /guides/md/
+ - /catalog/markdown/
+ - /catalog/md
+ - /catalog/md/
  - /md
  - /md/
  - /markdown

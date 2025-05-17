@@ -1,12 +1,12 @@
 ---
 title: "Media Tips & Tricks"
-permalink: /guides/media-tips
+permalink: /catalog/media-tips
 redirect_from:
- - /guides/media-tips/
- - /guides/mediatips
- - /guides/mediatips/
- - /guides/media
- - /guides/media/
+ - /catalog/media-tips/
+ - /catalog/mediatips
+ - /catalog/mediatips/
+ - /catalog/media
+ - /catalog/media/
  - /media
  - /media/
  - /mediatips

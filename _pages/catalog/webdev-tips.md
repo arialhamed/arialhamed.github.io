@@ -1,13 +1,13 @@
 ---
 title: "Webdev Tips"
 layout: default
-permalink: /guides/webdev-tips
+permalink: /catalog/webdev-tips
 redirect_from:
- - /guides/webdev-tips/
- - /guides/webdevtips
- - /guides/webdevtips/
- - /guides/webdev
- - /guides/webdev/
+ - /catalog/webdev-tips/
+ - /catalog/webdevtips
+ - /catalog/webdevtips/
+ - /catalog/webdev
+ - /catalog/webdev/
  - /webdev
  - /webdev/
  - /webdevtips

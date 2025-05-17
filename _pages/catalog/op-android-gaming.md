@@ -1,9 +1,9 @@
 ---
 title: Overpowered Android Gaming
-permalink: /guides/overpowered-android-gaming
+permalink: /catalog/overpowered-android-gaming
 layout: default
 redirect_from:
- - /guides/overpowered-android-gaming/
+ - /catalog/overpowered-android-gaming/
 ---
 
 ## Overpowered Android Gaming (June 2023)

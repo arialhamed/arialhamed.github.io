@@ -1,21 +1,21 @@
 ---
 title: reasons to dual-boot  
 layout: default
-permalink: /guides/reasons-to-dual-boot
+permalink: /catalog/reasons-to-dual-boot
 redirect_from:
- - /guides/reasons-to-dual-boot/
- - /guides/reasons-to-dual-boot-linux
- - /guides/reasons-to-dual-boot-linux/
- - /guides/reasons-to-dual-boot-linux-&-windows
- - /guides/reasons-to-dual-boot-linux-&-windows/
- - /guides/reasons-to-dual-boot-linux-and-windows
- - /guides/reasons-to-dual-boot-linux-and-windows/
- - /guides/reasons-to-dual-boot-windows
- - /guides/reasons-to-dual-boot-windows/
- - /guides/reasons-to-dual-boot-windows-&-linux
- - /guides/reasons-to-dual-boot-windows-&-linux/
- - /guides/reasons-to-dual-boot-windows-and-linux
- - /guides/reasons-to-dual-boot-windows-and-linux/
+ - /catalog/reasons-to-dual-boot/
+ - /catalog/reasons-to-dual-boot-linux
+ - /catalog/reasons-to-dual-boot-linux/
+ - /catalog/reasons-to-dual-boot-linux-&-windows
+ - /catalog/reasons-to-dual-boot-linux-&-windows/
+ - /catalog/reasons-to-dual-boot-linux-and-windows
+ - /catalog/reasons-to-dual-boot-linux-and-windows/
+ - /catalog/reasons-to-dual-boot-windows
+ - /catalog/reasons-to-dual-boot-windows/
+ - /catalog/reasons-to-dual-boot-windows-&-linux
+ - /catalog/reasons-to-dual-boot-windows-&-linux/
+ - /catalog/reasons-to-dual-boot-windows-and-linux
+ - /catalog/reasons-to-dual-boot-windows-and-linux/
  - /reasons-to-dual-boot
  - /reasons-to-dual-boot/
  - /reasons-to-dual-boot-linux

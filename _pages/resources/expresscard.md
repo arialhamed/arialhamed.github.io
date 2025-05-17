@@ -21,7 +21,7 @@ Even though I am a millenial myself (as of <timestamp>Q3 2022</timestamp>), I ha
    </figure>
 </div>
 
-There's more information on <a href="https://www.thinkwiki.org/wiki/ExpressCard_slot">which ThinkPads have ExpressCard</a>. How I learned about ExpressCard was when I searched up the details about my [X230](https://arialhamed.github.io/guides/upgrades/thinkpad/X230), and it had the second one up there, the L looking one.
+There's more information on <a href="https://www.thinkwiki.org/wiki/ExpressCard_slot">which ThinkPads have ExpressCard</a>. How I learned about ExpressCard was when I searched up the details about my [X230](https://arialhamed.github.io/catalog/upgrades/thinkpad/X230), and it had the second one up there, the L looking one.
 
 Here's a list of the possible ExpressCard expansion devices:
 - More USB ports (best known is <a href="https://www.aliexpress.com/item/4000281807808.html">2x USB 3.0</a>) 

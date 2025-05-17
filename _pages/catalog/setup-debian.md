@@ -1,25 +1,25 @@
 ---
 title: debian setup
 layout: default
-permalink: /guides/debian-setup
+permalink: /catalog/debian-setup
 redirect_from:
- - /guides/debian-setup/
+ - /catalog/debian-setup/
  - /debian-setup
  - /debian-setup/
- - /guides/samba-setup
- - /guides/samba-setup/
+ - /catalog/samba-setup
+ - /catalog/samba-setup/
  - /samba-setup
  - /samba-setup/
 ---
 
 <figure style="text-align:center;">
-     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/guides/debian.svg" style="width:50%;">
+     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/catalog/debian.svg" style="width:50%;">
      <figcaption style="margin-top:1rem;"><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Debian-OpenLogo.svg">Wikimedia Commons</a> and modified with <a href="https://inkscape.org/">Inkscape</a></i></figcaption>
 </figure>
 
 This is more, like, for me to reference to. i learned some things **and i will forget them** after a while, so here it is.
 
-A lot of what is existing here is an extension of the [ubuntu setup page](/guides/ubuntu-setup), though it would be more accurate to say that Ubuntu is an extension of Debian. That's why I decided to switch over from Ubuntu 
+A lot of what is existing here is an extension of the [ubuntu setup page](/catalog/ubuntu-setup), though it would be more accurate to say that Ubuntu is an extension of Debian. That's why I decided to switch over from Ubuntu 
 
 - [Nautilus](#nautilus)
 - [Samba](#samba)
@@ -117,7 +117,7 @@ Also, Gnome.. just kinda sucks. I stuck with it for a long while because of Dash
 ## Samba
 
 <figure style="text-align:center;">
-     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/guides/samba.svg" style="width:50%;">
+     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/catalog/samba.svg" style="width:50%;">
      <figcaption style="margin-top:1rem;"><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Logo_Samba_Software.svg">Wikimedia Commons</a><br><sub>(i had no idea there was a logo for this until April 2025)</sub></i></figcaption>
 </figure>
 
@@ -195,7 +195,7 @@ Right-click on ESO in your library, select "**Properties**". You should see fiel
 PROTON_SET_GAME_DRIVE=1 %command%
 ```
 This will enable ESO to see that there is more than 20GB of available space that Proton allocates by default.  
-Next, navigate to "**Compatibility**", check "**Force the use of a specific Steam Play compatibility tool**", then select "**Proton 9.0-4**". For some reason, this version is the only one working (not Hotfix or Experimental) <video muted loop autoplay nocontrols><source src="https://github.com/arialhamed/static/raw/refs/heads/main/video/guides/debian-eso-steam-config.webm" type="video/webm">Your browser does not support the video tag.</video>
+Next, navigate to "**Compatibility**", check "**Force the use of a specific Steam Play compatibility tool**", then select "**Proton 9.0-4**". For some reason, this version is the only one working (not Hotfix or Experimental) <video muted loop autoplay nocontrols><source src="https://github.com/arialhamed/static/raw/refs/heads/main/video/catalog/debian-eso-steam-config.webm" type="video/webm">Your browser does not support the video tag.</video>
 1. Installing Minion  
 Thanks to Reddit user [enigmatic_bread](https://www.reddit.com/r/elderscrollsonline/comments/13jzw2o/for_steam_deck_and_linux_users_minion_in_a_flatpak/), ESO & WOW players on Linux (including Steam Deck) now have Minion on Flatpak!:
 ``` bash

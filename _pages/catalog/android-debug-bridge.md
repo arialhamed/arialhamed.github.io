@@ -1,9 +1,9 @@
 ---
 title: "Android Debug Bridge"
-permalink: /guides/android-debug-bridge
+permalink: /catalog/android-debug-bridge
 redirect_from:
- - /guides/adb
- - /guides/adb/
+ - /catalog/adb
+ - /catalog/adb/
  - /adb
  - /adb/
 layout: default

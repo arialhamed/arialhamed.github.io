@@ -1,14 +1,14 @@
 ---
 title: KDE guide
-permalink: /guides/kde
+permalink: /catalog/kde
 redirect_from:
- - /guides/kde/
+ - /catalog/kde/
  - /guide/kde
  - /guide/kde/
  - /kde
  - /kde/
- - /guides/KDE
- - /guides/KDE/
+ - /catalog/KDE
+ - /catalog/KDE/
  - /guide/KDE
  - /guide/KDE/
  - /KDE

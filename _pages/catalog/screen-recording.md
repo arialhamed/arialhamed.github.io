@@ -1,15 +1,15 @@
 ---
 title: "Screen Recording"
 layout: default
-permalink: /guides/screen-recording
+permalink: /catalog/screen-recording
 redirect_from:
- - /guides/screen-recording/
+ - /catalog/screen-recording/
 ---
 # Optimized Screen Recording <span style="font-size:70%">on Android</span>
 
 _&lt;note for ari: state how android 11 or so already gives screen recording but it kinda sucks because it uses the same gpu or whatever&gt;_
 
-A lot of commands here actually relates to the [Android Debug Bridge](https://arialhamed.github.io/guides/adb), and a few pieces of software that I will explicitly state that is needed.
+A lot of commands here actually relates to the [Android Debug Bridge](https://arialhamed.github.io/catalog/adb), and a few pieces of software that I will explicitly state that is needed.
 
 ### Here are some programs that you need to start recording your Android phone's audio and screen:
 * <a href="https://developer.android.com/studio/releases/platform-tools">Android SDK Platform Tools</a>

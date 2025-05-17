@@ -1,15 +1,15 @@
 ---
 title: ubuntu tips
 layout: default
-permalink: /guides/ubuntu-setup
+permalink: /catalog/ubuntu-setup
 redirect_from:
- - /guides/ubuntu-setup/
+ - /catalog/ubuntu-setup/
  - /ubuntu-setup
  - /ubuntu-setup/
 ---
 
 <figure style="text-align:center;">
-     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/guides/ubuntu.svg" style="width:50%;">
+     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/catalog/ubuntu.svg" style="width:50%;">
      <figcaption style="margin-top:1rem;"><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Ubuntu-logo-2022.svg">Wikimedia Commons</a> and modified with <a href="https://inkscape.org/">Inkscape</a></i></figcaption>
 </figure>
 
@@ -238,7 +238,7 @@ Well, if you want to show off to your friends that you're doing something else t
 1. Install <a href="https://marketplace.visualstudio.com/items?itemName=LeonardSSH.vscord">Discord Rich Presence</a> (not sure if other extensions work, maybe they can) in Visual Studio Code (i think any latest stable of vscode works, i know snap installed Visual Studio Code works). Restart Visual Studio Code if necessary.
 1. ding! it should work. it worked for me, though i'm not sure if it works for everyone.
 
-<img src="https://raw.githubusercontent.com/arialhamed/static/main/images/guides/ubuntu-discord.png" width="100%">
+<img src="https://raw.githubusercontent.com/arialhamed/static/main/images/catalog/ubuntu-discord.png" width="100%">
 
 
 Source: <a href="https://github.com/iCrawl/discord-vscode/issues/77">Discord Rich Presence's GitHub Issues</a>

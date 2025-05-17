@@ -1,9 +1,9 @@
 ---
 title: TrueNAS
-permalink: /guides/truenas
+permalink: /catalog/truenas
 layout: default
 redirect_from:
- - /guides/truenas/
+ - /catalog/truenas/
 ---
 
 coming soon

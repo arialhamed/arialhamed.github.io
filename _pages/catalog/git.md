@@ -1,8 +1,8 @@
 ---
 title: "Git"
-permalink: /guides/git
+permalink: /catalog/git
 redirect_from:
- - /guides/git/
+ - /catalog/git/
 layout: default
 ---
 

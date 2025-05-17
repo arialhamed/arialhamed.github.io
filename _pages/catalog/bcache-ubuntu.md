@@ -1,11 +1,11 @@
 ---
 title: bcache Ubuntu
-permalink: /guides/bcache-ubuntu
+permalink: /catalog/bcache-ubuntu
 layout: default
 redirect_from:
- - /guides/bcache-ubuntu/
- - /guides/bcache
- - /guides/bcache/
+ - /catalog/bcache-ubuntu/
+ - /catalog/bcache
+ - /catalog/bcache/
  - /bcache-ubuntu
  - /bcache-ubuntu/
  - /bcache

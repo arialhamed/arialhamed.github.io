@@ -1,9 +1,9 @@
 ---
 title: thinkpad tips
 layout: default
-permalink: /guides/thinkpad
+permalink: /catalog/thinkpad
 redirect_from:
- - /guides/thinkpad/
+ - /catalog/thinkpad/
  - /thinkpad
  - /thinkpad/
 ---
