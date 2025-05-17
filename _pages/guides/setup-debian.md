@@ -19,11 +19,13 @@ redirect_from:
 
 This is more, like, for me to reference to. i learned some things **and i will forget them** after a while, so here it is.
 
-A lot of what is existing here is an extension of the [ubuntu setup page](/guides/ubuntu-setup), though it would be more accurate to say that Ubuntu is an extension of Debian. That's why I decided to switch over from Ubuntu (but I still like Gnome lol)
+A lot of what is existing here is an extension of the [ubuntu setup page](/guides/ubuntu-setup), though it would be more accurate to say that Ubuntu is an extension of Debian. That's why I decided to switch over from Ubuntu 
 
 - [Nautilus](#nautilus)
 - [Samba](#samba)
 - [Elder Scrolls Online](#elder-scrolls-online)
+- [Logitech Trackman Marble](#logitech-trackman-marble)
+- [Setup commands](#setup-commands)
 
 ---
 
@@ -107,6 +109,8 @@ Oh yeah, even with all this, I'd just prefer to delete the existing home folders
 ln -s "/media/arial/Home Volume/Documents" Documents
 ```
 Then you don't need to handle all that I mentioned up there, unless your HDD enclosure uses a JMicron controller (and it indubitably sucks) in which either way I have a different guide for that _coming soon_!
+
+Also, Gnome.. just kinda sucks. I stuck with it for a long while because of Dash-to-Dock which is what I insanely love, but I found a way to do it in KDE (in a much more configurable way, also without extensions), and after that, I ditched it for KDE on Debian.
 
 ---
 
@@ -213,3 +217,53 @@ Ensure the `-s` flag there because hardlinks are wack /hj
 1. Handling errors from AddOns during gameplay  
 This one is also from my experience while setting it up. As of the writing of this post, I guess Minion was not updating the AddOns right, and I hope they fix that in the future (I couldn't find LibAddonMenu2.0 in Flatpak Minion). For now, I found that _[Dolgubon's Lazy Writ Crafter](https://www.esoui.com/downloads/info1346-DolgubonsLazyWritCrafter.html)_ was not functional, alongside some other add-ons, and honestly, all I did was **replace those add-ons manually via https://www.esoui.com/**. These will _**not**_ replace your variables, since those are saved in the SavedVariables folder that is in the 'live' folder, same as the AddOns folder.  
 The only add-on that was built on Windows is TTC as it uses a disgusting .exe binary to update its prices. No matter, use [Linux Tamriel Trade Centre](https://www.esoui.com/downloads/info3249-LinuxTamrielTradeCenter.html).
+
+---
+
+## Logitech Trackman Marble
+
+SO this is just an echo to [Arch Linux Wiki's dedicated article about this mouse](https://wiki.archlinux.org/title/Logitech_Marble_Mouse), which is absolutely phenomenal that a mouse that is basically 3 years older is still being remembered. Heck I was able to snag one myself just cuz I saw it for quite a deal of SGD$20 and now I kinda daily drive it as my left-handed trackball.
+
+This section of this catalog is simply some commands on enabling scrolling on a mouse button (using the smaller buttons on the sides). I only show the ones that worked for me & my Logitech Trackman Marble (T-BC21)
+
+### GNOME 3 and Wayland
+Middle click emulation
+``` bash
+gsettings set org.gnome.desktop.peripherals.trackball middle-button-emulation true
+```
+Mouse wheel emulation (&lt;button_id&gt; is either 8 or 9 (left or right small button))
+``` bash
+gsettings set org.gnome.desktop.peripherals.trackball scroll-wheel-emulation-button <button_id>
+```
+Acceleration profile (either "flat", "adaptive" or "default")
+``` bash
+gsettings set org.gnome.desktop.peripherals.trackball accel-profile <profile>
+```
+
+### Plasma and Wayland
+Mouse wheel emulation
+``` bash
+event="$(basename $(readlink /dev/input/by-id/usb-Logitech_USB_Trackball-event-mouse))"
+
+qdbus org.kde.KWin /org/kde/KWin/InputDevice/$event org.kde.KWin.InputDevice.scrollOnButtonDown true
+```
+By default the small left button is used. If you want to use the small right button, set 
+``` bash
+qdbus org.kde.KWin /org/kde/KWin/InputDevice/$event org.kde.KWin.InputDevice.scrollButton 276
+```
+For other buttons, follow the table below:
+|Button|Kwin button code|Function (default)|
+|-|-|-|
+|Large button left|272|left click|
+|Large button right|273|right click|
+|Small button left|275|browser forward|
+|Small button right|276|browser back|
+
+---
+
+## Setup commands
+
+Say you've decided to leave Canonical and get an DE-agnostic distro like Debian or Arch, but like me, you chose Gnome at installation and you're now on some other DE like KDE, and you've made your mind and don't want to have Gnome anymore. Here's a command I found [here](https://askubuntu.com/a/1240089) that can clear Gnome of your system to a certain extent.
+``` bash
+sudo apt-get remove $(apt list --installed "gnome*" 2>/dev/null | awk -F'/' 'NR>1{print $1}')
+```
