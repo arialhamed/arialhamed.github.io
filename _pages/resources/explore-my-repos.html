@@ -382,7 +382,7 @@ const addObjectToView=e=>{
 			let showItemElement=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')" data-search="${e.name}"`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){ 
-				contentElement = `<span class="col explore-cell"${showItemElement}><img src="${e.download_url}" alt="${e.name}" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
+				contentElement = `<span class="col explore-cell"${showItemElement}><img src="${e.download_url}" alt="Unable to display image" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
 			}else{
 				contentElement += `${showItemElement}><span>${e.name}</span><span class="size">${formatBytes(e.size)}</a>`;
 			}
