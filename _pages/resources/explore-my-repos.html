@@ -695,13 +695,18 @@ uploadFileInput.onchange=async(e)=>{
 	let files = await Promise.all(Array.from(e.target.files).map(file=>{
 		let reader=new FileReader();
 		return new Promise(resolve=>{
-			reader.onload=()=>resolve({content:reader.result,path:`${locationId.slice(17+browsingCurrentRepo.length)}/${file.name}`});
+			reader.onload=()=>resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`});
 			reader.readAsDataURL(file)
 		})
 	}))
-	
+
+	let veilTimer = files.length + 5
+	console.log(veilTimer)
+	let veilStopwatch = 0
+
 	// 2. Get the latest commit reference
 	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
+	console.log(++veilStopwatch)
 
 	// 3. Create blobs for each file
 	const blobData = await Promise.all(files.map(file =>
@@ -712,7 +717,7 @@ uploadFileInput.onchange=async(e)=>{
 				content: file.content.split(';base64,')[1],
 				encoding: 'base64'
 			})
-		}).then(res => res.json())
+		}).then(res => {console.log(++veilStopwatch); return res.json()})
 	));
 
 	// 4. Create the tree
@@ -729,6 +734,7 @@ uploadFileInput.onchange=async(e)=>{
 			}))
 		})
 	}).then(r=>r.json());
+	console.log(++veilStopwatch)
 
 	// 5. Create the commit
 	const commitData = await fetch(`${apiUrl}/commits`, {
@@ -740,6 +746,7 @@ uploadFileInput.onchange=async(e)=>{
 			parents: [latestCommitSha]
 		})
 	}).then(r=>r.json());
+	console.log(++veilStopwatch)
 
 	// 6. Update the branch reference
 	const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
@@ -749,6 +756,7 @@ uploadFileInput.onchange=async(e)=>{
 			sha: commitData.sha
 		})
 	});
+	console.log(++veilStopwatch)
 
 	if (updateRefResponse.ok) {
 		console.log('Commit successful');
