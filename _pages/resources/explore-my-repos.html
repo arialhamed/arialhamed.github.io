@@ -55,7 +55,10 @@ pdf: true
 			<a title="New folder" id="create-folder" href="javascript:createFolder()"><svg height="0	" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg></a>
 		</div>
 		<a title="Upload here" id="upload-file" href="javascript:uploadFileInput.click()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
-		<a title="View" id="browse-view" href="javascript:browseToggleView()"></a>
+		<label title="Toggle view" for="toggle-view" style="float:right">
+			<svg id="list-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>
+			<svg id="icon-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>
+		</label><input id="toggle-view" type="checkbox" style="display:none">
 		<a title="Download as repository as .zip" id="download-repo" href="javascript:downloadRepo()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg></a>
 		<label title="Pin this toolbar" for="pin-explorer-nav" style="float:right">
 			<svg id="pin-explorer-nav-unpinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0 0v6M9.5 9A2.5 2.5 0 0 1 12 6.5"/></svg>
@@ -116,7 +119,7 @@ pdf: true
 	position:static;
 	top:0;
 	padding:.5em 0;
-	background-color:var(--background-solid);
+	/* background-color:var(--background-solid); */
 }
 #control-icons > div{
 	text-align:center;
@@ -126,14 +129,39 @@ pdf: true
 #control-icons a:hover{/*background-color:var(--overlay-hover);*/color:var(--nav-font-color)}
 #control-icons label > svg{color:var(--anchor-color)}
 #control-icons label:hover > svg{color:var(--nav-font-color)}
+#control-icons label:hover{cursor:pointer}
+
+/*Toggle pin*/
 #control-icons:has(#pin-explorer-nav:checked){position:sticky}
-#control-icons:has(#pin-explorer-nav:not(:checked)) #pin-explorer-nav-pinned{display:none/*Hide pinned icon when unpinned*/}
 #control-icons:has(#pin-explorer-nav:checked) #pin-explorer-nav-unpinned{display:none/*Hide unpinned icon when pinned*/}
+#control-icons:has(#pin-explorer-nav:not(:checked)) #pin-explorer-nav-pinned{display:none/*Hide pinned icon when unpinned*/}
+
+/*Grid view*/
+#control-icons:has(#toggle-view:checked) #list-view{display:none}
+#control-icons:has(#toggle-view:checked) + #explore-content{
+	display:grid;
+	grid-template-columns:repeat(4, 25%);
+	.explore-cell{text-align:center;margin:4px}
+	.explore-cell:has(img) span{font-size:70%;padding:.5em}
+	.explore-cell span svg{margin-left:.3em/* Private & fork icons */;}
+}
+/*List view*/
+#control-icons:has(#toggle-view:not(:checked)) #icon-view{display:none}
+#control-icons:has(#toggle-view:not(:checked)) + #explore-content{
+	display:flex;
+	flex-direction:column;
+	.explore-cell{display:flex;text-align:left;padding:.2rem .5rem;margin:2.5px 0}
+	.explore-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
+	.explore-cell:has(img){padding:.5em}
+	.explore-cell:has(img) span{text-align:center;margin-top:.5em}
+}
+.explore-cell:has(img){display:flex;flex-direction:column}
+
 #explore-back{float:left}#back-to-start{float:left}#upload-file{margin-left:2.5em;float:left}#explore-refresh{float:left}
-#create-item{display:flex;position:absolute;flex-direction:column;border-radius:1.25em;float:left}#download-repo{float:right}#browse-view{float:right}
+#create-item{display:flex;position:absolute;flex-direction:column;border-radius:1.25em;height:2.5em;float:left}#download-repo{float:right}#browse-view{float:right}
 /* #create-item *{padding-bottom:.5em;} */
 #create-item > *:not(:first-child) > svg{height:0}
-#create-item:hover{background-color:var(--nav-overlay);box-shadow:inset 0 0 0 1px var(--anchor-color)}
+#create-item:hover{background-color:var(--nav-overlay);box-shadow:inset 0 0 0 1px var(--anchor-color);height:unset}
 #create-item:hover > *{display:block;padding-bottom:.5em}
 #create-item:hover > * > svg{height:2.5em}
 #create-item + div > *{padding-top:.5em}
@@ -162,46 +190,25 @@ pdf: true
 	padding: .2em 0 .3em .5em;
 }
 
-/* Explorer content & items within */
+/* Items within explore-content */
 :has(>:nth-child(2)) > .loader{display:none;/*Hide when there are at least 2 items in #explore-content or show-* (i.e. if .loader is not alone)*/}
 #explore-content > .loader{margin:2em auto;grid-column:1 / 5;/*"rowspan" for grid display*/}
 #explore-content img{/*Only explore-content image descendants*/max-width:100%;margin:auto}
-#explore-content > a{padding:.3em}
-.explore-cell:hover{background-color:var(--overlay-hover)}
+.explore-cell:hover{box-shadow:inset 0 0 0 1px var(--anchor-color)}
 .explore-cell{
-	display: inline-block;
-	color: var(--anchor-color-solid) !important;
+	color: var(--anchor-color)!important;
 	text-decoration: none;
 	background-color: var(--overlay);
-	-webkit-user-select: none;
-	-moz-user-select: none;
 	user-select: none;
-	font-size: 1rem;
+	transition: none;
 }
 span.explore-cell{cursor: pointer}
-.grid{display:grid;grid-template-columns:25% 25% 25% 25%;}
-.grid .explore-cell{text-align:center;/*padding:.375rem .75rem;*/margin:4px;}
-.grid .explore-cell span:nth-child(2){font-size:70%;}
-.grid .explore-cell span:nth-child(2):not(.size){display:none;}
-.grid .explore-cell:has(img){display:flex}
-.list-group .explore-cell{text-align:left;padding:.2rem .5rem;margin:2.5px 0;display:flex;}
-.list-group .explore-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
-.list-group .explore-cell:has(img){display:block;width:100%;padding:.5em}
-.list-group .explore-cell:has(img) span{text-align:center;margin-top:.5em}
-.list-group .explore-cell img{width:100%;}
+
 .explore-cell *{margin: 0 auto;}
 .explore-cell span{
-	overflow: hidden;
-	text-overflow: ellipsis;
+	overflow-wrap: anywhere;
 	width: 100%;
 	display: block;
-}
-.row .explore-cell img{
-	max-width: initial;
-	height: calc(min(15vh, 20vw) - .75rem);
-}
-.list-group .explore-cell span svg{ /* Private & fork icons */
-	margin-left: .3em
 }
 
 /* Specific file styles when chosen to display */
@@ -369,20 +376,20 @@ let intervalsDict={};
 
 // The following will read each file or content (or repos) and display into the explore-content element
 const addObjectToView=e=>{
-	let contentElement='<a class="col explore-cell"';
+	let contentElement='<a class="explore-cell"';
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
 		gId('explore-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span></a>`);
 	}else{
 		// Is the record a directory?
 		if (e.type == 'dir'){
-			contentElement+=` href="#${e.url.slice(22)}" id="${e.sha}" data-search="${e.name}")><span>${e.name}</span><svg height="1.2em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></a>`;
+			contentElement+=` href="#${e.url.slice(22)}" data-search="${e.name}")><span>${e.name}</span><svg height="1.2em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></a>`;
 		}else{
 			// This record is a file in these brackets
 			let showItemElement=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')" data-search="${e.name}"`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){ 
-				contentElement = `<span class="col explore-cell"${showItemElement}><img src="${e.download_url}" alt="Unable to display image" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
+				contentElement = `<span class="explore-cell"${showItemElement}><img src="${e.download_url}" alt="Unable to display image" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
 			}else{
 				contentElement += `${showItemElement}><span>${e.name}</span><span class="size">${formatBytes(e.size)}</a>`;
 			}
@@ -793,11 +800,6 @@ gId('select-branch').onchange=e=>{
 }
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 const searchContents=()=>{gId('explore-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
-const browseToggleView=async(manualSet=true)=>{
-	if(manualSet)localStorage.setItem('browse-view-mode',(localStorage.getItem('browse-view-mode')=='list-group')?'grid':'list-group');
-	gId('explore-content').setAttribute('class',localStorage.getItem('browse-view-mode'))
-	gId('browse-view').innerHTML=(localStorage.getItem('browse-view-mode')=='list-group')?viewIcon:viewList;
-}
 const github_signin=()=>{localStorage.setItem('github_signin_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
 
@@ -805,8 +807,6 @@ const github_logout=()=>{localStorage.removeItem('github_token');window.location
 gId('github-user-profile').insertAdjacentHTML('afterbegin', `<span style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github-auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</span>`)
 
 // Browsing controls
-if(!localStorage.getItem('browse-view-mode'))localStorage.setItem('browse-view-mode','list-group');
-browseToggleView(false)
 // gId('search-input').value='';
 gId('back-to-start').href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
 
