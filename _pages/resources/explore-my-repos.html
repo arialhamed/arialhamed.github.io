@@ -437,12 +437,13 @@ window.onhashchange=async()=>{
 			}
 			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
 		}else{ // If repository selected or in contents of repository (not at the start of the page)
+			gId('explore-back').href=`#${browsingTree.at(-2)}`;
+			gId('download-repo').href='javascript:downloadRepo()'
 			if(github_token){// Show write functions to authenticated user
 				gId('create-file').href='';
 				gId('create-folder').href='javascript:createFolder()';
 				gId('upload-file').href='javascript:uploadFileInput.click()';
 			}
-			gId('download-repo').href='javascript:downloadRepo()'
 
 			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
 			const rrCurrent = inUrl.split('/').slice(2,4).join('/')
