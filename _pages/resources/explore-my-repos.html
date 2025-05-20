@@ -125,10 +125,10 @@ pdf: true
 	text-align:center;
 	border-radius:3em;
 }
-#control-icons a{border-radius:.75em;fill:var(--anchor-color)}
-#control-icons a:hover{/*background-color:var(--overlay-hover);*/color:var(--nav-font-color)}
+#control-icons a,#control-icons label > svg{border-radius:.75em}
+#control-icons a:hover,#control-icons label:hover > svg{color:var(--anchor-color);transform:scale(1.3)}
+#control-icons a:active,#control-icons label:active > svg{background-color:var(--overlay-hover)}
 #control-icons label > svg{color:var(--anchor-color)}
-#control-icons label:hover > svg{color:var(--nav-font-color)}
 #control-icons label:hover{cursor:pointer}
 
 /*Toggle pin*/
@@ -143,6 +143,7 @@ pdf: true
 	grid-template-columns:repeat(4, 25%);
 	.explore-cell{text-align:center;margin:4px}
 	.explore-cell:not(:has(img)) span:nth-child(3){display:none}
+	.explore-cell:not(:has(img)) span{padding:0 1em}
 	.explore-cell:has(img) span{padding:.5em}
 	.explore-cell span svg{margin-left:.3em/* Private & fork icons */;}
 }
@@ -153,14 +154,13 @@ pdf: true
 	flex-direction:column;
 	.explore-cell{display:flex;text-align:left;/*padding:.2rem .5rem;*/margin:2.5px 0}
 	.explore-cell:not(:has(img)) span:nth-child(3){text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
-	/* .explore-cell:has(img){padding:.5em} */
-	.explore-cell:not(:has(img)) span:nth-child(2){padding-left:1em;}
+	.explore-cell:not(:has(img)) span:nth-child(2){padding-left:1.5em}
 	.explore-cell:has(img) span{text-align:center;margin-top:.5em}
 }
 /* .explore-cell:not(:has(img)) span:nth-child(2){font-size:70%;} */
 .explore-cell span:nth-child(3){font-size:70%}
 .explore-cell:has(img){display:flex;flex-direction:column}
-.explore-cell input[type="checkbox"]{position:absolute;left:0}
+.explore-cell input[type="checkbox"]{position:absolute;left:0;transform:scale(1.5);display:none}
 
 #explore-back{float:left}#back-to-start{float:left}#explore-refresh{float:left}
 #create-file{float:left}#create-folder{float:left}#upload-file{float:left}
@@ -387,7 +387,7 @@ const addObjectToView=e=>{
 	let selectInput='<input type="checkbox" />'
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('explore-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span></a>`);
+		gId('explore-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><div></div><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span></a>`);
 	}else{
 		// Is the record a directory?
 		if (e.type == 'dir'){
