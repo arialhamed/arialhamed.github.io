@@ -142,7 +142,8 @@ pdf: true
 	display:grid;
 	grid-template-columns:repeat(4, 25%);
 	.explore-cell{text-align:center;margin:4px}
-	.explore-cell:has(img) span{font-size:70%;padding:.5em}
+	.explore-cell:not(:has(img)) span:nth-child(3){display:none}
+	.explore-cell:has(img) span{padding:.5em}
 	.explore-cell span svg{margin-left:.3em/* Private & fork icons */;}
 }
 /*List view*/
@@ -150,12 +151,16 @@ pdf: true
 #control-icons:has(#toggle-view:not(:checked)) + #explore-content{
 	display:flex;
 	flex-direction:column;
-	.explore-cell{display:flex;text-align:left;padding:.2rem .5rem;margin:2.5px 0}
-	.explore-cell:not(:has(img)) span:nth-child(2){font-size:70%;text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
-	.explore-cell:has(img){padding:.5em}
+	.explore-cell{display:flex;text-align:left;/*padding:.2rem .5rem;*/margin:2.5px 0}
+	.explore-cell:not(:has(img)) span:nth-child(3){text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
+	/* .explore-cell:has(img){padding:.5em} */
+	.explore-cell:not(:has(img)) span:nth-child(2){padding-left:1em;}
 	.explore-cell:has(img) span{text-align:center;margin-top:.5em}
 }
+/* .explore-cell:not(:has(img)) span:nth-child(2){font-size:70%;} */
+.explore-cell span:nth-child(3){font-size:70%}
 .explore-cell:has(img){display:flex;flex-direction:column}
+.explore-cell input[type="checkbox"]{position:absolute;left:0}
 
 #explore-back{float:left}#back-to-start{float:left}#explore-refresh{float:left}
 #create-file{float:left}#create-folder{float:left}#upload-file{float:left}
@@ -202,8 +207,9 @@ pdf: true
 	background-color: var(--overlay);
 	user-select: none;
 	transition: none;
+	cursor: pointer;
+	position: relative;
 }
-span.explore-cell{cursor: pointer}
 
 .explore-cell *{margin: 0 auto;}
 .explore-cell span{
@@ -378,21 +384,22 @@ let intervalsDict={};
 // The following will read each file or content (or repos) and display into the explore-content element
 const addObjectToView=e=>{
 	let contentElement='<a class="explore-cell"';
+	let selectInput='<input type="checkbox" />'
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
 		gId('explore-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span></a>`);
 	}else{
 		// Is the record a directory?
 		if (e.type == 'dir'){
-			contentElement+=` href="#${e.url.slice(22)}" data-search="${e.name}")><span>${e.name}</span><svg height="1.2em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></a>`;
+			contentElement+=` href="#${e.url.slice(22)}" data-search="${e.name}")>${selectInput}<span>${e.name}</span><svg height="1.2em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></a>`;
 		}else{
 			// This record is a file in these brackets
 			let showItemElement=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')" data-search="${e.name}"`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){ 
-				contentElement = `<span class="explore-cell"${showItemElement}><img src="${e.download_url}" alt="Unable to display image" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
+				contentElement = `<span class="explore-cell"${showItemElement}>${selectInput}<img src="${e.download_url}" alt="Unable to display image" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
 			}else{
-				contentElement += `${showItemElement}><span>${e.name}</span><span class="size">${formatBytes(e.size)}</a>`;
+				contentElement += `${showItemElement}>${selectInput}<span>${e.name}</span><span class="size">${formatBytes(e.size)}</a>`;
 			}
 			mediaArray.push([e.download_url, e.git_url]);
 			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[e.download_url, e.git_url])
