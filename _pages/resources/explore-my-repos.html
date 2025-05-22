@@ -162,21 +162,21 @@ pdf: true
 
 /*Grid view*/
 #control-icons:has(#toggle-view:checked) #list-view{display:none}
-#control-icons:has(#toggle-view:checked) + #explore-content{
+#control-icons:has(#toggle-view:checked) + #explore-content:not(:has(.v-repo-title)){
 	display:grid;
 	grid-template-columns:repeat(4, 25%);
 	.explore-cell{flex-direction:column;text-align:center}
 	.explore-cell:has(img) .v-name{font-size:70%;}
-	.v-repo-details{margin:0 auto;width:100%;height:1.5em}
-	.v-repo-details>div{text-align:center;position:absolute;max-width:unset;left:0;right:0}
-	.v-repo-details>svg{position:absolute}
-	.v-repo-details .icon-fork{position:absolute;left:0}
-	.v-repo-details .icon-private{position:absolute;right:0}
+	/* .v-repo-details{margin:0 auto;width:100%;height:1.5em} */
+	/* .v-repo-details>div{text-align:center;position:absolute;max-width:unset;left:0;right:0} */
+	/* .v-repo-details>svg{position:absolute} */
+	/* .v-repo-details .icon-fork{position:absolute;left:0} */
+	/* .v-repo-details .icon-private{position:absolute;right:0} */
 	.v-size{margin:0 auto}
 }
 /*List view*/
 #control-icons:has(#toggle-view:not(:checked)) #icon-view{display:none}
-#control-icons:has(#toggle-view:not(:checked)) + #explore-content{
+#control-icons:has(#toggle-view:not(:checked)) + #explore-content, #explore-content:has(.v-repo-title){
 	display:flex;
 	flex-direction:column;
 	.explore-cell{text-align:left}
@@ -188,7 +188,9 @@ pdf: true
 
 
 *[href='']{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
-#explore-refresh svg:hover{rotate:180deg}
+#explore-refresh svg:hover{animation-play-state:running}
+#explore-refresh svg{animation:explore-refresh-rotate 1s linear 0s infinite;animation-play-state:paused}
+@keyframes explore-refresh-rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 #search-field{
 	display: flex;
 	height: 2.5em;
