@@ -113,28 +113,47 @@ pdf: true
 #current-description + svg{float:right;/*Edit description icon*/}
 
 /* Explorer control icons & search */
-#control-icons{
-	position:static;
-	top:0;
-	padding:.5em 0;
-	/* background-color:var(--background-solid); */
-}
-#control-icons > div{
-	text-align:center;
-	border-radius:3em;
-}
+#control-icons{position:static;top:0;padding:.5em 0}
+#control-icons>div{text-align:center;border-radius:3em}
 #control-icons a,#control-icons label{border-radius:.5em}
 #control-icons a:hover,#control-icons label:hover{color:var(--anchor-color);transform:scale(1.3)}
 #control-icons a:active,#control-icons label:active{background-color:var(--overlay-hover)}
-#control-icons label > svg{color:var(--anchor-color)}
+#control-icons label>svg{color:var(--anchor-color)}
 #control-icons label:hover{cursor:pointer}
+
+/* Items within explore-content */
+:has(>:nth-child(2))>.loader{display:none;/*Hide when there are at least 2 items in #explore-content or show-* (i.e. if .loader is not alone)*/}
+#explore-content>.loader{margin:2em auto;grid-column:1 / 5;/*"rowspan" for grid display*/}
+#explore-content img{/*Only explore-content image descendants*/max-width:100%;margin:auto}
+#explore-content *{transition: none}/*Remove weird lag that can happen sometimes*/
+.explore-cell:hover{background-color:var(--overlay-hover);color:var(--anchor-color)}
+.explore-cell:hover .v-repo-details>svg{border:1px dashed #fff2}/*Highlight fork & private icons in hover*/
+.explore-cell{
+	background-color: var(--overlay);
+	user-select: none;
+	cursor: pointer;
+	position: relative;
+	margin: 2.5px;
+	padding: .2rem .5rem;
+	display: flex;
+	flex-direction: row;
+}
+.explore-cell:has(img){padding:0}
+.explore-cell:has(img) .v-name{padding:.2rem .5rem}
+.v-name{width:100%;overflow-wrap:anywhere}
+.v-repo-title{width:100%;overflow-wrap:anywhere;margin:auto}
+.v-repo-details{display:flex;flex-direction:row;}
+.v-repo-details>div{text-align:right;max-width:fit-content;display:flex;flex-direction:column}
+.v-repo-details>div>span{font-size:50%;min-width:max-content}
+.v-size{font-size:70%;max-width:fit-content;text-align:right;width:100%}
 
 /*Toggle multi-select*/
 #multi-select:checked + label{background-color:var(--overlay-hover)}
 #control-icons:has(#multi-select:checked) + #explore-content {
 	input[type="checkbox"]{display:block}
-	.explore-cell:not(:has(img),:has(div)) span:nth-child(2){padding:0 1.5em}/*Make space for checkbox*/
+	.v-name{padding:0 1.2em}
 }
+.explore-cell input[type="checkbox"]{transform:scale(1.5)translate(.4em,.4em);display:none;margin:0;margin-right:.5em;position:absolute;top:0;left:0}
 
 /*Toggle pin*/
 #control-icons:has(#pin-explorer-nav:checked){position:sticky;z-index:2;backdrop-filter:blur(5px);/*background:linear-gradient( rgb(0, 0, 0), rgba(0, 0, 0, 0) );*/}
@@ -146,36 +165,28 @@ pdf: true
 #control-icons:has(#toggle-view:checked) + #explore-content{
 	display:grid;
 	grid-template-columns:repeat(4, 25%);
-	.explore-cell{text-align:center}
-	.explore-cell:not(:has(img)) span:nth-child(3):not(.size){display:none}/*Hide caption if it is not next to image and if not .size*/
-	.explore-cell:has(img){padding:0}
-	.explore-cell:has(img) span{padding:.5em}/*Pad out captions for images*/
-	.explore-cell span svg{margin-left:.3em/* Private & fork icons */;}
+	.explore-cell{flex-direction:column;text-align:center}
+	.explore-cell:has(img) .v-name{font-size:70%;}
+	.v-repo-details{margin:0 auto;width:100%;height:1.5em}
+	.v-repo-details>div{text-align:center;position:absolute;max-width:unset;left:0;right:0}
+	.v-repo-details>svg{position:absolute}
+	.v-repo-details .icon-fork{position:absolute;left:0}
+	.v-repo-details .icon-private{position:absolute;right:0}
+	.v-size{margin:0 auto}
 }
 /*List view*/
 #control-icons:has(#toggle-view:not(:checked)) #icon-view{display:none}
 #control-icons:has(#toggle-view:not(:checked)) + #explore-content{
 	display:flex;
 	flex-direction:column;
-	.explore-cell{display:flex;text-align:left}
-	.explore-cell:not(:has(img)) span:nth-child(3){text-align:right;max-width:fit-content;/*Datetime in all-repo view*/}
-	/* .explore-cell:not(:has(img)) span:nth-child(2){padding-left:1.5em} */
-	.explore-cell:has(img){padding:0}/*Place full image across entire cell if only has image*/
-	.explore-cell:has(img) span{text-align:center;margin-top:.5em}
+	.explore-cell{text-align:left}
+	.explore-cell:has(img){flex-direction:column;}
+	.explore-cell:has(img) .v-name{text-align:center;}
 }
-.explore-cell span:nth-child(3){font-size:70%}
-.explore-cell:has(img){display:flex;flex-direction:column}
-.explore-cell input[type="checkbox"]{position:absolute;left:0;top:0;transform:scale(1.5)translate(.4em,.4em);display:none}
-
 #explore-back{float:left}#back-to-start{float:left}#explore-refresh{float:left}
-#create-file{float:left}#create-folder{float:left}#upload-file{float:left}
-#create-item{display:flex;position:absolute;flex-direction:column;border-radius:1.25em;height:2.5em;float:left}#download-repo{float:right}#browse-view{float:right}
-/* #create-item *{padding-bottom:.5em;} */
-#create-item > *:not(:first-child) > svg{height:0}
-#create-item:hover{background-color:var(--nav-overlay);box-shadow:inset 0 0 0 1px var(--anchor-color);height:unset}
-#create-item:hover > *{display:block;padding-bottom:.5em}
-#create-item:hover > * > svg{height:2.5em}
-#create-item + div > *{padding-top:.5em}
+#create-file{float:left}#create-folder{float:left}#upload-file{float:left}#download-repo{float:right}#browse-view{float:right}
+
+
 *[href='']{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
 #explore-refresh svg:hover{rotate:180deg}
 #search-field{
@@ -201,29 +212,6 @@ pdf: true
 	padding: .2em 0 .3em .5em;
 }
 
-/* Items within explore-content */
-:has(>:nth-child(2)) > .loader{display:none;/*Hide when there are at least 2 items in #explore-content or show-* (i.e. if .loader is not alone)*/}
-#explore-content > .loader{margin:2em auto;grid-column:1 / 5;/*"rowspan" for grid display*/}
-#explore-content img{/*Only explore-content image descendants*/max-width:100%;margin:auto}
-.explore-cell:hover{/*box-shadow:inset 0 0 0 1px var(--anchor-color)*/background-color:var(--overlay-hover);}
-.explore-cell{
-	color: var(--anchor-color)!important;
-	text-decoration: none;
-	background-color: var(--overlay);
-	user-select: none;
-	transition: none;
-	cursor: pointer;
-	position: relative;
-	margin: 2.5px;
-	padding: .2rem .5rem;
-}
-
-.explore-cell *{margin: 0 auto;}
-.explore-cell span{
-	overflow-wrap: anywhere;
-	width: 100%;
-	display: block;
-}
 
 /* Specific file styles when chosen to display */
 #md-parsed{
@@ -353,8 +341,8 @@ audioPlayer.togglePlay=function(){this.paused?this.play():this.pause()}
 audioPlayer.volumeAdd=function(f=0){this.volume=clamp(0,this.volume+f,1)}
 const pathPaused=`<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 18V6l8 6-8 6Z"/>`
 const pathPlaying=`<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6H8a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Zm7 0h-1a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Z"/>`
-const privateIcon=`<svg title="This repository is private" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" viewBox="0 0 24 24"> <path fill-rule="evenodd" d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z" clip-rule="evenodd"/></svg>`
-const forkIcon=`<svg title="This repository is a fork" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5 6a3 3 0 1 1 4 2.83V10a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8.83a3.001 3.001 0 1 1 2 0V10a3 3 0 0 1-3 3h-1v2.17a3.001 3.001 0 1 1-2 0V13h-1a3 3 0 0 1-3-3V8.83A3.001 3.001 0 0 1 5 6Z" clip-rule="evenodd"/></svg>`
+const privateIcon=`<svg title="This repository is private" class="icon-private" height="1.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z" clip-rule="evenodd"/></svg>`
+const forkIcon=`<svg title="This repository is a fork" class="icon-fork" height="1.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5 6a3 3 0 1 1 4 2.83V10a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8.83a3.001 3.001 0 1 1 2 0V10a3 3 0 0 1-3 3h-1v2.17a3.001 3.001 0 1 1-2 0V13h-1a3 3 0 0 1-3-3V8.83A3.001 3.001 0 0 1 5 6Z" clip-rule="evenodd"/></svg>`
 const audioPlayerHTML=`
 <div id="audio-controls">
 	<span id="audio-duration">--:--<br>-<br>--:--</span>
@@ -376,7 +364,7 @@ const audioPlayerHTML=`
 <input id="show-audio" value="0" type="range">`;
 const viewIcon = `<svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>`
 const viewList = `<svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>`
-const uploadFileInput=Object.assign(document.createElement('input'), {type:'file',multiple:true});
+const uploadFileInput=Object.assign(document.createElement('input'),{type:'file',multiple:true});
 
 // Browsing control variables
 let debog;
@@ -390,31 +378,43 @@ let intervalsDict={};
 
 // The following will read each file or content (or repos) and display into the explore-content element
 const addObjectToView=e=>{
-	let contentElement='<a class="explore-cell"';
+	let contentElement=`<a class="explore-cell" data-search="${e.name}"`;
 	let selectInput='<input type="checkbox" />'
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
-		gId('explore-content').insertAdjacentHTML('beforeend', `${contentElement} href="#${e.url.slice(22)}/contents?ref=${e.default_branch}" data-search="${e.name}"><div></div><span>${e.name}${e.private?privateIcon:''}${e.fork?forkIcon:''}</span><span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span></a>`);
+		contentElement+=` href="#${e.url.slice(22)}/contents?ref=${e.default_branch}">
+			<span class="v-repo-title">${e.name}</span>
+			<div class="v-repo-details">
+				${e.private?privateIcon:''}${e.fork?forkIcon:''}
+				<div>
+					<span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span>
+					<span>${formatBytes(e.size)}</span>
+				</div>
+			</div>
+		</a>`;
 	}else{
 		// Is the record a directory?
 		if (e.type == 'dir'){
-			contentElement+=` href="#${e.url.slice(22)}" data-search="${e.name}")>${selectInput}<span>${e.name}</span><svg height="1.2em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg></a>`;
+			contentElement+=` href="#${e.url.slice(22)}">
+				${selectInput}
+				<span class="v-name">${e.name}</span>
+				<svg class="v-folder-icon" height="1.2em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg>
+			</a>`;
 		}else{
 			// This record is a file in these brackets
-			let showItemElement=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')" data-search="${e.name}"`;
+			contentElement+=` onclick="showFile('${e.download_url.replace(/'/g, '%27')}', '${e.git_url}')">${selectInput}`;
 			// Is the record an image?
-			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){ 
-				contentElement = `<span class="explore-cell"${showItemElement}>${selectInput}<img src="${e.download_url}" alt="Unable to display image" /><span><a href="${e.download_url}">${e.name}</a></span></span>`;
+			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){
+				contentElement+=`<img src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
 			}else{
-				contentElement += `${showItemElement}>${selectInput}<span>${e.name}</span><span class="size">${formatBytes(e.size)}</a>`;
+				contentElement+=`<span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
 			}
 			mediaArray.push([e.download_url, e.git_url]);
 			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[e.download_url, e.git_url])
 		}
-
-		// Adds the folders and files as cells
-		gId('explore-content').insertAdjacentHTML('beforeend', contentElement);
 	}
+	// Adds the folders and files as cells
+	gId('explore-content').insertAdjacentHTML('beforeend', contentElement)
 }
 
 // The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using addObjectToView
@@ -487,6 +487,7 @@ window.onhashchange=async()=>{
 		browseJson.forEach(addObjectToView)
 		searchContents()
 	}catch(err){
+		console.log(err)
 		gId('explore-back').href='';
 		gId('current-description').innerHTML='';
 		gId('current-title').textContent='Uh oh, that URL is invalid';
@@ -805,7 +806,7 @@ const createFolder=async()=>{
 				content: ''
 			})
 		})
-		// .then(r=>r.json())
+		.then(r=>r.json())
 		.then(j=>{
 			gId('explore-refresh').click();
 			raiseToast(`"${folderName}" folder has been created`)
@@ -817,7 +818,7 @@ gId('select-branch').onchange=e=>{
 	window.location.href = `#${browsingTree.pop()}`
 }
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
-const searchContents=()=>{gId('explore-content').childNodes.forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
+const searchContents=()=>{document.querySelectorAll('.explore-cell').forEach(function(a){a.style.display=(a.getAttribute('data-search').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
 const github_signin=()=>{localStorage.setItem('github_signin_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
 
