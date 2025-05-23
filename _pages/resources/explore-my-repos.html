@@ -802,7 +802,7 @@ deleteFiles=async()=>{
 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
 
 	const filesToDelete = [...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${e.getAttribute('data-search')}`)
-	//[...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>e.getAttribute('onclick').split("'").at(1).split('?token=').at(0).split(`${browsingCurrentRepo}/${refId}/`).at(1))
+	if(!confirm(`Delete ${filesToDelete.length} files from "${locationId}" (${refId})?`))return false;
 
 	// 1. Get the latest commit SHA
 	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
