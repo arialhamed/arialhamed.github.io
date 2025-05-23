@@ -40,25 +40,27 @@ pdf: true
 <!-- browsing controls -->
 <div id="control-icons">
 	<div>
-		<a title="Back" id="explore-back"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
-		<a title="Back to start" id="back-to-start"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
-		<a title="Refresh" id="explore-refresh" href="javascript:window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
+		<a title="Back" id="explore-back" class="float-left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
+		<a title="Back to start" id="back-to-start" class="float-left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
+		<a title="Refresh" id="explore-refresh" class="float-left" href="javascript:window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
 		<div id="search-field">
 			<input type="search" onkeyup="searchContents()" onclick="searchContents()" id="search-input" placeholder="start typing here to search">
 			<svg onclick="gId('search-input').value='';gId('search-input').focus();searchContents()" height="2em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
 		</div>
 	</div>
 	<div>
-		<a title="New file" id="create-file" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg></a>
-		<a title="New folder" id="create-folder" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg></a>
+		<a title="New file" id="create-file" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg></a>
+		<a title="New folder" id="create-folder" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg></a>
 		<input id="multi-select" type="checkbox" style="display:none"><label title="Start multiple selection" for="multi-select" style="float:left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M6 1C11 1 11 1 11 6 11 11 11 11 6 11 1 11 1 11 1 6 1 1 1 1 6 1V3C9 3 9 3 9 6 9 9 9 9 6 9 3 9 3 9 3 6 3 3 3 3 6 3M6 13C11 13 11 13 11 18 11 23 11 23 6 23 1 23 1 23 1 18 1 13 1 13 6 13M8.895 14.347 10.461 16.121 4.982 21.547 1.591 18.678 2.817 17.034 4.696 18.939 8.895 14.347M13 6C13 5 13 5 15 5H21C23 5 23 5 23 6 23 7 23 7 21 7H15C13 7 13 7 13 6M13 12C13 11 13 11 15 11H21C23 11 23 11 23 12 23 13 23 13 21 13H15C13 13 13 13 13 12M13 18C13 17 13 17 15 17H21C23 17 23 17 23 18 23 19 23 19 21 19H15C13 19 13 19 13 18"/></svg></label>
-		<a title="Upload here" id="upload-file" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
-		<label title="Toggle view" for="toggle-view" style="float:right">
+		<a title="Upload here" id="upload-file" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
+		<a title="Delete item" id="delete-item" class="float-left" onclick="deleteFiles()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg></a>
+
+		<label title="Toggle view" for="toggle-view" class="float-right">
 			<svg id="list-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>
 			<svg id="icon-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>
 		</label><input id="toggle-view" type="checkbox" style="display:none">
-		<a title="Download as repository as .zip" id="download-repo" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg></a>
-		<label title="Pin this toolbar" for="pin-explorer-nav" style="float:right">
+		<a title="Download as repository as .zip" id="download-repo" class="float-right" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg></a>
+		<label title="Pin this toolbar" for="pin-explorer-nav" class="float-right">
 			<svg id="pin-explorer-nav-unpinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0 0v6M9.5 9A2.5 2.5 0 0 1 12 6.5"/></svg>
 			<svg id="pin-explorer-nav-pinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5 9a7 7 0 1 1 8 6.93V21a1 1 0 1 1-2 0v-5.07A7.001 7.001 0 0 1 5 9Zm5.94-1.06A1.5 1.5 0 0 1 12 7.5a1 1 0 1 0 0-2A3.5 3.5 0 0 0 8.5 9a1 1 0 0 0 2 0c0-.398.158-.78.44-1.06Z" clip-rule="evenodd"/></svg>
 		</label><input id="pin-explorer-nav" type="checkbox" style="display:none">
@@ -148,11 +150,13 @@ pdf: true
 .v-size{font-size:70%;max-width:fit-content;text-align:right;width:100%}
 
 /*Toggle multi-select*/
-#multi-select:checked + label{background-color:var(--overlay-hover)}
+#multi-select:checked + label{animation:hihi 1s linear 0s infinite normal}
+@keyframes hihi{0%{rotate:0deg}10%{rotate:-10deg}20%{rotate:10deg}30%{rotate:-10deg}40%{rotate:10deg}50%{rotate:0deg}}
 #control-icons:has(#multi-select:checked) + #explore-content {
 	input[type="checkbox"]{display:block}
 	.v-name{padding:0 1.2em}
 }
+#control-icons:has(#multi-select:checked) #delete-item{pointer-events: unset;color:var(--anchor-color)}
 .explore-cell input[type="checkbox"]{transform:scale(1.5)translate(.4em,.4em);display:none;margin:0;margin-right:.5em;position:absolute;top:0;left:0}
 
 /*Toggle pin*/
@@ -183,14 +187,16 @@ pdf: true
 	.explore-cell:has(img){flex-direction:column;}
 	.explore-cell:has(img) .v-name{text-align:center;}
 }
-#explore-back{float:left}#back-to-start{float:left}#explore-refresh{float:left}
-#create-file{float:left}#create-folder{float:left}#upload-file{float:left}#download-repo{float:right}#browse-view{float:right}
+
+.float-left{float:left}
+.float-right{float:right}
+#delete-item{color:var(--anchor-color-hover);pointer-events:none}
 
 
 *[href='']{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
 #explore-refresh svg:hover{animation-play-state:running}
 #explore-refresh svg{animation:explore-refresh-rotate 1s linear 0s infinite;animation-play-state:paused}
-@keyframes explore-refresh-rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes explore-refresh-rotate{from{rotate:0deg}to{rotate:360deg}}
 #search-field{
 	display: flex;
 	height: 2.5em;
@@ -720,7 +726,7 @@ uploadFileInput.onchange=async(e)=>{
 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
 
 	// 1. Process picked files
-	let files = await Promise.all(Array.from(e.target.files).map(file=>{
+	let filesToUpload = await Promise.all(Array.from(e.target.files).map(file=>{
 		let reader=new FileReader();
 		return new Promise(resolve=>{
 			reader.onload=()=>resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`});
@@ -728,7 +734,7 @@ uploadFileInput.onchange=async(e)=>{
 		})
 	}))
 
-	let veilTimer = files.length + 5
+	let veilTimer = filesToUpload.length + 5
 	console.log(veilTimer)
 	let veilStopwatch = 0
 
@@ -737,7 +743,7 @@ uploadFileInput.onchange=async(e)=>{
 	console.log(++veilStopwatch)
 
 	// 3. Create blobs for each file
-	const blobData = await Promise.all(files.map(file =>
+	const blobData = await Promise.all(filesToUpload.map(file =>
 		fetch(`${apiUrl}/blobs`, {
 			method: 'POST',
 			headers: {Authorization: `token ${github_token}`},
@@ -755,7 +761,7 @@ uploadFileInput.onchange=async(e)=>{
 		body: JSON.stringify({
 			base_tree: latestCommitSha,
 			tree: blobData.map((blob, index) => ({
-				path: files[index].path,
+				path: filesToUpload[index].path,
 				mode: '100644',
 				type: 'blob',
 				sha: blob.sha
@@ -769,7 +775,7 @@ uploadFileInput.onchange=async(e)=>{
 		method: 'POST',
 		headers: {Authorization: `token ${github_token}`},
 		body: JSON.stringify({
-			message: `Uploaded ${files.length} file(s)`,
+			message: `Uploaded ${filesToUpload.length} file(s)`,
 			tree: treeData.sha,
 			parents: [latestCommitSha]
 		})
@@ -786,13 +792,70 @@ uploadFileInput.onchange=async(e)=>{
 	});
 	console.log(++veilStopwatch)
 
-	if (updateRefResponse.ok) {
-		console.log('Commit successful');
-	} else {
-		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
-	}
+	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
+	raiseToast(updateRefResponse.ok?`${filesToDelete.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
 	gId('explore-refresh').click();
-	raiseToast(`${files.length} file(s) has been uploaded`)
+}
+deleteFiles=async()=>{
+	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
+
+	const filesToDelete = [...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>e.getAttribute('onclick').split("'").at(1).split('?token=').at(0).split(`${browsingCurrentRepo}/${refId}/`).at(1))
+
+	// 1. Get the latest commit SHA
+	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
+
+	// 2. Create a tree with deletions
+	const treeData = await fetch(`${apiUrl}/trees`, {
+		method: 'POST',
+		headers: { Authorization: `token ${github_token}` },
+		body: JSON.stringify({
+			base_tree: latestCommitSha,
+			tree: filesToDelete.map(path => ({
+				path: path,
+				mode: '100644',
+				sha: null, // this marks the file for deletion
+			}))
+		})
+	}).then(r => r.json());
+	// const treeData = await fetch(`${apiUrl}/trees`, {
+	// 	method: 'POST',
+	// 	headers: {Authorization: `token ${github_token}`},
+	// 	body: JSON.stringify({
+	// 		base_tree: latestCommitSha,
+	// 		tree: blobData.map((blob, index) => ({
+	// 			path: files[index].path,
+	// 			mode: '100644',
+	// 			type: 'blob',
+	// 			sha: blob.sha
+	// 		}))
+	// 	})
+	// }).then(r=>r.json());
+
+	// 3. Create a commit
+	const commitData = await fetch(`${apiUrl}/commits`, {
+		method: 'POST',
+		headers: { Authorization: `token ${github_token}` },
+		body: JSON.stringify({
+			message: `Deleted ${filesToDelete.length} file(s)`,
+			tree: treeData.sha,
+			parents: [latestCommitSha]
+		})
+	}).then(r => r.json());
+	console.log(++veilStopwatch)
+
+	// 4. Update the branch reference
+	const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
+		method: 'PATCH',
+		headers: {Authorization: `token ${github_token}`},
+		body: JSON.stringify({
+			sha: commitData.sha
+		})
+	});
+
+	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
+	raiseToast(updateRefResponse.ok?`${filesToDelete.length} file(s) has been deleted`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
+	gId('explore-refresh').click();
 }
 const createFolder=async()=>{
 	let folderName = prompt('New folder name')
