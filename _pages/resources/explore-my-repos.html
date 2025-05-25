@@ -38,6 +38,7 @@ pdf: true
 </div>
 
 <!-- browsing controls -->
+<!-- <svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3M4 4H7V7H4"/></svg> -->
 <div id="control-icons">
 	<div>
 		<a title="Back" id="explore-back" class="float-left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
@@ -311,6 +312,17 @@ pdf: true
 }
 .explore-display-image #explore-display-close + a{width:calc(100% - 3em);display:block}
 .explore-display-audio #explore-display-close + a{left:0;padding:.4em;border-radius:.75em;-webkit-box-decoration-break:clone;-o-box-decoration-break:clone;box-decoration-break:clone}
+#backdrop{
+	position:fixed;
+	top:0;left:0;bottom:0;right:0;
+	background-color:#0005;
+	backdrop-filter:blur(5px);
+	display:none;
+	text-align:center;
+	line-height:100vh;
+	z-index:7;
+	font-size:300%;
+}
 
 /* Audio specific controls */
 #audio-controls{display:flex;height:6em}
@@ -735,13 +747,17 @@ uploadFileInput.onchange=async(e)=>{
 		})
 	}))
 
-	let veilTimer = filesToUpload.length + 5
-	console.log(veilTimer)
-	let veilStopwatch = 0
+	gId('backdrop').style.display="block";
+	let veilTimer = filesToUpload.length + 5;
+	console.log(veilTimer);
+	// gId('commit-progress').max = veilTimer;
+	let veilStopwatch = 0;
+	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
+	updateBackdrop()
 
 	// 2. Get the latest commit reference
 	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
-	console.log(++veilStopwatch)
+	updateBackdrop()
 
 	// 3. Create blobs for each file
 	const blobData = await Promise.all(filesToUpload.map(file =>
@@ -752,7 +768,7 @@ uploadFileInput.onchange=async(e)=>{
 				content: file.content.split(';base64,')[1],
 				encoding: 'base64'
 			})
-		}).then(res => {console.log(++veilStopwatch); return res.json()})
+		}).then(res => {updateBackdrop(); return res.json()})
 	));
 
 	// 4. Create the tree
@@ -769,7 +785,7 @@ uploadFileInput.onchange=async(e)=>{
 			}))
 		})
 	}).then(r=>r.json());
-	console.log(++veilStopwatch)
+	updateBackdrop()
 
 	// 5. Create the commit
 	const commitData = await fetch(`${apiUrl}/commits`, {
@@ -781,7 +797,7 @@ uploadFileInput.onchange=async(e)=>{
 			parents: [latestCommitSha]
 		})
 	}).then(r=>r.json());
-	console.log(++veilStopwatch)
+	updateBackdrop()
 
 	// 6. Update the branch reference
 	const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
@@ -791,10 +807,11 @@ uploadFileInput.onchange=async(e)=>{
 			sha: commitData.sha
 		})
 	});
-	console.log(++veilStopwatch)
+	updateBackdrop()
 
 	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
-	raiseToast(updateRefResponse.ok?`${filesToDelete.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
+	raiseToast(updateRefResponse.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
+	gId('backdrop').style.display="none";
 	gId('explore-refresh').click();
 }
 deleteFiles=async()=>{
