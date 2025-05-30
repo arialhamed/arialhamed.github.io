@@ -823,14 +823,15 @@ deleteFiles=async(gitUrl)=>{
 
 	// 1. Gather files via traversing the trees
 	let currentGitUrl={sha:refId}
-	for(let i=0;i<=currentPath.split('/').length&&currentPath!=''; i++){
-		currentGitUrl=await fetch(`https://api.github.com/repos/arialhamed/static/git/trees/${currentGitUrl.sha}${i==currentPath.split('/').length?'?recursive=1':''}`,github_api_headers()).then(r=>r.json()).then(j=>i==currentPath.split('/').length?j.tree.filter(e=>e.type=='blob'):j.tree.find(e=>e.path==currentPath.split('/').at(i)))
+	for(let i=0;i<currentPath.split('/').length&&currentPath!=''; i++){
+		currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}`,github_api_headers()).then(r=>r.json()).then(j=>j.tree.find(e=>e.path==currentPath.split('/').at(i)))
 	}
+	currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}?recursive=1`,github_api_headers()).then(r=>r.json()).then(j=>j.tree.filter(e=>e.type=='blob'))
 
 	// 2. Get all files, including those from inside the folder
 	const filesToDelete = [...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>
 		e.getAttribute('data-type')=='tree'?currentGitUrl.filter(b=>b.path.startsWith(`${e.getAttribute('data-path')}/`)).map(b=>b.path):e.getAttribute('data-path')
-	).flat().map(e=>`${currentPath}/${e}`)
+	).flat().map(e=>currentPath?`${currentPath}/${e}`:e);
 
 	// 3. Confirm deletion
 	if(!confirm(`Delete ${filesToDelete.length} files from "${locationId}" (${refId})?`))return false;
