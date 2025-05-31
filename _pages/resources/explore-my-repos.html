@@ -246,8 +246,23 @@ pdf: true
 	width: 90%;
 	accent-color: var(--anchor-color);
 }
-#show-pdf{min-height:65vh;display:flex;flex-direction:column}
+#show-pdf{
+	min-height:65vh;
+	display:flex;
+	flex-direction:column;
+	position:relative;
+	width:98vw;
+	margin-left:max(-40%, calc(50% - 49vw));
+	max-width:180%;
+}
 #show-pdf img{max-width:100%}
+#show-pdf iframe{
+	height: 100vh;
+	max-width: calc(98vw - 9em * 2);
+	margin: 0 auto;
+	width: 100%;
+	min-width: min(100%, var(--inner-width));
+}
 .explore-display-image #explore-display span:first-child{ 
 	background-color: var(--popup-background-color);
 	padding: 1em;
@@ -600,7 +615,7 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){// Wh
 	if (gId('show-video')!==null){gId('show-video').volume=.5;gId('show-video').play()}
 	if (gId('show-text')!==null){Prism.highlightElement(gId('show-text'))}
 	if (gId('show-pdf')!==null){
-		gId('show-pdf').insertAdjacentHTML('beforeend', `<iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${downloadUrl}" style="height:100vh"></iframe>`)
+		gId('show-pdf').insertAdjacentHTML('beforeend', `<iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${downloadUrl}"></iframe>`)
 		// let pdf = await fetch(gitUrl, github_api_headers({raw:true}))
 		// .then(r=>r.arrayBuffer())
 		// .then(pdfData=>pdfjsLib.getDocument({data: pdfData}).promise)
