@@ -600,30 +600,31 @@ async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){// Wh
 	if (gId('show-video')!==null){gId('show-video').volume=.5;gId('show-video').play()}
 	if (gId('show-text')!==null){Prism.highlightElement(gId('show-text'))}
 	if (gId('show-pdf')!==null){
-		let pdf = await fetch(gitUrl, github_api_headers({raw:true}))
-		.then(r=>r.arrayBuffer())
-		.then(pdfData=>pdfjsLib.getDocument({data: pdfData}).promise)
-		const getSinglePage=async(pageNumber)=>{
-			pdf.getPage(pageNumber).then(page=>{
-				let viewport = page.getViewport({scale: 4});
-				let canvas = document.createElement('canvas');
-				let context = canvas.getContext('2d');
-				canvas.height = viewport.height;
-				canvas.width = viewport.width;
+		gId('show-pdf').insertAdjacentHTML('beforeend', `<iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${downloadUrl}" style="height:100vh"></iframe>`)
+		// let pdf = await fetch(gitUrl, github_api_headers({raw:true}))
+		// .then(r=>r.arrayBuffer())
+		// .then(pdfData=>pdfjsLib.getDocument({data: pdfData}).promise)
+		// const getSinglePage=async(pageNumber)=>{
+		// 	pdf.getPage(pageNumber).then(page=>{
+		// 		let viewport = page.getViewport({scale: 4});
+		// 		let canvas = document.createElement('canvas');
+		// 		let context = canvas.getContext('2d');
+		// 		canvas.height = viewport.height;
+		// 		canvas.width = viewport.width;
 
-				// Render PDF page into canvas context
-				let renderContext = {
-					canvasContext: context,
-					viewport: viewport
-				};
-				// let renderTask = page.render(renderContext);
-				page.render(renderContext).promise.then(()=>{
-					gId('show-pdf').insertAdjacentHTML('beforeend', `<img src="${canvas.toDataURL()}">`)
-					if(pdf.numPages>pageNumber)getSinglePage(pageNumber+1);
-				})
-			})
-		}
-		getSinglePage(1)
+		// 		// Render PDF page into canvas context
+		// 		let renderContext = {
+		// 			canvasContext: context,
+		// 			viewport: viewport
+		// 		};
+		// 		// let renderTask = page.render(renderContext);
+		// 		page.render(renderContext).promise.then(()=>{
+		// 			gId('show-pdf').insertAdjacentHTML('beforeend', `<img src="${canvas.toDataURL()}">`)
+		// 			if(pdf.numPages>pageNumber)getSinglePage(pageNumber+1);
+		// 		})
+		// 	})
+		// }
+		// getSinglePage(1)
 	}
 	if (gId('show-audio')!==null){
 		console.log('Playing audio')
