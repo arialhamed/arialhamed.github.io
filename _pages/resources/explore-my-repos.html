@@ -75,7 +75,7 @@ pdf: true
 <br>
 
 <!-- under the cells, displaying all except images already in cells -->
-<div id="explore-display">
+<div id="file-display">
 </div>
 
 <div id="backdrop"></div>
@@ -236,59 +236,49 @@ pdf: true
 	max-width: calc(var(--inner-width) - 20px);
 	margin: 0 auto;
 }
-#show-image{
-	max-width: 100%;
-	max-height: calc(100% - 10vh);
-	object-fit: contain;
-	margin: auto;
+#file-display{
+	position:fixed;
+	top:0;bottom:0;left:0;right:0;
+	background-color:#0005;
+	display:flex;
+	flex-direction:column;
+	z-index:7;
+	overflow:scroll/*Enable scrolling for items in this div*/;
+	padding-top:3em/*Space for title & close*/;
 }
+body:has(#file-display-title){overflow-y:hidden/*Disable the main scroll when file-display is shown*/}
+#file-display:not(:has(*)){display:none/*If there are no items in this div, hide it*/;}
+#file-display-title{/*Title for file display*/
+	display:flex;flex-direction:row;
+	align-items:center;justify-content:center;
+	position:fixed;
+	top:0;
+	background-color:var(--popup-background-color);
+	width:calc(100% - 3em);
+	min-height:3em;
+}
+#file-display-close{/*Close button for file display*/
+	width:3em;height:3em;
+	position:fixed;
+	top:0;right:0;
+	color:var(--nav-font-color);
+	background-color:var(--popup-background-color);
+	padding:.25em;
+}
+#file-display-close:hover{border:1px dashed var(--nav-font-color-hover)}
+#file-display-image-pagefit-container{/*Checkbox for images in file display*/
+	display:flex;flex-direction:row;
+	position:fixed;
+	top:3em;right:0;
+	height:3em;
+	background-color:var(--popup-background-color);
+	padding:0 1em;
+}
+#file-display:has(#file-display-image-pagefit:checked) > #file-display-image{overflow:auto;max-width:100%;/*Toggle Page Width of an image in file display*/}
+
 #show-audio{
 	width: 90%;
 	accent-color: var(--anchor-color);
-}
-#show-pdf{
-	min-height:65vh;
-	display:flex;
-	flex-direction:column;
-	position:relative;
-	width:98vw;
-	margin-left:max(-40%, calc(50% - 49vw));
-	max-width:180%;
-}
-#show-pdf img{max-width:100%}
-#show-pdf iframe{
-	height: 100vh;
-	max-width: calc(98vw - 9em * 2);
-	margin: 0 auto;
-	width: 100%;
-	min-width: min(100%, var(--inner-width));
-}
-.explore-display-image #explore-display span:first-child{ 
-	background-color: var(--popup-background-color);
-	padding: 1em;
-	border-radius: 2em;
-}
-.explore-display-default{
-	display: block;
-	float: none; 
-	text-align: center; 
-	padding: 12px 0; 
-}
-.explore-display-image{
-	display: flex;
-	flex-direction: column;
-	text-align: center; 
-	position: fixed; 
-	padding: 5vh 5vw; 
-	top: 0; 
-	bottom: 0; 
-	left: 0; 
-	right: 0;
-	background-color: var(--popup-background-color); 
-	width: 100%; 
-	height: 100%; 
-	z-index: 6; 
-	margin: 0;
 }
 .explore-display-audio{
 	display: block;
@@ -312,6 +302,9 @@ pdf: true
 	float: right;
 	cursor: pointer;
 	width: 3em;
+	position: fixed;
+	right: 1em;
+	bottom: 1em;
 }
 .explore-display-image #explore-display-close{
 	top: unset;
@@ -327,7 +320,7 @@ pdf: true
 	position: relative;
 	word-wrap: anywhere;
 }
-.explore-display-image #explore-display-close + a{width:calc(100% - 3em);display:block}
+/* .explore-display-image #explore-display-close + a{width:calc(100% - 3em);display:block} */
 .explore-display-audio #explore-display-close + a{left:0;padding:.4em;border-radius:.75em;-webkit-box-decoration-break:clone;-o-box-decoration-break:clone;box-decoration-break:clone}
 #backdrop{
 	position:fixed;
@@ -416,7 +409,7 @@ let intervalsDict={};
 // The following will read each file or content (or repos) and display into the explore-content element
 const addObjectToView=async(e)=>{
 	let contentString=`<a class="explore-cell" data-path="${e.name}"`;
-	let selectInput='<input type="checkbox" />'
+	let selectInput=`<label for="${e.sha}"></label><input type="checkbox" id="${e.sha}" />`;
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
 		contentString+=` href="#${e.url.slice(22)}/contents?ref=${e.default_branch}">
@@ -453,7 +446,10 @@ const addObjectToView=async(e)=>{
 	const template=document.createElement('template');//Purpose of template element
 	template.innerHTML=contentString.trim();//Remove text nodes and add to template
 	const exploreCell=template.content.firstChild;//Get the first child of template
-	if(e.download_url){exploreCell.querySelector(':not(input[type="checkbox"])').onclick=()=>showFile(e.download_url,e.git_url)}//If download_url exists, set showFile as onclick, except if it is select checkbox
+	if(e.download_url){//If download_url exists, set showFile as onclick, except if it is select checkbox
+		exploreCell.onclick=()=>showFile(e.url);
+		exploreCell.querySelector('input[type="checkbox"]').onclick=e=>e.stopPropagation();
+	}
 	gId('explore-content').appendChild(exploreCell);//Add to DOM
 }
 
@@ -549,98 +545,59 @@ const downloadFile=async(inUrl)=>{
 	// xhr.send()
 	// console.log("what")
 }
-async function showFile(downloadUrl, gitUrl, mdRaw=false, audioCont=false){// When click on file, show it. Exceptions for markdown files.
-	console.log(`showFile(${downloadUrl}, ${gitUrl})`);
-	const bDisplay=gId('explore-display');
-	var fileName=downloadUrl.split('/').pop().split('?')[0];
+const showFile=async(inUrl)=>{
+	console.log(`showFile(${inUrl})`);
 
-	// Remove loops to avoid raiding the console section 
-	if(audioMainLoop)clearInterval(audioMainLoop);
+	// Show loader spinner while loading file details
+	const fileDisplay=gId('file-display');
+	fileDisplay.innerHTML='<span class="loader"></span>';
+
+	// Get file details
+	const thisFile=await fetch(inUrl, github_api_headers()).then(r=>r.json());
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-	const [locationId, refId] = window.location.hash.slice(1).split('?ref=')
-	let browseDisplayInner=`<div>
-	<svg id="explore-display-close" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-	<a href="${downloadUrl.includes('?token=')?`javascript:downloadFile('${locationId}/${fileName}?ref=${refId}')`:downloadUrl}">${decodeURIComponent(fileName)}</a>
-	</div>`;
+	fileDisplay.innerHTML+=`
+		<a id="file-display-title" href="javascript:downloadFile('${inUrl}')">${thisFile.name}</a>
+		<svg id="file-display-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+	`.trim();
 	// If we are in a private repo, the 'downloadUrl' will have '?token=' appended to it. That's only temporary.
 
-	// Add option to show parsed for markdown files
-	if (fileName.toLowerCase().endsWith('.md')){browseDisplayInner+=` <span style="cursor:pointer;position:relative;left:3em;">(<a onclick="showFile('${downloadUrl}', '${gitUrl}', ${(mdRaw?'false)">alt: parsed':'true)">alt: raw')}</a>)</span>`}
 
-	// Remove any existing browsing indicators from explore-display
-	['default', 'image', 'audio'].forEach(a => bDisplay.classList.remove('explore-display-'+a))
-	let browseDisplayIndicator='default';
-
-	if(extI.some(v => fileName.toLowerCase().endsWith(v))){
-		if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
-		browseDisplayIndicator="image";
-		browseDisplayInner=`<img id="show-image" src="${downloadUrl}"><span>${browseDisplayInner}</span>`;
-	}else if(extV.some(v => fileName.toLowerCase().endsWith(v))){
-		browseDisplayInner+=`<video id="show-video" style="width: 100%;" controls><source src="${downloadUrl}" type="video/webm"></video>`;
-	}else if(extS.some(v => fileName.toLowerCase().endsWith(v))){
-		browseDisplayIndicator="audio";
-		browseDisplayInner+=audioPlayerHTML;
-	}else if(ext3.some(v => fileName.toLowerCase().endsWith(v))){
-		browseDisplayInner+=`<model-viewer alt="${decodeURIComponent(downloadUrl.substring(downloadUrl.lastIndexOf('/')+1))}" src="${downloadUrl}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`;
-	}else if(extA.some(v => fileName.toLowerCase().endsWith(v))){
-		browseDisplayInner+="<p>Contents of this file can not be parsed here.</p>";
-	}else if(fileName.toLowerCase().endsWith(".pdf")){
-		browseDisplayInner+=`<br><div id="show-pdf"><span class="loader"></span></div>`
+	if(extI.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Images
+		// if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
+		fileDisplay.innerHTML+=`
+			<div id="file-display-image-pagefit-container">
+				<input id="file-display-image-pagefit" type="checkbox" checked>
+				<label for="file-display-image-pagefit" style="line-height:3em;">Page Fit</label>
+			</div>
+			<img id="file-display-image" style="margin:auto;" src="${thisFile.download_url}">
+		`.trim();
+	}else if(extV.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Video
+		fileDisplay.innerHTML+=`<video id="file-display-video" style="width:100%;margin:auto;" controls><source src="${thisFile.download_url}" type="video/webm"></video>`;
+		gId('file-display-video').volume=1;
+		gId('file-display-video').play();
+	}else if(extS.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Audio
+		fileDisplay.innerHTML+=audioPlayerHTML;
+	}else if(ext3.some(v=>thisFile.name.toLowerCase().endsWith(v))){// 3D models
+		fileDisplay.innerHTML+=`<model-viewer alt="${decodeURIComponent(thisFile.name)}" src="${thisFile.download_url}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`;
+	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
+		fileDisplay.innerHTML+="<p>Contents of this file can not be parsed here.</p>";
+	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
+		fileDisplay.innerHTML+=`<iframe style="flex:1;" src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${thisFile.download_url}"></iframe>`;
 	}else{
-		const itemTextOut=await fetch(gitUrl, github_api_headers()).then(r=>r.json()).then(t=>atob(t['content']));
-
-		// If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
-		if(fileName.toLowerCase().endsWith('.md') && !mdRaw){
-			browseDisplayInner+=`<br><span id="md-parsed">${mdConverter.render(itemTextOut.substring(1).split('---').pop())}</span>`;
-		}else{ // else show it parsed in Prism.js
-			browseDisplayInner+=`<br><pre style="background-color:#333a;/*width:100%;*/" data-src="${downloadUrl}" data-download-link><code id="show-text" class="line-numbers language-${fileName.split('.').pop()}">${itemTextOut.replace(/\</g, '&lt;')}</code></pre>`;
-		} // The code `itemTextOut.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
+		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
+		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
+		// 	fileDisplay.innerHTML+=`<br><span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`;
+		// }else{ // else show it parsed in Prism.js
+		fileDisplay.innerHTML+=`<br><pre style="background-color:#333a;/*width:100%;*/height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="file-display-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre>`;
+		// } // The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
+		Prism.highlightElement(gId('file-display-text'))
 	}
 
-	// Clear inline styles, push contents to explore-display's innerHTML, and add custom-by-file styles via class
-	bDisplay.style='';
-	bDisplay.innerHTML=browseDisplayInner;
-	bDisplay.classList.add('explore-display-'+browseDisplayIndicator);
-	gId('explore-display-close').onclick=()=>{
-		bDisplay.innerHTML='';
-		bDisplay.classList.remove('explore-display-'+browseDisplayIndicator);
-		['default','image','audio'].forEach(e=>{bDisplay.classList.remove('explore-display-'+e)})
-	}
+	gId('file-display-close').onclick=()=>fileDisplay.innerHTML='';
 
-	// Automatically scroll down
-	if(!['image','audio'].includes(browseDisplayIndicator)){window.scrollTo({top: gId('explore-display').getBoundingClientRect().y+window.pageYOffset, behavior: "smooth"})}
-
-	// Set volume to half and play the media automatically
-	if (gId('show-video')!==null){gId('show-video').volume=.5;gId('show-video').play()}
-	if (gId('show-text')!==null){Prism.highlightElement(gId('show-text'))}
-	if (gId('show-pdf')!==null){
-		gId('show-pdf').insertAdjacentHTML('beforeend', `<iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${downloadUrl}"></iframe>`)
-		// let pdf = await fetch(gitUrl, github_api_headers({raw:true}))
-		// .then(r=>r.arrayBuffer())
-		// .then(pdfData=>pdfjsLib.getDocument({data: pdfData}).promise)
-		// const getSinglePage=async(pageNumber)=>{
-		// 	pdf.getPage(pageNumber).then(page=>{
-		// 		let viewport = page.getViewport({scale: 4});
-		// 		let canvas = document.createElement('canvas');
-		// 		let context = canvas.getContext('2d');
-		// 		canvas.height = viewport.height;
-		// 		canvas.width = viewport.width;
-
-		// 		// Render PDF page into canvas context
-		// 		let renderContext = {
-		// 			canvasContext: context,
-		// 			viewport: viewport
-		// 		};
-		// 		// let renderTask = page.render(renderContext);
-		// 		page.render(renderContext).promise.then(()=>{
-		// 			gId('show-pdf').insertAdjacentHTML('beforeend', `<img src="${canvas.toDataURL()}">`)
-		// 			if(pdf.numPages>pageNumber)getSinglePage(pageNumber+1);
-		// 		})
-		// 	})
-		// }
-		// getSinglePage(1)
-	}
+}
+async function funky_or_whatever_is_left_of_it(downloadUrl, gitUrl, mdRaw=false, audioCont=false){// When click on file, show it. Exceptions for markdown files.
 	if (gId('show-audio')!==null){
 		console.log('Playing audio')
 		function aPnext(){var queue=audioPlayer.shuffle?mediaArrayRandom:mediaArray;showFile.apply(this,queue[queue.findIndex(x=>x[0]==downloadUrl)==queue.length-1?0:queue.findIndex(x=>x[0]==downloadUrl)+1])}

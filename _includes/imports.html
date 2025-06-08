@@ -119,7 +119,9 @@
 	input:focus, textarea:focus{outline:none}
 	input[type=search]::-webkit-search-cancel-button{appearance:none;/*Any text input should have a custom svg to aid in clearing value*/}
 	audio::-webkit-media-controls-panel{background-color:#0000;color:#0000}
-	header{/*max-width:calc(var(--inner-width) + 9em * 2);*//*Influences navbar position*/margin:0 auto}
+	header{margin:0 auto}
+	/* body:has(#show-pdf) header{max-width:calc(var(--inner-width) + 9em * 2);Influences navbar position} */
+	body:not(:has(#show-pdf)) header{max-width:calc(var(--inner-width) + 9em * 2);/*Influences navbar position*/}
 	footer a:hover{color:#888}
 	h1,h2,h3,h4,h5,h6{color:var(--font-color);font-weight:500;margin-top:0;margin-bottom:.5rem;padding-top:1rem}
 	figcaption{font-size:70%;text-align:center}
@@ -173,8 +175,9 @@
 	}
 	#navbar{
 		position:fixed;/*Keep navbar at where it is*/
-		z-index:5;/*Keep navbar above everything else*/
-		width:9em;/*le standardize*/
+		z-index:2;/*Keep navbar above everything else*/
+		max-width:9em;/*le standardize*/
+		width:calc(50% - 400px);/*mhmm squeezy*/
 		margin-left:0;/*Set by width of header*/
 		/* top:1em; */
 		padding-left:.5em;
@@ -215,7 +218,7 @@
 	.dropdown-toggle:hover + .dropdown-menu,.dropdown-menu:hover{
 		display:block;/*Preserve dropdowns at any point when engaged*/
 	}
-	@media only screen and (max-width:calc(800px + 8.5em * 2)){
+	@media only screen and (max-width:calc(800px + 7.5em * 2)){
 		#navbar{margin-left:-9.5em;/*Retract whole nav to side (-9em) & "padding" (-.5em)*/z-index:7;bottom:.5em}
 		#navbar:hover{margin-left:0;/*Show nav when any part of nav is engaged (including ribbon)*/}
 		#navribbon{
@@ -299,13 +302,14 @@
 	.disable-selection{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}
 	.highlight{margin-left:.2rem}
 	div.highlighter-rouge{background-color:var(--overlay);border:1px solid #313131;padding:16px 16px 0 16px;border-radius:3px;overflow:auto;margin-bottom:16px;}
+	div.code-toolbar{flex:1;}/*For when in flex containers*/
 	.wide-responsive{position:relative;width:98vw;margin-left:max(-40%, calc(50% - 49vw));max-width:180%;font-size:75%;}
 	#site-hair{float: left;}
 	#small-modal{
 		position: fixed;
 		top: 100vh;
 		background-color: var(--background-solid);
-		z-index: 5;
+		z-index: 3;
 		border: 2px solid var(--nav-font-color);
 		border-radius: .75em;
 		width: 20em;
