@@ -600,8 +600,9 @@ const showFile=async(inUrl)=>{
 			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z"/></svg>
 		</div>
 	`.trim());
-	// If we are in a private repo, the 'downloadUrl' will have '?token=' appended to it. That's only temporary.
-
+	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
 
 	if(extI.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Images
 		// if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
@@ -738,24 +739,20 @@ const showFile=async(inUrl)=>{
 		gId('fd-audio-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
 
 	}else if(ext3.some(v=>thisFile.name.toLowerCase().endsWith(v))){// 3D models
-		fileDisplay.innerHTML+=`<model-viewer alt="${decodeURIComponent(thisFile.name)}" src="${thisFile.download_url}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`;
+		fileDisplay.insertAdjacentHTML('beforeend',`<model-viewer alt="${decodeURIComponent(thisFile.name)}" src="${thisFile.download_url}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`);
 	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
-		fileDisplay.innerHTML+="<p>Contents of this file can not be parsed here.</p>";
+		fileDisplay.insertAdjacentHTML('beforeend',"<p>Contents of this file can not be parsed here.</p>");
 	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
-		fileDisplay.innerHTML+=`<iframe style="flex:1;width:100%;" src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${thisFile.download_url}"></iframe>`;
+		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${thisFile.download_url}"></iframe>`);
 	}else{
 		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
 		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
-		// 	fileDisplay.innerHTML+=`<br><span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`;
+		// 	fileDisplay.insertAdjacentHTML('beforeend',`<br><span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`);
 		// }else{ // else show it parsed in Prism.js
-		fileDisplay.innerHTML+=`<br><pre style="background-color:#333a;/*width:100%;*/height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre>`;
+		fileDisplay.insertAdjacentHTML('beforeend',`<br><pre style="background-color:#333a;/*width:100%;*/height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre>`);
 		// } // The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 		Prism.highlightElement(gId('fd-text'))
 	}
-
-	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
-	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
-	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
 }
 uploadFileInput.onchange=async(e)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
