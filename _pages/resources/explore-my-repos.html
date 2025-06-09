@@ -255,7 +255,7 @@ body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display
 	position:fixed;
 	top:0;
 	background-color:var(--popup-background-color);
-	width:calc(100% - 3em);
+	width:100%;
 	min-height:3em;
 }
 #fd-close{/*Close button for file display*/
@@ -263,7 +263,7 @@ body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display
 	position:fixed;
 	top:0;right:0;
 	color:var(--nav-font-color);
-	background-color:var(--popup-background-color);
+	/* background-color:var(--popup-background-color); */
 	padding:.25em;
 }
 #fd-close:hover{border:1px dashed var(--nav-font-color-hover)}
@@ -742,7 +742,7 @@ const showFile=async(inUrl)=>{
 	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
 		fileDisplay.innerHTML+="<p>Contents of this file can not be parsed here.</p>";
 	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
-		fileDisplay.innerHTML+=`<iframe style="flex:1;" src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${thisFile.download_url}"></iframe>`;
+		fileDisplay.innerHTML+=`<iframe style="flex:1;width:100%;" src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${thisFile.download_url}"></iframe>`;
 	}else{
 		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
 		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
