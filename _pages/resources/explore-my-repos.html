@@ -275,6 +275,18 @@ body:has(#file-display-title){overflow-y:hidden/*Disable the main scroll when fi
 	padding:0 1em;
 }
 #file-display:has(#file-display-image-pagefit:checked) > #file-display-image{overflow:auto;max-width:100%;/*Toggle Page Width of an image in file display*/}
+#file-display-nav{z-index:1;}
+#file-display-nav > svg{
+	position:fixed;
+	width:5rem;
+	height:5rem;
+	bottom:0;
+	background-color:#0005;
+	color:white;
+}
+#file-display-nav > svg:hover{background-color:#000a;}
+#file-display-nav > svg:nth-child(1){left:0;}
+#file-display-nav > svg:nth-child(2){right:0;}
 
 #show-audio{
 	width: 90%;
@@ -402,6 +414,7 @@ let browsingTree=[];
 let mediaArray=[];
 let mediaArrayRandom=[];
 let mediaArrayLocation='';
+let busRoute=[];
 let browsingCurrentRepo='';
 let ghusr='arialhamed';
 let intervalsDict={};
@@ -449,6 +462,7 @@ const addObjectToView=async(e)=>{
 	if(e.download_url){//If download_url exists, set showFile as onclick, except if it is select checkbox
 		exploreCell.onclick=()=>showFile(e.url);
 		exploreCell.querySelector('input[type="checkbox"]').onclick=e=>e.stopPropagation();
+		busRoute.push(e.url);
 	}
 	gId('explore-content').appendChild(exploreCell);//Add to DOM
 }
@@ -457,7 +471,8 @@ const addObjectToView=async(e)=>{
 // 'refresh' boolean is to reload private repo's download_url tokens
 window.onhashchange=async()=>{
 	const inUrl = window.location.hash.slice(1);
-	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree & 
+	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree 
+	busRoute=[]; // Clear bus route
 
 	if(isReload){browsingTree.pop();console.log('refreshing')};
 	browsingTree.at(-2)==inUrl?browsingTree.pop():browsingTree.push(inUrl);
@@ -559,6 +574,10 @@ const showFile=async(inUrl)=>{
 	fileDisplay.innerHTML+=`
 		<a id="file-display-title" href="javascript:downloadFile('${inUrl}')">${thisFile.name}</a>
 		<svg id="file-display-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+		<div id="file-display-nav">
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"></svg>
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
+		</div>
 	`.trim();
 	// If we are in a private repo, the 'downloadUrl' will have '?token=' appended to it. That's only temporary.
 
@@ -595,6 +614,8 @@ const showFile=async(inUrl)=>{
 	}
 
 	gId('file-display-close').onclick=()=>fileDisplay.innerHTML='';
+	fileDisplay.querySelector('#file-display-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
+	fileDisplay.querySelector('#file-display-nav > svg:nth-child(2)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
 
 }
 async function funky_or_whatever_is_left_of_it(downloadUrl, gitUrl, mdRaw=false, audioCont=false){// When click on file, show it. Exceptions for markdown files.
