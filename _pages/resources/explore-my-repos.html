@@ -245,10 +245,11 @@ pdf: true
 	z-index:7;
 	overflow:scroll/*Enable scrolling for items in this div*/;
 	padding-top:3em/*Space for title & close*/;
+	align-items:center;
 }
-body:has(#file-display-title){overflow-y:hidden/*Disable the main scroll when file-display is shown*/}
+body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display is shown*/}
 #file-display:not(:has(*)){display:none/*If there are no items in this div, hide it*/;}
-#file-display-title{/*Title for file display*/
+#fd-title{/*Title for file display*/
 	display:flex;flex-direction:row;
 	align-items:center;justify-content:center;
 	position:fixed;
@@ -257,7 +258,7 @@ body:has(#file-display-title){overflow-y:hidden/*Disable the main scroll when fi
 	width:calc(100% - 3em);
 	min-height:3em;
 }
-#file-display-close{/*Close button for file display*/
+#fd-close{/*Close button for file display*/
 	width:3em;height:3em;
 	position:fixed;
 	top:0;right:0;
@@ -265,8 +266,8 @@ body:has(#file-display-title){overflow-y:hidden/*Disable the main scroll when fi
 	background-color:var(--popup-background-color);
 	padding:.25em;
 }
-#file-display-close:hover{border:1px dashed var(--nav-font-color-hover)}
-#file-display-image-pagefit-container{/*Checkbox for images in file display*/
+#fd-close:hover{border:1px dashed var(--nav-font-color-hover)}
+#fd-image-pagefit-container{/*Checkbox for images in file display*/
 	display:flex;flex-direction:row;
 	position:fixed;
 	top:3em;right:0;
@@ -274,9 +275,9 @@ body:has(#file-display-title){overflow-y:hidden/*Disable the main scroll when fi
 	background-color:var(--popup-background-color);
 	padding:0 1em;
 }
-#file-display:has(#file-display-image-pagefit:checked) > #file-display-image{overflow:auto;max-width:100%;/*Toggle Page Width of an image in file display*/}
-#file-display-nav{z-index:1;}
-#file-display-nav > svg{
+#file-display:has(#fd-image-pagefit:checked) > #fd-image{overflow:auto;max-width:100%;/*Toggle Page Width of an image in file display*/}
+#fd-nav{z-index:1;}
+#fd-nav > svg{
 	position:fixed;
 	width:5rem;
 	height:5rem;
@@ -284,9 +285,29 @@ body:has(#file-display-title){overflow-y:hidden/*Disable the main scroll when fi
 	background-color:#0005;
 	color:white;
 }
-#file-display-nav > svg:hover{background-color:#000a;}
-#file-display-nav > svg:nth-child(1){left:0;}
-#file-display-nav > svg:nth-child(2){right:0;}
+#fd-nav > svg:hover{background-color:#000a;}
+#fd-nav > svg:nth-child(1){left:0;}
+#fd-nav > svg:nth-child(2){right:0;}
+#fd-audio-thumbnail{overflow:auto;flex:1;}
+#fd-audio{
+	width:100%;
+	display:flex;
+	flex-direction:row;
+	justify-content:space-around;
+}
+#fd-audio > div{
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+}
+#fd-audio > div > span{font-size:200%;}
+#fd-audio-toggle{width:10em;}
+#fd-audio-toggle:hover,#fd-audio-shuffle:hover,#fd-audio-loop:hover{scale:1.1;cursor:pointer;}
+#fd-audio-slider{
+	accent-color:var(--anchor-color);
+	width:calc(100% - 10rem);
+	height:5rem;
+}
 
 #show-audio{
 	width: 90%;
@@ -568,86 +589,75 @@ const showFile=async(inUrl)=>{
 	fileDisplay.innerHTML='<span class="loader"></span>';
 
 	// Get file details
-	const thisFile=await fetch(inUrl, github_api_headers()).then(r=>r.json());
+	const thisFile=await fetch(inUrl, github_api_headers({refresh: true})).then(r=>r.json());
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
-	fileDisplay.innerHTML+=`
-		<a id="file-display-title" href="javascript:downloadFile('${inUrl}')">${thisFile.name}</a>
-		<svg id="file-display-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
-		<div id="file-display-nav">
-			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"></svg>
-			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
+	fileDisplay.insertAdjacentHTML('beforeend',`
+		<a id="fd-title" href="javascript:downloadFile('${inUrl}')">${thisFile.name}</a>
+		<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+		<div id="fd-nav">
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z"/></svg>
 		</div>
-	`.trim();
+	`.trim());
 	// If we are in a private repo, the 'downloadUrl' will have '?token=' appended to it. That's only temporary.
 
 
 	if(extI.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Images
 		// if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
-		fileDisplay.innerHTML+=`
-			<div id="file-display-image-pagefit-container">
-				<input id="file-display-image-pagefit" type="checkbox" checked>
-				<label for="file-display-image-pagefit" style="line-height:3em;">Page Fit</label>
+		fileDisplay.insertAdjacentHTML('beforeend',`
+			<div id="fd-image-pagefit-container">
+				<input id="fd-image-pagefit" type="checkbox" checked>
+				<label for="fd-image-pagefit" style="line-height:3em;">Page Fit</label>
 			</div>
-			<img id="file-display-image" style="margin:auto;" src="${thisFile.download_url}">
-		`.trim();
+			<img id="fd-image" style="margin:auto;" src="${thisFile.download_url}">
+		`.trim());
 	}else if(extV.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Video
-		fileDisplay.innerHTML+=`<video id="file-display-video" style="width:100%;margin:auto;" controls><source src="${thisFile.download_url}" type="video/webm"></video>`;
-		gId('file-display-video').volume=1;
-		gId('file-display-video').play();
+		fileDisplay.insertAdjacentHTML('beforeend',`<video id="fd-video" style="width:100%;margin:auto;" controls><source src="${thisFile.download_url}" type="video/webm"></video>`);
+		gId('fd-video').volume=1;
+		gId('fd-video').play();
 	}else if(extS.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Audio
-		fileDisplay.innerHTML+=audioPlayerHTML;
-	}else if(ext3.some(v=>thisFile.name.toLowerCase().endsWith(v))){// 3D models
-		fileDisplay.innerHTML+=`<model-viewer alt="${decodeURIComponent(thisFile.name)}" src="${thisFile.download_url}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`;
-	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
-		fileDisplay.innerHTML+="<p>Contents of this file can not be parsed here.</p>";
-	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
-		fileDisplay.innerHTML+=`<iframe style="flex:1;" src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${thisFile.download_url}"></iframe>`;
-	}else{
-		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
-		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
-		// 	fileDisplay.innerHTML+=`<br><span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`;
-		// }else{ // else show it parsed in Prism.js
-		fileDisplay.innerHTML+=`<br><pre style="background-color:#333a;/*width:100%;*/height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="file-display-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre>`;
-		// } // The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
-		Prism.highlightElement(gId('file-display-text'))
-	}
+		fileDisplay.insertAdjacentHTML('beforeend',`
+		<img id="fd-audio-thumbnail">
+		<div id="fd-audio">
+			<div>
+				<span id="fd-audio-duration-current">--:--</span>
+				<svg id="fd-audio-shuffle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 9.2 15 7h5m0 0-3-3m3 3-3 3M4 17h4l1.6-2.3M4 7h4l7 10h5m0 0-3 3m3-3-3-3"/></svg>
+			</div>
+			<svg id="fd-audio-toggle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">${pathPaused}</svg>
+			<div>
+				<span id="fd-audio-duration-max">--:--</span>
+				<svg id="fd-audio-loop" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 4 3 3H5v3m3 10-3-3h14v-3m-9-2.5 2-1.5v4"/></svg>
+			</div>
+		</div>
+		<input id="fd-audio-slider" value="0" type="range">
+		`);
 
-	gId('file-display-close').onclick=()=>fileDisplay.innerHTML='';
-	fileDisplay.querySelector('#file-display-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
-	fileDisplay.querySelector('#file-display-nav > svg:nth-child(2)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
+		// const volVal=Object.assign(document.createElement('input'), {id:'audio-volume-value',type:'range',value:audioPlayer.volume*100,max:100});
+		// gId('audio-volume').insertAdjacentElement('afterbegin',volVal)
 
-}
-async function funky_or_whatever_is_left_of_it(downloadUrl, gitUrl, mdRaw=false, audioCont=false){// When click on file, show it. Exceptions for markdown files.
-	if (gId('show-audio')!==null){
-		console.log('Playing audio')
-		function aPnext(){var queue=audioPlayer.shuffle?mediaArrayRandom:mediaArray;showFile.apply(this,queue[queue.findIndex(x=>x[0]==downloadUrl)==queue.length-1?0:queue.findIndex(x=>x[0]==downloadUrl)+1])}
-		function aPprevious(){var queue=audioPlayer.shuffle?mediaArrayRandom:mediaArray;showFile.apply(this,queue[queue.findIndex(x=>x[0]==downloadUrl)==0?queue.length-1:queue.findIndex(x=>x[0]==downloadUrl)-1])}
-
-		const volVal=Object.assign(document.createElement('input'), {id:'audio-volume-value',type:'range',value:audioPlayer.volume*100,max:100});
-		gId('audio-volume').insertAdjacentElement('afterbegin',volVal)
-
-		const aToggle=gId('audio-toggle');
 		var audioMainLoop=setInterval(()=>{
-			gId('show-audio').value=audioPlayer.currentTime*8;
-			gId('audio-duration').innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)+'<br>-<br>'+new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
-			gId('audio-volume-num').innerHTML=parseInt(audioPlayer.volume*100)
-			volVal.value=audioPlayer.volume*100;
-
+			if(gId('fd-audio-slider')==null){
+				audioPlayer.pause();
+				clearInterval(audioMainLoop);
+			}else{
+				gId('fd-audio-slider').value=audioPlayer.currentTime*8;
+				gId('fd-audio-duration-current').innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)
+				gId('fd-audio-duration-max').innerHTML=new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
+				// gId('audio-volume-num').innerHTML=parseInt(audioPlayer.volume*100)
+				// volVal.value=audioPlayer.volume*100;
+			}
 		}, 125)
-		gId('explore-display-close').addEventListener('click',()=>{
-			ogilvie.src='';
+
+		gId('fd-close').addEventListener('click',()=>{
 			window.onkeydown=()=>{};
 			audioPlayer.pause()
 			audioMainLoop?clearInterval(audioMainLoop):'';
-			bDisplay.classList.remove('disable-selection')
 		})
-
-		bDisplay.classList.add('disable-selection');
 
 		URL.revokeObjectURL(audioPlayer.src);
 		audioPlayer.src = '';
-		fetch(gitUrl, github_api_headers({raw: true}))
+		fetch(thisFile.git_url, github_api_headers({raw: true}))
 		.then(r=>r.blob())
 		.then(b=>{
 			audioPlayer.src = URL.createObjectURL(b);
@@ -655,8 +665,9 @@ async function funky_or_whatever_is_left_of_it(downloadUrl, gitUrl, mdRaw=false,
 		})
 		.then(m=>{
 			debog=m;
-			ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
+			gId('fd-audio-thumbnail').src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
 		})
+
 
 		// debugger;
 		// const mediaSource = new MediaSource();
@@ -691,44 +702,60 @@ async function funky_or_whatever_is_left_of_it(downloadUrl, gitUrl, mdRaw=false,
 		// 	})
 		// })
 
-		audioPlayer.onloadstart=()=>{ogilvie.src=''}
 		audioPlayer.onloadedmetadata=function(){
 			this.play();
-			gId('show-audio').max=this.duration*8;
+			gId('fd-audio-slider').max=this.duration*8;
 		}
-		audioPlayer.onended=function(){!audioPlayer.loop?aPnext():''}
+		audioPlayer.onended=function(){!audioPlayer.loop?showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1)):''}
 
-		gId('show-audio').oninput=function(){audioPlayer.currentTime=this.value/8} // Slider change current time
-		aToggle.onclick=()=>{audioPlayer.togglePlay()} // Play/Paused toggle
-		audioPlayer.onplay=()=>{aToggle.innerHTML=pathPlaying}; audioPlayer.onpause=()=>{aToggle.innerHTML=pathPaused} // Play/Paused display
-		volVal.oninput=function(){audioPlayer.volume=this.value/100} // Slider change volume
-		gId('audio-next').onclick=()=>{aPnext()}
-		gId('audio-previous').onclick=()=>{aPprevious()}
-		[['in',.01],['de',-.01]].forEach(e=>{gId('audio-'+e[0]+'crease').onclick=()=>{audioPlayer.volumeAdd(e[1])}})
+		gId('fd-audio-slider').oninput=function(){audioPlayer.currentTime=this.value/8} // Slider change current time
+		gId('fd-audio-toggle').onclick=()=>{audioPlayer.togglePlay()} // Play/Paused toggle
+		audioPlayer.onplay=()=>{gId('fd-audio-toggle').innerHTML=pathPlaying}; // Display toggle icon for played
+		audioPlayer.onpause=()=>{gId('fd-audio-toggle').innerHTML=pathPaused}; // Display toggle icon for paused
+		// volVal.oninput=function(){audioPlayer.volume=this.value/100} // Slider change volume
+		// [['in',.01],['de',-.01]].forEach(e=>{gId('audio-'+e[0]+'crease').onclick=()=>{audioPlayer.volumeAdd(e[1])}})
 
-		window.onkeydown=function(){
-			// catches anything that does not require text input
-			if(!(('color|date|datetime-local|email|month|number|password|search|tel|text|time|url|week'.includes(document.activeElement.type)&&document.activeElement.tagName==='INPUT')||document.activeElement.tagName==='TEXTAREA')){
-				keyCodeUnassigned=true;
-				switch(this.keyCode){
-					case 74: case 37: audioPlayer.currentTime -= 3; break;
-					case 75: case 32: audioPlayer.togglePlay(); break;
-					case 76: case 39: audioPlayer.currentTime+=3; break;
-					case 38: audioPlayer.volumeAdd(.01); break;
-					case 40: audioPlayer.volumeAdd(-.01); break;
-					default: keyCodeUnassigned=false
-				}
-				if(keyCodeUnassigned)this.preventDefault();
-			}
-		}
-		gId('audio-volume').onwheel=e=>{e.preventDefault();audioPlayer.volumeAdd(Math.max(e.deltaX,-e.deltaY)>0?-.01:.01)}
-		gId('show-audio').onwheel=e=>{e.preventDefault();audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}
-		gId('audio-music-shuffle').style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)';
-		gId('audio-music-shuffle').onclick=function(){audioPlayer.shuffle=!audioPlayer.shuffle;this.style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)'}
-		gId('audio-music-loop').style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)';
-		gId('audio-music-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
+		// window.onkeydown=function(){
+		// 	// catches anything that does not require text input
+		// 	if(!(('color|date|datetime-local|email|month|number|password|search|tel|text|time|url|week'.includes(document.activeElement.type)&&document.activeElement.tagName==='INPUT')||document.activeElement.tagName==='TEXTAREA')){
+		// 		keyCodeUnassigned=true;
+		// 		switch(this.keyCode){
+		// 			case 74: case 37: audioPlayer.currentTime -= 3; break;
+		// 			case 75: case 32: audioPlayer.togglePlay(); break;
+		// 			case 76: case 39: audioPlayer.currentTime+=3; break;
+		// 			case 38: audioPlayer.volumeAdd(.01); break;
+		// 			case 40: audioPlayer.volumeAdd(-.01); break;
+		// 			default: keyCodeUnassigned=false
+		// 		}
+		// 		if(keyCodeUnassigned)this.preventDefault();
+		// 	}
+		// }
+		// gId('audio-volume').onwheel=e=>{e.preventDefault();audioPlayer.volumeAdd(Math.max(e.deltaX,-e.deltaY)>0?-.01:.01)}
+		gId('fd-audio-slider').onwheel=e=>{e.preventDefault();audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}
+		gId('fd-audio-shuffle').style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)';
+		gId('fd-audio-shuffle').onclick=function(){audioPlayer.shuffle=!audioPlayer.shuffle;this.style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)'}
+		gId('fd-audio-loop').style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)';
+		gId('fd-audio-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
 
+	}else if(ext3.some(v=>thisFile.name.toLowerCase().endsWith(v))){// 3D models
+		fileDisplay.innerHTML+=`<model-viewer alt="${decodeURIComponent(thisFile.name)}" src="${thisFile.download_url}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`;
+	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
+		fileDisplay.innerHTML+="<p>Contents of this file can not be parsed here.</p>";
+	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
+		fileDisplay.innerHTML+=`<iframe style="flex:1;" src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${thisFile.download_url}"></iframe>`;
+	}else{
+		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
+		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
+		// 	fileDisplay.innerHTML+=`<br><span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`;
+		// }else{ // else show it parsed in Prism.js
+		fileDisplay.innerHTML+=`<br><pre style="background-color:#333a;/*width:100%;*/height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre>`;
+		// } // The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
+		Prism.highlightElement(gId('fd-text'))
 	}
+
+	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
 }
 uploadFileInput.onchange=async(e)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
