@@ -504,6 +504,7 @@ window.onhashchange=async()=>{
 	try{
 		// Get repository contents or list repositories of a user
 		browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers({refresh: isReload})).then(r=>r.json());
+		if(browseJson.status=='403')throw browseJson;
 		if (inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
 			browsingTree=[inUrl]
 			gId('explore-back').href='';
@@ -562,8 +563,13 @@ window.onhashchange=async()=>{
 		console.log(err)
 		gId('explore-back').href='';
 		gId('current-description').innerHTML='';
-		gId('current-title').textContent='Uh oh, that URL is invalid';
-		gId('explore-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#/users/${ghusr}/repos?per_page=100&sort=pushed">Return to repositories view?</a>`;
+		if(err.message==null){
+			gId('current-title').textContent='Uh oh, that URL is invalid'
+			gId('explore-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#/users/${ghusr}/repos?per_page=100&sort=pushed">Return to repositories view?</a>`;
+		}else{
+			gId('current-title').textContent='GitHub API'
+			gId('explore-content').innerHTML=`<span style="text-align:center;font-size:150%;margin:2em;">${err.message}<br><br><a href="${err.documentation_url}">GitHub API Docs</a></span>`;
+		}
 		return
 	}
 }
@@ -584,8 +590,14 @@ const downloadFile=async(inUrl)=>{
 const showFile=async(inUrl)=>{
 	console.log(`showFile(${inUrl})`);
 
-	// Show loader spinner while loading file details
+	// Get the queen of divs
 	const fileDisplay=gId('file-display');
+
+	// Set navigation functions
+	const prevFile=()=>{showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));fileDisplay.innerHTML=""};
+	const nextFile=()=>{showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));fileDisplay.innerHTML=""};
+
+	// Show loader spinner while loading file details
 	fileDisplay.innerHTML='<span class="loader"></span>';
 
 	// Get file details
