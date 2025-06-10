@@ -18,7 +18,6 @@ disable_nav: true
 				localStorage.setItem('github_token', data.access_token);
 				// Now you can use the token to make authenticated API calls
 
-				// setTimeout(()=>{window.location.href=localStorage.getItem("github_login_last_page")}, 3000)
 				window.location.href=localStorage.getItem("github_login_last_page")
 			});
 		}

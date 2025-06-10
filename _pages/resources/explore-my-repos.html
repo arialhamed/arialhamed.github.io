@@ -652,6 +652,7 @@ const showFile=async(inUrl)=>{
 		const audioSlider = gId('fd-audio-slider');
 		const audioDurationCurrent = gId('fd-audio-duration-current');
 		const audioDurationMax = gId('fd-audio-duration-max');
+		const audioToggle = gId('fd-audio-toggle');
 
 		var audioMainLoop=setInterval(()=>{
 			if(audioSlider==null){
@@ -726,9 +727,9 @@ const showFile=async(inUrl)=>{
 		audioPlayer.onended=function(){!audioPlayer.loop?nextFile():''}
 
 		audioSlider.oninput=function(){audioPlayer.currentTime=this.value/8} // Slider change current time
-		gId('fd-audio-toggle').onclick=()=>{audioPlayer.togglePlay()} // Play/Paused toggle
-		audioPlayer.onplay=()=>{gId('fd-audio-toggle').innerHTML=pathPlaying}; // Display toggle icon for played
-		audioPlayer.onpause=()=>{gId('fd-audio-toggle').innerHTML=pathPaused}; // Display toggle icon for paused
+		audioToggle.onclick=()=>{audioPlayer.togglePlay()} // Play/Paused toggle
+		audioPlayer.onplay=()=>{audioToggle.innerHTML=pathPlaying}; // Display toggle icon for played
+		audioPlayer.onpause=()=>{audioToggle.innerHTML=pathPaused}; // Display toggle icon for paused
 		// volVal.oninput=function(){audioPlayer.volume=this.value/100} // Slider change volume
 		// [['in',.01],['de',-.01]].forEach(e=>{gId('audio-'+e[0]+'crease').onclick=()=>{audioPlayer.volumeAdd(e[1])}})
 
@@ -938,7 +939,7 @@ gId('select-branch').onchange=e=>{
 }
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 const searchContents=()=>{document.querySelectorAll('.explore-cell').forEach(function(a){a.style.display=(a.getAttribute('data-path').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
-const github_signin=()=>{localStorage.setItem('github_signin_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
+const github_signin=()=>{localStorage.setItem('github_login_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
 
 // GitHub display
