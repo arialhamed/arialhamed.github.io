@@ -494,6 +494,7 @@ window.onhashchange=async()=>{
 	const inUrl = window.location.hash.slice(1);
 	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree 
 	busRoute=[]; // Clear bus route
+	gId('file-display').innerHTML='';
 
 	if(isReload){browsingTree.pop();console.log('refreshing')};
 	browsingTree.at(-2)==inUrl?browsingTree.pop():browsingTree.push(inUrl);
@@ -594,8 +595,8 @@ const showFile=async(inUrl)=>{
 	const fileDisplay=gId('file-display');
 
 	// Set navigation functions
-	const prevFile=()=>{showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));fileDisplay.innerHTML=""};
-	const nextFile=()=>{showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));fileDisplay.innerHTML=""};
+	const prevFile=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
+	const nextFile=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
 
 	// Show loader spinner while loading file details
 	fileDisplay.innerHTML='<span class="loader"></span>';
@@ -613,8 +614,8 @@ const showFile=async(inUrl)=>{
 		</div>
 	`.trim());
 	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
-	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
-	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>prevFile();
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>nextFile();
 
 	if(extI.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Images
 		// if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
@@ -648,15 +649,18 @@ const showFile=async(inUrl)=>{
 
 		// const volVal=Object.assign(document.createElement('input'), {id:'audio-volume-value',type:'range',value:audioPlayer.volume*100,max:100});
 		// gId('audio-volume').insertAdjacentElement('afterbegin',volVal)
+		const audioSlider = gId('fd-audio-slider');
+		const audioDurationCurrent = gId('fd-audio-duration-current');
+		const audioDurationMax = gId('fd-audio-duration-max');
 
 		var audioMainLoop=setInterval(()=>{
-			if(gId('fd-audio-slider')==null){
+			if(audioSlider==null){
 				audioPlayer.pause();
 				clearInterval(audioMainLoop);
 			}else{
-				gId('fd-audio-slider').value=audioPlayer.currentTime*8;
-				gId('fd-audio-duration-current').innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)
-				gId('fd-audio-duration-max').innerHTML=new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
+				audioSlider.value=audioPlayer.currentTime*8;
+				audioDurationCurrent.innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)
+				audioDurationMax.innerHTML=new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
 				// gId('audio-volume-num').innerHTML=parseInt(audioPlayer.volume*100)
 				// volVal.value=audioPlayer.volume*100;
 			}
@@ -717,11 +721,11 @@ const showFile=async(inUrl)=>{
 
 		audioPlayer.onloadedmetadata=function(){
 			this.play();
-			gId('fd-audio-slider').max=this.duration*8;
+			audioSlider.max=this.duration*8;
 		}
-		audioPlayer.onended=function(){!audioPlayer.loop?showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1)):''}
+		audioPlayer.onended=function(){!audioPlayer.loop?nextFile():''}
 
-		gId('fd-audio-slider').oninput=function(){audioPlayer.currentTime=this.value/8} // Slider change current time
+		audioSlider.oninput=function(){audioPlayer.currentTime=this.value/8} // Slider change current time
 		gId('fd-audio-toggle').onclick=()=>{audioPlayer.togglePlay()} // Play/Paused toggle
 		audioPlayer.onplay=()=>{gId('fd-audio-toggle').innerHTML=pathPlaying}; // Display toggle icon for played
 		audioPlayer.onpause=()=>{gId('fd-audio-toggle').innerHTML=pathPaused}; // Display toggle icon for paused
@@ -744,7 +748,7 @@ const showFile=async(inUrl)=>{
 		// 	}
 		// }
 		// gId('audio-volume').onwheel=e=>{e.preventDefault();audioPlayer.volumeAdd(Math.max(e.deltaX,-e.deltaY)>0?-.01:.01)}
-		gId('fd-audio-slider').onwheel=e=>{e.preventDefault();audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}
+		audioSlider.onwheel=e=>{e.preventDefault();audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}
 		gId('fd-audio-shuffle').style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)';
 		gId('fd-audio-shuffle').onclick=function(){audioPlayer.shuffle=!audioPlayer.shuffle;this.style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)'}
 		gId('fd-audio-loop').style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)';
