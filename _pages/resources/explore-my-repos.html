@@ -288,19 +288,28 @@ body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display
 #fd-nav > svg:hover{background-color:#000a;}
 #fd-nav > svg:nth-child(1){left:0;}
 #fd-nav > svg:nth-child(2){right:0;}
-#fd-audio-thumbnail{overflow:auto;flex:1;}
-#fd-audio{
+#fd-audio-1{flex:1;display:flex;overflow:auto;justify-content:center;}
+#fd-audio-thumbnail{max-width:100%;object-fit:contain;}
+#fd-audio-lyrics{
+	position:absolute;
+	background-color:var(--popup-background-color);
+	font-size:150%;
+	padding:0 1em;
+	align-self:end;
+	text-align:center;
+}
+#fd-audio-2{
 	width:100%;
 	display:flex;
 	flex-direction:row;
 	justify-content:space-around;
 }
-#fd-audio > div{
+#fd-audio-2 > div{
 	display:flex;
 	flex-direction:column;
 	justify-content:space-around;
 }
-#fd-audio > div > span{font-size:200%;}
+#fd-audio-2 > div > span{font-size:200%;}
 #fd-audio-toggle{width:10em;}
 #fd-audio-toggle:hover,#fd-audio-shuffle:hover,#fd-audio-loop:hover{scale:1.1;cursor:pointer;}
 #fd-audio-slider{
@@ -632,8 +641,11 @@ const showFile=async(inUrl)=>{
 		gId('fd-video').play();
 	}else if(extS.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Audio
 		fileDisplay.insertAdjacentHTML('beforeend',`
-		<img id="fd-audio-thumbnail">
-		<div id="fd-audio">
+		<div id="fd-audio-1">
+			<img id="fd-audio-thumbnail" src="https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif">
+			<div id="fd-audio-lyrics"></div>
+		</div>
+		<div id="fd-audio-2">
 			<div>
 				<span id="fd-audio-duration-current">--:--</span>
 				<svg id="fd-audio-shuffle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 9.2 15 7h5m0 0-3-3m3 3-3 3M4 17h4l1.6-2.3M4 7h4l7 10h5m0 0-3 3m3-3-3-3"/></svg>
@@ -653,6 +665,7 @@ const showFile=async(inUrl)=>{
 		const audioDurationCurrent = gId('fd-audio-duration-current');
 		const audioDurationMax = gId('fd-audio-duration-max');
 		const audioToggle = gId('fd-audio-toggle');
+		const audioLyrics = gId('fd-audio-lyrics');
 
 		var audioMainLoop=setInterval(()=>{
 			if(audioSlider==null){
@@ -664,6 +677,14 @@ const showFile=async(inUrl)=>{
 				audioDurationMax.innerHTML=new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
 				// gId('audio-volume-num').innerHTML=parseInt(audioPlayer.volume*100)
 				// volVal.value=audioPlayer.volume*100;
+				if(audioPlayer.meta&&audioPlayer.meta.common.lyrics){
+					const possibleLines = audioPlayer.meta.common.lyrics.at(0).syncText.filter(v=>v.timestamp<audioPlayer.currentTime*1000);
+					if(possibleLines.length>=1){
+						audioLyrics.innerHTML = possibleLines.at(-1).text
+					}else{
+						audioLyrics.innerHTML = '♪'
+					}
+				}
 			}
 		}, 125)
 
@@ -682,8 +703,8 @@ const showFile=async(inUrl)=>{
 			return modules.parseBlob(b);
 		})
 		.then(m=>{
-			debog=m;
-			gId('fd-audio-thumbnail').src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
+			audioPlayer.meta=m;
+			gId('fd-audio-thumbnail').src=(audioPlayer.meta.common.picture==null)?'':embeddedImgToURI(audioPlayer.meta.common.picture[0])
 		})
 
 
