@@ -811,7 +811,7 @@ const showFile=async(inUrl)=>{
 				// .then(r=>gId(''))
 			};
 			gId('pdf-viewer').contentWindow.PDFViewerApplication.pdfDocument.saveDocument()
-			.then(blob=>reader.readAsDataURL(blob))
+			.then(blob=>reader.readAsDataURL(new Blob([blob], {type: 'application/pdf'})))
 		}
 	}else{
 		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
