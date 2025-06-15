@@ -781,7 +781,7 @@ const showFile=async(inUrl)=>{
 	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
 		fileDisplay.insertAdjacentHTML('beforeend',"<p>Contents of this file can not be parsed here.</p>");
 	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
-		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="https://mozilla.github.io/pdf.js/web/viewer.html?file=${thisFile.download_url}"></iframe>`);
+		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="https://arialhamed.github.io/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}"></iframe>`);
 	}else{
 		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
 		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
