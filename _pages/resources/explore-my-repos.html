@@ -288,6 +288,7 @@ body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display
 #fd-nav > svg:hover{background-color:#000a;}
 #fd-nav > svg:nth-child(1){left:0;}
 #fd-nav > svg:nth-child(2){right:0;}
+#fd-nav > svg:nth-child(3){right:5em;}
 #fd-audio-1{flex:1;display:flex;overflow:auto;justify-content:center;}
 #fd-audio-thumbnail{max-width:100%;object-fit:contain;}
 #fd-audio-lyrics{
@@ -781,7 +782,37 @@ const showFile=async(inUrl)=>{
 	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
 		fileDisplay.insertAdjacentHTML('beforeend',"<p>Contents of this file can not be parsed here.</p>");
 	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
+		gId('fd-nav').insertAdjacentHTML('beforeend','<svg id="pdf-viewer-save" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
 		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}"></iframe>`);
+		gId('pdf-viewer-save').onclick=()=>{
+			const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
+			// const blob = new Blob([data], {type: 'application/pdf'});
+			
+			const reader = new FileReader();
+			let [refinedUrl, refId] = thisFile.url.split('?ref=');
+			reader.onload=async()=>{
+				const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
+				const blobData = await fetch(`${apiUrl}/blobs`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({content: reader.result.split(';base64,')[1], encoding: 'base64'})}).then(r=>r.json());
+				const treeData = await fetch(`${apiUrl}/trees`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({base_tree: latestCommitSha, tree: {path: refinedUrl, mode: '100644', type: 'blob', sha: blobData.sha}})}).then(r=>r.json());
+				const commitData = await fetch(`${apiUrl}/commits`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({message: 'Updated a PDF', tree: treeData.sha, parents: [latestCommitSha]})}).then(r=>r.json());
+				const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {method: 'PATCH', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({sha: commitData.sha})});
+				console.log(updateRefResponse.ok)
+				// fetch(
+				// 	refinedUrl, {
+				// 		headers: {Authorization: `token ${github_token}`},
+				// 		method: 'PUT',
+				// 		body: JSON.stringify({
+				// 			message: `Update PDF from "${window.location.hostname}" at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
+				// 			content: reader.result.split(';base64,')[1],
+				// 			sha: 
+				// 		})
+				// 	}
+				// )
+				// .then(r=>gId(''))
+			};
+			gId('pdf-viewer').contentWindow.PDFViewerApplication.pdfDocument.saveDocument()
+			.then(blob=>reader.readAsDataURL(blob))
+		}
 	}else{
 		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
 		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
