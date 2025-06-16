@@ -828,20 +828,20 @@ uploadFileInput.onchange=async(e)=>{
 	}))
 
 	gId('backdrop').style.display="block";
-	let veilTimer = filesToUpload.length + 5;
+	let veilTimer = filesToUpload.length + 4;
 	console.log(veilTimer);
 	// gId('commit-progress').max = veilTimer;
 	let veilStopwatch = 0;
-	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
-	updateBackdrop()
+	// const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
 
 	const xhrRequest = (method, url, body = null) => {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open(method, url, true);
 			xhr.setRequestHeader('Authorization', `token ${github_token}`)
-			xhr.onprogress=x=>{console.log(`${x.loaded} bytes`)}
+			xhr.onprogress=x=>{gId('backdrop').textContent = Number((x.loaded/x.total/veilTimer)+(veilStopwatch/veilTimer)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})}
 			xhr.onreadystatechange=()=>{
+				++veilStopwatch;
 				if (xhr.readyState === 4) {
 					if (xhr.status >= 200 && xhr.status < 300) {
 						resolve(JSON.parse(xhr.responseText));
