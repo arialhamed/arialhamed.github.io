@@ -835,65 +835,116 @@ uploadFileInput.onchange=async(e)=>{
 	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
 	updateBackdrop()
 
-	// 2. Get the latest commit reference
-	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
-	updateBackdrop()
+	const xhrRequest = (method, url, body = null) => {
+		return new Promise((resolve, reject) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open(method, url, true);
+			xhr.setRequestHeader('Authorization', `token ${github_token}`)
+			xhr.onprogress=()=>{console.log(`${xhr.loaded} bytes`)}
+			xhr.onreadystatechange=()=>{
+				if (xhr.readyState === 4) {
+					if (xhr.status >= 200 && xhr.status < 300) {
+						resolve(JSON.parse(xhr.responseText));
+					} else {
+						reject(new Error(`Request failed: ${xhr.status} ${xhr.statusText}`));
+					}
+				}
+			};
+			xhr.send(body);
+		});
+	}
+	const latestCommitSha = (await xhrRequest('GET', `${apiUrl}/refs/heads/${refId}`)).object.sha;
+	const blobData = await Promise.all(filesToUpload.map(file => xhrRequest('POST', `${apiUrl}/blobs`, JSON.stringify({content: file.content.split(';base64,')[1], encoding: 'base64'}))));
+	const treeData = await xhrRequest('POST', `${apiUrl}/trees`, JSON.stringify({base_tree: latestCommitSha, tree: blobData.map((blob, index) => ({path: filesToUpload[index].path, mode: '100644', type: 'blob', sha: blob.sha}))}));
+	const commitData = await xhrRequest('POST', `${apiUrl}/commits`, JSON.stringify({message: `Uploaded ${filesToUpload.length} file(s)`, tree: treeData.sha, parents: [latestCommitSha]}));
+	const pushResults = await xhrRequest('PATCH', `${apiUrl}/refs/heads/${refId}`, JSON.stringify({sha: commitData.sha}));
 
-	// 3. Create blobs for each file
-	const blobData = await Promise.all(filesToUpload.map(file =>
-		fetch(`${apiUrl}/blobs`, {
-			method: 'POST',
-			headers: {Authorization: `token ${github_token}`},
-			body: JSON.stringify({
-				content: file.content.split(';base64,')[1],
-				encoding: 'base64'
-			})
-		}).then(res => {updateBackdrop(); return res.json()})
-	));
 
-	// 4. Create the tree
-	const treeData = await fetch(`${apiUrl}/trees`, {
-		method: 'POST',
-		headers: {Authorization: `token ${github_token}`},
-		body: JSON.stringify({
-			base_tree: latestCommitSha,
-			tree: blobData.map((blob, index) => ({
-				path: filesToUpload[index].path,
-				mode: '100644',
-				type: 'blob',
-				sha: blob.sha
-			}))
-		})
-	}).then(r=>r.json());
-	updateBackdrop()
-
-	// 5. Create the commit
-	const commitData = await fetch(`${apiUrl}/commits`, {
-		method: 'POST',
-		headers: {Authorization: `token ${github_token}`},
-		body: JSON.stringify({
-			message: `Uploaded ${filesToUpload.length} file(s)`,
-			tree: treeData.sha,
-			parents: [latestCommitSha]
-		})
-	}).then(r=>r.json());
-	updateBackdrop()
-
-	// 6. Update the branch reference
-	const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
-		method: 'PATCH',
-		headers: {Authorization: `token ${github_token}`},
-		body: JSON.stringify({
-			sha: commitData.sha
-		})
-	});
-	updateBackdrop()
-
-	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
-	raiseToast(updateRefResponse.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
+	if(pushResults.ok){console.log('Commit successful')}else{console.error('Error updating ref:', pushResults.status, pushResults.statusText)}
+	raiseToast(pushResults.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //pushResults.status, pushResults.statusText);
 	gId('backdrop').style.display="none";
 	gId('explore-refresh').click();
 }
+// uploadFileInput.onchange=async(e)=>{
+// 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+// 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
+
+// 	// 1. Process picked files
+// 	let filesToUpload = await Promise.all(Array.from(e.target.files).map(file=>{
+// 		let reader=new FileReader();
+// 		return new Promise(resolve=>{
+// 			reader.onload=()=>resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`});
+// 			reader.readAsDataURL(file)
+// 		})
+// 	}))
+
+// 	gId('backdrop').style.display="block";
+// 	let veilTimer = filesToUpload.length + 5;
+// 	console.log(veilTimer);
+// 	// gId('commit-progress').max = veilTimer;
+// 	let veilStopwatch = 0;
+// 	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
+// 	updateBackdrop()
+
+// 	// 2. Get the latest commit reference
+// 	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
+// 	updateBackdrop()
+
+// 	// 3. Create blobs for each file
+// 	const blobData = await Promise.all(filesToUpload.map(file =>
+// 		fetch(`${apiUrl}/blobs`, {
+// 			method: 'POST',
+// 			headers: {Authorization: `token ${github_token}`},
+// 			body: JSON.stringify({
+// 				content: file.content.split(';base64,')[1],
+// 				encoding: 'base64'
+// 			})
+// 		}).then(res => {updateBackdrop(); return res.json()})
+// 	));
+
+// 	// 4. Create the tree
+// 	const treeData = await fetch(`${apiUrl}/trees`, {
+// 		method: 'POST',
+// 		headers: {Authorization: `token ${github_token}`},
+// 		body: JSON.stringify({
+// 			base_tree: latestCommitSha,
+// 			tree: blobData.map((blob, index) => ({
+// 				path: filesToUpload[index].path,
+// 				mode: '100644',
+// 				type: 'blob',
+// 				sha: blob.sha
+// 			}))
+// 		})
+// 	}).then(r=>r.json());
+// 	updateBackdrop()
+
+// 	// 5. Create the commit
+// 	const commitData = await fetch(`${apiUrl}/commits`, {
+// 		method: 'POST',
+// 		headers: {Authorization: `token ${github_token}`},
+// 		body: JSON.stringify({
+// 			message: `Uploaded ${filesToUpload.length} file(s)`,
+// 			tree: treeData.sha,
+// 			parents: [latestCommitSha]
+// 		})
+// 	}).then(r=>r.json());
+// 	updateBackdrop()
+
+// 	// 6. Update the branch reference
+// 	const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
+// 		method: 'PATCH',
+// 		headers: {Authorization: `token ${github_token}`},
+// 		body: JSON.stringify({
+// 			sha: commitData.sha
+// 		})
+// 	});
+// 	updateBackdrop()
+
+// 	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
+// 	raiseToast(updateRefResponse.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
+// 	gId('backdrop').style.display="none";
+// 	gId('explore-refresh').click();
+// }
 deleteFiles=async(gitUrl)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
