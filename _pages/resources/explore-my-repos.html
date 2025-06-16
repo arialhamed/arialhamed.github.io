@@ -796,7 +796,7 @@ const showFile=async(inUrl)=>{
 				// const blobData = await fetch(`${apiUrl}/blobs`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({content: reader.result.split(';base64,')[1], encoding: 'base64'})}).then(r=>r.json());
 				// const treeData = await fetch(`${apiUrl}/trees`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({base_tree: latestCommitSha, tree: [{path: thisFile.path, mode: '100644', type: 'blob', sha: blobData.sha}]})}).then(r=>r.json());
 				// const commitData = await fetch(`${apiUrl}/commits`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({message: 'Updated a PDF', tree: treeData.sha, parents: [latestCommitSha]})}).then(r=>r.json());
-				const updateRefResponse=github_commit([{content:reader.result,path:thisFile.path}],console.log(''),browsingCurrentRepo,refId)
+				const updateRefResponse=github_commit([{content:reader.result,path:thisFile.path}],console.log,browsingCurrentRepo,refId)
 				if(updateRefResponse.ok){
 					showFile(inUrl);
 					raiseToast('PDF edits has been saved')
@@ -902,6 +902,7 @@ uploadFileInput.onchange=async(e)=>{
 	let veilStopwatch = 0;
 	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
 
+	console.log(filesToUpload);
 	const updateRefResponse=await github_commit(filesToUpload,updateBackdrop,browsingCurrentRepo,refId);
 
 	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
