@@ -874,7 +874,7 @@ const github_commit=async(listOfFiles,callback,repo,refId)=>{
 	const blobData=await Promise.all(listOfFiles.map(file=>fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,')[1],encoding:'base64'})}).then(res=>{callback();return res.json()})));
 	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());callback();
 	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`Uploaded ${listOfFiles.length} file(s)`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
-	return await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});callback();
+	return fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});callback();
 }
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
@@ -895,7 +895,7 @@ uploadFileInput.onchange=async(e)=>{
 	let veilStopwatch = 0;
 	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
 
-	const updateRefResponse=github_commit(filesToUpload,updateBackdrop,browsingCurrentRepo,refId);
+	const updateRefResponse=await github_commit(filesToUpload,updateBackdrop,browsingCurrentRepo,refId);
 
 	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
 	raiseToast(updateRefResponse.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
