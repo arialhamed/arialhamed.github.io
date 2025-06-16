@@ -881,7 +881,7 @@ const github_commit=async(listOfFiles,callback,repo,refId)=>{
 	console.log(`treeData: ${JSON.stringify(treeData)}`);
 	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`Uploaded ${listOfFiles.length} file(s)`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
 	console.log(`commitData: ${JSON.stringify(commitData)}`);
-	return fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})})
+	return fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})}).then(r=>r.json())
 }
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
