@@ -785,15 +785,15 @@ const showFile=async(inUrl)=>{
 		gId('fd-nav').insertAdjacentHTML('beforeend','<svg id="pdf-viewer-save" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
 		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}"></iframe>`);
 		gId('pdf-viewer-save').onclick=()=>{
-			const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
+			// const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
 			const reader = new FileReader();
 			let [refinedUrl, refId] = thisFile.url.split('?ref=');
 			reader.onload=async()=>{
-				const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
-				const blobData = await fetch(`${apiUrl}/blobs`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({content: reader.result.split(';base64,')[1], encoding: 'base64'})}).then(r=>r.json());
-				const treeData = await fetch(`${apiUrl}/trees`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({base_tree: latestCommitSha, tree: [{path: thisFile.path, mode: '100644', type: 'blob', sha: blobData.sha}]})}).then(r=>r.json());
-				const commitData = await fetch(`${apiUrl}/commits`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({message: 'Updated a PDF', tree: treeData.sha, parents: [latestCommitSha]})}).then(r=>r.json());
-				const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {method: 'PATCH', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({sha: commitData.sha})});
+				// const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
+				// const blobData = await fetch(`${apiUrl}/blobs`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({content: reader.result.split(';base64,')[1], encoding: 'base64'})}).then(r=>r.json());
+				// const treeData = await fetch(`${apiUrl}/trees`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({base_tree: latestCommitSha, tree: [{path: thisFile.path, mode: '100644', type: 'blob', sha: blobData.sha}]})}).then(r=>r.json());
+				// const commitData = await fetch(`${apiUrl}/commits`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({message: 'Updated a PDF', tree: treeData.sha, parents: [latestCommitSha]})}).then(r=>r.json());
+				const updateRefResponse=github_commit([{content:reader.result,path:thisFile.path}],console.log(''),browsingCurrentRepo,refId)
 				if(updateRefResponse.ok){
 					showFile(inUrl);
 					raiseToast('PDF edits has been saved')
@@ -814,60 +814,6 @@ const showFile=async(inUrl)=>{
 		Prism.highlightElement(gId('fd-text'))
 	}
 }
-uploadFileInput.onchange=async(e)=>{
-	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
-	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
-
-	// 1. Process picked files
-	let filesToUpload = await Promise.all(Array.from(e.target.files).map(file=>{
-		let reader=new FileReader();
-		return new Promise(resolve=>{
-			reader.onload=()=>resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`});
-			reader.readAsDataURL(file)
-		})
-	}))
-
-	gId('backdrop').style.display="block";
-	let veilTimer = filesToUpload.length + 4;
-	console.log(veilTimer);
-	// gId('commit-progress').max = veilTimer;
-	let veilStopwatch = 0;
-	// const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
-
-	const xhrRequest = (method, url, body = null) => {
-		return new Promise((resolve, reject) => {
-			const xhr = new XMLHttpRequest();
-			xhr.open(method, url, true);
-			xhr.setRequestHeader('Authorization', `token ${github_token}`)
-			xhr.onprogress=x=>{
-				console.log(`x.total: ${x.total}, x.loaded: ${x.loaded}`);
-				gId('backdrop').textContent = Number((x.loaded/x.total/veilTimer)+(veilStopwatch/veilTimer)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})
-			}
-			xhr.onreadystatechange=()=>{
-				++veilStopwatch;
-				if (xhr.readyState === 4) {
-					if (xhr.status >= 200 && xhr.status < 300) {
-						resolve(JSON.parse(xhr.responseText));
-					} else {
-						reject(new Error(`Request failed: ${xhr.status} ${xhr.statusText}`));
-					}
-				}
-			};
-			xhr.send(body);
-		});
-	}
-	const latestCommitSha = (await xhrRequest('GET', `${apiUrl}/refs/heads/${refId}`)).object.sha;
-	const blobData = await Promise.all(filesToUpload.map(file => xhrRequest('POST', `${apiUrl}/blobs`, JSON.stringify({content: file.content.split(';base64,')[1], encoding: 'base64'}))));
-	const treeData = await xhrRequest('POST', `${apiUrl}/trees`, JSON.stringify({base_tree: latestCommitSha, tree: blobData.map((blob, index) => ({path: filesToUpload[index].path, mode: '100644', type: 'blob', sha: blob.sha}))}));
-	const commitData = await xhrRequest('POST', `${apiUrl}/commits`, JSON.stringify({message: `Uploaded ${filesToUpload.length} file(s)`, tree: treeData.sha, parents: [latestCommitSha]}));
-	const pushResults = await xhrRequest('PATCH', `${apiUrl}/refs/heads/${refId}`, JSON.stringify({sha: commitData.sha}));
-
-	console.log(pushResults)
-	// if(pushResults.ok){console.log('Commit successful')}else{console.error('Error updating ref:', pushResults.status, pushResults.statusText)}
-	// raiseToast(pushResults.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`);
-	gId('backdrop').style.display="none";
-	gId('explore-refresh').click();
-}
 // uploadFileInput.onchange=async(e)=>{
 // 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 // 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
@@ -882,72 +828,80 @@ uploadFileInput.onchange=async(e)=>{
 // 	}))
 
 // 	gId('backdrop').style.display="block";
-// 	let veilTimer = filesToUpload.length + 5;
+// 	let veilTimer = filesToUpload.length + 4;
 // 	console.log(veilTimer);
 // 	// gId('commit-progress').max = veilTimer;
 // 	let veilStopwatch = 0;
-// 	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
-// 	updateBackdrop()
+// 	// const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
 
-// 	// 2. Get the latest commit reference
-// 	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
-// 	updateBackdrop()
+// 	const xhrRequest = (method, url, body = null) => {
+// 		return new Promise((resolve, reject) => {
+// 			const xhr = new XMLHttpRequest();
+// 			xhr.open(method, url, true);
+// 			xhr.setRequestHeader('Authorization', `token ${github_token}`)
+// 			xhr.onprogress=x=>{
+// 				console.log(`x.total: ${x.total}, x.loaded: ${x.loaded}`);
+// 				gId('backdrop').textContent = Number((x.loaded/x.total/veilTimer)+(veilStopwatch/veilTimer)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})
+// 			}
+// 			xhr.onreadystatechange=()=>{
+// 				++veilStopwatch;
+// 				if (xhr.readyState === 4) {
+// 					if (xhr.status >= 200 && xhr.status < 300) {
+// 						resolve(JSON.parse(xhr.responseText));
+// 					} else {
+// 						reject(new Error(`Request failed: ${xhr.status} ${xhr.statusText}`));
+// 					}
+// 				}
+// 			};
+// 			xhr.send(body);
+// 		});
+// 	}
+// 	const latestCommitSha = (await xhrRequest('GET', `${apiUrl}/refs/heads/${refId}`)).object.sha;
+// 	const blobData = await Promise.all(filesToUpload.map(file => xhrRequest('POST', `${apiUrl}/blobs`, JSON.stringify({content: file.content.split(';base64,')[1], encoding: 'base64'}))));
+// 	const treeData = await xhrRequest('POST', `${apiUrl}/trees`, JSON.stringify({base_tree: latestCommitSha, tree: blobData.map((blob, index) => ({path: filesToUpload[index].path, mode: '100644', type: 'blob', sha: blob.sha}))}));
+// 	const commitData = await xhrRequest('POST', `${apiUrl}/commits`, JSON.stringify({message: `Uploaded ${filesToUpload.length} file(s)`, tree: treeData.sha, parents: [latestCommitSha]}));
+// 	const pushResults = await xhrRequest('PATCH', `${apiUrl}/refs/heads/${refId}`, JSON.stringify({sha: commitData.sha}));
 
-// 	// 3. Create blobs for each file
-// 	const blobData = await Promise.all(filesToUpload.map(file =>
-// 		fetch(`${apiUrl}/blobs`, {
-// 			method: 'POST',
-// 			headers: {Authorization: `token ${github_token}`},
-// 			body: JSON.stringify({
-// 				content: file.content.split(';base64,')[1],
-// 				encoding: 'base64'
-// 			})
-// 		}).then(res => {updateBackdrop(); return res.json()})
-// 	));
-
-// 	// 4. Create the tree
-// 	const treeData = await fetch(`${apiUrl}/trees`, {
-// 		method: 'POST',
-// 		headers: {Authorization: `token ${github_token}`},
-// 		body: JSON.stringify({
-// 			base_tree: latestCommitSha,
-// 			tree: blobData.map((blob, index) => ({
-// 				path: filesToUpload[index].path,
-// 				mode: '100644',
-// 				type: 'blob',
-// 				sha: blob.sha
-// 			}))
-// 		})
-// 	}).then(r=>r.json());
-// 	updateBackdrop()
-
-// 	// 5. Create the commit
-// 	const commitData = await fetch(`${apiUrl}/commits`, {
-// 		method: 'POST',
-// 		headers: {Authorization: `token ${github_token}`},
-// 		body: JSON.stringify({
-// 			message: `Uploaded ${filesToUpload.length} file(s)`,
-// 			tree: treeData.sha,
-// 			parents: [latestCommitSha]
-// 		})
-// 	}).then(r=>r.json());
-// 	updateBackdrop()
-
-// 	// 6. Update the branch reference
-// 	const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
-// 		method: 'PATCH',
-// 		headers: {Authorization: `token ${github_token}`},
-// 		body: JSON.stringify({
-// 			sha: commitData.sha
-// 		})
-// 	});
-// 	updateBackdrop()
-
-// 	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
-// 	raiseToast(updateRefResponse.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
+// 	console.log(pushResults)
+// 	// if(pushResults.ok){console.log('Commit successful')}else{console.error('Error updating ref:', pushResults.status, pushResults.statusText)}
+// 	// raiseToast(pushResults.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`);
 // 	gId('backdrop').style.display="none";
 // 	gId('explore-refresh').click();
 // }
+const github_commit=async(listOfFiles,callback,repo,refId)=>{
+	const apiUrl=`https://api.github.com/repos/${repo}/git`;
+	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);callback();
+	const blobData=await Promise.all(listOfFiles.map(file=>fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,')[1],encoding:'base64'})}).then(res=>{callback();return res.json()})));
+	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());callback();
+	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`Uploaded ${listOfFiles.length} file(s)`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
+	return await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});callback();
+}
+uploadFileInput.onchange=async(e)=>{
+	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
+
+	// 1. Process picked files
+	let filesToUpload = await Promise.all(Array.from(e.target.files).map(file=>{
+		let reader=new FileReader();
+		return new Promise(resolve=>{
+			reader.onload=()=>resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`});
+			reader.readAsDataURL(file)
+		})
+	}))
+
+	gId('backdrop').style.display="block";
+	let veilTimer = filesToUpload.length + 5;
+	console.log(veilTimer);
+	// gId('commit-progress').max = veilTimer;
+	let veilStopwatch = 0;
+	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
+
+	const updateRefResponse=github_commit(filesToUpload,updateBackdrop,browsingCurrentRepo,refId);
+
+	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
+	raiseToast(updateRefResponse.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
+	gId('backdrop').style.display="none";
+	gId('explore-refresh').click();
+}
 deleteFiles=async(gitUrl)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
