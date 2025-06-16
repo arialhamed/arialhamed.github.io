@@ -840,7 +840,7 @@ uploadFileInput.onchange=async(e)=>{
 			const xhr = new XMLHttpRequest();
 			xhr.open(method, url, true);
 			xhr.setRequestHeader('Authorization', `token ${github_token}`)
-			xhr.onprogress=()=>{console.log(`${xhr.loaded} bytes`)}
+			xhr.onprogress=x=>{console.log(`${x.loaded} bytes`)}
 			xhr.onreadystatechange=()=>{
 				if (xhr.readyState === 4) {
 					if (xhr.status >= 200 && xhr.status < 300) {
@@ -859,9 +859,9 @@ uploadFileInput.onchange=async(e)=>{
 	const commitData = await xhrRequest('POST', `${apiUrl}/commits`, JSON.stringify({message: `Uploaded ${filesToUpload.length} file(s)`, tree: treeData.sha, parents: [latestCommitSha]}));
 	const pushResults = await xhrRequest('PATCH', `${apiUrl}/refs/heads/${refId}`, JSON.stringify({sha: commitData.sha}));
 
-
-	if(pushResults.ok){console.log('Commit successful')}else{console.error('Error updating ref:', pushResults.status, pushResults.statusText)}
-	raiseToast(pushResults.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //pushResults.status, pushResults.statusText);
+	console.log(pushResults)
+	// if(pushResults.ok){console.log('Commit successful')}else{console.error('Error updating ref:', pushResults.status, pushResults.statusText)}
+	// raiseToast(pushResults.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`);
 	gId('backdrop').style.display="none";
 	gId('explore-refresh').click();
 }
