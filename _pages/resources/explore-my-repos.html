@@ -786,35 +786,20 @@ const showFile=async(inUrl)=>{
 		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}"></iframe>`);
 		gId('pdf-viewer-save').onclick=()=>{
 			const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
-			// const blob = new Blob([data], {type: 'application/pdf'});
-			
 			const reader = new FileReader();
 			let [refinedUrl, refId] = thisFile.url.split('?ref=');
 			reader.onload=async()=>{
-				console.log(`reader.result.split(';base64,')[1]: ${reader.result.split(';base64,')[1]}`)
 				const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
-				console.log(`latestCommitSha: ${latestCommitSha}`)
 				const blobData = await fetch(`${apiUrl}/blobs`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({content: reader.result.split(';base64,')[1], encoding: 'base64'})}).then(r=>r.json());
-				console.log(`blobData: ${JSON.stringify(blobData)}`)
 				const treeData = await fetch(`${apiUrl}/trees`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({base_tree: latestCommitSha, tree: [{path: thisFile.path, mode: '100644', type: 'blob', sha: blobData.sha}]})}).then(r=>r.json());
-				console.log(`treeData: ${JSON.stringify(treeData)}`)
 				const commitData = await fetch(`${apiUrl}/commits`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({message: 'Updated a PDF', tree: treeData.sha, parents: [latestCommitSha]})}).then(r=>r.json());
-				console.log(`commitData: ${JSON.stringify(commitData)}`)
 				const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {method: 'PATCH', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({sha: commitData.sha})});
-				console.log(`updateRefResponse: ${JSON.stringify(updateRefResponse)}`)
-				console.log(updateRefResponse.ok)
-				// fetch(
-				// 	refinedUrl, {
-				// 		headers: {Authorization: `token ${github_token}`},
-				// 		method: 'PUT',
-				// 		body: JSON.stringify({
-				// 			message: `Update PDF from "${window.location.hostname}" at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
-				// 			content: reader.result.split(';base64,')[1],
-				// 			sha: 
-				// 		})
-				// 	}
-				// )
-				// .then(r=>gId(''))
+				if(updateRefResponse.ok){
+					showFile(inUrl);
+					raiseToast('PDF edits has been saved')
+				}else{
+					raiseToast('Error encountered while saving, check console logs')
+				}
 			};
 			gId('pdf-viewer').contentWindow.PDFViewerApplication.pdfDocument.saveDocument()
 			.then(blob=>reader.readAsDataURL(new Blob([blob], {type: 'application/pdf'})))
