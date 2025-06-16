@@ -881,8 +881,7 @@ const github_commit=async(listOfFiles,callback,repo,refId)=>{
 	console.log(`treeData: ${JSON.stringify(treeData)}`);
 	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`Uploaded ${listOfFiles.length} file(s)`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
 	console.log(`commitData: ${JSON.stringify(commitData)}`);
-	const updateRefResponse=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});callback();
-	return updateRefResponse
+	return fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})})
 }
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
@@ -904,7 +903,7 @@ uploadFileInput.onchange=async(e)=>{
 	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
 
 	console.log(filesToUpload);
-	const updateRefResponse=github_commit(filesToUpload,updateBackdrop,browsingCurrentRepo,refId);
+	const updateRefResponse=await github_commit(filesToUpload,updateBackdrop,browsingCurrentRepo,refId);
 
 	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
 	raiseToast(updateRefResponse.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
