@@ -54,6 +54,7 @@ pdf: true
 		<a title="New folder" id="create-folder" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg></a>
 		<input id="multi-select" type="checkbox" style="display:none"><label title="Start multiple selection" for="multi-select" style="float:left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M6 1C11 1 11 1 11 6 11 11 11 11 6 11 1 11 1 11 1 6 1 1 1 1 6 1V3C9 3 9 3 9 6 9 9 9 9 6 9 3 9 3 9 3 6 3 3 3 3 6 3M6 13C11 13 11 13 11 18 11 23 11 23 6 23 1 23 1 23 1 18 1 13 1 13 6 13M8.895 14.347 10.461 16.121 4.982 21.547 1.591 18.678 2.817 17.034 4.696 18.939 8.895 14.347M13 6C13 5 13 5 15 5H21C23 5 23 5 23 6 23 7 23 7 21 7H15C13 7 13 7 13 6M13 12C13 11 13 11 15 11H21C23 11 23 11 23 12 23 13 23 13 21 13H15C13 13 13 13 13 12M13 18C13 17 13 17 15 17H21C23 17 23 17 23 18 23 19 23 19 21 19H15C13 19 13 19 13 18"/></svg></label>
 		<a title="Upload here" id="upload-file" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
+		<a title="Select all" id="select-all" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 11 11"><path fill-rule="evenodd" fill="currentColor" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3V3M4 4H7V7H4V4"/></svg></a>
 		<a title="Delete item" id="delete-item" class="float-left" onclick="deleteFiles()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg></a>
 
 		<label title="Toggle view" for="toggle-view" class="float-right">
@@ -159,7 +160,8 @@ pdf: true
 	input[type="checkbox"]{display:block}
 	.v-name{padding:0 1.2em}
 }
-#control-icons:has(#multi-select:checked) #delete-item{pointer-events: unset;color:var(--anchor-color)}
+#control-icons:has(#multi-select:checked) #delete-item{pointer-events:unset;color:var(--anchor-color)}
+#control-icons:has(#multi-select:checked) #select-all{pointer-events:unset;color:var(--anchor-color)}
 .explore-cell input[type="checkbox"]{transform:scale(1.5)translate(.4em,.4em);display:none;margin:0;margin-right:.5em;position:absolute;top:0;left:0}
 
 /*Toggle pin*/
@@ -194,6 +196,7 @@ pdf: true
 .float-left{float:left}
 .float-right{float:right}
 #delete-item{color:var(--anchor-color-hover);pointer-events:none}
+#select-all{color:var(--anchor-color-hover);pointer-events:none}
 
 
 *[href='']{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
@@ -453,7 +456,7 @@ let intervalsDict={};
 // The following will read each file or content (or repos) and display into the explore-content element
 const addObjectToView=async(e)=>{
 	let contentString=`<a class="explore-cell" data-path="${e.name}"`;
-	let selectInput=`<label for="${e.sha}"></label><input type="checkbox" id="${e.sha}" />`;
+	let selectInput=`<label for="${e.sha}"></label><input class="explore-cell-select" type="checkbox" id="${e.sha}" />`;
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
 		// Adds the repository names and the prospective API URLs as cells
 		contentString+=` href="#${e.url.slice(22)}/contents?ref=${e.default_branch}">
@@ -871,10 +874,14 @@ const showFile=async(inUrl)=>{
 const github_commit=async(listOfFiles,callback,repo,refId)=>{
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
 	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);callback();
+	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
 	const blobData=await Promise.all(listOfFiles.map(file=>fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,')[1],encoding:'base64'})}).then(res=>{callback();return res.json()})));
+	console.log(`blobData: ${JSON.stringify(blobData)}`);
 	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());callback();
+	console.log(`treeData: ${JSON.stringify(treeData)}`);
 	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`Uploaded ${listOfFiles.length} file(s)`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
-	return fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});callback();
+	console.log(`commitData: ${JSON.stringify(commitData)}`);
+	return await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});callback();
 }
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
@@ -988,6 +995,10 @@ gId('select-branch').onchange=e=>{
 	browsingTree=browsingTree.map(v=>v.includes('?ref=')?`${v.split('?ref=',1)[0]}?ref=${e.target.value}`:v)
 	window.location.href = `#${browsingTree.pop()}`
 }
+gId('select-all').onclick=e=>{
+	const allSelects = document.querySelectorAll('.explore-cell-select')
+	allSelects.forEach(e=>e.checked=allSelects.every(f=>f.checked))
+};
 const copyCurrentUrl=async(f)=>{if(f){navigator.clipboard.writeText(`${String(window.location).split('#')[0]}#${gId('cud-inner').textContent}`);gId('cud-inner').innerHTML=`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1.5em"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/></svg> copied to clipboard!`}else{gId('cud-inner').innerHTML=iconCopy+browsingTree.slice(-1)[0].slice(22)}}
 const searchContents=()=>{document.querySelectorAll('.explore-cell').forEach(function(a){a.style.display=(a.getAttribute('data-path').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
 const github_signin=()=>{localStorage.setItem('github_login_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
