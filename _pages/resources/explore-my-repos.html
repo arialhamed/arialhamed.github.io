@@ -839,7 +839,10 @@ uploadFileInput.onchange=async(e)=>{
 			const xhr = new XMLHttpRequest();
 			xhr.open(method, url, true);
 			xhr.setRequestHeader('Authorization', `token ${github_token}`)
-			xhr.onprogress=x=>{gId('backdrop').textContent = Number((x.loaded/x.total/veilTimer)+(veilStopwatch/veilTimer)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})}
+			xhr.onprogress=x=>{
+				console.log(`x.total: ${x.total}, x.loaded: ${x.loaded}`);
+				gId('backdrop').textContent = Number((x.loaded/x.total/veilTimer)+(veilStopwatch/veilTimer)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})
+			}
 			xhr.onreadystatechange=()=>{
 				++veilStopwatch;
 				if (xhr.readyState === 4) {
