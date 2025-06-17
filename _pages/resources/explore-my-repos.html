@@ -79,7 +79,7 @@ pdf: true
 <div id="file-display">
 </div>
 
-<div id="backdrop"></div>
+<div id="commit-backdrop"></div>
 
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
@@ -368,7 +368,7 @@ body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display
 }
 /* .explore-display-image #explore-display-close + a{width:calc(100% - 3em);display:block} */
 .explore-display-audio #explore-display-close + a{left:0;padding:.4em;border-radius:.75em;-webkit-box-decoration-break:clone;-o-box-decoration-break:clone;box-decoration-break:clone}
-#backdrop{
+#commit-backdrop{
 	position:fixed;
 	top:0;left:0;bottom:0;right:0;
 	background-color:#0005;
@@ -376,7 +376,7 @@ body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display
 	display:none;
 	text-align:center;
 	line-height:100vh;
-	z-index:7;
+	z-index:8;
 	font-size:300%;
 }
 
@@ -796,7 +796,7 @@ const showFile=async(inUrl)=>{
 				// const blobData = await fetch(`${apiUrl}/blobs`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({content: reader.result.split(';base64,')[1], encoding: 'base64'})}).then(r=>r.json());
 				// const treeData = await fetch(`${apiUrl}/trees`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({base_tree: latestCommitSha, tree: [{path: thisFile.path, mode: '100644', type: 'blob', sha: blobData.sha}]})}).then(r=>r.json());
 				// const commitData = await fetch(`${apiUrl}/commits`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({message: 'Updated a PDF', tree: treeData.sha, parents: [latestCommitSha]})}).then(r=>r.json());
-				const updateRefResponse=await github_commit([{content:reader.result,path:thisFile.path}],console.log,browsingCurrentRepo,refId)
+				const updateRefResponse=await github_commit([{content:reader.result,path:thisFile.path}],browsingCurrentRepo,refId)
 				if(updateRefResponse.ok){
 					showFile(inUrl);
 					raiseToast('PDF edits has been saved')
@@ -871,7 +871,11 @@ const showFile=async(inUrl)=>{
 // 	gId('backdrop').style.display="none";
 // 	gId('explore-refresh').click();
 // }
-const github_commit=async(listOfFiles,callback,repo,refId)=>{
+const github_commit=async(listOfFiles,repo,refId)=>{
+	gId('commit-backdrop').style.display="block";
+	let veilTimer=listOfFiles.length+5;
+	let veilStopwatch=0;
+	const callback=()=>{gId('commit-backdrop').textContent=Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})};
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
 	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);callback();
 	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
@@ -881,7 +885,10 @@ const github_commit=async(listOfFiles,callback,repo,refId)=>{
 	console.log(`treeData: ${JSON.stringify(treeData)}`);
 	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`Uploaded ${listOfFiles.length} file(s)`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
 	console.log(`commitData: ${JSON.stringify(commitData)}`);
-	return await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})}).then(r=>r.json())
+	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})}).then(r=>r.json());callback();
+	console.log(`pushData: ${JSON.stringify(pushData)}`);
+	gId('commit-backdrop').style.display="none";
+	return pushData
 }
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
@@ -895,19 +902,17 @@ uploadFileInput.onchange=async(e)=>{
 		})
 	}))
 
-	gId('backdrop').style.display="block";
-	let veilTimer = filesToUpload.length + 5;
-	console.log(veilTimer);
-	// gId('commit-progress').max = veilTimer;
-	let veilStopwatch = 0;
-	const updateBackdrop=()=>{gId('backdrop').textContent = Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2})};
 
 	console.log(filesToUpload);
-	const updateRefResponse=await github_commit(filesToUpload,updateBackdrop,browsingCurrentRepo,refId);
+	const updateRefResponse=await github_commit(filesToUpload,browsingCurrentRepo,refId);
 
-	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
-	raiseToast(updateRefResponse.ok?`${filesToUpload.length} file(s) has been uploaded`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
-	gId('backdrop').style.display="none";
+	if(updateRefResponse.ok){
+		console.log('Commit successful');
+		raiseToast(`${filesToUpload.length} file(s) has been uploaded`)
+	}else{
+		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
+		raiseToast(`Error updating ref`)
+	}
 	gId('explore-refresh').click();
 }
 deleteFiles=async(gitUrl)=>{
