@@ -796,7 +796,7 @@ const showFile=async(inUrl)=>{
 				// const blobData = await fetch(`${apiUrl}/blobs`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({content: reader.result.split(';base64,')[1], encoding: 'base64'})}).then(r=>r.json());
 				// const treeData = await fetch(`${apiUrl}/trees`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({base_tree: latestCommitSha, tree: [{path: thisFile.path, mode: '100644', type: 'blob', sha: blobData.sha}]})}).then(r=>r.json());
 				// const commitData = await fetch(`${apiUrl}/commits`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({message: 'Updated a PDF', tree: treeData.sha, parents: [latestCommitSha]})}).then(r=>r.json());
-				const updateRefResponse=github_commit([{content:reader.result,path:thisFile.path}],console.log,browsingCurrentRepo,refId)
+				const updateRefResponse=await github_commit([{content:reader.result,path:thisFile.path}],console.log,browsingCurrentRepo,refId)
 				if(updateRefResponse.ok){
 					showFile(inUrl);
 					raiseToast('PDF edits has been saved')
@@ -875,13 +875,13 @@ const github_commit=async(listOfFiles,callback,repo,refId)=>{
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
 	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);callback();
 	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
-	const blobData=await Promise.all(listOfFiles.map(file=>fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,')[1],encoding:'base64'})}).then(res=>{callback();return res.json()})));
+	const blobData=await Promise.all(listOfFiles.map(file=>fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{callback();return res.json()})));
 	console.log(`blobData: ${JSON.stringify(blobData)}`);
 	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());callback();
 	console.log(`treeData: ${JSON.stringify(treeData)}`);
 	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`Uploaded ${listOfFiles.length} file(s)`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
 	console.log(`commitData: ${JSON.stringify(commitData)}`);
-	return fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})}).then(r=>r.json())
+	return await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})}).then(r=>r.json())
 }
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
