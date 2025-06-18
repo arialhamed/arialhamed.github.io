@@ -41,27 +41,27 @@ pdf: true
 <!-- <svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3M4 4H7V7H4"/></svg> -->
 <div id="control-icons">
 	<div>
-		<a title="Back" id="explore-back" class="float-left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg></a>
-		<a title="Back to start" id="back-to-start" class="float-left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg></a>
-		<a title="Refresh" id="explore-refresh" class="float-left" href="javascript:window.onhashchange()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg></a>
+		<svg title="Back" id="explore-back" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg>
+		<svg title="Back to start" id="back-to-start" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg>
+		<svg title="Refresh" id="explore-refresh" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg>
 		<div id="search-field">
 			<input type="search" onkeyup="searchContents()" onclick="searchContents()" id="search-input" placeholder="start typing here to search">
 			<svg onclick="gId('search-input').value='';gId('search-input').focus();searchContents()" height="2em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
 		</div>
 	</div>
 	<div>
-		<a title="New file" id="create-file" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg></a>
-		<a title="New folder" id="create-folder" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg></a>
+		<svg title="New file" id="create-file" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg>
+		<svg title="New folder" id="create-folder" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg>
+		<svg title="Upload here" id="upload-file" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg>
 		<input id="multi-select" type="checkbox" style="display:none"><label title="Start multiple selection" for="multi-select" style="float:left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M6 1C11 1 11 1 11 6 11 11 11 11 6 11 1 11 1 11 1 6 1 1 1 1 6 1V3C9 3 9 3 9 6 9 9 9 9 6 9 3 9 3 9 3 6 3 3 3 3 6 3M6 13C11 13 11 13 11 18 11 23 11 23 6 23 1 23 1 23 1 18 1 13 1 13 6 13M8.895 14.347 10.461 16.121 4.982 21.547 1.591 18.678 2.817 17.034 4.696 18.939 8.895 14.347M13 6C13 5 13 5 15 5H21C23 5 23 5 23 6 23 7 23 7 21 7H15C13 7 13 7 13 6M13 12C13 11 13 11 15 11H21C23 11 23 11 23 12 23 13 23 13 21 13H15C13 13 13 13 13 12M13 18C13 17 13 17 15 17H21C23 17 23 17 23 18 23 19 23 19 21 19H15C13 19 13 19 13 18"/></svg></label>
-		<a title="Upload here" id="upload-file" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg></a>
-		<a title="Select all" id="select-all" class="float-left" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 11 11"><path fill-rule="evenodd" fill="currentColor" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3V3M4 4H7V7H4V4"/></svg></a>
-		<a title="Delete item" id="delete-item" class="float-left" onclick="deleteFiles()"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg></a>
+		<svg title="Select all" id="select-all" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 11 11"><path fill-rule="evenodd" fill="currentColor" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3V3M4 4H7V7H4V4"/></svg>
+		<svg title="Delete item" id="delete-item" class="float-left" onclick="deleteFiles()" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
 
 		<label title="Toggle view" for="toggle-view" class="float-right">
 			<svg id="list-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>
 			<svg id="icon-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>
 		</label><input id="toggle-view" type="checkbox" style="display:none">
-		<a title="Download as repository as .zip" id="download-repo" class="float-right" href=""><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg></a>
+		<svg title="Download as repository as .zip" id="download-repo" class="float-right" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg>
 		<label title="Pin this toolbar" for="pin-explorer-nav" class="float-right">
 			<svg id="pin-explorer-nav-unpinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0 0v6M9.5 9A2.5 2.5 0 0 1 12 6.5"/></svg>
 			<svg id="pin-explorer-nav-pinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5 9a7 7 0 1 1 8 6.93V21a1 1 0 1 1-2 0v-5.07A7.001 7.001 0 0 1 5 9Zm5.94-1.06A1.5 1.5 0 0 1 12 7.5a1 1 0 1 0 0-2A3.5 3.5 0 0 0 8.5 9a1 1 0 0 0 2 0c0-.398.158-.78.44-1.06Z" clip-rule="evenodd"/></svg>
@@ -120,12 +120,13 @@ pdf: true
 
 /* Explorer control icons & search */
 #control-icons{position:static;top:0;padding:.5em 0}
-#control-icons>div{text-align:center;border-radius:3em}
-#control-icons a,#control-icons label{border-radius:.5em}
-#control-icons a:hover,#control-icons label:hover{color:var(--anchor-color);transform:scale(1.3)}
-#control-icons a:active,#control-icons label:active{background-color:var(--overlay-hover)}
-#control-icons label>svg{color:var(--anchor-color)}
-#control-icons label:hover{cursor:pointer}
+/* #control-icons > div{text-align:center;border-radius:3em} */
+#control-icons svg{color:var(--anchor-color);border-radius:.5em;cursor:pointer}
+/* #control-icons a:hover,#control-icons label:hover{color:var(--anchor-color);transform:scale(1.3)} */
+#control-icons svg:hover{transform:scale(1.3)}
+#control-icons svg:active{background-color:var(--overlay-hover)}
+/* #control-icons label:hover{cursor:pointer} */
+/* #control-icons > div:nth-child(2){color:var(--anchor-color)} */
 
 /* Items within explore-content */
 :has(>:nth-child(2))>.loader{display:none;/*Hide when there are at least 2 items in #explore-content or show-* (i.e. if .loader is not alone)*/}
@@ -158,12 +159,13 @@ pdf: true
 @keyframes hihi{0%{rotate:0deg}10%{rotate:-10deg}20%{rotate:10deg}30%{rotate:-10deg}40%{rotate:10deg}50%{rotate:0deg}}
 #control-icons:has(#multi-select:checked) + #explore-content {
 	input[type="checkbox"]{display:block}
+	label{display:block}
 	.v-name{padding:0 1.2em}
 }
-#control-icons:has(#multi-select:checked) #delete-item{pointer-events:unset;color:var(--anchor-color)}
-#control-icons:has(#multi-select:checked) #select-all{pointer-events:unset;color:var(--anchor-color)}
-.explore-cell input[type="checkbox"]{transform:scale(1.5)translate(.4em,.4em);display:none;margin:0;margin-right:.5em;position:absolute;top:0;left:0}
-.explore-cell > label{position:absolute;width:100%;height:100%}
+#control-icons:has(#multi-select:checked) #delete-item{pointer-events:unset;color:var(--anchor-color)!important}
+#control-icons:has(#multi-select:checked) #select-all{pointer-events:unset;color:var(--anchor-color)!important}
+.explore-cell > input[type="checkbox"]{transform:scale(1.5)translate(.4em,.4em);display:none;margin:0;margin-right:.5em;position:absolute;top:0;left:0}
+.explore-cell > label{position:absolute;width:100%;height:100%;display:none;margin-top:-.2rem;left:0}
 
 /*Toggle pin*/
 #control-icons:has(#pin-explorer-nav:checked){position:sticky;z-index:2;backdrop-filter:blur(5px);/*background:linear-gradient( rgb(0, 0, 0), rgba(0, 0, 0, 0) );*/}
@@ -196,13 +198,13 @@ pdf: true
 
 .float-left{float:left}
 .float-right{float:right}
-#delete-item{color:var(--anchor-color-hover);pointer-events:none}
-#select-all{color:var(--anchor-color-hover);pointer-events:none}
+#delete-item{color:var(--anchor-color-hover)!important;pointer-events:none}
+#select-all{color:var(--anchor-color-hover)!important;pointer-events:none}
 
 
 *[href='']{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
-#explore-refresh svg:hover{animation-play-state:running}
-#explore-refresh svg{animation:explore-refresh-rotate 1s linear 0s infinite;animation-play-state:paused}
+#explore-refresh:hover{animation-play-state:running}
+#explore-refresh{animation:explore-refresh-rotate 1s linear 0s infinite;animation-play-state:paused}
 @keyframes explore-refresh-rotate{from{rotate:0deg}to{rotate:360deg}}
 #search-field{
 	display: flex;
@@ -521,13 +523,15 @@ window.onhashchange=async()=>{
 		// Get repository contents or list repositories of a user
 		browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers({refresh: isReload})).then(r=>r.json());
 		if(browseJson.status=='403')throw browseJson;
+		['explore-back','create-file','create-folder','upload-file','download-repo'].forEach(i=>gId(i).style.cssText='pointer-events:none;color:var(--anchor-color-hover)');
+		document.querySelector('#multi-select + label').style.pointerEvents='none';
+		document.querySelector('#multi-select + label > svg').style.color='var(--anchor-color-hover)';
 		if (inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
 			browsingTree=[inUrl]
-			gId('explore-back').href='';
+			// gId('explore-back').href='';
 			gId('current-title').textContent='My GitHub repositories';
 			gId('current-title').removeAttribute('href');
 			gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
-			['create-file','create-folder','upload-file','select-all','download-repo'].forEach(i=>gId(i).href='')
 			browsingCurrentRepo = '' // Reset value as we are not in a repo here
 			gId('select-branch').innerHTML=''
 
@@ -537,17 +541,16 @@ window.onhashchange=async()=>{
 			}
 			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
 		}else{ // If repository selected or in contents of repository (not at the start of the page)
-			gId('explore-back').href=`#${browsingTree.at(-2)}`;
-			gId('download-repo').href='javascript:downloadRepo()'
+			gId('explore-back').onclick=()=>window.location.href=`#${browsingTree.at(-2)}`;
+			['explore-back','download-repo'].forEach(i=>gId(i).style.color='var(--anchor-color)')
 			if(github_token){// Show write functions to authenticated user
-				gId('create-file').href='';
-				gId('create-folder').href='javascript:createFolder()';
-				gId('upload-file').href='javascript:uploadFileInput.click()';
-				// gId('select-all').href='javascript:'
+				['create-file','create-folder','upload-file'].forEach(i=>gId(i).style.color='var(--anchor-color)');
+				document.querySelector('#multi-select + label').style.pointerEvents='auto';
+				document.querySelector('#multi-select + label > svg').style.color='var(--anchor-color)';
 			}
 
 			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
-			const rrCurrent = inUrl.split('/').slice(2,4).join('/')
+			const rrCurrent = inUrl.split('/').slice(2,4).join('/');
 
 			// If we are changing from all-repo view to a repo, run this once.
 			if (browsingCurrentRepo!=rrCurrent){ // If the browsing repo does not match the current repo
@@ -1021,7 +1024,12 @@ gId('github-user-profile').insertAdjacentHTML('afterbegin', `<span style="max-wi
 
 // Browsing controls
 // gId('search-input').value='';
-gId('back-to-start').href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
+gId('back-to-start').onclick=()=>window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
+gId('explore-refresh').onclick=()=>window.onhashchange();
+gId('create-file').onclick='';
+gId('create-folder').onclick=()=>createFolder();
+gId('upload-file').onclick=()=>uploadFileInput.click();
+gId('download-repo').onclick=()=>downloadRepo();
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
