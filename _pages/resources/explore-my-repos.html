@@ -809,7 +809,7 @@ const showFile=async(inUrl)=>{
 		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
 		// 	fileDisplay.insertAdjacentHTML('beforeend',`<br><span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`);
 		// }else{ // else show it parsed in Prism.js
-		fileDisplay.insertAdjacentHTML('beforeend',`<br><pre style="background-color:#333a;/*width:100%;*/height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre>`);
+		fileDisplay.insertAdjacentHTML('beforeend',`<pre style="background-color:#333a;/*width:100%;*/height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre>`);
 		// } // The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 		Prism.highlightElement(gId('fd-text'))
 	}
@@ -872,7 +872,7 @@ const github_commit=async(listOfFiles,repo,refId)=>{
 	gId('commit-backdrop').style.display="block";
 	let veilTimer=listOfFiles.length+5;
 	let veilStopwatch=0;
-	const callback=()=>{gId('commit-backdrop').textContent=Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})};
+	const callback=()=>gId('commit-backdrop').textContent=Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
 	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);callback();
 	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
@@ -885,6 +885,7 @@ const github_commit=async(listOfFiles,repo,refId)=>{
 	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});callback();
 	console.log(`pushData: ${JSON.stringify(pushData)}`);
 	gId('commit-backdrop').style.display="none";
+	gId('commit-backdrop').textContent='0.00%';
 	return pushData
 }
 uploadFileInput.onchange=async(e)=>{
@@ -899,7 +900,7 @@ uploadFileInput.onchange=async(e)=>{
 		})
 	}))
 
-	console.log(filesToUpload);
+	uploadFileInput.value='';
 	const updateRefResponse=await github_commit(filesToUpload,browsingCurrentRepo,refId);
 
 	if(updateRefResponse.ok){
@@ -910,7 +911,6 @@ uploadFileInput.onchange=async(e)=>{
 		raiseToast(`Error updating reference`)
 	}
 	gId('explore-refresh').click();
-	e.target.value=null;
 }
 deleteFiles=async(gitUrl)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
@@ -927,7 +927,7 @@ deleteFiles=async(gitUrl)=>{
 	// 2. Get all files, including those from inside the folder
 	const filesToDelete = [...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>
 		e.getAttribute('data-type')=='tree'?currentGitUrl.filter(b=>b.path.startsWith(`${e.getAttribute('data-path')}/`)).map(b=>b.path):e.getAttribute('data-path')
-	).flat().map(e=>{return {content: null, path: currentPath?`${currentPath}/${e}`:e}});
+	).flat().map(e=>{return {content: '', path: currentPath?`${currentPath}/${e}`:e}});
 
 	// 3. Confirm deletion
 	if(!confirm(`Delete ${filesToDelete.length} files from "${locationId}" (${refId})?`))return false;
