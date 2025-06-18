@@ -795,19 +795,19 @@ const showFile=async(inUrl)=>{
 const githubCommit=async(listOfFiles,repo,refId)=>{
 	let veilTimer=listOfFiles.length+4;
 	let veilStopwatch=-1;
-	const updateProgress=()=>gId('commit-backdrop').textContent=Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});
+	const updateProgress=()=>{gId('commit-backdrop').textContent=Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});console.log(veilStopwatch/veilTimer)};
 	updateProgress();
 	gId('commit-backdrop').style.display="block";
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
-	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);updateProgress();
+	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{cache:'no-store',headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);updateProgress();
 	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
-	const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{updateProgress();return res.json()})));
+	const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',cache:'no-store',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{updateProgress();return res.json()})));
 	console.log(`blobData: ${JSON.stringify(blobData)}`);
-	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());updateProgress();
+	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',cache:'no-store',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());updateProgress();
 	console.log(`treeData: ${JSON.stringify(treeData)}`);
-	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`${listOfFiles.length} file(s) added/updated/removed by GitHub API`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());updateProgress();
+	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',cache:'no-store',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`${listOfFiles.length} file(s) added/updated/removed by GitHub API`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());updateProgress();
 	console.log(`commitData: ${JSON.stringify(commitData)}`);
-	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});updateProgress();
+	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',cache:'no-store',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});updateProgress();
 	console.log(`pushData: ${JSON.stringify(pushData)}`);
 	gId('commit-backdrop').style.display="none";
 	return pushData
@@ -844,9 +844,9 @@ gId('delete-item').onclick=async(gitUrl)=>{
 	// 1. Gather files via traversing the trees
 	let currentGitUrl={sha:refId}
 	for(let i=0;i<currentPath.split('/').length&&currentPath!=''; i++){
-		currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}`,github_api_headers()).then(r=>r.json()).then(j=>j.tree.find(e=>e.path==currentPath.split('/').at(i)))
+		currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}`,github_api_headers({refresh:true})).then(r=>r.json()).then(j=>j.tree.find(e=>e.path==currentPath.split('/').at(i)))
 	}
-	currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}?recursive=1`,github_api_headers()).then(r=>r.json()).then(j=>j.tree.filter(e=>e.type=='blob'))
+	currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}?recursive=1`,github_api_headers({refresh:true})).then(r=>r.json()).then(j=>j.tree.filter(e=>e.type=='blob'))
 
 	// 2. Get all files, including those from inside the folder
 	const filesToDelete = [...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>
