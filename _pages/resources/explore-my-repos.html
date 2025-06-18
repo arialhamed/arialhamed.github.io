@@ -58,8 +58,8 @@ pdf: true
 		<svg title="Delete item" id="delete-item" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
 
 		<input id="toggle-view" type="checkbox" style="display:none"><label title="Toggle view" for="toggle-view" class="float-right">
-			<svg id="list-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>
-			<svg id="icon-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>
+			<svg id="list-view" style="color:inherit" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>
+			<svg id="icon-view" style="color:inherit" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>
 		</label>
 		<svg title="Download as repository as .zip" id="download-repo" class="float-right" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg>
 		<label title="Pin this toolbar" for="pin-explorer-nav" class="float-right">
@@ -200,7 +200,6 @@ pdf: true
 .float-right{float:right}
 #delete-item{color:var(--anchor-color-hover)!important;pointer-events:none}
 #select-all{color:var(--anchor-color-hover)!important;pointer-events:none}
-#list-view,#icon-view{color:inherit}
 
 
 *[href='']{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
@@ -835,7 +834,7 @@ uploadFileInput.onchange=async(e)=>{
 		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
 		raiseToast(`Error updating reference`)
 	}
-	gId('explore-refresh').click();
+	gId('explore-refresh').onclick();
 }
 gId('delete-item').onclick=async(gitUrl)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
@@ -868,7 +867,7 @@ gId('delete-item').onclick=async(gitUrl)=>{
 		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
 		raiseToast(`Error updating ref`)
 	}
-	gId('explore-refresh').click();
+	gId('explore-refresh').onclick();
 }
 gId('create-folder').onclick=async()=>{
 	let folderName = prompt('New folder name')
@@ -886,7 +885,7 @@ gId('create-folder').onclick=async()=>{
 		})
 		.then(r=>r.json())
 		.then(j=>{
-			gId('explore-refresh').click();
+			gId('explore-refresh').onclick();
 			raiseToast(`"${folderName}" folder has been created`)
 		})
 	}
