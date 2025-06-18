@@ -437,7 +437,7 @@ let intervalsDict={};
 
 // The following will read each file or content (or repos) and display into the explore-content element
 const addObjectToView=async(e)=>{
-	if(e.name=='.gitkeep'&&e.size==0){return};
+	if(e.name=='.gitkeep'&&e.size==0)return;
 	let contentString=`<a class="explore-cell" data-path="${e.name}"`;
 	let selectInput=`<label for="${e.sha}"></label><input class="explore-cell-select" type="checkbox" id="${e.sha}" />`;
 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
@@ -551,6 +551,7 @@ window.onhashchange=async()=>{
 		console.log(browsingTree);
 
 		// Loops through each... whatever thing. He needs some milk
+		browseJson.forEach(addObjectToView)
 		if(gId('explore-content').children.length==1)gId('explore-content').insertAdjacentHTML('beforeend','<h2 title="Only has a .gitkeep file that is 0 bytes">This folder is empty</h2>');
 	}catch(err){
 		console.log(err)
