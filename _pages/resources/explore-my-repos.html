@@ -525,7 +525,7 @@ window.onhashchange=async()=>{
 			gId('current-title').textContent='My GitHub repositories';
 			gId('current-title').removeAttribute('href');
 			gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
-			['create-file','create-folder','upload-file','download-repo'].forEach(i=>gId(i).href='')
+			['create-file','create-folder','upload-file','select-all','download-repo'].forEach(i=>gId(i).href='')
 			browsingCurrentRepo = '' // Reset value as we are not in a repo here
 			gId('select-branch').innerHTML=''
 
@@ -541,6 +541,7 @@ window.onhashchange=async()=>{
 				gId('create-file').href='';
 				gId('create-folder').href='javascript:createFolder()';
 				gId('upload-file').href='javascript:uploadFileInput.click()';
+				// gId('select-all').href='javascript:'
 			}
 
 			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
@@ -792,10 +793,6 @@ const showFile=async(inUrl)=>{
 			const reader = new FileReader();
 			let [refinedUrl, refId] = thisFile.url.split('?ref=');
 			reader.onload=async()=>{
-				// const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
-				// const blobData = await fetch(`${apiUrl}/blobs`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({content: reader.result.split(';base64,')[1], encoding: 'base64'})}).then(r=>r.json());
-				// const treeData = await fetch(`${apiUrl}/trees`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({base_tree: latestCommitSha, tree: [{path: thisFile.path, mode: '100644', type: 'blob', sha: blobData.sha}]})}).then(r=>r.json());
-				// const commitData = await fetch(`${apiUrl}/commits`, {method: 'POST', headers: {Authorization: `token ${github_token}`}, body: JSON.stringify({message: 'Updated a PDF', tree: treeData.sha, parents: [latestCommitSha]})}).then(r=>r.json());
 				const updateRefResponse=await github_commit([{content:reader.result,path:thisFile.path}],browsingCurrentRepo,refId)
 				if(updateRefResponse.ok){
 					showFile(inUrl);
@@ -883,7 +880,7 @@ const github_commit=async(listOfFiles,repo,refId)=>{
 	console.log(`blobData: ${JSON.stringify(blobData)}`);
 	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());callback();
 	console.log(`treeData: ${JSON.stringify(treeData)}`);
-	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`Uploaded ${listOfFiles.length} file(s)`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
+	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`${listOfFiles.length} file(s) added/updated/removed by GitHub API`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());callback();
 	console.log(`commitData: ${JSON.stringify(commitData)}`);
 	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});callback();
 	console.log(`pushData: ${JSON.stringify(pushData)}`);
@@ -902,7 +899,6 @@ uploadFileInput.onchange=async(e)=>{
 		})
 	}))
 
-
 	console.log(filesToUpload);
 	const updateRefResponse=await github_commit(filesToUpload,browsingCurrentRepo,refId);
 
@@ -911,9 +907,10 @@ uploadFileInput.onchange=async(e)=>{
 		raiseToast(`${filesToUpload.length} file(s) has been uploaded`)
 	}else{
 		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
-		raiseToast(`Error updating ref`)
+		raiseToast(`Error updating reference`)
 	}
 	gId('explore-refresh').click();
+	e.target.value=null;
 }
 deleteFiles=async(gitUrl)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
@@ -930,50 +927,57 @@ deleteFiles=async(gitUrl)=>{
 	// 2. Get all files, including those from inside the folder
 	const filesToDelete = [...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>
 		e.getAttribute('data-type')=='tree'?currentGitUrl.filter(b=>b.path.startsWith(`${e.getAttribute('data-path')}/`)).map(b=>b.path):e.getAttribute('data-path')
-	).flat().map(e=>currentPath?`${currentPath}/${e}`:e);
+	).flat().map(e=>{return {content: null, path: currentPath?`${currentPath}/${e}`:e}});
 
 	// 3. Confirm deletion
 	if(!confirm(`Delete ${filesToDelete.length} files from "${locationId}" (${refId})?`))return false;
 
-	// 4. Get the latest commit SHA
-	const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
+	const updateRefResponse=await github_commit(filesToDelete,browsingCurrentRepo,refId);
 
-	// 5. Create a tree with deletions
-	const treeData = await fetch(`${apiUrl}/trees`, {
-		method: 'POST',
-		headers: { Authorization: `token ${github_token}` },
-		body: JSON.stringify({
-			base_tree: latestCommitSha,
-			tree: filesToDelete.map(path => ({
-				path: path,
-				mode: '100644',
-				sha: null, // this marks the file for deletion
-			}))
-		})
-	}).then(r => r.json());
+	// // 4. Get the latest commit SHA
+	// const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
 
-	// 6. Create a commit
-	const commitData = await fetch(`${apiUrl}/commits`, {
-		method: 'POST',
-		headers: { Authorization: `token ${github_token}` },
-		body: JSON.stringify({
-			message: `Deleted ${filesToDelete.length} file(s)`,
-			tree: treeData.sha,
-			parents: [latestCommitSha]
-		})
-	}).then(r => r.json());
+	// // 5. Create a tree with deletions
+	// const treeData = await fetch(`${apiUrl}/trees`, {
+	// 	method: 'POST',
+	// 	headers: { Authorization: `token ${github_token}` },
+	// 	body: JSON.stringify({
+	// 		base_tree: latestCommitSha,
+	// 		tree: filesToDelete.map(path => ({
+	// 			path: path,
+	// 			mode: '100644',
+	// 			sha: null, // this marks the file for deletion
+	// 		}))
+	// 	})
+	// }).then(r => r.json());
 
-	// 7. Update the branch reference
-	const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
-		method: 'PATCH',
-		headers: {Authorization: `token ${github_token}`},
-		body: JSON.stringify({
-			sha: commitData.sha
-		})
-	});
+	// // 6. Create a commit
+	// const commitData = await fetch(`${apiUrl}/commits`, {
+	// 	method: 'POST',
+	// 	headers: { Authorization: `token ${github_token}` },
+	// 	body: JSON.stringify({
+	// 		message: `Deleted ${filesToDelete.length} file(s)`,
+	// 		tree: treeData.sha,
+	// 		parents: [latestCommitSha]
+	// 	})
+	// }).then(r => r.json());
 
-	if(updateRefResponse.ok){console.log('Commit successful')}else{console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText)}
-	raiseToast(updateRefResponse.ok?`${filesToDelete.length} file(s) has been deleted`:`Error updating ref`); //updateRefResponse.status, updateRefResponse.statusText);
+	// // 7. Update the branch reference
+	// const updateRefResponse = await fetch(`${apiUrl}/refs/heads/${refId}`, {
+	// 	method: 'PATCH',
+	// 	headers: {Authorization: `token ${github_token}`},
+	// 	body: JSON.stringify({
+	// 		sha: commitData.sha
+	// 	})
+	// });
+
+	if(updateRefResponse.ok){
+		console.log('Commit successful');
+		raiseToast(`${filesToUpload.length} file(s) has been deleted`)
+	}else{
+		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
+		raiseToast(`Error updating ref`)
+	}
 	gId('explore-refresh').click();
 }
 const createFolder=async()=>{
@@ -986,7 +990,7 @@ const createFolder=async()=>{
 			headers: {Authorization: `token ${github_token}`},
 			method: 'PUT',
 			body: JSON.stringify({
-				message: `Create this folder from "${window.location.hostname}" at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
+				message: `Create this folder with GitHub API at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
 				content: ''
 			})
 		})
