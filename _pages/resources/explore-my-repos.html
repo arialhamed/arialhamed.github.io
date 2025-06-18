@@ -53,9 +53,9 @@ pdf: true
 		<svg title="New file" id="create-file" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg>
 		<svg title="New folder" id="create-folder" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg>
 		<svg title="Upload here" id="upload-file" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg>
-		<input id="multi-select" type="checkbox" style="display:none"><label title="Start multiple selection" for="multi-select" style="float:left"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M6 1C11 1 11 1 11 6 11 11 11 11 6 11 1 11 1 11 1 6 1 1 1 1 6 1V3C9 3 9 3 9 6 9 9 9 9 6 9 3 9 3 9 3 6 3 3 3 3 6 3M6 13C11 13 11 13 11 18 11 23 11 23 6 23 1 23 1 23 1 18 1 13 1 13 6 13M8.895 14.347 10.461 16.121 4.982 21.547 1.591 18.678 2.817 17.034 4.696 18.939 8.895 14.347M13 6C13 5 13 5 15 5H21C23 5 23 5 23 6 23 7 23 7 21 7H15C13 7 13 7 13 6M13 12C13 11 13 11 15 11H21C23 11 23 11 23 12 23 13 23 13 21 13H15C13 13 13 13 13 12M13 18C13 17 13 17 15 17H21C23 17 23 17 23 18 23 19 23 19 21 19H15C13 19 13 19 13 18"/></svg></label>
+		<input id="multi-select" type="checkbox" style="display:none"><label title="Start multiple selection" for="multi-select"><svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M6 1C11 1 11 1 11 6 11 11 11 11 6 11 1 11 1 11 1 6 1 1 1 1 6 1V3C9 3 9 3 9 6 9 9 9 9 6 9 3 9 3 9 3 6 3 3 3 3 6 3M6 13C11 13 11 13 11 18 11 23 11 23 6 23 1 23 1 23 1 18 1 13 1 13 6 13M8.895 14.347 10.461 16.121 4.982 21.547 1.591 18.678 2.817 17.034 4.696 18.939 8.895 14.347M13 6C13 5 13 5 15 5H21C23 5 23 5 23 6 23 7 23 7 21 7H15C13 7 13 7 13 6M13 12C13 11 13 11 15 11H21C23 11 23 11 23 12 23 13 23 13 21 13H15C13 13 13 13 13 12M13 18C13 17 13 17 15 17H21C23 17 23 17 23 18 23 19 23 19 21 19H15C13 19 13 19 13 18"/></svg></label>
 		<svg title="Select all" id="select-all" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 11 11"><path fill-rule="evenodd" fill="currentColor" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3V3M4 4H7V7H4V4"/></svg>
-		<svg title="Delete item" id="delete-item" class="float-left" onclick="deleteFiles()" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
+		<svg title="Delete item" id="delete-item" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
 
 		<label title="Toggle view" for="toggle-view" class="float-right">
 			<svg id="list-view" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>
@@ -200,6 +200,7 @@ pdf: true
 .float-right{float:right}
 #delete-item{color:var(--anchor-color-hover)!important;pointer-events:none}
 #select-all{color:var(--anchor-color-hover)!important;pointer-events:none}
+#multi-select + label{float:left}
 
 
 *[href='']{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
@@ -519,9 +520,9 @@ window.onhashchange=async()=>{
 			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
 		}else{ // If repository selected or in contents of repository (not at the start of the page)
 			gId('explore-back').onclick=()=>window.location.href=`#${browsingTree.at(-2)}`;
-			['explore-back','back-to-start','download-repo'].forEach(i=>gId(i).style.cssText='pointer-events:none;color:var(--anchor-color-hover)');
+			['explore-back','back-to-start','download-repo'].forEach(i=>gId(i).style.cssText='color:var(--anchor-color)');
 			if(github_token){// Show write functions to authenticated user
-				['create-file','create-folder','upload-file'].forEach(i=>gId(i).style.cssText='pointer-events:none;color:var(--anchor-color-hover)');
+				['create-file','create-folder','upload-file'].forEach(i=>gId(i).style.cssText='color:var(--anchor-color)');
 				document.querySelector('#multi-select + label').style.pointerEvents='auto';
 				document.querySelector('#multi-select + label > svg').style.color='var(--anchor-color)';
 			}
@@ -987,11 +988,6 @@ gId('select-branch').onchange=e=>{
 	browsingTree=browsingTree.map(v=>v.includes('?ref=')?`${v.split('?ref=',1)[0]}?ref=${e.target.value}`:v)
 	window.location.href = `#${browsingTree.pop()}`
 }
-gId('select-all').onclick=e=>{
-	const allSelects=document.querySelectorAll('.explore-cell > input[type="checkbox"]');
-	const allChecked=!Array.from(allSelects).every(f=>f.checked);
-	allSelects.forEach(e=>e.checked=allChecked)
-};
 const searchContents=()=>{document.querySelectorAll('.explore-cell').forEach(function(a){a.style.display=(a.getAttribute('data-path').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
 const github_signin=()=>{localStorage.setItem('github_login_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
@@ -1006,6 +1002,12 @@ gId('explore-refresh').onclick=()=>window.onhashchange();
 gId('create-file').onclick='';
 gId('create-folder').onclick=()=>createFolder();
 gId('upload-file').onclick=()=>uploadFileInput.click();
+gId('select-all').onclick=e=>{
+	const allSelects=document.querySelectorAll('.explore-cell > input[type="checkbox"]');
+	const allChecked=!Array.from(allSelects).every(f=>f.checked);
+	allSelects.forEach(e=>e.checked=allChecked)
+};
+gId('delete-item').onclick=()=>deleteFiles();
 gId('download-repo').onclick=()=>downloadRepo();
 
 // Kick off when the page loads, or go straight to a stated url
