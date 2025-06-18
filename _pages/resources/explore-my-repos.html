@@ -483,9 +483,6 @@ const addObjectToView=async(e)=>{
 	}
 	gId('explore-content').appendChild(exploreCell);//Add to DOM
 }
-
-// The following will get the contents from GitHub API, then add processes it, then loops whatever array there is using addObjectToView
-// 'refresh' boolean is to reload private repo's download_url tokens
 window.onhashchange=async()=>{
 	const inUrl = window.location.hash.slice(1);
 	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree 
@@ -495,7 +492,6 @@ window.onhashchange=async()=>{
 	if(isReload){browsingTree.pop();console.log('refreshing')};
 	browsingTree.at(-2)==inUrl?browsingTree.pop():browsingTree.push(inUrl);
 
-	// mediaArray=[];
 	gId('explore-content').innerHTML='<span class="loader" data-path=""></span>';
 
 	try{
@@ -511,7 +507,8 @@ window.onhashchange=async()=>{
 			gId('current-title').removeAttribute('href');
 			gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
 			browsingCurrentRepo = '' // Reset value as we are not in a repo here
-			gId('select-branch').innerHTML=''
+			gId('select-branch').innerHTML=''; // Clear branches dropdown
+			if(gId('multi-select').checked)gId('multi-select').click(); // Uncheck multi-select
 
 			if(github_token){
 				const privateRepos=await fetch('https://api.github.com/user/repos?per_page=100&visibility=private',github_api_headers({refresh: isReload})).then(r=>r.json()).then(j=>j.filter(v=>v.owner.login==ghusr))
@@ -776,7 +773,7 @@ const showFile=async(inUrl)=>{
 			const reader = new FileReader();
 			let [refinedUrl, refId] = thisFile.url.split('?ref=');
 			reader.onload=async()=>{
-				const updateRefResponse=await github_commit([{content:reader.result,path:thisFile.path}],browsingCurrentRepo,refId)
+				const updateRefResponse=await githubCommit([{content:reader.result,path:thisFile.path}],browsingCurrentRepo,refId)
 				if(updateRefResponse.ok){
 					showFile(inUrl);
 					raiseToast('PDF edits has been saved')
@@ -851,7 +848,7 @@ const showFile=async(inUrl)=>{
 // 	gId('backdrop').style.display="none";
 // 	gId('explore-refresh').click();
 // }
-const github_commit=async(listOfFiles,repo,refId)=>{
+const githubCommit=async(listOfFiles,repo,refId)=>{
 	gId('commit-backdrop').style.display="block";
 	let veilTimer=listOfFiles.length+5;
 	let veilStopwatch=0;
@@ -859,7 +856,8 @@ const github_commit=async(listOfFiles,repo,refId)=>{
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
 	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);callback();
 	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
-	const blobData=await Promise.all(listOfFiles.map(file=>fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content==null?null:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{callback();return res.json()})));
+	// const blobData=await Promise.all(listOfFiles.map(file=>fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content==null?null:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{callback();return res.json()})));
+	const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{callback();return res.json()})));
 	console.log(`blobData: ${JSON.stringify(blobData)}`);
 	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());callback();
 	console.log(`treeData: ${JSON.stringify(treeData)}`);
@@ -884,7 +882,7 @@ uploadFileInput.onchange=async(e)=>{
 	}))
 
 	uploadFileInput.value='';
-	const updateRefResponse=await github_commit(filesToUpload,browsingCurrentRepo,refId);
+	const updateRefResponse=await githubCommit(filesToUpload,browsingCurrentRepo,refId);
 
 	if(updateRefResponse.ok){
 		console.log('Commit successful');
@@ -895,7 +893,7 @@ uploadFileInput.onchange=async(e)=>{
 	}
 	gId('explore-refresh').click();
 }
-const deleteFiles=async(gitUrl)=>{
+gId('delete-item').onclick=async(gitUrl)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
 	const currentPath = decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))
@@ -915,7 +913,7 @@ const deleteFiles=async(gitUrl)=>{
 	// 3. Confirm deletion
 	if(!confirm(`Delete ${filesToDelete.length} files from "${locationId}" (${refId})?`))return false;
 
-	const updateRefResponse=await github_commit(filesToDelete,browsingCurrentRepo,refId);
+	const updateRefResponse=await githubCommit(filesToDelete,browsingCurrentRepo,refId);
 
 	// // 4. Get the latest commit SHA
 	// const latestCommitSha = await fetch(`${apiUrl}/refs/heads/${refId}`, {headers: {Authorization: `token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);
@@ -963,7 +961,7 @@ const deleteFiles=async(gitUrl)=>{
 	}
 	gId('explore-refresh').click();
 }
-const createFolder=async()=>{
+gId('create-folder').onclick=async()=>{
 	let folderName = prompt('New folder name')
 	if(folderName!=null){
 		let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
@@ -1000,19 +998,19 @@ gId('github-user-profile').insertAdjacentHTML('afterbegin', `<span style="max-wi
 gId('back-to-start').onclick=()=>window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
 gId('explore-refresh').onclick=()=>window.onhashchange();
 gId('create-file').onclick='';
-gId('create-folder').onclick=()=>createFolder();
+// gId('create-folder').onclick=()=>createFolder();
 gId('upload-file').onclick=()=>uploadFileInput.click();
 gId('select-all').onclick=e=>{
 	const allSelects=document.querySelectorAll('.explore-cell > input[type="checkbox"]');
 	const allChecked=!Array.from(allSelects).every(f=>f.checked);
 	allSelects.forEach(e=>e.checked=allChecked)
 };
-gId('delete-item').onclick=()=>deleteFiles();
+// gId('delete-item').onclick=()=>deleteFiles();
 gId('download-repo').onclick=()=>downloadRepo();
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
-const qUrl=window.location.hash.substring(1)
+const qUrl=window.location.hash.substring(1);
 if(!qUrl){
 	console.log('Resetting to all-repo view')
 	window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`
@@ -1046,9 +1044,4 @@ if(!qUrl){
 	}
 	window.onhashchange()
 }
-
 </script>
-
-
-
-{% include comments.html url=page.url %}
