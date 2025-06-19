@@ -79,7 +79,7 @@ pdf: true
 <div id="file-display">
 </div>
 
-<div id="commit-backdrop"></div>
+<!-- <div id="commit-backdrop"></div> -->
 
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
@@ -120,13 +120,9 @@ pdf: true
 
 /* Explorer control icons & search */
 #control-icons{position:static;top:0;padding:.5em 0}
-/* #control-icons > div{text-align:center;border-radius:3em} */
 #control-icons svg{color:var(--anchor-color);border-radius:.5em;cursor:pointer}
-/* #control-icons a:hover,#control-icons label:hover{color:var(--anchor-color);transform:scale(1.3)} */
 #control-icons svg:hover{transform:scale(1.3)}
 #control-icons svg:active{background-color:var(--overlay-hover)}
-/* #control-icons label:hover{cursor:pointer} */
-/* #control-icons > div:nth-child(2){color:var(--anchor-color)} */
 
 /* Items within explore-content */
 :has(>:nth-child(2))>.loader{display:none;/*Hide when there are at least 2 items in #explore-content or show-* (i.e. if .loader is not alone)*/}
@@ -179,11 +175,6 @@ pdf: true
 	grid-template-columns:repeat(4, 25%);
 	.explore-cell{flex-direction:column;text-align:center}
 	.explore-cell:has(img) .v-name{font-size:70%;}
-	/* .v-repo-details{margin:0 auto;width:100%;height:1.5em} */
-	/* .v-repo-details>div{text-align:center;position:absolute;max-width:unset;left:0;right:0} */
-	/* .v-repo-details>svg{position:absolute} */
-	/* .v-repo-details .icon-fork{position:absolute;left:0} */
-	/* .v-repo-details .icon-private{position:absolute;right:0} */
 	.v-size{margin:0 auto}
 }
 /*List view*/
@@ -253,7 +244,7 @@ pdf: true
 	padding-top:3em/*Space for title & close*/;
 	align-items:center;
 }
-body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display is shown*/}
+body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll when file-display is shown*/}
 #file-display:not(:has(*)){display:none/*If there are no items in this div, hide it*/;}
 #fd-title{/*Title for file display*/
 	display:flex;flex-direction:row;
@@ -376,7 +367,6 @@ body:has(#fd-title){overflow-y:hidden/*Disable the main scroll when file-display
 	top:0;left:0;bottom:0;right:0;
 	background-color:#0005;
 	backdrop-filter:blur(5px);
-	display:none;
 	text-align:center;
 	line-height:100vh;
 	z-index:8;
@@ -598,7 +588,7 @@ const showFile=async(inUrl)=>{
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
 	fileDisplay.insertAdjacentHTML('beforeend',`
-		<a id="fd-title" href="javascript:downloadFile('${inUrl}')">${thisFile.name}</a>
+		<a id="fd-title" href="${thisFile.download_url}">${thisFile.name}</a>
 		<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
 		<div id="fd-nav">
 			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
@@ -794,22 +784,23 @@ const showFile=async(inUrl)=>{
 }
 const githubCommit=async(listOfFiles,repo,refId)=>{
 	let veilTimer=listOfFiles.length+4;
-	let veilStopwatch=-1;
+	let veilStopwatch=0;
 	const updateProgress=()=>{gId('commit-backdrop').textContent=Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});console.log(veilStopwatch/veilTimer)};
-	updateProgress();
-	gId('commit-backdrop').style.display="block";
+	// gId('commit-backdrop').style.display="block";
+	gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
 	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{cache:'no-store',headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);updateProgress();
 	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
-	const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',cache:'no-store',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{updateProgress();return res.json()})));
+	const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{updateProgress();return res.json()})));
 	console.log(`blobData: ${JSON.stringify(blobData)}`);
-	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',cache:'no-store',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());updateProgress();
+	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());updateProgress();
 	console.log(`treeData: ${JSON.stringify(treeData)}`);
-	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',cache:'no-store',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`${listOfFiles.length} file(s) added/updated/removed by GitHub API`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());updateProgress();
+	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`${listOfFiles.length} file(s) added/updated/removed by GitHub API`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());updateProgress();
 	console.log(`commitData: ${JSON.stringify(commitData)}`);
-	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',cache:'no-store',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});updateProgress();
+	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});updateProgress();
 	console.log(`pushData: ${JSON.stringify(pushData)}`);
-	gId('commit-backdrop').style.display="none";
+	// gId('commit-backdrop').style.display="none";
+	gId('commit-backdrop').remove();
 	return pushData
 }
 uploadFileInput.onchange=async(e)=>{
