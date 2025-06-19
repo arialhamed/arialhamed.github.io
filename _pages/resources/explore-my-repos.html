@@ -463,7 +463,7 @@ const addObjectToView=async(e)=>{
 			contentString+=` data-type="blob" >${selectInput}`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){
-				contentString+=`<img src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
+				contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
 			}else{
 				contentString+=`<span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
 			}
@@ -619,9 +619,7 @@ const showFile=async(inUrl)=>{
 			<img id="fd-image" style="margin:auto;" src="${thisFile.download_url}">
 		`.trim());
 	}else if(extV.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Video
-		fileDisplay.insertAdjacentHTML('beforeend',`<video id="fd-video" style="width:100%;margin:auto;" controls><source src="${thisFile.download_url}" type="video/webm"></video>`);
-		gId('fd-video').volume=1;
-		gId('fd-video').play();
+		fileDisplay.insertAdjacentHTML('beforeend',`<video id="fd-video" style="width:100%;margin:auto;overflow:auto;" controls autoplay loop><source src="${thisFile.download_url}" type="video/webm"></video>`);
 	}else if(extS.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Audio
 		fileDisplay.insertAdjacentHTML('beforeend',`
 		<div id="fd-audio-1">
