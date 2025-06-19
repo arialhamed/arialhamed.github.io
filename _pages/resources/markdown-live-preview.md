@@ -10,7 +10,7 @@ redirect_from:
 
 <!-- <iframe src="https://markdownlivepreview.com/" title="Markdown Live Preview" style="min-height:100vh;max-width:100vh!important;">
 </iframe> -->
-<iframe src="https://markdownlivepreview.com/" title="Markdown Live Preview" class="wide-responsive" height>
+<iframe src="https://markdownlivepreview.com/" title="Markdown Live Preview" class="wide-responsive" style="flex:1;">
 </iframe>
 
 <!-- redirect_to: /maintenance  -->
