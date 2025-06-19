@@ -222,17 +222,6 @@ pdf: true
 
 
 /* Specific file styles when chosen to display */
-#md-parsed{
-	text-align: initial;
-	/* left: clamp(.75rem, calc(50vw - 400px), 24%); */
-	position: inherit;
-	display: block;
-	/* width: min(calc(var(--inner-width) - 1.75rem), 98vw - 1.5rem); */
-	padding: 1rem;
-	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-	max-width: calc(var(--inner-width) - 20px);
-	margin: 0 auto;
-}
 #file-display{
 	position:fixed;
 	top:0;bottom:0;left:0;right:0;
@@ -373,7 +362,7 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	font-size:300%;
 }
 
-/* Audio specific controls */
+/* Audio-specific controls */
 #audio-controls{display:flex;height:6em}
 #audio-controls svg{cursor:pointer}
 #audio-controls span{font-family:var(--bs-font-monospace);font-size:1.2em;line-height:1em;margin-top:1em}
@@ -388,6 +377,25 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 #audio-volume div{display:flex;flex-direction:row}
 #audio-volume div *{margin:auto;width:2em}
 #audio-music{width:3em}
+
+/* Markdown-specific controls */
+#md-parsed{
+	text-align: initial;
+	padding: 1rem;
+	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+	width:100%;
+	flex:1;
+}
+#non-md{flex:1;width:100%;display:flex;flex-direction:column}
+#file-display:has(#md-parse-toggle:checked){
+	#md-parsed{display:block}
+	#non-md{display:none}
+}
+#file-display:not(:has(#md-parse-toggle:checked)){
+	#md-parsed{display:none}
+	#non-md{display:block}
+}
+
 </style>
 <script>
 
@@ -773,13 +781,15 @@ const showFile=async(inUrl)=>{
 			.then(blob=>reader.readAsDataURL(new Blob([blob], {type: 'application/pdf'})))
 		}
 	}else{
-		// // If asked to shown parsed (mdRaw=false), and file is markdown, then parse the file contents with Showdown.js and display it
-		// if(thisFile.name.toLowerCase().endsWith('.md') && !mdRaw){
-		// 	fileDisplay.insertAdjacentHTML('beforeend',`<br><span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`);
-		// }else{ // else show it parsed in Prism.js
-		fileDisplay.insertAdjacentHTML('beforeend',`<pre style="background-color:#333a;/*width:100%;*/height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre>`);
-		// } // The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
-		Prism.highlightElement(gId('fd-text'))
+		fileDisplay.insertAdjacentHTML('beforeend',`<div id="non-md"><pre style="background-color:#333a;height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre></div>`);
+		Prism.highlightElement(gId('fd-text'));
+		
+		if(thisFile.name.toLowerCase().endsWith('.md')){
+			// The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
+			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`)
+			gId('fd-nav').insertAdjacentHTML('beforeend','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="512" rx="15%" width="512"/><path d="m410 366h-308c-14 0-26-12-26-26v-170c0-14 12-26 26-26h307c14 0 26 12 26 26v170c0 14-11 26-25 26zm-308-204c-4 0-9 4-9 9v170c0 5 4 9 9 9h307c5 0 9-4 9-9v-171c0-5-4-9-9-9h-307zm26 153v-119h34l34 43 34-43h35v118h-34v-68l-34 43-34-43v68zm216 0-52-57h34v-61h34v60h34z"/></svg>');
+			gId('md-parse-toggle-icon').onclick=()=>gId('md-parse-toggle').click();
+		}
 	}
 }
 const githubCommit=async(listOfFiles,repo,refId)=>{
