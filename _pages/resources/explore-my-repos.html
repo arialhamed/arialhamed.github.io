@@ -381,20 +381,20 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 
 /* Markdown-specific controls */
 #md-parsed{
-	text-align: initial;
-	padding: 1rem;
-	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+	text-align:initial;
+	padding:1rem;
+	background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
 	width:100%;
 	flex:1;
 }
 #non-md{flex:1;width:100%;display:flex;flex-direction:column}
 #file-display:has(#md-parse-toggle:checked){
-	#md-parsed{display:block}
+	#md-parsed{display:flex}
 	#non-md{display:none}
 }
 #file-display:not(:has(#md-parse-toggle:checked)){
 	#md-parsed{display:none}
-	#non-md{display:block}
+	#non-md{display:flex}
 }
 
 </style>
@@ -463,7 +463,7 @@ const addObjectToView=async(e)=>{
 			contentString+=` data-type="blob" >${selectInput}`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){
-				contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
+				contentString+=`<img src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
 			}else{
 				contentString+=`<span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
 			}
