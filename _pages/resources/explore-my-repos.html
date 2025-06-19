@@ -34,7 +34,7 @@ pdf: true
 <!-- description -->
 <div>
 	<span id="current-description"></span>
-	<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="1.5em" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"/></svg>
+	<svg id="edit-description" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="2em" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"/></svg>
 </div>
 
 <!-- browsing controls -->
@@ -117,6 +117,7 @@ pdf: true
 #current-description{line-height:2em;/*Repository description*/}
 #current-description svg{vertical-align:text-top;/*Private & fork icons*/}
 #current-description + svg{float:right;/*Edit description icon*/}
+#edit-description{cursor:pointer}
 
 /* Explorer control icons & search */
 #control-icons{position:static;top:0;padding:.5em 0}
@@ -462,7 +463,7 @@ const addObjectToView=async(e)=>{
 			contentString+=` data-type="blob" >${selectInput}`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){
-				contentString+=`<img src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
+				contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
 			}else{
 				contentString+=`<span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
 			}
@@ -515,9 +516,10 @@ window.onhashchange=async()=>{
 		}else{ // If repository selected or in contents of repository (not at the start of the page)
 			gId('explore-back').onclick=()=>window.location.href=`#${browsingTree.at(-2)}`;
 			['explore-back','back-to-start','download-repo'].forEach(i=>gId(i).style.cssText='color:var(--anchor-color)');
+			['toggle-view'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:auto;color:var(--anchor-color)');
 			if(github_token){// Show write functions to authenticated user
 				['create-file','create-folder','upload-file'].forEach(i=>gId(i).style.cssText='color:var(--anchor-color)');
-				['multi-select','toggle-view'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:auto;color:var(--anchor-color)');
+				['multi-select'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:auto;color:var(--anchor-color)');
 			}
 
 			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
@@ -793,15 +795,12 @@ const showFile=async(inUrl)=>{
 	}
 }
 const githubCommit=async(listOfFiles,repo,refId)=>{
-	let veilTimer=listOfFiles.length+4;
 	let veilStopwatch=0;
-	const updateProgress=()=>{gId('commit-backdrop').textContent=Number(++veilStopwatch/veilTimer).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});console.log(veilStopwatch/veilTimer)};
-	// gId('commit-backdrop').style.display="block";
+	const updateProgress=()=>gId('commit-backdrop').textContent=Number(++veilStopwatch/(listOfFiles.length+4)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});
 	gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
 	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{cache:'no-store',headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);updateProgress();
 	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
-	// const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{updateProgress();return res.json()})));
 	const blobData=await (async()=>{const a=[];let b=0;const c=[...listOfFiles],d=async()=>{if(0!==c.length||0!==b)for(;0<c.length&&b<5;){const e=c.shift();b++,(async()=>{try{if(null==e.content)a.push({path:e.path,mode:"100644",sha:null});else{const b=await fetch(`${apiUrl}/blobs`,{method:"POST",headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:e.content.split(";base64,").at(1),encoding:"base64"})});updateProgress();const c=await b.json();a.push(c)}}catch(b){console.error("Error fetching blob:",b),a.push({path:e.path,error:b.message})}finally{b--,d()}})()}};for(await d();0<b;)await new Promise(a=>setTimeout(a,100));return a})();
 	console.log(`blobData: ${JSON.stringify(blobData)}`);
 	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());updateProgress();
@@ -810,21 +809,26 @@ const githubCommit=async(listOfFiles,repo,refId)=>{
 	console.log(`commitData: ${JSON.stringify(commitData)}`);
 	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});updateProgress();
 	console.log(`pushData: ${JSON.stringify(pushData)}`);
-	// gId('commit-backdrop').style.display="none";
 	gId('commit-backdrop').remove();
 	return pushData
 }
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
+	let veilStopwatch=0;
+	gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
 
 	// 1. Process picked files
 	let filesToUpload = await Promise.all(Array.from(e.target.files).map(file=>{
 		let reader=new FileReader();
 		return new Promise(resolve=>{
-			reader.onload=()=>resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`});
+			reader.onload=()=>{
+				gId('commit-backdrop').textContent=`Processing files: ${Number(++veilStopwatch/e.target.files.length).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})}`;
+				return resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`})
+			};
 			reader.readAsDataURL(file)
 		})
 	}))
+	gId('commit-backdrop').remove();
 
 	uploadFileInput.value='';
 	const updateRefResponse=await githubCommit(filesToUpload,browsingCurrentRepo,refId);
@@ -904,19 +908,17 @@ const github_logout=()=>{localStorage.removeItem('github_token');window.location
 gId('github-user-profile').insertAdjacentHTML('afterbegin', `<span style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github-auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</span>`)
 
 // Browsing controls
-// gId('search-input').value='';
 gId('back-to-start').onclick=()=>window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
 gId('explore-refresh').onclick=()=>window.onhashchange();
 gId('create-file').onclick='';
-// gId('create-folder').onclick=()=>createFolder();
 gId('upload-file').onclick=()=>uploadFileInput.click();
 gId('select-all').onclick=e=>{
 	const allSelects=document.querySelectorAll('.explore-cell > input[type="checkbox"]');
 	const allChecked=!Array.from(allSelects).every(f=>f.checked);
 	allSelects.forEach(e=>e.checked=allChecked)
 };
-// gId('delete-item').onclick=()=>deleteFiles();
 gId('download-repo').onclick=()=>downloadRepo();
+gId('edit-description').onclick=()=>alert('"Edit description" function not available yet (WIP)');
 
 // Kick off when the page loads, or go straight to a stated url
 // If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
