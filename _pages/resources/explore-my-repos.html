@@ -279,22 +279,20 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 #fd-audio-1{flex:1;display:flex;overflow:auto;justify-content:center;width:100%;}
 #fd-audio-thumbnail{max-width:100%;object-fit:contain;}
 #fd-audio-lyrics{
-	/* position:absolute; */
-	/* background-color:var(--popup-background-color); */
 	font-size:150%;
 	padding:0 1em;
-	/* align-self:end; */
-	text-align:center;
 	flex:1;
-	background:url('https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif');
+	background-image:url('https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif');
 	background-size:auto 100%;
 	background-repeat:no-repeat;
 	background-position:center center;
 	text-shadow:-.5px -.5px 0 black, .5px -.5px 0 black, -.5px .5px 0 black, .5px .5px 0 black;
 	display:flex;
 	flex-direction:column;
+	overflow:scroll;
+	align-items:center;
 }
-#fd-audio-lyrics > span{display:none;}
+#fd-audio-lyrics > span{display:none;background-color:rgba(0,0,0,0.5);width:fit-content;}
 #fd-audio-lyrics.show-lyrics > span{display:block;}
 #fd-audio-lyrics-toggle{width:5em;cursor:pointer}
 #fd-audio-lyrics-toggle:hover{scale:1.1}
@@ -658,8 +656,14 @@ const showFile=async(inUrl)=>{
 			</div>
 		</div>
 		<input id="fd-audio-slider" value="0" type="range">
+		<audio id="fd-audio-controls" autoplay loop><source src="${thisFile.download_url}"></audio>
 		`);
 
+		const audioPlayer=gId('fd-audio-controls')
+		audioPlayer.shuffle=false;
+		audioPlayer.loop=true;
+		audioPlayer.togglePlay=function(){this.paused?this.play():this.pause()}
+		audioPlayer.volumeAdd=function(f=0){this.volume=clamp(0,this.volume+f,1)}
 		const audioVolume=Object.assign(document.createElement('input'),{id:'fd-audio-volume',type:'range',value:audioPlayer.volume*100,max:100});
 		gId('fd-audio-toggle').insertAdjacentElement('afterend',audioVolume);
 		const audioSlider=gId('fd-audio-slider');
@@ -672,43 +676,20 @@ const showFile=async(inUrl)=>{
 
 		var audioMainLoop=setInterval(()=>{
 			if(audioSlider==null){
-				audioPlayer.pause();
 				clearInterval(audioMainLoop);
 			}else{
 				audioSlider.value=audioPlayer.currentTime*8;
 				audioDurationCurrent.innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)
 				audioDurationMax.innerHTML=new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
-				// gId('audio-volume-num').innerHTML=parseInt(audioPlayer.volume*100)
 				audioVolume.value=audioPlayer.volume*100;
-				// if(audioPlayer.meta&&audioPlayer.meta.common.lyrics){
-				// 	const possibleLines=audioPlayer.meta.common.lyrics.at(0).syncText.filter(v=>v.timestamp<audioPlayer.currentTime*1000);
-				// 	if(possibleLines.length>=1){
-				// 		audioLyrics.innerHTML=possibleLines.at(-1).text
-				// 	}else{
-				// 		audioLyrics.innerHTML='♪'
-				// 	}
-				// }
 			}
 		}, 125)
 
-		gId('fd-close').addEventListener('click',()=>{
-			window.onkeydown=()=>{};
-			audioPlayer.pause()
-			audioMainLoop?clearInterval(audioMainLoop):'';
-		})
-
-		URL.revokeObjectURL(audioPlayer.src);
-		audioPlayer.src = '';
 		fetch(thisFile.git_url, github_api_headers({raw: true}))
 		.then(r=>r.blob())
-		.then(b=>{
-			audioPlayer.src = URL.createObjectURL(b);
-			return modules.parseBlob(b);
-		})
+		.then(b=>modules.parseBlob(b))
 		.then(m=>{
-			audioPlayer.meta=m;
-			// gId('fd-audio-thumbnail').src=(audioPlayer.meta.common.picture==null)?'':embeddedImgToURI(audioPlayer.meta.common.picture[0]);
-			gId('fd-audio-lyrics').style.backgroundImage=`url('${(audioPlayer.meta.common.picture==null)?'':embeddedImgToURI(audioPlayer.meta.common.picture[0])}'`;
+			gId('fd-audio-lyrics').style.backgroundImage=`url('${(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])}'`;
 			if(m&&m.common.lyrics){
 				audioLyrics.innerHTML='';
 				m.common.lyrics.at(0).syncText.forEach(e=>{
@@ -718,42 +699,7 @@ const showFile=async(inUrl)=>{
 			}
 		})
 
-
-		// debugger;
-		// const mediaSource = new MediaSource();
-		// audioPlayer.src = URL.createObjectURL(mediaSource);
-		// mediaSource.addEventListener('sourceopen', async ()=>{
-		// 	const response = await fetch(gitUrl, github_api_headers({raw: true}))
-		// 	console.log(`response: ${response}`)
-		// 	const reader = response.body.getReader();
-		// 	console.log(`reader: ${reader}`)
-		// 	const mimeType = 'audio/flac' //response.headers.get('Content-Type');
-		// 	console.log(`mimeType: ${mimeType}`)
-		// 	const sourceBuffer = mediaSource.addSourceBuffer(mimeType);
-		// 	console.log(`sourceBuffer: ${sourceBuffer}`)
-		// 	let isFirstChunk = true;
-		// 	while (true) {
-		// 		const { done, value } = await reader.read()
-		// 		if (done) {
-		// 			sourceBuffer.endOfStream();
-		// 			break;
-		// 		};
-		// 		sourceBuffer.appendBuffer(value);
-		// 		if (isFirstChunk) {
-		// 			audioPlayer.play().catch(error=>console.error("Error playing audio:", error));
-		// 			isFirstChunk = false;
-		// 		}
-		// 	}
-		// 	response.blob()
-		// 	.then(b=>modules.parseBlob(b))
-		// 	.then(m=>{
-		// 		debog=m;
-		// 		ogilvie.src=(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])
-		// 	})
-		// })
-
 		audioPlayer.onloadedmetadata=function(){
-			this.play();
 			audioSlider.max=this.duration*8;
 		}
 		audioPlayer.onended=function(){!audioPlayer.loop?nextFile():''}
