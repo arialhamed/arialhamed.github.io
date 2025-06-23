@@ -23,7 +23,8 @@ music-metadata: true
 pdf: true
 ---
 
-<div id="github-user-profile">
+<div id="explorer-fringe">
+	<span id="explorer-corner"></span>
 	<select id="select-branch" title="Select a branch"></select>
 	<div style="clear: both;"></div>
 </div>
@@ -85,9 +86,11 @@ pdf: true
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
 <style>
 /* GitHub credits & login, and branch toggle */
-#github-user-profile{cursor:default;font-size:70%;opacity:.65}
+#explorer-fringe{cursor:default;opacity:.65}
 #github-auth{cursor:pointer}
 #github-auth:hover{color:white}
+#explorer-corner{font-size:80%;max-width:50%;text-align:left;float:left;color:white;}
+#explorer-corner > a{margin:0 .5px}
 #select-branch{
 	max-width: 50%;
 	text-align: center;
@@ -504,8 +507,8 @@ window.onhashchange=async()=>{
 	busRoute=[]; // Clear bus route
 	gId('file-display').innerHTML='';
 
-	if(isReload){browsingTree.pop();console.log('refreshing')};
-	browsingTree.at(-2)==inUrl?browsingTree.pop():browsingTree.push(inUrl);
+	if(isReload)browsingTree.pop();
+	browsingTree.includes(inUrl)?browsingTree=browsingTree.slice(0,browsingTree.indexOf(inUrl)+1):browsingTree.push(inUrl);
 
 	gId('explore-content').innerHTML='<span class="loader" data-path=""></span>';
 
@@ -521,6 +524,7 @@ window.onhashchange=async()=>{
 			gId('current-title').removeAttribute('href');
 			gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
 			browsingCurrentRepo = '' // Reset value as we are not in a repo here
+			gId('explorer-corner').innerHTML=`All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github-auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).`;
 			gId('select-branch').innerHTML=''; // Clear branches dropdown
 			['multi-select','toggle-view'].forEach(e=>{if(gId(e).checked)gId(e).click()}); // Uncheck multi-select
 
@@ -531,6 +535,7 @@ window.onhashchange=async()=>{
 			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
 		}else{ // If repository selected or in contents of repository (not at the start of the page)
 			gId('explore-back').onclick=()=>window.location.href=`#${browsingTree.at(-2)}`;
+			gId('explorer-corner').innerHTML=browsingTree.slice(1).map(e=>{return `/<a href="#${e}">${e.split('?ref=').at(0).split('/').at(-1)}</a>`}).join('');
 			['explore-back','back-to-start','download-repo'].forEach(i=>gId(i).style.cssText='color:var(--anchor-color)');
 			['toggle-view'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:auto;color:var(--anchor-color)');
 			if(github_token){// Show write functions to authenticated user
@@ -889,9 +894,6 @@ gId('select-branch').onchange=e=>{
 const searchContents=()=>{document.querySelectorAll('.explore-cell').forEach(function(a){a.style.display=(a.getAttribute('data-path').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
 const github_signin=()=>{localStorage.setItem('github_login_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
 const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
-
-// GitHub display
-gId('github-user-profile').insertAdjacentHTML('afterbegin', `<span style="max-width: 50%; text-align: left; float: left;">All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github-auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).</span>`)
 
 // Browsing controls
 gId('back-to-start').onclick=()=>window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
