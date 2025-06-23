@@ -287,11 +287,14 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	flex-direction:column;
 	overflow:scroll;
 	align-items:center;
+	scroll-behavior:smooth;
+	scroll-padding-top:calc(50% - .5em - 3px)/*Half of page - half of text height - padding top of line*/;
 }
-#fd-audio-lyrics > span{display:none;background-color:rgba(0,0,0,0.5);width:fit-content;}
-#fd-audio-lyrics.show-lyrics > span{display:block;}
+#fd-audio-lyrics > span{visibility:hidden;background-color:rgba(0,0,0,0.5);width:100%;text-align:center;margin:3px 0}
+#fd-audio-lyrics.show-lyrics > span{visibility:visible}
 #fd-audio-lyrics-toggle{width:5em;cursor:pointer}
 #fd-audio-lyrics-toggle:hover{scale:1.1}
+#fd-audio-1:has(#fd-audio-lyrics.show-lyrics) + #fd-audio-2 > #fd-audio-lyrics-toggle{fill:var(--anchor-color)}
 #fd-audio-volume{
 	width:5em;
 	accent-color:var(--anchor-color);
@@ -309,13 +312,21 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	flex-direction:column;
 	justify-content:space-around;
 }
-#fd-audio-2 > div > span{font-size:200%;}
+#fd-audio-2 > div > span{font-size:150%;}
 #fd-audio-toggle{width:10em;}
 #fd-audio-toggle:hover,#fd-audio-shuffle:hover,#fd-audio-loop:hover{scale:1.1;cursor:pointer;}
 #fd-audio-slider{
 	accent-color:var(--anchor-color);
 	width:calc(100% - 10rem);
 	height:5rem;
+}
+#fd-audio-loading{
+	position:fixed;
+	left:0;
+	bottom:0;
+	height:5px;
+	z-index:-1;
+	background-color:var(--anchor-color-hover)
 }
 
 #show-audio{
@@ -423,11 +434,11 @@ const extA=['.7z','.zip','.apk','.apks','.xapk','.arc','.ark','.jar','.zpaq','.z
 const ext3=['.3mf','.stl','.glb','.gltf','.obj','.amf'];
 const extI=['.avif','.gif','.jpg','.jpeg','.jfif','.pjpeg','.pjp','.png','.svg','.webp','.bmp','.ico','.cur','.tif','.tiff','.kra','.jpg_large'];
 const extR=['.csv','.tsv','.xlsx'];
-const audioPlayer=new Audio();
-audioPlayer.shuffle=false;
-audioPlayer.loop=true;
-audioPlayer.togglePlay=function(){this.paused?this.play():this.pause()}
-audioPlayer.volumeAdd=function(f=0){this.volume=clamp(0,this.volume+f,1)}
+	// const audioPlayer=new Audio();
+	// audioPlayer.shuffle=false;
+	// audioPlayer.loop=true;
+	// audioPlayer.togglePlay=function(){this.paused?this.play():this.pause()}
+	// audioPlayer.volumeAdd=function(f=0){this.volume=clamp(0,this.volume+f,1)}
 const pathPaused=`<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 18V6l8 6-8 6Z"/>`
 const pathPlaying=`<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6H8a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Zm7 0h-1a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Z"/>`
 const privateIcon=`<svg title="This repository is private" class="icon-private" height="1.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z" clip-rule="evenodd"/></svg>`
@@ -653,7 +664,8 @@ const showFile=async(inUrl)=>{
 				<svg id="fd-audio-loop" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 4 3 3H5v3m3 10-3-3h14v-3m-9-2.5 2-1.5v4"/></svg>
 			</div>
 		</div>
-		<input id="fd-audio-slider" value="0" type="range">
+		<input id="fd-audio-slider" value="0" type="range" step=".01">
+		<div id="fd-audio-loading"></div>
 		<audio id="fd-audio-controls" autoplay loop><source src="${thisFile.download_url}"></audio>
 		`);
 
@@ -669,19 +681,24 @@ const showFile=async(inUrl)=>{
 		const audioDurationMax=gId('fd-audio-duration-max');
 		const audioToggle=gId('fd-audio-toggle');
 		const audioLyrics=gId('fd-audio-lyrics');
+		audioLyrics.timestamp=0;
 		const audioLyricsToggle=gId('fd-audio-lyrics-toggle');
-		audioLyricsToggle.value=false;
+		const audioLoading=gId('fd-audio-loading');
 
-		const audioMainLoop=()=>{
-			if(audioPlayer!=null){
-				console.log(100*(audioPlayer.buffered.end(0)/audioPlayer.duration));
-				audioSlider.value=audioPlayer.currentTime*8;
-				audioDurationCurrent.innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19)
-				audioDurationMax.innerHTML=new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
-				audioVolume.value=audioPlayer.volume*100;
-				setTimeout(audioMainLoop,125)
+		// const audioMainLoop=()=>{
+		audioPlayer.ontimeupdate=()=>{
+			if(gId('fd-audio-controls')!=null){
+				audioSlider.value=audioPlayer.currentTime;
+				audioDurationCurrent.innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19);
+				audioLoading.style.width=`${100*(audioPlayer.buffered.end(audioPlayer.buffered.length-1)/audioPlayer.duration)}%`;
+				const currentLine=Array.from(document.querySelectorAll('#fd-audio-lyrics > *')).filter(e=>parseInt(e.id)<gId('fd-audio-controls').currentTime*1000).at(-1);
+				if(currentLine!=null&&audioLyrics.timestamp!=currentLine.id){
+					currentLine.scrollIntoView();
+					audioLyrics.timestamp=currentLine.id;
+				};
+				// setTimeout(audioMainLoop,100);
 			}else{
-				console.log("BRUH")
+				audioPlayer.remove();
 			}
 		}
 
@@ -693,32 +710,25 @@ const showFile=async(inUrl)=>{
 			if(m&&m.common.lyrics){
 				audioLyrics.innerHTML='';
 				m.common.lyrics.at(0).syncText.forEach(e=>{
-					audioLyrics.insertAdjacentHTML('beforeend',`<span id="${e.timestamp}">${e.text}</span>`);
+					audioLyrics.insertAdjacentHTML('beforeend',`<span id="${e.timestamp}">${e.text==null?'♪':e.text}</span>`);
 					gId(`${e.timestamp}`).onclick=()=>{audioPlayer.currentTime=e.timestamp/1000};
 				})
 			}
 		})
 
-		audioPlayer.onloadedmetadata=function(){
-			audioSlider.max=this.duration*8;
-			audioMainLoop()
+		audioPlayer.onloadedmetadata=()=>{
+			audioSlider.max=audioPlayer.duration;
+			audioDurationMax.innerHTML=new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
+			// audioMainLoop();
 		}
 		audioPlayer.onended=function(){!audioPlayer.loop?nextFile():''}
 
-		audioSlider.oninput=function(){audioPlayer.currentTime=this.value/8} // Slider change current time
+		audioSlider.oninput=function(){audioPlayer.currentTime=this.value} // Slider change current time
 		audioToggle.onclick=()=>{audioPlayer.togglePlay()} // Play/Paused toggle
 		audioPlayer.onplay=()=>{audioToggle.innerHTML=pathPlaying}; // Display toggle icon for played
 		audioPlayer.onpause=()=>{audioToggle.innerHTML=pathPaused}; // Display toggle icon for paused
-		audioVolume.oninput=function(){audioPlayer.volume=this.value/100} // Slider change volume
-		audioLyricsToggle.onclick=()=>{
-			audioLyricsToggle.value=!audioLyricsToggle.value;
-			audioLyrics.classList.toggle('show-lyrics');
-			if(audioLyricsToggle.value){
-				audioLyricsToggle.style.fill='var(--anchor-color)';
-			}else{
-				audioLyricsToggle.style.fill=''
-			}
-		}
+		audioVolume.oninput=()=>{audioPlayer.volume=audioVolume.value/100} // Slider change volume
+		audioLyricsToggle.onclick=()=>audioLyrics.classList.toggle('show-lyrics');
 		// [['in',.01],['de',-.01]].forEach(e=>{gId('audio-'+e[0]+'crease').onclick=()=>{audioPlayer.volumeAdd(e[1])}})
 
 		// window.onkeydown=function(){
@@ -736,8 +746,8 @@ const showFile=async(inUrl)=>{
 		// 		if(keyCodeUnassigned)this.preventDefault();
 		// 	}
 		// }
-		audioVolume.onwheel=e=>{e.preventDefault();if(e.composed)audioPlayer.volumeAdd(Math.max(e.deltaX,-e.deltaY)>0?-.01:.01)}
-		audioSlider.onwheel=e=>{e.preventDefault();if(e.composed)audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}
+		audioVolume.onwheel=e=>{e.preventDefault();if(e.composed){audioVolume.value=parseFloat(audioVolume.value)+(Math.max(e.deltaX,e.deltaY)>0?-5:5);audioPlayer.volume=audioVolume.value/100}}
+		audioSlider.onwheel=e=>{e.preventDefault();if(e.composed){audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}}
 		gId('fd-audio-shuffle').style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)';
 		gId('fd-audio-shuffle').onclick=function(){audioPlayer.shuffle=!audioPlayer.shuffle;this.style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)'}
 		gId('fd-audio-loop').style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)';
