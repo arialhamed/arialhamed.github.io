@@ -86,19 +86,12 @@ pdf: true
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
 <style>
 /* GitHub credits & login, and branch toggle */
-#explorer-fringe{cursor:default;opacity:.65}
+#explorer-fringe{cursor:default;opacity:.65;display:flex;flex-direction:row}
 #github-auth{cursor:pointer}
 #github-auth:hover{color:white}
-#explorer-corner{font-size:80%;max-width:50%;text-align:left;float:left;color:white;}
+#explorer-corner{font-size:80%;width:100%;text-align:left;float:left;color:white;overflow:scroll;white-space:nowrap}
 #explorer-corner > a{margin:0 .5px}
-#select-branch{
-	max-width: 50%;
-	text-align: center;
-	float: right;
-	color: var(--font-color);
-	background-color: var(--nav-overlay);
-	border-radius: 1em;
-}
+#select-branch{max-width:fit-content;text-align:center;float:right;color:var(--font-color);background-color:var(--nav-overlay);border-radius:1em}
 #select-branch:empty{visibility:hidden}
 
 /* Title & description */
