@@ -528,7 +528,7 @@ window.onhashchange=async()=>{
 			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
 		}else{ // If repository selected or in contents of repository (not at the start of the page)
 			gId('explore-back').onclick=()=>window.location.href=`#${browsingTree.at(-2)}`;
-			gId('explorer-corner').innerHTML=browsingTree.slice(1).map(e=>{return `/<a href="#${e}">${e.split('?ref=').at(0).split('/').at(-1)}</a>`}).join('');
+			gId('explorer-corner').innerHTML=browsingTree.slice(1).map(e=>{return `/<a href="#${e}">${decodeURIComponent(e.split('?ref=').at(0).split('/').at(-1))}</a>`}).join('');
 			['explore-back','back-to-start','download-repo'].forEach(i=>gId(i).style.cssText='color:var(--anchor-color)');
 			['toggle-view'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:auto;color:var(--anchor-color)');
 			if(github_token){// Show write functions to authenticated user
