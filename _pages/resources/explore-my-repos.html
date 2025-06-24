@@ -67,6 +67,10 @@ pdf: true
 			<svg id="pin-explorer-nav-unpinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0 0v6M9.5 9A2.5 2.5 0 0 1 12 6.5"/></svg>
 			<svg id="pin-explorer-nav-pinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5 9a7 7 0 1 1 8 6.93V21a1 1 0 1 1-2 0v-5.07A7.001 7.001 0 0 1 5 9Zm5.94-1.06A1.5 1.5 0 0 1 12 7.5a1 1 0 1 0 0-2A3.5 3.5 0 0 0 8.5 9a1 1 0 0 0 2 0c0-.398.158-.78.44-1.06Z" clip-rule="evenodd"/></svg>
 		</label><input id="pin-explorer-nav" type="checkbox" style="display:none">
+		<input id="show-images-in-list-view" type="checkbox" style="display:none"><label title="Show images in list-view" for="show-images-in-list-view" class="float-right" style="color:var(--anchor-color)">
+			<svg id="hide-images" aria-hidden="true" style="color:inherit" height="2.5em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+			<svg id="show-images" aria-hidden="true" style="color:inherit" height="2.5em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M13 10a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H14a1 1 0 0 1-1-1Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12c0 .556-.227 1.06-.593 1.422A.999.999 0 0 1 20.5 20H4a2.002 2.002 0 0 1-2-2V6Zm6.892 12 3.833-5.356-3.99-4.322a1 1 0 0 0-1.549.097L4 12.879V6h16v9.95l-3.257-3.619a1 1 0 0 0-1.557.088L11.2 18H8.892Z" clip-rule="evenodd"/></svg>
+		</label>
 		<div style="clear:both"></div>
 	</div>
 	<!-- <div style="clear: both"></div> -->
@@ -180,9 +184,18 @@ pdf: true
 	display:flex;
 	flex-direction:column;
 	.explore-cell{text-align:left}
-	.explore-cell:has(img){flex-direction:column;}
-	.explore-cell:has(img) .v-name{text-align:center;}
 }
+
+/*Show images*/
+#show-images-in-list-view{color:var(--anchor-color)}
+#control-icons:has(#show-images-in-list-view:checked) #hide-images{display:none}
+#control-icons:has(#show-images-in-list-view:checked) + #explore-content > .explore-cell:has(img){
+	flex-direction:column;
+	.v-name{text-align:center}
+	.v-size{display:none}
+}
+#control-icons:has(#show-images-in-list-view:not(:checked)) #show-images{display:none}
+#control-icons:has(#show-images-in-list-view:not(:checked)) + #explore-content img{display:none}
 
 .float-left{float:left}
 .float-right{float:right}
@@ -487,7 +500,8 @@ const addObjectToView=async(e)=>{
 			contentString+=` data-type="blob" >${selectInput}`;
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){
-				contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
+				// contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
+				contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
 			}else{
 				contentString+=`<span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
 			}
