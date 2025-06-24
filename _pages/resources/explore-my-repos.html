@@ -433,6 +433,7 @@ const extS=['.3gp','.aa','.aac','.aax','.act','.aiff','.alac','.m4a','.amr','.ap
 const extA=['.7z','.zip','.apk','.apks','.xapk','.arc','.ark','.jar','.zpaq','.zip','.tar.gz','.tar.bz2','.tgz','.rar','.wad','.pk3','.exe'];
 const ext3=['.3mf','.stl','.glb','.gltf','.obj','.amf'];
 const extI=['.avif','.gif','.jpg','.jpeg','.jfif','.pjpeg','.pjp','.png','.svg','.webp','.bmp','.ico','.cur','.tif','.tiff','.kra','.jpg_large'];
+const extM=['.docx','.docm','.dotx','.dotm','.xlsb','.xla','.xlam','.xll','.xlw','.xll_','.xla_','.xla5','.xla8','.pptx','.pptm','.potx','.potm','.ppam','.ppsx','.ppsm','.sldx','.sldm','.ppam','.accda','.accdb','.accde','.accdr','.accdt','.accdu','.one','.ecf','.pub'];
 const extR=['.csv','.tsv','.xlsx'];
 	// const audioPlayer=new Audio();
 	// audioPlayer.shuffle=false;
@@ -776,6 +777,8 @@ const showFile=async(inUrl)=>{
 			gId('pdf-viewer').contentWindow.PDFViewerApplication.pdfDocument.saveDocument()
 			.then(blob=>reader.readAsDataURL(new Blob([blob], {type: 'application/pdf'})))
 		}
+	}else if(extM.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Microsoft Office Documents
+		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="docx-viewer" style="flex:1;width:100%;" src="https://view.officeapps.live.com/op/embed.aspx?src=${thisFile.download_url}&embedded=true">This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Online</a>.</iframe>`);
 	}else{
 		fileDisplay.insertAdjacentHTML('beforeend',`<div id="non-md"><pre style="background-color:#333a;height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre></div>`);
 		Prism.highlightElement(gId('fd-text'));
