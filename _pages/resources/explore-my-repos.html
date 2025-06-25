@@ -295,7 +295,7 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	background-size:auto 100%;
 	background-repeat:no-repeat;
 	background-position:center center;
-	text-shadow:-.5px -.5px 0 black, .5px -.5px 0 black, -.5px .5px 0 black, .5px .5px 0 black;
+	/* text-shadow:-.5px -.5px 0 black, .5px -.5px 0 black, -.5px .5px 0 black, .5px .5px 0 black; */
 	display:flex;
 	flex-direction:column;
 	overflow:scroll;
@@ -304,6 +304,8 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	scroll-padding-top:calc(50% - .5em - 3px)/*Half of page - half of text height - padding top of line*/;
 }
 #fd-audio-lyrics > span{visibility:hidden;background-color:rgba(0,0,0,0.5);width:100%;text-align:center;margin:3px 0}
+#fd-audio-lyrics > span:first-child{margin-top:5em}
+#fd-audio-lyrics > span:last-child{margin-bottom:5em}
 #fd-audio-lyrics.show-lyrics > span{visibility:visible}
 #fd-audio-lyrics-toggle{width:5em;cursor:pointer}
 #fd-audio-lyrics-toggle:hover{scale:1.1}
@@ -501,7 +503,8 @@ const addObjectToView=async(e)=>{
 			// Is the record an image?
 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){
 				// contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
-				contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
+				contentString+=`<img ${gId('show-images-in-list-view').checked?'':'data-'}src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
+				// contentString+=`<div class="v-image" data-src="${e.download_url}"></div><span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
 			}else{
 				contentString+=`<span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
 			}
@@ -710,6 +713,8 @@ const showFile=async(inUrl)=>{
 				if(currentLine!=null&&audioLyrics.timestamp!=currentLine.id){
 					currentLine.scrollIntoView();
 					audioLyrics.timestamp=currentLine.id;
+					Array.from(document.querySelectorAll('#fd-audio-lyrics > *')).forEach(e=>e.style.color='#fffa');
+					currentLine.style.color='white'
 				};
 				// setTimeout(audioMainLoop,100);
 			}else{
@@ -725,7 +730,7 @@ const showFile=async(inUrl)=>{
 			if(m&&m.common.lyrics){
 				audioLyrics.innerHTML='';
 				m.common.lyrics.at(0).syncText.forEach(e=>{
-					audioLyrics.insertAdjacentHTML('beforeend',`<span id="${e.timestamp}">${e.text==null?'♪':e.text}</span>`);
+					audioLyrics.insertAdjacentHTML('beforeend',`<span id="${e.timestamp}">${e.text==''?'♪':e.text}</span>`);
 					gId(`${e.timestamp}`).onclick=()=>{audioPlayer.currentTime=e.timestamp/1000};
 				})
 			}
@@ -927,6 +932,15 @@ gId('select-all').onclick=e=>{
 	allSelects.forEach(e=>e.checked=allChecked)
 };
 gId('download-repo').onclick=()=>downloadRepo();
+gId('show-images-in-list-view').onchange=e=>{//false = list
+	Array.from(document.querySelectorAll('.explore-cell > img')).forEach(v=>{
+		if(e.target.checked){
+			v.src=v.dataset.src
+		}else{
+			v.removeAttribute('src')
+		}
+	})
+}
 gId('edit-description').onclick=()=>alert('"Edit description" function not available yet (WIP)');
 
 // Kick off when the page loads, or go straight to a stated url
