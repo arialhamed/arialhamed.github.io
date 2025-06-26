@@ -832,6 +832,7 @@ const githubCommit=async(listOfFiles,repo,refId)=>{
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
 	let veilStopwatch=0;
+	let veilMax=e.target.files.length;
 	gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
 
 	// 1. Process picked files
@@ -839,7 +840,7 @@ uploadFileInput.onchange=async(e)=>{
 		let reader=new FileReader();
 		return new Promise(resolve=>{
 			reader.onload=()=>{
-				gId('commit-backdrop').textContent=`Processing files: ${Number(++veilStopwatch/e.target.files.length).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})}`;
+				gId('commit-backdrop').textContent=`Processing files: ${Number(++veilStopwatch/veilMax).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})}`;
 				return resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`})
 			};
 			reader.readAsDataURL(file)
