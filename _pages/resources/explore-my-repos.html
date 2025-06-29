@@ -21,6 +21,7 @@ layout: default
 prism: true
 music-metadata: true
 pdf: true
+videojs: true
 ---
 
 <div id="explorer-fringe">
@@ -88,6 +89,7 @@ pdf: true
 
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
+<script src="https://vjs.zencdn.net/8.22.0/video.min.js"></script>
 <style>
 /* GitHub credits & login, and branch toggle */
 #explorer-fringe{cursor:default;opacity:.65;display:flex;flex-direction:row}
@@ -435,6 +437,12 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	#non-md{display:flex}
 }
 
+/* Releases */
+#release-video{width:100%;height:calc(100% - 5rem)}
+.explore-cell>details{width:100%}
+.explore-cell:has(details):hover{background-color:var(--overlay);color:var(--font-color)}
+.explore-cell>details>summary:hover,.explore-cell>details>div>div:hover{background-color:var(--overlay-hover);color:var(--anchor-color)}
+
 </style>
 <script>
 
@@ -540,7 +548,7 @@ window.onhashchange=async()=>{
 		if(browseJson.status=='403')throw browseJson;
 		['explore-back','back-to-start','create-file','create-folder','upload-file','download-repo'].forEach(i=>gId(i).style.cssText='pointer-events:none;color:var(--anchor-color-hover)');
 		['multi-select','toggle-view'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:none;color:var(--anchor-color-hover)');
-		if (inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
+		if(inUrl.startsWith(`/users/${ghusr}/repos`)){ // If current link is the start
 			browsingTree=[inUrl];
 			gId('current-title').textContent='My GitHub repositories';
 			gId('current-title').removeAttribute('href');
@@ -554,7 +562,8 @@ window.onhashchange=async()=>{
 				const privateRepos=await fetch('https://api.github.com/user/repos?per_page=100&visibility=private',github_api_headers({refresh: isReload})).then(r=>r.json()).then(j=>j.filter(v=>v.owner.login==ghusr))
 				browseJson.push(...privateRepos)
 			}
-			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']))
+			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']));
+			browseJson.forEach(addObjectToView)
 		}else{ // If repository selected or in contents of repository (not at the start of the page)
 			gId('explore-back').onclick=()=>window.location.href=`#${browsingTree.at(-2)}`;
 			gId('explorer-corner').innerHTML=browsingTree.slice(1).map(e=>{return `/<a href="#${e}">${decodeURIComponent(e.split('?ref=').at(0).split('/').at(-1))}</a>`}).join('');
@@ -583,17 +592,38 @@ window.onhashchange=async()=>{
 				gId('select-branch').innerHTML=branches.map(v=>`<option value=\"${v.name}\"${inUrl.endsWith(v.name)?'selected':''}>${v.name}</option>`).join('')
 			}
 
-			// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
-			if(browseJson.status=='404'){
-				gId('explore-content').insertAdjacentHTML('beforeend', `<span id="repo-is-empty" style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
-			}else{ // At this point, we are inside a repository with commits, so let's put the folders first
-				browseJson.sort((a, b) => a.type.localeCompare(b.type))
+			if(inUrl.startsWith(`/repos/${browsingCurrentRepo}/releases`)){
+				browseJson.forEach(e=>{
+					gId('explore-content').insertAdjacentHTML('beforeend',`
+						<div class="explore-cell">
+							<details>
+								<summary>${e.name} (${e.tag_name})</summary>
+								<div id="${e.node_id}"></div>
+							</details>
+						</div>
+					`.trim());
+					e.assets.forEach(v=>{
+						const template=document.createElement('template');
+						template.innerHTML=`<div>${v.name}</div>`;
+						const releaseCell=template.content.firstChild;
+						releaseCell.onclick=()=>showRelease(v);
+						gId(e.node_id).appendChild(releaseCell);
+						busRoute.push(v);
+					})
+				})
+			}else{
+				// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
+				if(browseJson.status=='404'){
+					gId('explore-content').insertAdjacentHTML('beforeend', `<span id="repo-is-empty" style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
+				}else{ // At this point, we are inside a repository with commits, so let's put the folders first
+					browseJson.sort((a, b) => a.type.localeCompare(b.type))
+				}
+				browseJson.forEach(addObjectToView)
 			}
 		}
 		console.log(browsingTree);
 
 		// Loops through each... whatever thing. He needs some milk
-		browseJson.forEach(addObjectToView)
 		if(gId('explore-content').children.length==1)gId('explore-content').insertAdjacentHTML('beforeend','<h2 title="Only has a .gitkeep file that is 0 bytes">This folder is empty</h2>');
 	}catch(err){
 		console.log(err)
@@ -810,6 +840,42 @@ const showFile=async(inUrl)=>{
 		}
 	}
 }
+const showRelease=assetObj=>{
+	// Get the queen of divs
+	const fileDisplay=gId('file-display');
+
+	// Set navigation functions
+	const prevFile=()=>showFile(busRoute.at(busRoute.indexOf(assetObj)==0?busRoute.length-1:busRoute.indexOf(assetObj)-1));
+	const nextFile=()=>showFile(busRoute.at(busRoute.indexOf(assetObj)==busRoute.length-1?0:busRoute.indexOf(assetObj)+1));
+
+	// Show loader spinner while loading file details
+	fileDisplay.innerHTML='<span class="loader"></span>';
+
+	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
+	fileDisplay.insertAdjacentHTML('beforeend',`
+		<a id="fd-title" href="${assetObj.browser_download_url}">${assetObj.name}</a>
+		<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+		<div id="fd-nav">
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z"/></svg>
+		</div>
+	`.trim());
+	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>prevFile();
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>nextFile();
+	if(extV.some(v=>assetObj.name.toLowerCase().endsWith(v))){// Video
+		fileDisplay.insertAdjacentHTML('beforeend',`
+			<video id="release-video" class="video-js" controls preload="auto" poster="" data-setup="{}">
+				<source src="${assetObj.browser_download_url}" type="${assetObj.content_type}" />
+				<p class="vjs-no-js">
+					To view this video please enable JavaScript, and consider upgrading to a
+					web browser that
+					<a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+				</p>
+			</video>
+		`);
+	}
+}
 const githubCommit=async(listOfFiles,repo,refId)=>{
 	let veilStopwatch=0;
 	const updateProgress=()=>gId('commit-backdrop').textContent=Number(++veilStopwatch/(listOfFiles.length+4)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});
@@ -952,6 +1018,7 @@ if(!qUrl){
 	window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`
 }else{
 	let tempCurrentRepo = qUrl.slice(7).split('/').slice(0,2).join('/'); // copy of browsingCurrentRepo (not initialized yet)
+	if(qUrl.slice(7).split('/').slice(2)=='releases')browsingTree.push(`/repos/${tempCurrentRepo}/contents`);
 
 	// If you landed in the contents of a repository
 	if(qUrl.includes('?ref=')){
