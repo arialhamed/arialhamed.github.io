@@ -865,15 +865,31 @@ const showRelease=assetObj=>{
 	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>nextFile();
 	if(extV.some(v=>assetObj.name.toLowerCase().endsWith(v))){// Video
 		fileDisplay.insertAdjacentHTML('beforeend',`
-			<video id="release-video" class="video-js" controls preload="auto" poster="" data-setup="{}">
-				<source src="${assetObj.browser_download_url}" type="${assetObj.content_type}" />
+			<video-js id="release-video" class="video-js" controls preload="auto" poster="" data-setup="{}">
 				<p class="vjs-no-js">
 					To view this video please enable JavaScript, and consider upgrading to a
 					web browser that
 					<a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
 				</p>
-			</video>
+			</video-js>
 		`);
+		const palaya=videojs('release-video');
+		palaya.src({
+			src:assetObj.browser_download_url,
+			type:assetObj.content_type,
+			withCredentials:true
+		})
+		palaya.on('xhr-hooks-ready',()=>{
+			const playerXhrRequestHook=(options)=>{
+				options.beforeSend=(xhr)=>{
+					xhr.setRequestHeader('Authorization', `token ${github_token}`);
+				};
+				return options;
+			};
+			palaya.tech().vhs.xhr.onRequest(playerXhrRequestHook);
+		});
+		palaya.play();
+		gId('fd-close').addEventListener('click',()=>palaya.dispose());
 	}
 }
 const githubCommit=async(listOfFiles,repo,refId)=>{
