@@ -886,7 +886,8 @@ const showRelease=assetObj=>{
 		palaya.src({
 			src:assetObj.browser_download_url,
 			type:assetObj.content_type,
-			withCredentials:true
+			withCredentials:true,
+			overrideNative:true
 		})
 		// palaya.on('xhr-hooks-ready',()=>{
 		// 	const playerXhrRequestHook=(options)=>{
