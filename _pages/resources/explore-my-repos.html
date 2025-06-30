@@ -447,6 +447,12 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 // Third-party library objects
 const mdConverter=new remarkable.Remarkable({html: true}); // Parse markdown text
 const modules = {}
+videojs.Vhs.xhr.beforeRequest = function (options) {
+	if(!options.headers)options.headers = {};
+	options.headers.Authorization=`token ${github_token}`; // Common format for JWTs
+	console.log('Adding Authorization header to request:', options.uri);
+	return options;
+};
 
 // Constants
 const extV=['.webm','.mp4','.mov','.wmv','.avi','.flv','.swf','.mkv','.webm'];
@@ -882,15 +888,15 @@ const showRelease=assetObj=>{
 			type:assetObj.content_type,
 			withCredentials:true
 		})
-		palaya.on('xhr-hooks-ready',()=>{
-			const playerXhrRequestHook=(options)=>{
-				options.beforeSend=(xhr)=>{
-					xhr.setRequestHeader('Authorization', `token ${github_token}`);
-				};
-				return options;
-			};
-			palaya.tech().vhs.xhr.onRequest(playerXhrRequestHook);
-		});
+		// palaya.on('xhr-hooks-ready',()=>{
+		// 	const playerXhrRequestHook=(options)=>{
+		// 		options.beforeSend=(xhr)=>{
+		// 			xhr.setRequestHeader('Authorization', `token ${github_token}`);
+		// 		};
+		// 		return options;
+		// 	};
+		// 	palaya.tech().vhs.xhr.onRequest(playerXhrRequestHook);
+		// });
 		palaya.play();
 		gId('fd-close').addEventListener('click',()=>palaya.dispose());
 	}
