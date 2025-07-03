@@ -884,7 +884,7 @@ const showRelease=assetObj=>{
 		`);
 		const palaya=videojs('release-video');
 		palaya.src({
-			src:github_token?`https://${github_token}:${assetObj.url.slice(8)}`:assetObj.browser_download_url,
+			src:github_token?`https://${github_token}:@${assetObj.url.slice(8)}`:assetObj.browser_download_url,
 			type:assetObj.content_type
 			// withCredentials:true,
 			// overrideNative:true
