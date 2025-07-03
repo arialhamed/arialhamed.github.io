@@ -534,10 +534,10 @@ const addObjectToView=async(e)=>{
 		exploreCell.querySelector('label').onclick=e=>e.stopPropagation();
 		busRoute.push(e.url);
 	}
-	// if(e.releases_url){//If we in all-repo view
-	// 	exploreCell.onclick=()=>window.location.href=`#${e.url.slice(22)}/contents?ref=${e.default_branch}`;
-	// 	exploreCell.querySelector('.v-repo-releases').onclick=z=>{window.location.href=`#${e.url.slice(22)}/releases`;z.stopPropagation()}
-	// }
+	if(e.releases_url){//If we in all-repo view, this is for each releases
+		exploreCell.onclick=()=>window.location.href=`#${e.url.slice(22)}/contents?ref=${e.default_branch}`;
+		exploreCell.querySelector('.v-repo-releases').onclick=z=>{window.location.href=`#${e.url.slice(22)}/releases`;z.stopPropagation()}
+	}
 	gId('explore-content').appendChild(exploreCell);//Add to DOM
 }
 window.onhashchange=async()=>{
