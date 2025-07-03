@@ -887,7 +887,7 @@ const showRelease=assetObj=>{
 			src:github_token?`https://${github_token}:@${assetObj.url.slice(8)}`:assetObj.browser_download_url,
 			type:assetObj.content_type,
 			withCredentials:true,
-			// overrideNative:true
+			overrideNative:true
 		})
 		// palaya.on('xhr-hooks-ready',()=>{
 		// 	const playerXhrRequestHook=(options)=>{
