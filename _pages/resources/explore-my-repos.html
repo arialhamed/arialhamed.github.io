@@ -450,8 +450,9 @@ const modules = {}
 videojs.Vhs.xhr.onRequest(options=>{
 	if(!options.headers)options.headers = {};
 	options.headers.Authorization=`token ${github_token}`; // Common format for JWTs
+	// options.beforeSend=xhr=>xhr.setRequestHeader('Authorization',`token ${github_token}`);
 	console.log('Adding Authorization header to request:', options.uri);
-	// return options;
+	return options;
 });
 
 // Constants
