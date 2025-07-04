@@ -447,12 +447,12 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 // Third-party library objects
 const mdConverter=new remarkable.Remarkable({html: true}); // Parse markdown text
 const modules = {}
-videojs.Vhs.xhr.beforeRequest = function (options) {
+videojs.Vhs.xhr.onRequest(options=>{
 	if(!options.headers)options.headers = {};
 	options.headers.Authorization=`token ${github_token}`; // Common format for JWTs
 	console.log('Adding Authorization header to request:', options.uri);
-	return options;
-};
+	// return options;
+});
 
 // Constants
 const extV=['.webm','.mp4','.mov','.wmv','.avi','.flv','.swf','.mkv','.webm'];
@@ -545,6 +545,7 @@ window.onhashchange=async()=>{
 	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree 
 	busRoute=[]; // Clear bus route
 	gId('file-display').innerHTML='';
+	document.title=inUrl;
 
 	if(isReload)browsingTree.pop();
 	browsingTree.includes(inUrl)?browsingTree=browsingTree.slice(0,browsingTree.indexOf(inUrl)+1):browsingTree.push(inUrl);
