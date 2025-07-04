@@ -905,6 +905,19 @@ const showRelease=assetObj=>{
 		// // });
 		// palaya.play();
 		// gId('fd-close').addEventListener('click',()=>palaya.dispose());
+
+		// fetch(`https://corsproxy.io/?${encodeURIComponent(assetObj.url)}`, {headers: {Accept: 'application/octet-stream', Authorization: (github_token)?`token ${github_token}`:``, 'User-Agent': ''}})
+		// .then(r=>r.arrayBuffer())
+		// .then(a=>{
+		// 	console.log(a);
+		// 	const myMediaSource = new MediaSource();
+		// 	gId('release-video').src=URL.createObjectURL(myMediaSource);
+		// 	myMediaSource.onsourceopen=()=>{
+		// 		const videoSourceBuffer = myMediaSource.addSourceBuffer(`${assetObj.content_type}; codecs="avc1.42c01e, mp4a.40.2"`);
+		// 		videoSourceBuffer.appendBuffer(a);
+		// 		gId('release-video').play()
+		// 	}
+		// })
 	}
 }
 const githubCommit=async(listOfFiles,repo,refId)=>{
