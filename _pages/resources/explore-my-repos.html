@@ -90,6 +90,8 @@ videojs: true
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://arialhamed.github.io/static/video-js-8.21.1/video.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js" integrity="sha256-0SGl1PJNDyJwcV5T+weg2zpEMrh7xvlwO4oXgvZCeZk=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
 <style>
 /* GitHub credits & login, and branch toggle */
 #explorer-fringe{cursor:default;opacity:.65;display:flex;flex-direction:row}
@@ -276,7 +278,7 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	padding:0 1em;
 }
 #file-display:has(#fd-image-pagefit:checked) > #fd-image{overflow:auto;max-width:100%;/*Toggle Page Width of an image in file display*/}
-#fd-nav{z-index:1;}
+#fd-nav{z-index:6}
 #fd-nav > svg{
 	position:fixed;
 	width:5rem;
@@ -347,6 +349,8 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	z-index:-1;
 	background-color:var(--anchor-color-hover)
 }
+#fd-text{flex:1;width:100%}
+#fd-text *{font-family:monospace;transition:none}
 
 #show-audio{
 	width: 90%;
@@ -447,13 +451,13 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 // Third-party library objects
 const mdConverter=new remarkable.Remarkable({html: true}); // Parse markdown text
 const modules = {}
-videojs.Vhs.xhr.onRequest(options=>{
-	// if(!options.headers)options.headers = {};
-	// options.headers.Authorization=`token ${github_token}`; // Common format for JWTs
-	options.beforeSend=xhr=>xhr.setRequestHeader('Authorization',`token ${github_token}`);
-	console.log('Adding Authorization header to request:', options.uri);
-	return options;
-});
+// videojs.Vhs.xhr.onRequest(options=>{
+// 	// if(!options.headers)options.headers = {};
+// 	// options.headers.Authorization=`token ${github_token}`; // Common format for JWTs
+// 	options.beforeSend=xhr=>xhr.setRequestHeader('Authorization',`token ${github_token}`);
+// 	console.log('Adding Authorization header to request:', options.uri);
+// 	return options;
+// });
 
 // Constants
 const extV=['.webm','.mp4','.mov','.wmv','.avi','.flv','.swf','.mkv','.webm'];
@@ -671,8 +675,8 @@ const showFile=async(inUrl)=>{
 	const fileDisplay=gId('file-display');
 
 	// Set navigation functions
-	const prevFile=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
-	const nextFile=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
+	let prevFile=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
+	let nextFile=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
 
 	// Show loader spinner while loading file details
 	fileDisplay.innerHTML='<span class="loader"></span>';
@@ -840,8 +844,9 @@ const showFile=async(inUrl)=>{
 	}else if(extM.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Microsoft Office Documents
 		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="docx-viewer" style="flex:1;width:100%;" src="https://view.officeapps.live.com/op/embed.aspx?src=${thisFile.download_url}&embedded=true">This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Online</a>.</iframe>`);
 	}else{
-		fileDisplay.insertAdjacentHTML('beforeend',`<div id="non-md"><pre style="background-color:#333a;height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre></div>`);
-		Prism.highlightElement(gId('fd-text'));
+		// fileDisplay.insertAdjacentHTML('beforeend',`<div id="non-md"><pre style="background-color:#333a;height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre></div>`);
+		fileDisplay.insertAdjacentHTML('beforeend',`<div id="fd-text"></div>`);
+		// Prism.highlightElement(gId('fd-text'));
 		
 		if(thisFile.name.toLowerCase().endsWith('.md')){
 			// The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
@@ -849,6 +854,16 @@ const showFile=async(inUrl)=>{
 			gId('fd-nav').insertAdjacentHTML('beforeend','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="512" rx="15%" width="512"/><path d="m410 366h-308c-14 0-26-12-26-26v-170c0-14 12-26 26-26h307c14 0 26 12 26 26v170c0 14-11 26-25 26zm-308-204c-4 0-9 4-9 9v170c0 5 4 9 9 9h307c5 0 9-4 9-9v-171c0-5-4-9-9-9h-307zm26 153v-119h34l34 43 34-43h35v118h-34v-68l-34 43-34-43v68zm216 0-52-57h34v-61h34v60h34z"/></svg>');
 			gId('md-parse-toggle-icon').onclick=()=>gId('md-parse-toggle').click();
 		}
+		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
+		require(['vs/editor/editor.main'],()=>{
+			const model=monaco.editor.createModel(atob(thisFile.content).replace(/\</g,'&lt;'),undefined,monaco.Uri.file(thisFile.name))
+			const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true});
+			editor.setModel(model);
+
+			nextFile=(f=>u=>{f(u);model.dispose()})(nextFile);
+			prevFile=(f=>u=>{f(u);model.dispose()})(prevFile);
+			gId('fd-close').onclick=(f=>u=>{f(u);model.dispose()})(gId('fd-close').onclick);
+		});
 	}
 }
 const showRelease=assetObj=>{
