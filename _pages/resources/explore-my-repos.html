@@ -467,7 +467,7 @@ const extS=['.3gp','.aa','.aac','.aax','.act','.aiff','.alac','.m4a','.amr','.ap
 const extA=['.7z','.zip','.apk','.apks','.xapk','.arc','.ark','.jar','.zpaq','.zip','.tar.gz','.tar.bz2','.tgz','.rar','.wad','.pk3','.exe'];
 const ext3=['.3mf','.stl','.glb','.gltf','.obj','.amf'];
 const extI=['.avif','.gif','.jpg','.jpeg','.jfif','.pjpeg','.pjp','.png','.svg','.webp','.bmp','.ico','.cur','.tif','.tiff','.kra','.jpg_large'];
-const extM=['.doc','.dot','.wbk','.docx','.docm','.dotx','.dotm','.xls','.xlt','.xlm','.xlsx','.xlsm','.xltx','.xltm','.xlsb','.xlw','.ppt','.pot','.pps','.pptx','.pptm','.potx','.potm','.ppsx','.ppsm','.sldx','.sldm','.accdb','.accde','.accdr','.accdt'];
+const extM=['.doc','.dot','.wbk','.docx','.docm','.dotx','.dotm','.xls','.xlt','.xlm','.xlsx','.xlsm','.xltx','.xltm','.xlsb','.xlw','.ppt','.pot','.pps','.pptx','.pptm','.potx','.potm','.ppsx','.ppsm','.sldx','.sldm','.accdb','.accde','.accdr','.accdt','.odt','.fodt','.ods','.fods','.odp','.fodp','.odg','.fodg','.odf'];
 //const extR=['.csv','.tsv','.xlsx'];
 	// const audioPlayer=new Audio();
 	// audioPlayer.shuffle=false;
@@ -700,6 +700,9 @@ const showFile=async(inUrl)=>{
 	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>prevFile();
 	fileDisplay.querySelector('#fd-nav > svg:nth-child(3)').onclick=()=>nextFile();
 
+	// Save button for some things
+	gId('fd-nav-space').insertAdjacentHTML('afterend','<svg id="save-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
+
 	if(extI.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Images
 		// if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
 		fileDisplay.insertAdjacentHTML('beforeend',`
@@ -826,9 +829,8 @@ const showFile=async(inUrl)=>{
 	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
 		fileDisplay.insertAdjacentHTML('beforeend',"<p>Contents of this file can not be parsed here.</p>");
 	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
-		gId('fd-nav-space').insertAdjacentHTML('afterend','<svg id="pdf-viewer-save" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
 		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}" frameborder="0"></iframe>`);
-		gId('pdf-viewer-save').onclick=()=>{
+		gId('save-file').onclick=()=>{
 			// const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
 			const reader = new FileReader();
 			let [refinedUrl, refId] = thisFile.url.split('?ref=');
@@ -862,15 +864,31 @@ const showFile=async(inUrl)=>{
 		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
 		require(['vs/editor/editor.main'],()=>{
 			const model=monaco.editor.createModel(atob(thisFile.content),undefined,monaco.Uri.file(thisFile.name));
-			const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true,wordWrap:'on',renderWhitespace:true,insertSpaces:false,tabSize:4,indentSize:4,fontLigatures:false,renderSideBySide:false});
+			const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true,wordWrap:'on',renderWhitespace:true,insertSpaces:false,tabSize:4,indentSize:4,selectionClipboard:false,compactMode:true,renderGutterMenu:false,renderSideBySide:false});
 			editor.setModel(model);
 			// editor.setModel({original:monaco.editor.createModel(atob(thisFile.content)),modified:model});
 
 			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
+			gId('save-file').onclick=()=>{
+				gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
+				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+				let uploadedFileURL = `https://api.github.com${locationId}/${thisFile.name}?ref=${refId}`;
+				fetch(
+					uploadedFileURL, {
+					headers: {Authorization: `token ${github_token}`},
+					method: 'PUT',
+					body: JSON.stringify({
+						message: `Saved text file at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
+						content: btoa(model.getValue())
+					})
+				})
+				.then(r=>r.json())
+				.then(j=>gId('commit-backdrop').remove())
+			}
 
-			nextFile=(f=>u=>{f(u);editor.dispose();model.dispose()})(nextFile);
-			prevFile=(f=>u=>{f(u);editor.dispose();model.dispose()})(prevFile);
-			gId('fd-close').onclick=(f=>u=>{f(u);editor.dispose();model.dispose()})(gId('fd-close').onclick);
+			nextFile=(f=>u=>{f(u);model.dispose()})(nextFile);
+			prevFile=(f=>u=>{f(u);model.dispose()})(prevFile);
+			gId('fd-close').onclick=(f=>u=>{f(u);model.dispose()})(gId('fd-close').onclick);
 		});
 	}
 }
