@@ -869,21 +869,23 @@ const showFile=async(inUrl)=>{
 			// editor.setModel({original:monaco.editor.createModel(atob(thisFile.content)),modified:model});
 
 			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
-			gId('save-file').onclick=()=>{
-				gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
-				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
-				let uploadedFileURL = `https://api.github.com${locationId}/${thisFile.name}?ref=${refId}`;
-				fetch(
-					uploadedFileURL, {
-					headers: {Authorization: `token ${github_token}`},
-					method: 'PUT',
-					body: JSON.stringify({
-						message: `Saved text file at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
-						content: btoa(model.getValue())
-					})
-				})
-				.then(r=>r.json())
-				.then(j=>gId('commit-backdrop').remove())
+			gId('save-file').onclick=async()=>{
+				// gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
+				// let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+				// let uploadedFileURL = `https://api.github.com${locationId}/${thisFile.name}?ref=${refId}`;
+				// fetch(
+				// 	uploadedFileURL, {
+				// 	headers: {Authorization: `token ${github_token}`},
+				// 	method: 'PUT',
+				// 	body: JSON.stringify({
+				// 		message: `Saved text file at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
+				// 		content: btoa(model.getValue())
+				// 	})
+				// })
+				// .then(r=>r.json())
+				// .then(j=>gId('commit-backdrop').remove())
+				const updateRefResponse=await githubCommit([{content:btoa(model.getValue()),path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${thisFile.name}`}],browsingCurrentRepo,refId);
+
 			}
 
 			nextFile=(f=>u=>{f(u);model.dispose()})(nextFile);
