@@ -871,7 +871,7 @@ const showFile=async(inUrl)=>{
 			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
 			gId('save-file').onclick=async()=>{
 				// gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
-				// let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 				// let uploadedFileURL = `https://api.github.com${locationId}/${thisFile.name}?ref=${refId}`;
 				// fetch(
 				// 	uploadedFileURL, {
