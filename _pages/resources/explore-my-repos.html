@@ -285,10 +285,14 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	display:flex;
 	flex-direction:row;
 	height:5rem;
-	width:100%
+	width:100%;
+	opacity:0
 }
-#fd-nav > svg{background-color:#0005;color:var(--font-color)}
-#fd-nav > svg:hover{background-color:#000a;color:white}
+#fd-nav:hover{opacity:1}
+#fd-nav>svg{background-color:#0005;color:var(--font-color);border:1px solid var(--font-color)}
+/* #fd-nav>svg:hover{background-color:#000a;color:white} */
+#fd-nav>svg:hover{scale:.9}
+#fd-nav>svg:active{scale:.8;transition:none}
 #fd-audio-1{flex:1;display:flex;overflow:auto;justify-content:center;width:100%;}
 #fd-audio-thumbnail{max-width:100%;object-fit:contain;}
 #fd-audio-lyrics{
@@ -835,13 +839,12 @@ const showFile=async(inUrl)=>{
 			const reader = new FileReader();
 			let [refinedUrl, refId] = thisFile.url.split('?ref=');
 			reader.onload=async()=>{
-				const updateRefResponse=await githubCommit([{content:reader.result,path:thisFile.path}],browsingCurrentRepo,refId)
-				if(updateRefResponse.ok){
-					showFile(inUrl);
-					raiseToast('PDF edits has been saved')
-				}else{
-					raiseToast('Error encountered while saving, check console logs')
-				}
+				const updateRefResponse=await githubCommit([{content:reader.result,path:thisFile.path}],browsingCurrentRepo,refId,'PDF edits has been saved')
+				// if(updateRefResponse.ok){
+				// 	raiseToast('PDF edits has been saved')
+				// }else{
+				// 	raiseToast('Error encountered while saving, check console logs')
+				// }
 			};
 			gId('pdf-viewer').contentWindow.PDFViewerApplication.pdfDocument.saveDocument()
 			.then(blob=>reader.readAsDataURL(new Blob([blob], {type: 'application/pdf'})))
@@ -857,7 +860,7 @@ const showFile=async(inUrl)=>{
 		
 		if(thisFile.name.toLowerCase().endsWith('.md')){
 			// The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
-			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(atob(thisFile.content).substring(1).split('---').pop())}</span>`)
+			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(atob(thisFile.content))}</span>`)
 			gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m410 366h-308c-14 0-26-12-26-26v-170c0-14 12-26 26-26h307c14 0 26 12 26 26v170c0 14-11 26-25 26zm-308-204c-4 0-9 4-9 9v170c0 5 4 9 9 9h307c5 0 9-4 9-9v-171c0-5-4-9-9-9h-307zm26 153v-119h34l34 43 34-43h35v118h-34v-68l-34 43-34-43v68zm216 0-52-57h34v-61h34v60h34z"/></svg>');
 			gId('md-parse-toggle-icon').onclick=()=>gId('md-parse-toggle').click();
 		}
@@ -871,7 +874,7 @@ const showFile=async(inUrl)=>{
 			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
 			gId('save-file').onclick=async()=>{
 				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
-				const updateRefResponse=await githubCommit([{content:`data:text/*;base64,${btoa(model.getValue())}`,path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${thisFile.name}`}],browsingCurrentRepo,refId);
+				githubCommit([{content:`data:text/*;base64,${btoa(model.getValue())}`,path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${thisFile.name}`}],browsingCurrentRepo,refId);
 			}
 
 			nextFile=(f=>u=>{f(u);model.dispose()})(nextFile);
@@ -949,24 +952,33 @@ const showRelease=assetObj=>{
 		// })
 	}
 }
-const githubCommit=async(listOfFiles,repo,refId)=>{
+const githubCommit=async(listOfFiles,repo,refId,okMessage)=>{
 	let veilStopwatch=0;
 	const updateProgress=()=>gId('commit-backdrop').textContent=Number(++veilStopwatch/(listOfFiles.length+4)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});
 	gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
 	const apiUrl=`https://api.github.com/repos/${repo}/git`;
-	const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{cache:'no-store',headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);updateProgress();
-	console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
-	const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{updateProgress();return res.json()})));
-	// const blobData=await (async()=>{const a=[];let b=0;const c=[...listOfFiles],d=async()=>{if(0!==c.length||0!==b)for(;0<c.length&&b<5;){const e=c.shift();b++,(async()=>{try{if(null==e.content)a.push({path:e.path,mode:"100644",sha:null});else{const b=await fetch(`${apiUrl}/blobs`,{method:"POST",headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:e.content.split(";base64,").at(1),encoding:"base64"})});updateProgress();const c=await b.json();a.push(c)}}catch(b){console.error("Error fetching blob:",b),a.push({path:e.path,error:b.message})}finally{b--,d()}})()}};for(await d();0<b;)await new Promise(a=>setTimeout(a,100));return a})();
-	console.log(`blobData: ${JSON.stringify(blobData)}`);
-	const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());updateProgress();
-	console.log(`treeData: ${JSON.stringify(treeData)}`);
-	const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`${listOfFiles.length} file(s) added/updated/removed by GitHub API`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());updateProgress();
-	console.log(`commitData: ${JSON.stringify(commitData)}`);
-	const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});updateProgress();
-	console.log(`pushData: ${JSON.stringify(pushData)}`);
-	gId('commit-backdrop').remove();
-	return pushData
+	try{
+		const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{cache:'no-store',headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);updateProgress();
+		console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
+		const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(1),encoding:'base64'})}).then(res=>{updateProgress();return res.json()})));
+		// const blobData=await (async()=>{const a=[];let b=0;const c=[...listOfFiles],d=async()=>{if(0!==c.length||0!==b)for(;0<c.length&&b<5;){const e=c.shift();b++,(async()=>{try{if(null==e.content)a.push({path:e.path,mode:"100644",sha:null});else{const b=await fetch(`${apiUrl}/blobs`,{method:"POST",headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:e.content.split(";base64,").at(1),encoding:"base64"})});updateProgress();const c=await b.json();a.push(c)}}catch(b){console.error("Error fetching blob:",b),a.push({path:e.path,error:b.message})}finally{b--,d()}})()}};for(await d();0<b;)await new Promise(a=>setTimeout(a,100));return a})();
+		console.log(`blobData: ${JSON.stringify(blobData)}`);
+		const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());updateProgress();
+		console.log(`treeData: ${JSON.stringify(treeData)}`);
+		const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`${listOfFiles.length} file(s) added/updated/removed by GitHub API`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());updateProgress();
+		console.log(`commitData: ${JSON.stringify(commitData)}`);
+		const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});updateProgress();
+		console.log(`pushData: ${JSON.stringify(pushData)}`);
+		if(pushData.ok){
+			raiseToast(okMessage)
+		}else{
+			raiseToast(`Error:<br>${pushData.status}<br>${pushData.statusText}`)
+		}
+	}catch{
+		raiseToast('Fatal error &#x1F480;')
+	}finally{
+		gId('commit-backdrop').remove();
+	}
 }
 uploadFileInput.onchange=async(e)=>{
 	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
@@ -988,15 +1000,13 @@ uploadFileInput.onchange=async(e)=>{
 	gId('commit-backdrop').remove();
 
 	uploadFileInput.value='';
-	const updateRefResponse=await githubCommit(filesToUpload,browsingCurrentRepo,refId);
+	const updateRefResponse=await githubCommit(filesToUpload,browsingCurrentRepo,refId,`${filesToUpload.length} file(s) has been uploaded`);
 
-	if(updateRefResponse.ok){
-		console.log('Commit successful');
-		raiseToast(`${filesToUpload.length} file(s) has been uploaded`)
-	}else{
-		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
-		raiseToast(`Error updating reference`)
-	}
+	// if(updateRefResponse.ok){
+	// 	raiseToast(`${filesToUpload.length} file(s) has been uploaded`)
+	// }else{
+	// 	raiseToast(`Error:<br>${updateRefResponse.status}<br>${updateRefResponse.statusText}`)
+	// }
 	gId('explore-refresh').onclick();
 }
 gId('delete-item').onclick=async(gitUrl)=>{
@@ -1020,16 +1030,16 @@ gId('delete-item').onclick=async(gitUrl)=>{
 	if(!confirm(`Delete ${filesToDelete.length} files from "${locationId}" (${refId})?`))return false;
 
 	// 4. Commit
-	const updateRefResponse=await githubCommit(filesToDelete,browsingCurrentRepo,refId);
+	const updateRefResponse=await githubCommit(filesToDelete,browsingCurrentRepo,refId,`${filesToDelete.length} file(s) has been deleted`);
 
 	// 5. Response
-	if(updateRefResponse.ok){
-		console.log('Commit successful');
-		raiseToast(`${filesToDelete.length} file(s) has been deleted`)
-	}else{
-		console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
-		raiseToast(`Error updating ref`)
-	}
+	// if(updateRefResponse.ok){
+	// 	console.log('Commit successful');
+	// 	raiseToast(`${filesToDelete.length} file(s) has been deleted`)
+	// }else{
+	// 	console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
+	// 	raiseToast(`Error updating ref`)
+	// }
 	gId('explore-refresh').onclick();
 }
 gId('create-folder').onclick=async()=>{
