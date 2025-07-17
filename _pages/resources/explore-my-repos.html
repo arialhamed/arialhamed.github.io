@@ -871,8 +871,7 @@ const showFile=async(inUrl)=>{
 			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
 			gId('save-file').onclick=async()=>{
 				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
-				const updateRefResponse=await githubCommit([{content:`data:text/text;base64,${btoa(model.getValue())}`,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${thisFile.name}`}],browsingCurrentRepo,refId);
-
+				const updateRefResponse=await githubCommit([{content:btoa(model.getValue()),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${thisFile.name}`}],browsingCurrentRepo,refId);
 			}
 
 			nextFile=(f=>u=>{f(u);model.dispose()})(nextFile);
@@ -981,7 +980,7 @@ uploadFileInput.onchange=async(e)=>{
 		return new Promise(resolve=>{
 			reader.onload=()=>{
 				gId('commit-backdrop').textContent=`Processing files: ${Number(++veilStopwatch/veilMax).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})}`;
-				return resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))}/${file.name}`})
+				return resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}/${file.name}`})
 			};
 			reader.readAsDataURL(file)
 		})
@@ -1003,7 +1002,7 @@ uploadFileInput.onchange=async(e)=>{
 gId('delete-item').onclick=async(gitUrl)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
-	const currentPath = decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length))
+	const currentPath = decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))
 
 	// 1. Gather files via traversing the trees
 	let currentGitUrl={sha:refId}
