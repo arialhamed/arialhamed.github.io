@@ -980,7 +980,7 @@ uploadFileInput.onchange=async(e)=>{
 		return new Promise(resolve=>{
 			reader.onload=()=>{
 				gId('commit-backdrop').textContent=`Processing files: ${Number(++veilStopwatch/veilMax).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})}`;
-				return resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}/${file.name}`})
+				return resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${file.name}`})
 			};
 			reader.readAsDataURL(file)
 		})
@@ -1002,11 +1002,11 @@ uploadFileInput.onchange=async(e)=>{
 gId('delete-item').onclick=async(gitUrl)=>{
 	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
-	const currentPath = decodeURIComponent(locationId.slice(17+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))
+	const currentPath = decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))
 
 	// 1. Gather files via traversing the trees
 	let currentGitUrl={sha:refId}
-	for(let i=0;i<currentPath.split('/').length&&currentPath!=''; i++){
+	for(let i=0;i<currentPath.split('/').length-1&&currentPath!=''; i++){
 		currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}`,github_api_headers({refresh:true})).then(r=>r.json()).then(j=>j.tree.find(e=>e.path==currentPath.split('/').at(i)))
 	}
 	currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}?recursive=1`,github_api_headers({refresh:true})).then(r=>r.json()).then(j=>j.tree.filter(e=>e.type=='blob'))
@@ -1014,7 +1014,7 @@ gId('delete-item').onclick=async(gitUrl)=>{
 	// 2. Get all files, including those from inside the folder
 	const filesToDelete = [...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>
 		e.getAttribute('data-type')=='tree'?currentGitUrl.filter(b=>b.path.startsWith(`${e.getAttribute('data-path')}/`)).map(b=>b.path):e.getAttribute('data-path')
-	).flat().map(e=>{return {content: null, path: currentPath?`${currentPath}/${e}`:e}});
+	).flat().map(e=>{return {content: null, path: currentPath?`${currentPath}${e}`:e}});
 
 	// 3. Confirm deletion
 	if(!confirm(`Delete ${filesToDelete.length} files from "${locationId}" (${refId})?`))return false;
