@@ -281,16 +281,15 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 #fd-nav{
 	z-index:6;
 	position:fixed;
-	bottom:0;
+	bottom:.5rem;
 	display:flex;
 	flex-direction:row;
-	height:5rem;
-	width:100%;
-	opacity:0
+	height:min(5rem,15vw);
+	right:.5rem;
+	gap:.5rem;
 }
-#fd-nav:hover{opacity:1}
-#fd-nav>svg{background-color:#0005;color:var(--font-color);border:1px solid var(--font-color)}
-/* #fd-nav>svg:hover{background-color:#000a;color:white} */
+#fd-nav:hover{opacity:1!important}
+#fd-nav>svg{background-color:#0005;color:var(--font-color);border:1px solid var(--font-color);border-radius:.5rem}
 #fd-nav>svg:hover{scale:.9}
 #fd-nav>svg:active{scale:.8;transition:none}
 #fd-audio-1{flex:1;display:flex;overflow:auto;justify-content:center;width:100%;}
@@ -680,10 +679,6 @@ const showFile=async(inUrl)=>{
 	// Get the queen of divs
 	const fileDisplay=gId('file-display');
 
-	// Set navigation functions
-	let prevFile=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
-	let nextFile=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
-
 	// Show loader spinner while loading file details
 	fileDisplay.innerHTML='<span class="loader"></span>';
 
@@ -695,17 +690,28 @@ const showFile=async(inUrl)=>{
 		<a id="fd-title" href="${thisFile.download_url}">${thisFile.name}</a>
 		<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
 		<div id="fd-nav">
-			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="position:fixed;left:.5rem;height:inherit"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
 			<div id="fd-nav-space" style="flex:1"></div>
 			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z"/></svg>
 		</div>
 	`.trim());
+
+	// Set navigation functions
 	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
-	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>prevFile();
-	fileDisplay.querySelector('#fd-nav > svg:nth-child(3)').onclick=()=>nextFile();
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
+
+	// Nav for file-display, fade-in/fade-out
+	let fdNavFade
+	fileDisplay.onmousemove=e=>{
+		clearTimeout(fdNavFade);
+		if(gId('fd-nav'))gId('fd-nav').style.opacity=1;
+		fdNavFade=setTimeout(()=>{if(gId('fd-nav'))gId('fd-nav').style.opacity=0},1500)
+	}
+	fileDisplay.onmousemove();
 
 	// Save button for some things
-	gId('fd-nav-space').insertAdjacentHTML('afterend','<svg id="save-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
+	gId('fd-nav').insertAdjacentHTML('afterbegin','<svg id="save-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
 
 	if(extI.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Images
 		// if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
@@ -854,14 +860,14 @@ const showFile=async(inUrl)=>{
 	}else{
 		// fileDisplay.insertAdjacentHTML('beforeend',`<div id="non-md"><pre style="background-color:#333a;height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre></div>`);
 		fileDisplay.insertAdjacentHTML('beforeend',`<div id="fd-text"></div>`);
-		gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="word-wrap-toggle" type="checkbox" style="display:none;" checked><svg id="word-wrap-toggle-icon" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M25 4H5A1 1 0 005 6H25a1 1 0 000-2m0 4H5a1 1 0 000 2H25a1 1 0 000-2M5 12a1 1 0 000 2H21a1 1 0 010 6H19l2-2a.5.5 0 00-1.41-1.41l-3 3c-1 1-1 1.82 0 2.82l3 3A.5.5 0 0021 24l-2-2h2a1 1 0 00.5-10H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m0 4a1 1 0 000 2h8a1 1 0 000-2H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m19 0a1 1 0 000 2h1a1 1 0 000-2H24"/></svg>');
+		gId('fd-nav').insertAdjacentHTML('afterbegin','<input id="word-wrap-toggle" type="checkbox" style="display:none;" checked><svg id="word-wrap-toggle-icon" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M25 4H5A1 1 0 005 6H25a1 1 0 000-2m0 4H5a1 1 0 000 2H25a1 1 0 000-2M5 12a1 1 0 000 2H21a1 1 0 010 6H19l2-2a.5.5 0 00-1.41-1.41l-3 3c-1 1-1 1.82 0 2.82l3 3A.5.5 0 0021 24l-2-2h2a1 1 0 00.5-10H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m0 4a1 1 0 000 2h8a1 1 0 000-2H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m19 0a1 1 0 000 2h1a1 1 0 000-2H24"/></svg>');
 		gId('word-wrap-toggle-icon').onclick=()=>gId('word-wrap-toggle').click();
 		// Prism.highlightElement(gId('fd-text'));
 		
 		if(thisFile.name.toLowerCase().endsWith('.md')){
 			// The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(atob(thisFile.content))}</span>`)
-			gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m410 366h-308c-14 0-26-12-26-26v-170c0-14 12-26 26-26h307c14 0 26 12 26 26v170c0 14-11 26-25 26zm-308-204c-4 0-9 4-9 9v170c0 5 4 9 9 9h307c5 0 9-4 9-9v-171c0-5-4-9-9-9h-307zm26 153v-119h34l34 43 34-43h35v118h-34v-68l-34 43-34-43v68zm216 0-52-57h34v-61h34v60h34z"/></svg>');
+			gId('fd-nav').insertAdjacentHTML('afterbegin','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m410 366h-308c-14 0-26-12-26-26v-170c0-14 12-26 26-26h307c14 0 26 12 26 26v170c0 14-11 26-25 26zm-308-204c-4 0-9 4-9 9v170c0 5 4 9 9 9h307c5 0 9-4 9-9v-171c0-5-4-9-9-9h-307zm26 153v-119h34l34 43 34-43h35v118h-34v-68l-34 43-34-43v68zm216 0-52-57h34v-61h34v60h34z"/></svg>');
 			gId('md-parse-toggle-icon').onclick=()=>gId('md-parse-toggle').click();
 		}
 		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
@@ -877,9 +883,7 @@ const showFile=async(inUrl)=>{
 				githubCommit([{content:`data:text/*;base64,${btoa(model.getValue())}`,path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${thisFile.name}`}],browsingCurrentRepo,refId);
 			}
 
-			nextFile=(f=>u=>{f(u);model.dispose()})(nextFile);
-			prevFile=(f=>u=>{f(u);model.dispose()})(prevFile);
-			gId('fd-close').onclick=(f=>u=>{f(u);model.dispose()})(gId('fd-close').onclick);
+			new MutationObserver((e,o)=>{editor.dispose();model.dispose();o.disconnect()}).observe(gId('file-display'),{attributes:true,childList:true})
 		});
 	}
 }
