@@ -840,6 +840,13 @@ const showFile=async(inUrl)=>{
 		fileDisplay.insertAdjacentHTML('beforeend',"<p>Contents of this file can not be parsed here.</p>");
 	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
 		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}" frameborder="0"></iframe>`);
+
+		var pdfViewerOnMouseMove = gId('pdf-viewer').contentWindow.onmousemove;
+	    gId('pdf-viewer').contentWindow.onmousemove=e=>{
+			if(pdfViewerOnMouseMove)pdfViewerOnMouseMove(e);
+			fileDisplay.onmousemove();
+		}
+
 		gId('save-file').onclick=()=>{
 			// const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
 			const reader = new FileReader();
