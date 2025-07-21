@@ -246,29 +246,24 @@ videojs: true
 	flex-direction:column;
 	z-index:7;
 	overflow:scroll/*Enable scrolling for items in this div*/;
-	padding-top:3em/*Space for title & close*/;
 	align-items:center;
 }
 body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll when file-display is shown*/}
 #file-display:not(:has(*)){display:none/*If there are no items in this div, hide it*/;}
-#fd-title{/*Title for file display*/
-	display:flex;flex-direction:row;
-	align-items:center;justify-content:center;
-	position:fixed;
-	top:0;
-	background-color:var(--popup-background-color);
-	width:100%;
-	min-height:3em;
-}
 #fd-close{/*Close button for file display*/
-	width:3em;height:3em;
-	position:fixed;
-	top:0;right:0;
 	color:var(--nav-font-color);
-	/* background-color:var(--popup-background-color); */
 	padding:.25em;
 }
-#fd-close:hover{border:1px dashed var(--nav-font-color-hover)}
+#fd-close,#fd-link{height:inherit;cursor:pointer;border:1px solid transparent;}
+#fd-link:hover,#fd-close:hover{border:1px dashed var(--nav-font-color-hover)}
+#fd-title{/*Title for file display*/
+	flex:1;
+	background-color:transparent;
+	border:none;
+	color:var(--font-color);
+	text-align:center;
+	font-size:inherit;
+}
 #fd-image-pagefit-container{/*Checkbox for images in file display*/
 	display:flex;flex-direction:row;
 	position:fixed;
@@ -278,21 +273,29 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	padding:0 1em;
 }
 #file-display:has(#fd-image-pagefit:checked) > #fd-image{overflow:auto;max-width:100%;/*Toggle Page Width of an image in file display*/}
+#fd-header{
+	width:100%;
+	display:flex;
+	flex-direction:row;
+	height:3em;
+	background-color:var(--popup-background-color);
+}
 #fd-nav{
 	z-index:6;
 	position:fixed;
-	bottom:.5rem;
+	left:.5rem;right:.5rem;bottom:.5rem;
 	display:flex;
 	flex-direction:row;
-	height:min(5rem,15vw);
-	right:.5rem;
+	height:5rem/*min(5rem,15vw)*/;
 	gap:.5rem;
+	pointer-events:none;
 }
 #fd-nav:hover{opacity:1!important}
 @media(hover:none){#fd-nav{opacity:1!important}}
-#fd-nav>svg{background-color:#0005;color:var(--font-color);border:1px solid var(--font-color);border-radius:.5rem;height:inherit}
+#fd-nav>svg{background-color:#0005;color:var(--font-color);border:1px solid var(--font-color);border-radius:.5rem;height:inherit;pointer-events:all}
 #fd-nav>svg:hover{scale:.9}
 #fd-nav>svg:active{scale:.8;transition:none}
+#fd-nav-space{flex:1}
 #fd-audio-1{flex:1;display:flex;overflow:auto;justify-content:center;width:100%;}
 #fd-audio-thumbnail{max-width:100%;object-fit:contain;}
 #fd-audio-lyrics{
@@ -688,18 +691,22 @@ const showFile=async(inUrl)=>{
 
 	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
 	fileDisplay.insertAdjacentHTML('beforeend',`
-		<a id="fd-title" href="${thisFile.download_url}">${thisFile.name}</a>
-		<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+		<div id="fd-header">
+			<a id="fd-link" href="${thisFile.download_url}"><svg aria-hidden="true" fill="none" viewBox="0 0 24 24" style="height:inherit"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/></svg></a>
+			<input id="fd-title" type="text" value="${thisFile.name}"${github_token?'':' disabled'} />
+			<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+		</div>
 		<div id="fd-nav">
-			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="position:fixed;left:.5rem;height:inherit"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
-			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z"/></svg>
+			<svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
+			<div id="fd-nav-space"></div>
+			<svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z"/></svg>
 		</div>
 	`.trim());
 
 	// Set navigation functions
 	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
 	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
-	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(3)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
 
 	// Nav for file-display, fade-in/fade-out
 	let fdNavFade
@@ -711,7 +718,14 @@ const showFile=async(inUrl)=>{
 	fileDisplay.onmousemove();
 
 	// Save button for some things
-	gId('fd-nav').insertAdjacentHTML('afterbegin','<svg id="save-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
+	gId('fd-nav-space').insertAdjacentHTML('afterend','<svg id="save-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
+	gId('fd-title').onkeyup=e=>{
+		let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+		if(e.key=='Enter'){
+			// console.log([{path:thisFile.path,content:null},{path:thisFile.path.replace(thisFile.name,e.target.value),content:`data:text/*;base64,${thisFile.content}`}])
+			githubCommit([{path:thisFile.path,content:null},{path:thisFile.path.replace(thisFile.name,e.target.value),content:`data:text/*;base64,${thisFile.content}`}],browsingCurrentRepo,refId,'Rename successful')
+		}
+	};
 
 	if(extI.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Images
 		// if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
@@ -865,16 +879,14 @@ const showFile=async(inUrl)=>{
 	}else if(extM.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Microsoft Office Documents
 		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="docx-viewer" style="flex:1;width:100%;" src="https://view.officeapps.live.com/op/embed.aspx?src=${thisFile.download_url}&embedded=true">This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Online</a>.</iframe>`);
 	}else{
-		// fileDisplay.insertAdjacentHTML('beforeend',`<div id="non-md"><pre style="background-color:#333a;height:calc(100% - 1em);" data-src="${thisFile.download_url}" data-download-link><code id="fd-text" class="line-numbers language-${thisFile.name.split('.').pop()}">${atob(thisFile.content).replace(/\</g, '&lt;')}</code></pre></div>`);
 		fileDisplay.insertAdjacentHTML('beforeend',`<div id="fd-text"></div>`);
-		gId('fd-nav').insertAdjacentHTML('afterbegin','<input id="word-wrap-toggle" type="checkbox" style="display:none;" checked><svg id="word-wrap-toggle-icon" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M25 4H5A1 1 0 005 6H25a1 1 0 000-2m0 4H5a1 1 0 000 2H25a1 1 0 000-2M5 12a1 1 0 000 2H21a1 1 0 010 6H19l2-2a.5.5 0 00-1.41-1.41l-3 3c-1 1-1 1.82 0 2.82l3 3A.5.5 0 0021 24l-2-2h2a1 1 0 00.5-10H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m0 4a1 1 0 000 2h8a1 1 0 000-2H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m19 0a1 1 0 000 2h1a1 1 0 000-2H24"/></svg>');
+		gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="word-wrap-toggle" type="checkbox" style="display:none;" checked><svg id="word-wrap-toggle-icon" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M25 4H5A1 1 0 005 6H25a1 1 0 000-2m0 4H5a1 1 0 000 2H25a1 1 0 000-2M5 12a1 1 0 000 2H21a1 1 0 010 6H19l2-2a.5.5 0 00-1.41-1.41l-3 3c-1 1-1 1.82 0 2.82l3 3A.5.5 0 0021 24l-2-2h2a1 1 0 00.5-10H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m0 4a1 1 0 000 2h8a1 1 0 000-2H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m19 0a1 1 0 000 2h1a1 1 0 000-2H24"/></svg>');
 		gId('word-wrap-toggle-icon').onclick=()=>gId('word-wrap-toggle').click();
-		// Prism.highlightElement(gId('fd-text'));
-		
+
 		if(thisFile.name.toLowerCase().endsWith('.md')){
 			// The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
 			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(atob(thisFile.content))}</span>`)
-			gId('fd-nav').insertAdjacentHTML('afterbegin','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m410 366h-308c-14 0-26-12-26-26v-170c0-14 12-26 26-26h307c14 0 26 12 26 26v170c0 14-11 26-25 26zm-308-204c-4 0-9 4-9 9v170c0 5 4 9 9 9h307c5 0 9-4 9-9v-171c0-5-4-9-9-9h-307zm26 153v-119h34l34 43 34-43h35v118h-34v-68l-34 43-34-43v68zm216 0-52-57h34v-61h34v60h34z"/></svg>');
+			gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m19.2 17.2H4.8c-.7 0-1.2-.6-1.2-1.2V8c0-.7.6-1.2 1.2-1.2h14.4c.7 0 1.2.6 1.2 1.2v8c0 .7-.5 1.2-1.2 1.2zM4.8 7.6c-.2 0-.4.2-.4.4v8c0 .2.2.4.4.4h14.4c.2 0 .4-.2.4-.4V8c0-.2-.2-.4-.4-.4H4.8zM6 14.8V9.2h1.6l1.6 2 1.6-2h1.6v5.5h-1.6v-3.2l-1.6 2-1.6-2v3.2zm10.1 0-2.4-2.7h1.6V9.2h1.6V12h1.6z"/></svg>');
 			gId('md-parse-toggle-icon').onclick=()=>gId('md-parse-toggle').click();
 		}
 		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
