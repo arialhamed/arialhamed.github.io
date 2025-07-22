@@ -1080,6 +1080,73 @@ gId('create-folder').onclick=async()=>{
 		})
 	}
 }
+gId('create-file').onclick=()=>{
+	// let fileName=prompt('New file name');
+	// if(fileName!=null){
+		const fileDisplay=gId('file-display');
+		fileDisplay.innerHTML='<span class="loader"></span>';
+		fileDisplay.insertAdjacentHTML('beforeend',`
+			<div id="fd-header">
+				<input id="fd-title" type="text" placeholder="Enter name of new file here" />
+				<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+			</div>
+			<div id="fd-nav">
+				<div id="fd-nav-space"></div>
+				<input id="word-wrap-toggle" type="checkbox" style="display:none;" checked><svg id="word-wrap-toggle-icon" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M25 4H5A1 1 0 005 6H25a1 1 0 000-2m0 4H5a1 1 0 000 2H25a1 1 0 000-2M5 12a1 1 0 000 2H21a1 1 0 010 6H19l2-2a.5.5 0 00-1.41-1.41l-3 3c-1 1-1 1.82 0 2.82l3 3A.5.5 0 0021 24l-2-2h2a1 1 0 00.5-10H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m0 4a1 1 0 000 2h8a1 1 0 000-2H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m19 0a1 1 0 000 2h1a1 1 0 000-2H24"/></svg>
+				<svg id="save-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>
+			</div>
+			<div id="fd-text"></div>
+		`.trim());
+
+		// Set navigation functions
+		gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
+		gId('word-wrap-toggle-icon').onclick=()=>gId('word-wrap-toggle').click();
+
+		// Nav for file-display, fade-in/fade-out
+		let fdNavFade;
+		fileDisplay.onmousemove=e=>{
+			clearTimeout(fdNavFade);
+			if(gId('fd-nav'))gId('fd-nav').style.opacity=1;
+			fdNavFade=setTimeout(()=>{if(gId('fd-nav'))gId('fd-nav').style.opacity=0},1500)
+		};
+		fileDisplay.onmousemove();
+
+		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
+		require(['vs/editor/editor.main'],()=>{
+			const model=monaco.editor.createModel('',undefined);
+			const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true,wordWrap:'on',renderWhitespace:true,insertSpaces:false,tabSize:4,indentSize:4,selectionClipboard:false,compactMode:true,renderGutterMenu:false,renderSideBySide:false});
+			editor.setModel(model);
+			// editor.setModel({original:monaco.editor.createModel(atob(thisFile.content)),modified:model});
+
+			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
+			gId('save-file').onclick=async()=>{
+				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+				githubCommit([{content:`data:text/*;base64,${btoa(model.getValue())}`,path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],browsingCurrentRepo,refId);
+			}
+
+			new MutationObserver((e,o)=>{editor.dispose();model.dispose();o.disconnect()}).observe(gId('file-display'),{attributes:true,childList:true})
+		});
+
+		
+
+		// let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+		// let uploadedFileURL = `https://api.github.com${locationId}/${fileName}?ref=${refId}`;
+		// fetch(
+		// 	uploadedFileURL, {
+		// 	headers: {Authorization: `token ${github_token}`},
+		// 	method: 'PUT',
+		// 	body: JSON.stringify({
+		// 		message: `Create this file with GitHub API at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
+		// 		content: ''
+		// 	})
+		// })
+		// .then(r=>r.json())
+		// .then(j=>{
+		// 	gId('explore-refresh').onclick();
+		// 	raiseToast(`"${fileName}" file has been created`)
+		// })
+	// }
+}
 gId('select-branch').onchange=e=>{
 	browsingTree=browsingTree.map(v=>v.includes('?ref=')?`${v.split('?ref=',1)[0]}?ref=${e.target.value}`:v)
 	window.location.href = `#${browsingTree.pop()}`
