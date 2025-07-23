@@ -1158,7 +1158,6 @@ const github_logout=()=>{localStorage.removeItem('github_token');window.location
 // Browsing controls
 gId('back-to-start').onclick=()=>window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
 gId('explore-refresh').onclick=()=>window.onhashchange();
-gId('create-file').onclick='';
 gId('upload-file').onclick=()=>uploadFileInput.click();
 gId('select-all').onclick=e=>{
 	const allSelects=document.querySelectorAll('.explore-cell > input[type="checkbox"]');
