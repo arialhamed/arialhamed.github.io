@@ -1122,7 +1122,7 @@ gId('create-file').onclick=()=>{
 			gId('save-file').onclick=async()=>{
 				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
 				githubCommit([{content:`data:text/*;base64,${btoa(model.getValue())}`,path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],browsingCurrentRepo,refId)
-				.then(r=>{window.onhashchange();showFile(`https://api.github.com${locationId}/${gId('fd-title').value}${refId}`)})
+				.then(r=>{window.onhashchange();showFile(`https://api.github.com${locationId}/${gId('fd-title').value}?ref=${refId}`)})
 			}
 
 			new MutationObserver((e,o)=>{editor.dispose();model.dispose();o.disconnect()}).observe(gId('file-display'),{attributes:true,childList:true})
