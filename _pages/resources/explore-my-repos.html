@@ -58,6 +58,7 @@ videojs: true
 		<input id="multi-select" type="checkbox" style="display:none"><label title="Start multiple selection" for="multi-select" class="float-left"><svg height="2.5em" style="color:inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M6 1C11 1 11 1 11 6 11 11 11 11 6 11 1 11 1 11 1 6 1 1 1 1 6 1V3C9 3 9 3 9 6 9 9 9 9 6 9 3 9 3 9 3 6 3 3 3 3 6 3M6 13C11 13 11 13 11 18 11 23 11 23 6 23 1 23 1 23 1 18 1 13 1 13 6 13M8.895 14.347 10.461 16.121 4.982 21.547 1.591 18.678 2.817 17.034 4.696 18.939 8.895 14.347M13 6C13 5 13 5 15 5H21C23 5 23 5 23 6 23 7 23 7 21 7H15C13 7 13 7 13 6M13 12C13 11 13 11 15 11H21C23 11 23 11 23 12 23 13 23 13 21 13H15C13 13 13 13 13 12M13 18C13 17 13 17 15 17H21C23 17 23 17 23 18 23 19 23 19 21 19H15C13 19 13 19 13 18"/></svg></label>
 		<svg title="Select all" id="select-all" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 11 11"><path fill-rule="evenodd" fill="currentColor" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3V3M4 4H7V7H4V4"/></svg>
 		<svg title="Delete item" id="delete-item" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
+		<svg title="Rename folder" id="rename-folder" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"></path></svg>
 
 		<input id="toggle-view" type="checkbox" style="display:none"><label title="Toggle view" for="toggle-view" class="float-right">
 			<svg id="list-view" style="color:inherit" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>
@@ -286,11 +287,11 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	left:.5rem;right:.5rem;bottom:.5rem;
 	display:flex;
 	flex-direction:row;
-	height:5rem/*min(5rem,15vw)*/;
+	height:5rem;
 	gap:.5rem;
 	pointer-events:none;
 }
-#fd-nav:hover{opacity:1!important}
+#fd-nav:hover,#file-display:has(#fd-title:focus)>#fd-nav{opacity:1!important}
 @media(hover:none){#fd-nav{opacity:1!important}}
 #fd-nav>svg{background-color:#0005;color:var(--font-color);border:1px solid var(--font-color);border-radius:.5rem;height:inherit;pointer-events:all}
 #fd-nav>svg:hover{scale:.9}
@@ -879,21 +880,20 @@ const showFile=async(inUrl)=>{
 
 		if(thisFile.name.toLowerCase().endsWith('.md')){
 			// The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
-			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(atob(thisFile.content))}</span>`)
+			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(new TextDecoder().decode(Uint8Array.from(atob(thisFile.content),c=>c.charCodeAt(0))))}</span>`)
 			gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m19.2 17.2H4.8c-.7 0-1.2-.6-1.2-1.2V8c0-.7.6-1.2 1.2-1.2h14.4c.7 0 1.2.6 1.2 1.2v8c0 .7-.5 1.2-1.2 1.2zM4.8 7.6c-.2 0-.4.2-.4.4v8c0 .2.2.4.4.4h14.4c.2 0 .4-.2.4-.4V8c0-.2-.2-.4-.4-.4H4.8zM6 14.8V9.2h1.6l1.6 2 1.6-2h1.6v5.5h-1.6v-3.2l-1.6 2-1.6-2v3.2zm10.1 0-2.4-2.7h1.6V9.2h1.6V12h1.6z"/></svg>');
 			gId('md-parse-toggle-icon').onclick=()=>gId('md-parse-toggle').click();
 		}
 		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
 		require(['vs/editor/editor.main'],()=>{
-			const model=monaco.editor.createModel(atob(thisFile.content),undefined,monaco.Uri.file(thisFile.name));
+			const model=monaco.editor.createModel(new TextDecoder().decode(Uint8Array.from(atob(thisFile.content),c=>c.charCodeAt(0))),undefined,monaco.Uri.file(thisFile.name));
 			const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true,wordWrap:'on',renderWhitespace:true,insertSpaces:false,tabSize:4,indentSize:4,selectionClipboard:false,compactMode:true,renderGutterMenu:false,renderSideBySide:false});
 			editor.setModel(model);
-			// editor.setModel({original:monaco.editor.createModel(atob(thisFile.content)),modified:model});
 
 			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
 			gId('save-file').onclick=async()=>{
 				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
-				githubCommit([{content:btoa(model.getValue()),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'File saved');
+				githubCommit([{content:btoa(String.fromCharCode(...new TextEncoder().encode(model.getValue()))),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'File saved');
 			}
 
 			new MutationObserver((e,o)=>{editor.dispose();model.dispose();o.disconnect()}).observe(gId('file-display'),{attributes:true,childList:true})
@@ -1114,17 +1114,19 @@ gId('create-file').onclick=()=>{
 		const model=monaco.editor.createModel('',undefined);
 		const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true,wordWrap:'on',renderWhitespace:true,insertSpaces:false,tabSize:4,indentSize:4,selectionClipboard:false,compactMode:true,renderGutterMenu:false,renderSideBySide:false});
 		editor.setModel(model);
-		// editor.setModel({original:monaco.editor.createModel(atob(thisFile.content)),modified:model});
 
 		gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
 		gId('save-file').onclick=async()=>{
 			let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
-			githubCommit([{content:btoa(model.getValue()),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'New file created')
+			githubCommit([{content:btoa(String.fromCharCode(...new TextEncoder().encode(model.getValue()))),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'New file created')
 			.then(r=>{window.onhashchange();showFile(`https://api.github.com${locationId}/${gId('fd-title').value}?ref=${refId}`)})
 		}
 
 		new MutationObserver((e,o)=>{editor.dispose();model.dispose();o.disconnect()}).observe(gId('file-display'),{attributes:true,childList:true})
 	});
+}
+gId('rename-folder').onclick=()=>{
+	alert('rename folder not here yet')
 }
 gId('select-branch').onchange=e=>{
 	browsingTree=browsingTree.map(v=>v.includes('?ref=')?`${v.split('?ref=',1)[0]}?ref=${e.target.value}`:v)
