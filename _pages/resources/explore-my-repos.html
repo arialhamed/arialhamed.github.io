@@ -487,6 +487,7 @@ const pathPlaying=`<path stroke="currentColor" stroke-linecap="round" stroke-lin
 const privateIcon=`<svg title="This repository is private" class="icon-private" height="1.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z" clip-rule="evenodd"/></svg>`
 const forkIcon=`<svg title="This repository is a fork" class="icon-fork" height="1.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5 6a3 3 0 1 1 4 2.83V10a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8.83a3.001 3.001 0 1 1 2 0V10a3 3 0 0 1-3 3h-1v2.17a3.001 3.001 0 1 1-2 0V13h-1a3 3 0 0 1-3-3V8.83A3.001 3.001 0 0 1 5 6Z" clip-rule="evenodd"/></svg>`
 const uploadFileInput=Object.assign(document.createElement('input'),{type:'file',multiple:true});
+const monacoOptions={theme:'vs-dark',automaticLayout:true/*Resizable*/,wordWrap:'on',insertSpaces:false/*Prevent spaces, put tabs instead*/,tabSize:4,selectionClipboard:false/*For Linux*/,detectIndentation:false/*Indent size of 2 is kinda stupid*/}
 
 // Browsing control variables
 let debog;
@@ -887,7 +888,7 @@ const showFile=async(inUrl)=>{
 		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
 		require(['vs/editor/editor.main'],()=>{
 			const model=monaco.editor.createModel(atobPro(thisFile.content),undefined,monaco.Uri.file(thisFile.name));
-			const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true,wordWrap:'on',renderWhitespace:true,insertSpaces:false,tabSize:4,indentSize:4,selectionClipboard:false,compactMode:true,renderGutterMenu:false,renderSideBySide:false});
+			const editor=monaco.editor.create(gId('fd-text'),monacoOptions);
 			editor.setModel(model);
 
 			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
@@ -1112,7 +1113,7 @@ gId('create-file').onclick=()=>{
 	require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
 	require(['vs/editor/editor.main'],()=>{
 		const model=monaco.editor.createModel('',undefined);
-		const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true,wordWrap:'on',renderWhitespace:true,insertSpaces:false,tabSize:4,indentSize:4,selectionClipboard:false,compactMode:true,renderGutterMenu:false,renderSideBySide:false});
+		const editor=monaco.editor.create(gId('fd-text'),monacoOptions);
 		editor.setModel(model);
 
 		gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
