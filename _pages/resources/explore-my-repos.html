@@ -880,20 +880,20 @@ const showFile=async(inUrl)=>{
 
 		if(thisFile.name.toLowerCase().endsWith('.md')){
 			// The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
-			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(new TextDecoder().decode(Uint8Array.from(atob(thisFile.content),c=>c.charCodeAt(0))))}</span>`)
+			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(atobPro(thisFile.content))}</span>`)
 			gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m19.2 17.2H4.8c-.7 0-1.2-.6-1.2-1.2V8c0-.7.6-1.2 1.2-1.2h14.4c.7 0 1.2.6 1.2 1.2v8c0 .7-.5 1.2-1.2 1.2zM4.8 7.6c-.2 0-.4.2-.4.4v8c0 .2.2.4.4.4h14.4c.2 0 .4-.2.4-.4V8c0-.2-.2-.4-.4-.4H4.8zM6 14.8V9.2h1.6l1.6 2 1.6-2h1.6v5.5h-1.6v-3.2l-1.6 2-1.6-2v3.2zm10.1 0-2.4-2.7h1.6V9.2h1.6V12h1.6z"/></svg>');
 			gId('md-parse-toggle-icon').onclick=()=>gId('md-parse-toggle').click();
 		}
 		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
 		require(['vs/editor/editor.main'],()=>{
-			const model=monaco.editor.createModel(new TextDecoder().decode(Uint8Array.from(atob(thisFile.content),c=>c.charCodeAt(0))),undefined,monaco.Uri.file(thisFile.name));
+			const model=monaco.editor.createModel(atobPro(thisFile.content),undefined,monaco.Uri.file(thisFile.name));
 			const editor=monaco.editor.create(gId('fd-text'),{theme:'vs-dark',automaticLayout:true,wordWrap:'on',renderWhitespace:true,insertSpaces:false,tabSize:4,indentSize:4,selectionClipboard:false,compactMode:true,renderGutterMenu:false,renderSideBySide:false});
 			editor.setModel(model);
 
 			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
 			gId('save-file').onclick=async()=>{
 				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
-				githubCommit([{content:btoa(String.fromCharCode(...new TextEncoder().encode(model.getValue()))),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'File saved');
+				githubCommit([{content:btoaPro(model.getValue()),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'File saved');
 			}
 
 			new MutationObserver((e,o)=>{editor.dispose();model.dispose();o.disconnect()}).observe(gId('file-display'),{attributes:true,childList:true})
@@ -1118,7 +1118,7 @@ gId('create-file').onclick=()=>{
 		gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
 		gId('save-file').onclick=async()=>{
 			let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
-			githubCommit([{content:btoa(String.fromCharCode(...new TextEncoder().encode(model.getValue()))),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'New file created')
+			githubCommit([{content:btoaPro(model.getValue()),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'New file created')
 			.then(r=>{window.onhashchange();showFile(`https://api.github.com${locationId}/${gId('fd-title').value}?ref=${refId}`)})
 		}
 

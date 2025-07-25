@@ -39,6 +39,8 @@
 
 	const clamp=(i,c,a)=>Math.max(Math.min(c,a),i);
 	const shuffle=(t)=>{let f=t.length,n,o=t;for(;0<f;)n=Math.floor(Math.random()*f),f--,[o[f],o[n]]=[o[n],o[f]];return o}
+	const atobPro=a=>new TextDecoder().decode(Uint8Array.from(atob(a),c=>c.charCodeAt(0)));
+	const btoaPro=a=>btoa(String.fromCharCode(...new TextEncoder().encode(a)));
 
 	// For uwu
 	window.onload = function(){
