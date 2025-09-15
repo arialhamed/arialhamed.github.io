@@ -1,0 +1,1344 @@
+---
+title: "Arial's repository explorer"
+permalink: /resources/explore-my-repos-bleeding-edge/
+redirect_from:
+ - /edge
+layout: default
+prism: true
+music-metadata: true
+pdf: true
+videojs: true
+---
+
+<div id="explorer-fringe">
+	<span id="explorer-corner"></span>
+	<select id="select-branch" title="Select a branch"></select>
+	<div style="clear: both;"></div>
+</div>
+
+<!-- title -->
+<a id="current-title"></a>
+
+<!-- description -->
+<div>
+	<span id="current-description"></span>
+	<svg id="edit-description" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="2em" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"/></svg>
+</div>
+
+<!-- browsing controls -->
+<!-- <svg height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3M4 4H7V7H4"/></svg> -->
+<div id="control-icons">
+	<div>
+		<svg title="Back" id="explore-back" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg>
+		<svg title="Back to start" id="back-to-start" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8 5 12 l4 4 M16 8 12 12 l4 4"/></svg>
+		<svg title="Refresh" id="explore-refresh" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.7 7.7A7.1 7.1 0 0 0 5 10.8M18 4v4h-4m-7.7 8.3A7.1 7.1 0 0 0 19 13.2M6 20v-4h4"/></svg>
+		<div id="search-field">
+			<input type="search" onkeyup="searchContents()" onclick="searchContents()" id="search-input" placeholder="start typing here to search">
+			<svg onclick="gId('search-input').value='';gId('search-input').focus();searchContents()" height="2em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+		</div>
+	</div>
+	<div>
+		<svg title="New file" id="create-file" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg>
+		<svg title="New folder" id="create-folder" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg>
+		<svg title="Upload here" id="upload-file" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg>
+		<input id="multi-select" type="checkbox" style="display:none"><label title="Start multiple selection" for="multi-select" class="float-left"><svg height="2.5em" style="color:inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M6 1C11 1 11 1 11 6 11 11 11 11 6 11 1 11 1 11 1 6 1 1 1 1 6 1V3C9 3 9 3 9 6 9 9 9 9 6 9 3 9 3 9 3 6 3 3 3 3 6 3M6 13C11 13 11 13 11 18 11 23 11 23 6 23 1 23 1 23 1 18 1 13 1 13 6 13M8.895 14.347 10.461 16.121 4.982 21.547 1.591 18.678 2.817 17.034 4.696 18.939 8.895 14.347M13 6C13 5 13 5 15 5H21C23 5 23 5 23 6 23 7 23 7 21 7H15C13 7 13 7 13 6M13 12C13 11 13 11 15 11H21C23 11 23 11 23 12 23 13 23 13 21 13H15C13 13 13 13 13 12M13 18C13 17 13 17 15 17H21C23 17 23 17 23 18 23 19 23 19 21 19H15C13 19 13 19 13 18"/></svg></label>
+		<svg title="Select all" id="select-all" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 11 11"><path fill-rule="evenodd" fill="currentColor" d="M1 1H2V2H1M3 1H4V2H3M5 1H6V2H5M7 1H8V2H7M9 1h1V2H9M9 3h1V4H9M9 5h1V6H9M9 7h1V8H9M9 9h1v1H9M7 9H8v1H7M5 9H6v1H5M3 9H4v1H3M1 9H2v1H1M1 7H2V8H1M1 5H2V6H1M1 3H2V4H1M3 3H8V8H3V3M4 4H7V7H4V4"/></svg>
+		<svg title="Delete item" id="delete-item" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
+		<svg title="Rename folder" id="rename-folder" class="float-left" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"></path></svg>
+
+		<input id="toggle-view" type="checkbox" style="display:none"><label title="Toggle view" for="toggle-view" class="float-right">
+			<svg id="list-view" style="color:inherit" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/></svg>
+			<svg id="icon-view" style="color:inherit" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/></svg>
+		</label>
+		<svg title="Download as repository as .zip" id="download-repo" class="float-right" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/></svg>
+		<label title="Pin this toolbar" for="pin-explorer-nav" class="float-right">
+			<svg id="pin-explorer-nav-unpinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0 0v6M9.5 9A2.5 2.5 0 0 1 12 6.5"/></svg>
+			<svg id="pin-explorer-nav-pinned" height="2.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5 9a7 7 0 1 1 8 6.93V21a1 1 0 1 1-2 0v-5.07A7.001 7.001 0 0 1 5 9Zm5.94-1.06A1.5 1.5 0 0 1 12 7.5a1 1 0 1 0 0-2A3.5 3.5 0 0 0 8.5 9a1 1 0 0 0 2 0c0-.398.158-.78.44-1.06Z" clip-rule="evenodd"/></svg>
+		</label><input id="pin-explorer-nav" type="checkbox" style="display:none">
+		<input id="show-images-in-list-view" type="checkbox" style="display:none"><label title="Show images in list-view" for="show-images-in-list-view" class="float-right" style="color:var(--anchor-color)">
+			<svg id="hide-images" aria-hidden="true" style="color:inherit" height="2.5em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+			<svg id="show-images" aria-hidden="true" style="color:inherit" height="2.5em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M13 10a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H14a1 1 0 0 1-1-1Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12c0 .556-.227 1.06-.593 1.422A.999.999 0 0 1 20.5 20H4a2.002 2.002 0 0 1-2-2V6Zm6.892 12 3.833-5.356-3.99-4.322a1 1 0 0 0-1.549.097L4 12.879V6h16v9.95l-3.257-3.619a1 1 0 0 0-1.557.088L11.2 18H8.892Z" clip-rule="evenodd"/></svg>
+		</label>
+		<div style="clear:both"></div>
+	</div>
+	<!-- <div style="clear: both"></div> -->
+</div>
+
+<!-- all cells -->
+<div id="explore-content"></div> <!-- alternative: list-group -->
+<br>
+
+<!-- under the cells, displaying all except images already in cells -->
+<div id="file-display">
+</div>
+
+<!-- <div id="commit-backdrop"></div> -->
+
+<script type="text/javascript" src="https://arialhamed.github.io/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://arialhamed.github.io/static/video-js-8.21.1/video.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js" integrity="sha256-0SGl1PJNDyJwcV5T+weg2zpEMrh7xvlwO4oXgvZCeZk=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+<style>
+/* GitHub credits & login, and branch toggle */
+#explorer-fringe{cursor:default;opacity:.65;display:flex;flex-direction:row}
+#github-auth{cursor:pointer}
+#github-auth:hover{color:white}
+#explorer-corner{font-size:80%;width:100%;text-align:left;float:left;color:white;overflow:scroll;white-space:nowrap}
+#explorer-corner > a{margin:0 .5px}
+#select-branch{max-width:fit-content;text-align:center;float:right;color:var(--font-color);background-color:var(--nav-overlay);border-radius:1em}
+#select-branch:empty{visibility:hidden}
+
+/* Title & description */
+#current-title{
+	text-decoration:underline;
+	text-align:center;
+	font-size:200%;
+	font-weight:500;
+	margin:.1em 1.5em;
+	color:var(--font-color);
+	display:flex;
+	flex-direction:column;
+	line-height:1.8em;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+#current-title:hover{color:var(--anchor-color)}
+#current-description{line-height:2em;/*Repository description*/}
+#current-description svg{vertical-align:text-top;/*Private & fork icons*/}
+#current-description + svg{float:right;/*Edit description icon*/}
+#edit-description{cursor:pointer}
+
+/* Explorer control icons & search */
+#control-icons{position:static;top:0;padding:.5em 0}
+#control-icons svg{color:var(--anchor-color);border-radius:.5em;cursor:pointer}
+#control-icons svg:hover{transform:scale(1.3)}
+#control-icons svg:active{background-color:var(--overlay-hover)}
+
+/* Items within explore-content */
+:has(>:nth-child(2))>.loader{display:none;/*Hide when there are at least 2 items in #explore-content or show-* (i.e. if .loader is not alone)*/}
+#explore-content>.loader{margin:2em auto;grid-column:1 / 5;/*"rowspan" for grid display*/}
+#explore-content img{/*Only explore-content image descendants*/max-width:100%;margin:auto}
+#explore-content *{transition: none}/*Remove weird lag that can happen sometimes*/
+/* .explore-cell:hover{background-color:var(--overlay-hover);color:var(--anchor-color)} */
+/* .explore-cell:hover .v-repo-details>svg{border:1px dashed #fff2}Highlight fork & private icons in hover */
+/* .explore-cell{
+	background-color:var(--overlay);
+	user-select:none;
+	cursor:pointer;
+	position:relative;
+	margin:2.5px;
+	padding:.2em;
+	padding-left:.5em;
+	display:flex;
+	flex-direction:row;
+	gap:5px;
+	border-radius:8px;
+} */
+/* .explore-cell:has(img){padding:0} */
+/* .explore-cell:has(img) .v-name{padding:.2rem .5rem} */
+.v-name{width:100%;overflow-wrap:anywhere}
+.v-repo-title{width:100%;overflow-wrap:anywhere;margin:auto}
+.v-repo-details{display:flex;flex-direction:row;}
+.v-repo-details>div{text-align:right;max-width:fit-content;display:flex;flex-direction:column}
+.v-repo-details>div>span{font-size:50%;min-width:max-content}
+.v-size{font-size:70%;max-width:fit-content;text-align:right;width:100%}
+.v-repo-releases{margin-left:.5rem}
+.v-repo-releases:hover{scale:1.5}
+
+/*Toggle multi-select*/
+#multi-select:checked + label{animation:hihi 1s linear 0s infinite normal}
+@keyframes hihi{0%{rotate:0deg}10%{rotate:-10deg}20%{rotate:10deg}30%{rotate:-10deg}40%{rotate:10deg}50%{rotate:0deg}}
+#control-icons:has(#multi-select:checked) + #explore-content {
+	input[type="checkbox"]{display:block}
+	label{display:block}
+	.v-name{padding:0 1.2em}
+}
+#control-icons:has(#multi-select:checked) #delete-item{pointer-events:unset;color:var(--anchor-color)!important}
+#control-icons:has(#multi-select:checked) #select-all{pointer-events:unset;color:var(--anchor-color)!important}
+/* .explore-cell > input[type="checkbox"]{transform:scale(1.5)translate(.4em,.4em);display:none;margin:0;margin-right:.5em;position:absolute;top:0;left:0} */
+/* .explore-cell > label{position:absolute;width:100%;height:100%;display:none;margin-top:-.2rem;left:0} */
+
+/*Toggle pin*/
+#control-icons:has(#pin-explorer-nav:checked){position:sticky;z-index:2;backdrop-filter:blur(5px);/*background:linear-gradient( rgb(0, 0, 0), rgba(0, 0, 0, 0) );*/}
+#control-icons:has(#pin-explorer-nav:checked) #pin-explorer-nav-unpinned{display:none/*Hide unpinned icon when pinned*/}
+#control-icons:has(#pin-explorer-nav:not(:checked)) #pin-explorer-nav-pinned{display:none/*Hide pinned icon when unpinned*/}
+
+/*Grid view*/
+#control-icons:has(#toggle-view:checked) #list-view{display:none}
+#control-icons:has(#toggle-view:checked) + #explore-content{
+	display:grid;
+	grid-template-columns:repeat(4, 25%);
+	.explore-cell{flex-direction:column;text-align:center}
+	.explore-cell:has(img) .v-name{font-size:70%;}
+	.v-size{margin:0 auto}
+}
+/*List view*/
+#control-icons:has(#toggle-view:not(:checked)) #icon-view{display:none}
+#control-icons:has(#toggle-view:not(:checked)) + #explore-content{
+	display:flex;
+	flex-direction:column;
+	.explore-cell{text-align:left}
+}
+
+/*Show images*/
+#show-images-in-list-view{color:var(--anchor-color)}
+#control-icons:has(#show-images-in-list-view:checked) #hide-images{display:none}
+#control-icons:has(#show-images-in-list-view:checked) + #explore-content > .explore-cell:has(img){
+	flex-direction:column;
+	.v-name{text-align:center}
+	.v-size{display:none}
+}
+#control-icons:has(#show-images-in-list-view:not(:checked)) #show-images{display:none}
+#control-icons:has(#show-images-in-list-view:not(:checked)) + #explore-content img{display:none}
+
+.float-left{float:left}
+.float-right{float:right}
+#delete-item{color:var(--anchor-color-hover)!important;pointer-events:none}
+#select-all{color:var(--anchor-color-hover)!important;pointer-events:none}
+
+
+*[href='']{pointer-events:none;color:var(--anchor-color-hover);/*Disable if at all-repo view*/}
+#explore-refresh:hover{animation-play-state:running}
+#explore-refresh{animation:explore-refresh-rotate 1s linear 0s infinite;animation-play-state:paused}
+@keyframes explore-refresh-rotate{from{rotate:0deg}to{rotate:360deg}}
+#search-field{
+	display: flex;
+	height: 2.5em;
+	/* margin-bottom: .5em; */
+	background-color: rgba(0,0,0,0.2);
+	border-radius: 8px;
+}
+#search-field svg{/*Cancel icon*/
+	padding: .3em;
+	cursor: pointer;
+	height: inherit;
+	color: var(--anchor-color)
+}
+#search-field svg:hover{color:var(--font-color)}
+#search-input{
+	width: 100%;
+	height: inherit;
+	background-color: transparent;
+	color: var(--font-color);
+	border-width: 0px;
+	padding: .2em 0 .3em .5em;
+}
+
+
+/* Specific file styles when chosen to display */
+#file-display{
+	position:fixed;
+	top:0;bottom:0;left:0;right:0;
+	background-color:#0005;
+	display:flex;
+	flex-direction:column;
+	z-index:7;
+	overflow:scroll/*Enable scrolling for items in this div*/;
+	align-items:center;
+}
+body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll when file-display is shown*/}
+#file-display:not(:has(*)){display:none/*If there are no items in this div, hide it*/;}
+#fd-close{/*Close button for file display*/
+	color:var(--nav-font-color);
+	padding:.25em;
+}
+#fd-close,#fd-link{height:inherit;cursor:pointer;border:1px solid transparent;}
+#fd-link:hover,#fd-close:hover{border:1px dashed var(--nav-font-color-hover)}
+#fd-title{/*Title for file display*/
+	flex:1;
+	background-color:transparent;
+	border:none;
+	color:var(--font-color);
+	text-align:center;
+	font-size:inherit;
+}
+#fd-image-pagefit-container{/*Checkbox for images in file display*/
+	display:flex;flex-direction:row;
+	position:fixed;
+	top:3em;right:0;
+	height:3em;
+	background-color:var(--popup-background-color);
+	padding:0 1em;
+}
+#file-display:has(#fd-image-pagefit:checked) > #fd-image{overflow:auto;max-width:100%;/*Toggle Page Width of an image in file display*/}
+#fd-header{
+	width:100%;
+	display:flex;
+	flex-direction:row;
+	height:3em;
+	background-color:var(--popup-background-color);
+}
+#fd-nav{
+	z-index:6;
+	position:fixed;
+	left:.5rem;right:.5rem;bottom:.5rem;
+	display:flex;
+	flex-direction:row;
+	height:5rem;
+	gap:.5rem;
+	pointer-events:none;
+}
+#fd-nav:hover,#file-display:has(#fd-title:focus)>#fd-nav{opacity:1!important}
+@media(hover:none){#fd-nav{opacity:1!important}}
+#fd-nav>svg{background-color:#0005;color:var(--font-color);border:1px solid var(--font-color);border-radius:.5rem;height:inherit;pointer-events:all}
+#fd-nav>svg:hover{scale:.9}
+#fd-nav>svg:active{scale:.8;transition:none}
+#fd-nav-space{flex:1}
+#fd-audio-1{flex:1;display:flex;overflow:auto;justify-content:center;width:100%;}
+#fd-audio-thumbnail{max-width:100%;object-fit:contain;}
+#fd-audio-lyrics{
+	font-size:150%;
+	padding:0 1em;
+	flex:1;
+	background-image:url('https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif');
+	background-size:auto 100%;
+	background-repeat:no-repeat;
+	background-position:center center;
+	/* text-shadow:-.5px -.5px 0 black, .5px -.5px 0 black, -.5px .5px 0 black, .5px .5px 0 black; */
+	display:flex;
+	flex-direction:column;
+	overflow:scroll;
+	align-items:center;
+	scroll-behavior:smooth;
+	scroll-padding-top:calc(50% - .5em - 3px)/*Half of page - half of text height - padding top of line*/;
+}
+#fd-audio-lyrics > span{visibility:hidden;background-color:rgba(0,0,0,0.5);width:100%;text-align:center;margin:3px 0}
+#fd-audio-lyrics > span:first-child{margin-top:5em}
+#fd-audio-lyrics > span:last-child{margin-bottom:5em}
+#fd-audio-lyrics.show-lyrics > span{visibility:visible}
+#fd-audio-lyrics-toggle{width:5em;cursor:pointer}
+#fd-audio-lyrics-toggle:hover{scale:1.1}
+#fd-audio-1:has(#fd-audio-lyrics.show-lyrics) + #fd-audio-2 > #fd-audio-lyrics-toggle{fill:var(--anchor-color)}
+#fd-audio-volume{
+	width:5em;
+	accent-color:var(--anchor-color);
+	writing-mode:vertical-lr;
+	direction:rtl;
+}
+#fd-audio-2{
+	width:100%;
+	display:flex;
+	flex-direction:row;
+	justify-content:space-around;
+}
+#fd-audio-2 > div{
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+}
+#fd-audio-2 > div > span{font-size:150%;}
+#fd-audio-toggle{width:10em;}
+#fd-audio-toggle:hover,#fd-audio-shuffle:hover,#fd-audio-loop:hover{scale:1.1;cursor:pointer;}
+#fd-audio-slider{
+	accent-color:var(--anchor-color);
+	width:calc(100% - 10rem);
+	height:5rem;
+}
+#fd-audio-loading{
+	position:fixed;
+	left:0;
+	bottom:0;
+	height:5px;
+	z-index:-1;
+	background-color:var(--anchor-color-hover)
+}
+#fd-text{flex:1;width:100%}
+#fd-text *{transition:none}
+
+#show-audio{
+	width: 90%;
+	accent-color: var(--anchor-color);
+}
+.explore-display-audio{
+	display: block;
+	text-align: center;
+	position: sticky;
+	position: -webkit-sticky;
+	padding: 1em;
+	bottom: 1em;
+	background-color: #0007;
+	background-image: url("");
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-blend-mode: overlay;
+	width: calc(100% - 2em);
+	z-index: 4;
+	border-radius: 2em;
+	margin: auto;
+}
+#explore-display-close:hover{transform: rotate(180deg) scale(1.5)}
+#explore-display-close{
+	float: right;
+	cursor: pointer;
+	width: 3em;
+	position: fixed;
+	right: 1em;
+	bottom: 1em;
+}
+.explore-display-image #explore-display-close{
+	top: unset;
+	left: 1.5em;
+	/* bottom: -1.5em; */
+}
+.explore-display-audio #explore-display-close{
+	top: -.2em;
+	right: -.5em;
+}
+#explore-display-close + a{
+	font-size: 175%;
+	position: relative;
+	word-wrap: anywhere;
+}
+/* .explore-display-image #explore-display-close + a{width:calc(100% - 3em);display:block} */
+.explore-display-audio #explore-display-close + a{left:0;padding:.4em;border-radius:.75em;-webkit-box-decoration-break:clone;-o-box-decoration-break:clone;box-decoration-break:clone}
+#commit-backdrop{
+	position:fixed;
+	top:0;left:0;bottom:0;right:0;
+	background-color:#0005;
+	backdrop-filter:blur(5px);
+	text-align:center;
+	line-height:100vh;
+	z-index:8;
+	font-size:300%;
+}
+
+/* Audio-specific controls */
+#audio-controls{display:flex;height:6em}
+#audio-controls svg{cursor:pointer}
+#audio-controls span{font-family:var(--bs-font-monospace);font-size:1.2em;line-height:1em;margin-top:1em}
+#audio-controls *:first-child{margin:auto;margin-right:0}
+#audio-controls *:last-child{margin:auto;margin-left:0}
+#audio-controls svg{transition:all .1s}
+#audio-controls svg:hover{transform:scale(1.1)}
+#audio-controls svg:active{transform:scale(.9)}
+#audio-decrease, #audio-increase{height:60%}
+#audio-increase{margin-left:.25em}
+#audio-volume{display:inline}
+#audio-volume div{display:flex;flex-direction:row}
+#audio-volume div *{margin:auto;width:2em}
+#audio-music{width:3em}
+
+/* Markdown-specific controls */
+#md-parsed{
+	text-align:initial;
+	padding:1rem;
+	background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='2' stroke-dasharray='40%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+	width:100%;
+	flex:1;
+	display:flex;
+	flex-direction:column;
+	background-color:var(--background-solid);
+}
+#non-md{flex:1;width:100%;display:flex;flex-direction:column}
+#md-parse-toggle-icon{right:10rem}
+#file-display:has(#md-parse-toggle:checked)>#fd-text{display:none}
+#file-display:not(:has(#md-parse-toggle:checked))>#md-parsed{display:none}
+
+#word-wrap-toggle-icon{right:5rem}
+
+/* Releases */
+#release-video{width:100%;height:calc(100% - 5rem)}
+.explore-cell>details{width:100%}
+.explore-cell:has(details):hover{background-color:var(--overlay);color:var(--font-color)}
+.explore-cell>details>summary:hover,.explore-cell>details>div>div:hover{background-color:var(--overlay-hover);color:var(--anchor-color)}
+
+#explore-content{--gap:5px;--border-radius:8px;gap:var(--gap)}
+details{
+	border:0px solid var(--anchor-color-hover);
+	user-select:none;
+	cursor:pointer;
+	display:flex;
+	flex-direction:column;
+}
+
+
+.explore-cell{
+	background-color:var(--overlay);
+	user-select:none;
+	cursor:pointer;
+	position:relative;
+	padding:.2em;
+	padding-left:.5em;
+	display:flex;
+	flex-direction:row;
+	gap:5px;
+	border-radius:var(--border-radius);
+	flex-wrap:wrap;
+	&:hover{background-color:var(--overlay-hover);color:var(--anchor-color)}
+	&:hover .v-repo-details>svg{border:1px dashed #fff2}/*Highlight fork & private icons in hover*/
+}
+details>summary{background-color:var(--overlay);padding:.2em;padding-left:.5em;border-radius:var(--border-radius)}
+details[open]>summary{border-bottom-left-radius:0}
+summary>div{float:right;display:flex;flex-direction:row;gap:3px}/*Section to the right of summary label*/
+details:has(>summary:hover,>div>.spacer:hover){>summary,>div>.spacer,>div>.spacer::after{background-color:var(--overlay-hover)}}/*Highlight detail's summary & spacer simultaneously*/
+details:has(>input[type=button]:focus-within){>summary,>div>.spacer,>div>.spacer::after{background-color:var(--overlay-focus)}}
+details>div{display:flex;flex-direction:row-reverse}
+details>div>div:first-child{display:flex;flex-direction:column;flex:1;gap:var(--gap);padding-top:var(--gap);padding-left:var(--gap)}
+.spacer{background-color:var(--overlay);width:1em;border-bottom-left-radius:var(--border-radius);border-bottom-right-radius:var(--border-radius)}
+.spacer::after{content:"";display:block;position:absolute;background-color:var(--overlay);width:calc(var(--border-radius) + var(--gap));height:calc(var(--border-radius) + var(--gap));mask-image:radial-gradient(circle at 100% 100%, transparent 0, transparent calc(var(--border-radius) + var(--gap)), black calc(var(--border-radius) + var(--gap)));margin-left:1em}
+.explore-cell>span:first-child{flex:1;overflow:hidden;overflow:hidden;text-overflow:ellipsis;width:1px}
+.tree-size{font-size:70%}
+.blob-size{font-size:70%}
+.v-folder-icon{height:1em}
+/* .explore-cell>label,summary>div>label{width:1.5em;height:1.5em}
+.ellipsis-icon{border-radius:5px;vertical-align:unset}
+.ellipsis-icon:hover{background-color:var(--overlay-hover)} */
+#explore-content input[type=button]{scale:0;position:absolute}/*The most efficient way to hide a button without causing to not be a button 😬*/
+/* .item-options{position:absolute;display:none;flex-direction:column;padding:2px;gap:2px;width:max-content;border-radius:7px;z-index:5}
+.item-options>div{display:flex;flex-direction:row;height:1.5em;background-color:var(--overlay);backdrop-filter:blur(1px)}
+.item-options>div:hover{background-color:var(--overlay-hover)}
+.item-options>div>span{color:var(--font-color)}
+.item-options>div>svg,.item-options>div>span:hover{color:var(--anchor-color)} */
+summary>div>.item-options{right:3em}
+a>.item-options{right:2em}
+.item-options>div>svg{width:1.5em}
+input[type=button]:focus-within+.item-options{display:flex}
+</style>
+<script>
+
+// Third-party library objects
+const mdConverter=new remarkable.Remarkable({html: true}); // Parse markdown text
+const modules = {}
+// videojs.Vhs.xhr.onRequest(options=>{
+// 	// if(!options.headers)options.headers = {};
+// 	// options.headers.Authorization=`token ${github_token}`; // Common format for JWTs
+// 	options.beforeSend=xhr=>xhr.setRequestHeader('Authorization',`token ${github_token}`);
+// 	console.log('Adding Authorization header to request:', options.uri);
+// 	return options;
+// });
+
+// Constants
+const extV=['.webm','.mp4','.mov','.wmv','.avi','.flv','.swf','.mkv','.webm'];
+const extS=['.3gp','.aa','.aac','.aax','.act','.aiff','.alac','.m4a','.amr','.ape','.au','.awb','.dss','.dvf','.flac','.gsm','.iklax','.ivs','.m4b','.m4p','.mmf','.movpkg','.mp3','.mpc','.msv','.nmf','.ogg','.opus','.ra','.raw','.rf64','.tta','.voc','.vox','.wav','.wma','.wv','.8svx','.cda','.oga','.mogg','.rm'];
+const extA=['.7z','.zip','.apk','.apks','.xapk','.arc','.ark','.jar','.zpaq','.zip','.tar.gz','.tar.bz2','.tgz','.rar','.wad','.pk3','.exe'];
+const ext3=['.3mf','.stl','.glb','.gltf','.obj','.amf'];
+const extI=['.avif','.gif','.jpg','.jpeg','.jfif','.pjpeg','.pjp','.png','.svg','.webp','.bmp','.ico','.cur','.tif','.tiff','.kra','.jpg_large'];
+const extM=['.doc','.dot','.wbk','.docx','.docm','.dotx','.dotm','.xls','.xlt','.xlm','.xlsx','.xlsm','.xltx','.xltm','.xlsb','.xlw','.ppt','.pot','.pps','.pptx','.pptm','.potx','.potm','.ppsx','.ppsm','.sldx','.sldm','.accdb','.accde','.accdr','.accdt','.odt','.fodt','.ods','.fods','.odp','.fodp','.odg','.fodg','.odf'];
+//const extR=['.csv','.tsv','.xlsx'];
+	// const audioPlayer=new Audio();
+	// audioPlayer.shuffle=false;
+	// audioPlayer.loop=true;
+	// audioPlayer.togglePlay=function(){this.paused?this.play():this.pause()}
+	// audioPlayer.volumeAdd=function(f=0){this.volume=clamp(0,this.volume+f,1)}
+const pathPaused=`<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 18V6l8 6-8 6Z"/>`
+const pathPlaying=`<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6H8a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Zm7 0h-1a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h1c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1Z"/>`
+const privateIcon=`<svg title="This repository is private" class="icon-private" height="1.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z" clip-rule="evenodd"/></svg>`
+const forkIcon=`<svg title="This repository is a fork" class="icon-fork" height="1.5em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5 6a3 3 0 1 1 4 2.83V10a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8.83a3.001 3.001 0 1 1 2 0V10a3 3 0 0 1-3 3h-1v2.17a3.001 3.001 0 1 1-2 0V13h-1a3 3 0 0 1-3-3V8.83A3.001 3.001 0 0 1 5 6Z" clip-rule="evenodd"/></svg>`
+const folderIcon=`<svg class="v-folder-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg>`
+const newFileIcon=`<svg title="New file" class="new-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="pointer-events: none; color: var(--anchor-color-hover);"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"></path></svg>`
+// const ellipsisIcon=`<svg title="Options" class="ellipsis-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 12"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M6 6h0m6 0h.01m5.99 0h.01"/></svg>`
+// const ellipsisIcon=`<svg title="Options" class="ellipsis-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"></path></svg>`
+const uploadFileInput=Object.assign(document.createElement('input'),{type:'file',multiple:true});
+const monacoOptions={theme:'vs-dark',automaticLayout:true/*Resizable*/,wordWrap:'on',insertSpaces:false/*Prevent spaces, put tabs instead*/,tabSize:4,selectionClipboard:false/*For Linux*/,detectIndentation:false/*Indent size of 2 is kinda stupid*/}
+
+// Browsing control variables
+let debog;
+let browsingTree=[];
+let mediaArray=[];
+let mediaArrayRandom=[];
+let mediaArrayLocation='';
+let busRoute=[];
+let browsingCurrentRepo='';
+let ghusr='arialhamed';
+let intervalsDict={};
+
+// The following will read each file or content (or repos) and display into the explore-content element
+// const addObjectToView=async(e)=>{
+// 	if(e.name=='.gitkeep'&&e.size==0)return;
+// 	let contentString=`<a class="explore-cell" data-path="${e.name}"`;
+// 	let selectInput=`<label for="${e.sha}"></label><input class="explore-cell-select" type="checkbox" id="${e.sha}" />`;
+// 	if (e.git_url.startsWith('git://')){ // Is the record from the start?
+// 		// Adds the repository names and the prospective API URLs as cells
+// 		contentString+=` >
+// 			<span class="v-repo-title">${e.name}</span>
+// 			<div class="v-repo-details">
+// 				${e.private?privateIcon:''}${e.fork?forkIcon:''}
+// 				<div>
+// 					<span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span>
+// 					<span>${formatBytes(e.size)}</span>
+// 				</div>
+// 			</div>
+// 			<svg height="1.5em" class="v-repo-releases" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M20.337 3.664c.213.212.354.486.404.782.294 1.711.657 5.195-.906 6.76-1.77 1.768-8.485 5.517-10.611 6.683a.987.987 0 0 1-1.176-.173l-.882-.88-.877-.884a.988.988 0 0 1-.173-1.177c1.165-2.126 4.913-8.841 6.682-10.611 1.562-1.563 5.046-1.198 6.757-.904.296.05.57.191.782.404ZM5.407 7.576l4-.341-2.69 4.48-2.857-.334a.996.996 0 0 1-.565-1.694l2.112-2.111Zm11.357 7.02-.34 4-2.111 2.113a.996.996 0 0 1-1.69-.565l-.422-2.807 4.563-2.74Zm.84-6.21a1.99 1.99 0 1 1-3.98 0 1.99 1.99 0 0 1 3.98 0Z" clip-rule="evenodd"/></svg>
+// 		</a>`;
+// 	}else{
+// 		// Is the record a directory?
+// 		if (e.type == 'dir'){
+// 			contentString+=` data-type="tree" href="#${e.url.slice(22)}">
+// 				${selectInput}
+// 				<span class="v-name">${e.name}</span>
+// 				<svg class="v-folder-icon" height="1.2em" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 6c0-1.1.9-2 2-2h5.5a2 2 0 0 1 1.6.7L14 7H3V6Zm0 3v10c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/></svg>
+// 			</a>`;
+// 		}else{
+// 			// This record is a file in these brackets
+// 			contentString+=` data-type="blob" >${selectInput}`;
+// 			// Is the record an image?
+// 			if (extI.some(v => e.download_url.split('?',1)[0].toLowerCase().endsWith(v))){
+// 				// contentString+=`<img loading="lazy" src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span></a>`;
+// 				contentString+=`<img ${gId('show-images-in-list-view').checked?'':'data-'}src="${e.download_url}" alt="Unable to display image" /><span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
+// 				// contentString+=`<div class="v-image" data-src="${e.download_url}"></div><span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
+// 			}else{
+// 				contentString+=`<span class="v-name">${e.name}</span><span class="v-size">${formatBytes(e.size)}</span></a></span>`;
+// 			}
+// 			mediaArray.push([e.download_url, e.git_url]);
+// 			mediaArrayRandom.splice((mediaArrayRandom.length+1)*Math.random()|0,0,[e.download_url, e.git_url])
+// 		}
+// 	}
+// 	const template=document.createElement('template');//Purpose of template element
+// 	template.innerHTML=contentString.trim();//Remove text nodes and add to template
+// 	const exploreCell=template.content.firstChild;//Get the first child of template
+// 	if(e.download_url){//If download_url exists, set showFile as onclick, except if it is select checkbox & it's label
+// 		exploreCell.onclick=()=>showFile(e.url);
+// 		exploreCell.querySelector('input[type="checkbox"]').onclick=e=>e.stopPropagation();
+// 		exploreCell.querySelector('label').onclick=e=>e.stopPropagation();
+// 		busRoute.push(e.url);
+// 	}
+// 	if(e.releases_url){//If we in all-repo view, this is for each releases
+// 		exploreCell.onclick=()=>window.location.href=`#${e.url.slice(22)}/git/trees/${e.default_branch}?recursive=1`;
+// 		exploreCell.querySelector('.v-repo-releases').onclick=z=>{window.location.href=`#${e.url.slice(22)}/releases`;z.stopPropagation()}
+// 	}
+// 	gId('explore-content').appendChild(exploreCell);//Add to DOM
+// }
+const addRepoToView=e=>{
+	const template=document.createElement('template');//Purpose of template element
+	template.innerHTML=`<a class="explore-cell" data-path="${e.name}">
+		<span class="v-repo-title">${e.name}</span>
+		<div class="v-repo-details">
+			${e.private?privateIcon:''}${e.fork?forkIcon:''}
+			<div>
+				<span>${new Date(e.pushed_at).toLocaleDateString(navigator.languages[0],{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}</span>
+				<span>${formatBytes(e.size)}</span>
+			</div>
+		</div>
+		<svg height="1.5em" class="v-repo-releases" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M20.337 3.664c.213.212.354.486.404.782.294 1.711.657 5.195-.906 6.76-1.77 1.768-8.485 5.517-10.611 6.683a.987.987 0 0 1-1.176-.173l-.882-.88-.877-.884a.988.988 0 0 1-.173-1.177c1.165-2.126 4.913-8.841 6.682-10.611 1.562-1.563 5.046-1.198 6.757-.904.296.05.57.191.782.404ZM5.407 7.576l4-.341-2.69 4.48-2.857-.334a.996.996 0 0 1-.565-1.694l2.112-2.111Zm11.357 7.02-.34 4-2.111 2.113a.996.996 0 0 1-1.69-.565l-.422-2.807 4.563-2.74Zm.84-6.21a1.99 1.99 0 1 1-3.98 0 1.99 1.99 0 0 1 3.98 0Z" clip-rule="evenodd"/></svg>
+	</a>`.trim();//Remove text nodes and add to template
+	const exploreCell=template.content.firstChild;//Get the first child of template
+	if(e.releases_url){//If we in all-repo view, this is for each releases
+		exploreCell.onclick=()=>window.location.href=`#/${e.full_name}`;
+		exploreCell.querySelector('.v-repo-releases').onclick=z=>{window.location.href=`#${e.url.slice(22)}/releases`;z.stopPropagation()}
+	}
+	gId('explore-content').appendChild(exploreCell);//Add to DOM
+}
+const addObjectToView=e=>{
+	((identifier,name)=>{
+		if(e.name=='.gitkeep'&&e.size==0)return;
+		const itemOptions = `<label>
+			<svg title="Options" class="ellipsis-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"></path></svg>
+			<input type="button" /></label>`
+		// 	<div class="item-options">${e.type=='blob'?`
+		// 		<div title="Delete file"><svg class="delete-item" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg><span>Delete file</span></div>
+		// 		<div title="Rename file"><svg class="rename-item" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"></path></svg><span>Rename file</span></div>
+		// 	`:`
+		// 		<div title="New file"><svg class="create-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Z" clip-rule="evenodd"/></svg><span>New file</span></div>
+		// 		<div title="New folder"><svg class="create-folder" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/></svg><span>New folder</span></div>
+		// 		<div title="Upload here"><svg class="upload-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/></svg><span>Upload here</span></div>
+		// 		<div title="Delete folder"><svg class="delete-item" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg><span>Delete folder</span></div>
+		// 		<div title="Rename folder"><svg class="rename-item" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"></path></svg><span>Rename folder</span></div>
+		// 	`}
+		// 	</div>
+		// </label>
+		// `.trim()
+		const template=document.createElement('template');//Purpose of template element
+		template.innerHTML=`${e.type=='tree'
+			?`<details id="${name}" data-type="tree"><input type="button" /><summary title="${name}"><span>${name}</span><div><span class="tree-size">0</span>${folderIcon}</div></summary><div><div></div><div class="spacer" title="${name}"></div></div></details>`
+			:`<a class="explore-cell" data-type="blob" data-path="${e.path}"><span>${name}</span><span class="blob-size">${e.size}</span></a>`}`.trim();//Remove text nodes and add to template
+		const exploreCell=template.content.firstChild;//Get the template as element
+		if(e.type=='blob'){
+			exploreCell.onclick=()=>showFile(`https://api.github.com/repos/${window.location.hash.slice(2)}/contents/${e.path}`);
+			// busRoute.push(`https://api.github.com/repos/${window.location.hash.slice(2)}/contents/${e.path}`)
+		}else{
+			exploreCell.querySelector('.spacer').onclick=()=>exploreCell.querySelector('summary').click();//Click on spacer (to the left) of content of details will simulate clicking on summary
+			// exploreCell.querySelector('div:has(>.create-file)').onclick=cf=>{createFile(e.path);cf.stopPropagation()}
+			exploreCell.ontoggle=()=>{exploreCell.querySelector('input[type=button]').click();console.log('bruh')};
+		}
+		// exploreCell.querySelector('.ellipsis-icon').onclick=e=>e.stopPropagation();
+		// exploreCell.querySelector('.ellipsis-icon').parentElement.onclick=ei=>{
+		// 	ei.stopPropagation(); //ei.preventDefault();
+		// 	console.log(ei.target.getBoundingClientRect().top)
+		// };
+		document.querySelector(identifier?identifier:'#explore-content').appendChild(exploreCell);//Add to DOM
+	})(e.path.split('/').slice(0,-1).map(l=>`[id="${l}"]>div>div`).join('>'),e.path.split('/').at(-1))
+}
+window.onhashchange=async()=>{
+	const inUrl = window.location.hash.slice(2); // Remove '#/' from string
+	const isReload = inUrl==browsingTree.at(-1); // Only encountered when just running window.onhashchange() alone without changing browsingTree 
+	busRoute=[]; // Clear bus route
+	document.title=inUrl;
+
+	if(isReload){browsingTree.pop()}else{gId('file-display').innerHTML=''};
+	browsingTree.includes(inUrl)?browsingTree=browsingTree.slice(0,browsingTree.indexOf(inUrl)+1):browsingTree.push(inUrl);
+
+	gId('explore-content').innerHTML='<span class="loader" data-path=""></span>';
+
+	try{
+		// Get repository contents or list repositories of a user
+		// browseJson=await fetch(`https://api.github.com${inUrl}`, github_api_headers({refresh: isReload})).then(r=>r.json());
+		// if(browseJson.status=='403')throw browseJson;
+		// ['explore-back','back-to-start','create-file','create-folder','upload-file','download-repo'].forEach(i=>gId(i).style.cssText='pointer-events:none;color:var(--anchor-color-hover)');
+		// ['multi-select','toggle-view'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:none;color:var(--anchor-color-hover)');
+		if((inUrl.match(/\//g)||[]).length==0){ // If current link is the start
+			browseJson=await fetch(`https://api.github.com/users/${inUrl}/repos?per_page=100&sort=pushed`, github_api_headers({refresh: isReload})).then(r=>r.json());
+			browsingTree=[inUrl];
+			gId('current-title').textContent='My GitHub repositories';
+			gId('current-title').removeAttribute('href');
+			gId('current-description').innerHTML=`<i>&lt;description will be shown here when you select a repository below&gt;</i>`;
+			browsingCurrentRepo = '' // Reset value as we are not in a repo here
+			gId('explorer-corner').innerHTML=`All done with <a href="https://api.github.com/" target="_blank">GitHub's API</a> (<a id="github-auth" onclick="${(github_token)?'github_logout()">log-out':'github_signin()">sign-in'}</a>).`;
+			gId('select-branch').innerHTML=''; // Clear branches dropdown
+			// ['multi-select','toggle-view'].forEach(e=>{if(gId(e).checked)gId(e).click()}); // Uncheck multi-select
+
+			if(github_token){
+				const privateRepos=await fetch('https://api.github.com/user/repos?per_page=100&visibility=private',github_api_headers({refresh: isReload})).then(r=>r.json()).then(j=>j.filter(v=>v.owner.login==inUrl))
+				browseJson.push(...privateRepos)
+			}
+			browseJson.sort((a,b)=>b['pushed_at'].localeCompare(a['pushed_at']));
+			browseJson.forEach(addRepoToView)
+		}else{ // If either in repository contents or repository releases
+			gId('explore-back').onclick=()=>window.location.href=`#/${browsingTree.at(-2)}`;
+			userRepo=inUrl.split('/',2).join('/');
+			// gId('explorer-corner').innerHTML=browsingTree.slice(1).map(e=>{return `/<a href="#${e}">${decodeURIComponent(e.split('?ref=').at(0).split('/').at(-1))}</a>`}).join('');
+			// ['explore-back','back-to-start','download-repo'].forEach(i=>gId(i).style.cssText='color:var(--anchor-color)');
+			// ['toggle-view'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:auto;color:var(--anchor-color)');
+			// if(github_token){// Show write functions to authenticated user
+			// 	['create-file','create-folder','upload-file'].forEach(i=>gId(i).style.cssText='color:var(--anchor-color)');
+			// 	['multi-select'].forEach(e=>document.querySelector(`#${e} + label`).style.cssText='pointer-events:auto;color:var(--anchor-color)');
+			// }
+
+			// Get repository of current URL, regardless where you are (format is `{user}/{repository}`)
+			// const rrCurrent = inUrl.split('/').slice(2,4).join('/');
+
+			// If we are changing from all-repo view to a repo, run this once.
+			// if (browsingCurrentRepo!=rrCurrent){ // If the browsing repo does not match the current repo
+			// 	browsingCurrentRepo=rrCurrent
+
+				// Set title & description of current repo
+				const rrDeets = await fetch(`https://api.github.com/repos/${userRepo}`, github_api_headers({refresh: isReload})).then(r=>{if(!r.ok){throw r}return r.json()});
+				gId('current-description').innerHTML=`${rrDeets.private?privateIcon:''}${rrDeets.fork?`<a href="${rrDeets.parent.html_url}">${forkIcon}</a>`:''}${rrDeets.description===null?'<i>No description</i>':rrDeets.description}`;
+				gId('current-title').textContent=rrDeets.name;
+				gId('current-title').href=rrDeets.html_url;
+
+				// Set branch choices
+				const branches = await fetch(`https://api.github.com/repos/${userRepo}/branches`, github_api_headers({refresh: isReload})).then(r=>r.json());
+				gId('select-branch').innerHTML=branches.map(v=>`<option value=\"${v.name}\"${inUrl.endsWith(v.name)?'selected':''}>${v.name}</option>`).join('');
+			// }
+
+			if((inUrl.match(/\//g)||[]).length==3){
+				browseJson=await fetch(`https://api.github.com/repos/${userRepo}/releases`, github_api_headers({refresh: isReload})).then(r=>r.json());
+				browseJson.forEach(e=>{
+					gId('explore-content').insertAdjacentHTML('beforeend',`
+						<div class="explore-cell">
+							<details>
+								<summary>${e.name} (${e.tag_name})</summary>
+								<div id="${e.node_id}"></div>
+							</details>
+						</div>
+					`.trim());
+					e.assets.forEach(v=>{
+						const template=document.createElement('template');
+						template.innerHTML=`<div>${v.name}</div>`;
+						const releaseCell=template.content.firstChild;
+						releaseCell.onclick=()=>showRelease(v);
+						gId(e.node_id).appendChild(releaseCell);
+						busRoute.push(v);
+					})
+				})
+			}else{
+				browseJson=await fetch(`https://api.github.com/repos/${userRepo}/git/trees/main?recursive=1`, github_api_headers({refresh: isReload})).then(r=>r.json());
+				// Sometimes, a repository will just be empty (no commits) so there are no files to sort and build the view
+				if(browseJson.status=='404'){
+					gId('explore-content').insertAdjacentHTML('beforeend', `<span id="repo-is-empty" style="text-align:center;font-size:200%;padding:2em;font-style:italic;">${browseJson.message}</span>`);return
+				}else{ // At this point, we are inside a repository with commits, so let's put the folders first
+					browseJson.tree.sort((a, b) => b.type.localeCompare(a.type))
+					browseJson.tree.forEach(addObjectToView);
+					console.log('Finished adding to DOM')
+
+					Array.from(document.querySelectorAll('details')).forEach(d=>{//Assign sizes to all tree-size from blob-size textContents. damn.
+						d.querySelector('summary .tree-size').textContent=Array.from(d.querySelectorAll('.blob-size')).reduce((e,f)=>e+parseInt(f.textContent),0)
+					});
+					console.log('Finished assigning tree sizes from sizes from all children & grandchildren blobs')
+
+					Array.from(document.querySelectorAll('.tree-size, .blob-size')).forEach(s=>s.textContent=formatBytes(s.textContent))//then convert all tree-size & blob-size to formatted sizes
+					console.log('Finished format all the sizes')
+
+					busRoute=Array.from(document.querySelectorAll('.explore-cell')).map(e=>`https://api.github.com/repos/${browsingCurrentRepo}/contents/${e.getAttribute('data-path')}`)
+					console.log('Created bus route for blobs')
+
+					Array.from(document.querySelectorAll('.explore-cell')).forEach(e=>e.removeAttribute('data-path'))
+					console.log('Removed data-path from all blobs')
+
+					console.log(browseJson.tree)
+				}
+				// browseJson.forEach(addObjectToView)
+			}
+		}
+		console.log(browsingTree);
+		// const template=document.createElement('template');//Purpose of template element
+		// template.innerHTML=contentString.trim();//Remove text nodes and add to template
+		// const exploreCell=template.content.firstChild;//Get the first child of template
+		// if(e.download_url){//If download_url exists, set showFile as onclick, except if it is select checkbox & it's label
+		// 	exploreCell.onclick=()=>showFile(e.url);
+		// 	exploreCell.querySelector('input[type="checkbox"]').onclick=e=>e.stopPropagation();
+		// 	exploreCell.querySelector('label').onclick=e=>e.stopPropagation();
+		// 	busRoute.push(e.url);
+		// }
+
+		// Loops through each... whatever thing. He needs some milk
+		if(gId('explore-content').children.length==1)gId('explore-content').insertAdjacentHTML('beforeend','<h2 title="Only has a .gitkeep file that is 0 bytes">This folder is empty</h2>');
+	}catch(err){
+		console.log(err)
+		gId('explore-back').href='';
+		gId('current-description').innerHTML='';
+		if(err.message==null){
+			gId('current-title').textContent='Uh oh, that URL is invalid'
+			gId('explore-content').innerHTML=`<a style="text-align:center;font-size:200%;margin:2em;" href="#/users/${ghusr}/repos?per_page=100&sort=pushed">Return to repositories view?</a>`;
+		}else{
+			gId('current-title').textContent='GitHub API'
+			gId('explore-content').innerHTML=`<span style="text-align:center;font-size:150%;margin:2em;">${err.message}<br><br><a href="${err.documentation_url}">GitHub API Docs</a></span>`;
+		}
+		return
+	}
+}
+const downloadFile=async(inUrl)=>{
+	const fileDetails = await fetch(`https://api.github.com${inUrl}`, github_api_headers()).then(r=>r.json())
+	fetch(fileDetails.git_url, github_api_headers({raw: true}))
+	.then(r=>r.blob())
+	.then(b=>Object.assign(document.createElement('a'),{href:window.URL.createObjectURL(b),download:fileDetails.name}).click())
+	.then(f=>console.log(`"${fileDetails.name}" has been downloaded`))
+	// const xhr = new XMLHttpRequest();
+	// xhr.progress=e=>console.log(e.loaded/fileDetails.size);
+	// xhr.open('GET', fileDetails.git_url)
+	// xhr.setRequestHeader('Accept', `application/vnd.github.v3+json`)
+	// xhr.setRequestHeader('Authorization', (github_token)?`token ${github_token}`:``)
+	// xhr.send()
+	// console.log("what")
+}
+const showFile=async(inUrl)=>{
+	console.log(`showFile(${inUrl})`);
+
+	// Get the queen of divs
+	const fileDisplay=gId('file-display');
+
+	// Show loader spinner while loading file details
+	fileDisplay.innerHTML='<span class="loader"></span>';
+
+	// Get file details
+	const thisFile=await fetch(inUrl, github_api_headers({refresh: true})).then(r=>r.json());
+
+	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
+	fileDisplay.insertAdjacentHTML('beforeend',`
+		<div id="fd-header">
+			<a id="fd-link" href="${thisFile.download_url}"><svg aria-hidden="true" fill="none" viewBox="0 0 24 24" style="height:inherit"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/></svg></a>
+			<input id="fd-title" type="text" value="${thisFile.name}"${github_token?'':' disabled'} />
+			<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+		</div>
+		<div id="fd-nav">
+			<svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
+			<div id="fd-nav-space"></div>
+			<svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z"/></svg>
+		</div>
+	`.trim());
+
+	// Set navigation functions
+	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==0?busRoute.length-1:busRoute.indexOf(inUrl)-1));
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(3)').onclick=()=>showFile(busRoute.at(busRoute.indexOf(inUrl)==busRoute.length-1?0:busRoute.indexOf(inUrl)+1));
+
+	// Nav for file-display, fade-in/fade-out
+	let fdNavFade
+	fileDisplay.onmousemove=e=>{
+		clearTimeout(fdNavFade);
+		if(gId('fd-nav'))gId('fd-nav').style.opacity=1;
+		fdNavFade=setTimeout(()=>{if(gId('fd-nav'))gId('fd-nav').style.opacity=0},1500)
+	}
+	fileDisplay.onmousemove();
+
+	// Save button for some things
+	gId('fd-nav-space').insertAdjacentHTML('afterend','<svg id="save-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>');
+
+	// Renaming of file
+	gId('fd-title').onkeyup=e=>{
+		let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+		if(e.key=='Enter'){
+			githubCommit([{path:thisFile.path,content:null},{path:thisFile.path.replace(thisFile.name,e.target.value),content:thisFile.content}],'Rename successful')
+			.then(r=>window.onhashchange());
+		}
+	};
+
+	if(extI.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Images
+		// if(gId('explore-content').classList[0]=='list-group'){return} // Images are already quite maximized when explore-content is in list-group mode, so not required here
+		fileDisplay.insertAdjacentHTML('beforeend',`
+			<div id="fd-image-pagefit-container">
+				<input id="fd-image-pagefit" type="checkbox" checked>
+				<label for="fd-image-pagefit" style="line-height:3em;">Page Fit</label>
+			</div>
+			<img id="fd-image" style="margin:auto;" src="${thisFile.download_url}">
+		`.trim());
+	}else if(extV.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Video
+		fileDisplay.insertAdjacentHTML('beforeend',`<video id="fd-video" style="width:100%;margin:auto;overflow:auto;" controls autoplay loop><source src="${thisFile.download_url}" type="video/webm"></video>`);
+	}else if(extS.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Audio
+		fileDisplay.insertAdjacentHTML('beforeend',`
+		<div id="fd-audio-1">
+			<!-- img id="fd-audio-thumbnail" src="https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif" -->
+			<div id="fd-audio-lyrics"></div>
+		</div>
+		<div id="fd-audio-2">
+			<div>
+				<span id="fd-audio-duration-current">--:--</span>
+				<svg id="fd-audio-shuffle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 9.2 15 7h5m0 0-3-3m3 3-3 3M4 17h4l1.6-2.3M4 7h4l7 10h5m0 0-3 3m3-3-3-3"/></svg>
+			</div>
+			<svg id="fd-audio-lyrics-toggle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 28 28"><path fill-rule="evenodd" d="M7 2Q2 2 2 7V21q0 5 5 5h3q1 0 1-1t-1-1H7q-3 0-3-3V7Q4 4 7 4H21q3 0 3 3v4q0 1 1 1t1-1V7q0-5-5-5H7M7 6Q6 6 6 7T7 8H21q1 0 1-1T21 6H6m1 4q-1 0-1 1t1 1H21q1 0 1-1t-1-1H7m0 4q-1 0-1 1t1 1q0 0 0 0h5q1 0 1-1t-1-1H7m0 4q-1 0-1 1t1 1h5q1 0 1-1t-1-1H7m18-4-9 1q-1 .12-1 1v6q-2 0-2 2t2 2 2-2V17l7-1v5q-2 0-2 2t2 2 2-2V15q0-1.12-1-1"/></svg>
+			<svg id="fd-audio-toggle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">${pathPaused}</svg>
+			<!-- fd-audio-volume -->
+			<div>
+				<span id="fd-audio-duration-max">--:--</span>
+				<svg id="fd-audio-loop" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 4 3 3H5v3m3 10-3-3h14v-3m-9-2.5 2-1.5v4"/></svg>
+			</div>
+		</div>
+		<input id="fd-audio-slider" value="0" type="range" step=".01">
+		<div id="fd-audio-loading"></div>
+		<audio id="fd-audio-controls" autoplay loop><source src="${thisFile.download_url}"></audio>
+		`);
+
+		const audioPlayer=gId('fd-audio-controls');
+		audioPlayer.shuffle=false;
+		audioPlayer.loop=true;
+		audioPlayer.togglePlay=function(){this.paused?this.play():this.pause()}
+		audioPlayer.volumeAdd=function(f=0){this.volume=clamp(0,this.volume+f,1)}
+		const audioVolume=Object.assign(document.createElement('input'),{id:'fd-audio-volume',type:'range',value:audioPlayer.volume*100,max:100});
+		gId('fd-audio-toggle').insertAdjacentElement('afterend',audioVolume);
+		const audioSlider=gId('fd-audio-slider');
+		const audioDurationCurrent=gId('fd-audio-duration-current');
+		const audioDurationMax=gId('fd-audio-duration-max');
+		const audioToggle=gId('fd-audio-toggle');
+		const audioLyrics=gId('fd-audio-lyrics');
+		audioLyrics.timestamp=0;
+		const audioLyricsToggle=gId('fd-audio-lyrics-toggle');
+		const audioLoading=gId('fd-audio-loading');
+
+		// const audioMainLoop=()=>{
+		audioPlayer.ontimeupdate=()=>{
+			if(gId('fd-audio-controls')!=null){
+				audioSlider.value=audioPlayer.currentTime;
+				audioDurationCurrent.innerHTML=new Date(audioPlayer.currentTime*1000).toISOString().slice(14, 19);
+				audioLoading.style.width=`${100*(audioPlayer.buffered.end(audioPlayer.buffered.length-1)/audioPlayer.duration)}%`;
+				const currentLine=Array.from(document.querySelectorAll('#fd-audio-lyrics > *')).filter(e=>parseInt(e.id)<gId('fd-audio-controls').currentTime*1000).at(-1);
+				if(currentLine!=null&&audioLyrics.timestamp!=currentLine.id){
+					currentLine.scrollIntoView();
+					audioLyrics.timestamp=currentLine.id;
+					Array.from(document.querySelectorAll('#fd-audio-lyrics > *')).forEach(e=>e.style.color='#fffa');
+					currentLine.style.color='white'
+				};
+				// setTimeout(audioMainLoop,100);
+			}else{
+				audioPlayer.remove();
+			}
+		}
+
+		fetch(thisFile.git_url, github_api_headers({raw: true}))
+		.then(r=>r.blob())
+		.then(b=>modules.parseBlob(b))
+		.then(m=>{
+			gId('fd-audio-lyrics').style.backgroundImage=`url('${(m.common.picture==null)?'':embeddedImgToURI(m.common.picture[0])}'`;
+			if(m&&m.common.lyrics){
+				audioLyrics.innerHTML='';
+				m.common.lyrics.at(0).syncText.forEach(e=>{
+					audioLyrics.insertAdjacentHTML('beforeend',`<span id="${e.timestamp}">${e.text==''?'♪':e.text}</span>`);
+					gId(`${e.timestamp}`).onclick=()=>{audioPlayer.currentTime=e.timestamp/1000};
+				})
+			}
+		})
+
+		audioPlayer.onloadedmetadata=()=>{
+			audioSlider.max=audioPlayer.duration;
+			audioDurationMax.innerHTML=new Date((isNaN(audioPlayer.duration)?0:audioPlayer.duration)*1000).toISOString().slice(14, 19);
+			// audioMainLoop();
+		}
+		audioPlayer.onended=function(){!audioPlayer.loop?nextFile():''}
+
+		audioSlider.oninput=function(){audioPlayer.currentTime=this.value} // Slider change current time
+		audioToggle.onclick=()=>{audioPlayer.togglePlay()} // Play/Paused toggle
+		audioPlayer.onplay=()=>{audioToggle.innerHTML=pathPlaying}; // Display toggle icon for played
+		audioPlayer.onpause=()=>{audioToggle.innerHTML=pathPaused}; // Display toggle icon for paused
+		audioVolume.oninput=()=>{audioPlayer.volume=audioVolume.value/100} // Slider change volume
+		audioLyricsToggle.onclick=()=>audioLyrics.classList.toggle('show-lyrics');
+		// [['in',.01],['de',-.01]].forEach(e=>{gId('audio-'+e[0]+'crease').onclick=()=>{audioPlayer.volumeAdd(e[1])}})
+
+		// window.onkeydown=function(){
+		// 	// catches anything that does not require text input
+		// 	if(!(('color|date|datetime-local|email|month|number|password|search|tel|text|time|url|week'.includes(document.activeElement.type)&&document.activeElement.tagName==='INPUT')||document.activeElement.tagName==='TEXTAREA')){
+		// 		keyCodeUnassigned=true;
+		// 		switch(this.keyCode){
+		// 			case 74: case 37: audioPlayer.currentTime -= 3; break;
+		// 			case 75: case 32: audioPlayer.togglePlay(); break;
+		// 			case 76: case 39: audioPlayer.currentTime+=3; break;
+		// 			case 38: audioPlayer.volumeAdd(.01); break;
+		// 			case 40: audioPlayer.volumeAdd(-.01); break;
+		// 			default: keyCodeUnassigned=false
+		// 		}
+		// 		if(keyCodeUnassigned)this.preventDefault();
+		// 	}
+		// }
+		audioVolume.onwheel=e=>{e.preventDefault();if(e.composed){audioVolume.value=parseFloat(audioVolume.value)+(Math.max(e.deltaX,e.deltaY)>0?-5:5);audioPlayer.volume=audioVolume.value/100}}
+		audioSlider.onwheel=e=>{e.preventDefault();if(e.composed){audioPlayer.currentTime=clamp(0,audioPlayer.currentTime+(Math.max(e.deltaX,-e.deltaY)>0?-1:1),audioPlayer.duration)}}
+		gId('fd-audio-shuffle').style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)';
+		gId('fd-audio-shuffle').onclick=function(){audioPlayer.shuffle=!audioPlayer.shuffle;this.style.color=audioPlayer.shuffle?'var(--anchor-color)':'var(--font-color)'}
+		gId('fd-audio-loop').style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)';
+		gId('fd-audio-loop').onclick=function(){audioPlayer.loop=!audioPlayer.loop;this.style.color=audioPlayer.loop?'var(--anchor-color)':'var(--font-color)'};
+
+	}else if(ext3.some(v=>thisFile.name.toLowerCase().endsWith(v))){// 3D models
+		fileDisplay.insertAdjacentHTML('beforeend',`<model-viewer alt="${decodeURIComponent(thisFile.name)}" src="${thisFile.download_url}" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>`);
+	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
+		fileDisplay.insertAdjacentHTML('beforeend',"<p>Contents of this file can not be parsed here.</p>");
+	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
+		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="https://arialhamed.github.io/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}" frameborder="0"></iframe>`);
+
+		var pdfViewerOnMouseMove = gId('pdf-viewer').contentWindow.onmousemove;
+	    gId('pdf-viewer').contentWindow.onmousemove=e=>{
+			if(pdfViewerOnMouseMove)pdfViewerOnMouseMove(e);
+			fileDisplay.onmousemove();
+		}
+
+		gId('save-file').onclick=()=>{
+			// const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
+			const reader = new FileReader();
+			let [refinedUrl, refId] = thisFile.url.split('?ref=');
+			reader.onload=async()=>githubCommit([{content:reader.result,path:thisFile.path}],'PDF edits has been saved');
+			gId('pdf-viewer').contentWindow.PDFViewerApplication.pdfDocument.saveDocument()
+			.then(blob=>reader.readAsDataURL(new Blob([blob], {type: 'application/pdf'})))
+		}
+	}else if(extM.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Microsoft Office Documents
+		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="docx-viewer" style="flex:1;width:100%;" src="https://view.officeapps.live.com/op/embed.aspx?src=${thisFile.download_url}&embedded=true">This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Online</a>.</iframe>`);
+	}else{
+		fileDisplay.insertAdjacentHTML('beforeend',`<div id="fd-text"></div>`);
+		gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="word-wrap-toggle" type="checkbox" style="display:none;" checked><svg id="word-wrap-toggle-icon" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M25 4H5A1 1 0 005 6H25a1 1 0 000-2m0 4H5a1 1 0 000 2H25a1 1 0 000-2M5 12a1 1 0 000 2H21a1 1 0 010 6H19l2-2a.5.5 0 00-1.41-1.41l-3 3c-1 1-1 1.82 0 2.82l3 3A.5.5 0 0021 24l-2-2h2a1 1 0 00.5-10H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m0 4a1 1 0 000 2h8a1 1 0 000-2H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m19 0a1 1 0 000 2h1a1 1 0 000-2H24"/></svg>');
+		gId('word-wrap-toggle-icon').onclick=()=>gId('word-wrap-toggle').click();
+
+		if(thisFile.name.toLowerCase().endsWith('.md')){
+			// The code `thisFile.content.replace(/\</g, "&lt;")` replaces all `<` symbols with the escaped version, due to a HTML issue with the pre element
+			fileDisplay.insertAdjacentHTML('beforeend',`<span id="md-parsed">${mdConverter.render(atobPro(thisFile.content))}</span>`)
+			gId('fd-nav-space').insertAdjacentHTML('afterend','<input id="md-parse-toggle" type="checkbox" style="display:none;"><svg id="md-parse-toggle-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m19.2 17.2H4.8c-.7 0-1.2-.6-1.2-1.2V8c0-.7.6-1.2 1.2-1.2h14.4c.7 0 1.2.6 1.2 1.2v8c0 .7-.5 1.2-1.2 1.2zM4.8 7.6c-.2 0-.4.2-.4.4v8c0 .2.2.4.4.4h14.4c.2 0 .4-.2.4-.4V8c0-.2-.2-.4-.4-.4H4.8zM6 14.8V9.2h1.6l1.6 2 1.6-2h1.6v5.5h-1.6v-3.2l-1.6 2-1.6-2v3.2zm10.1 0-2.4-2.7h1.6V9.2h1.6V12h1.6z"/></svg>');
+			gId('md-parse-toggle-icon').onclick=()=>gId('md-parse-toggle').click();
+		}
+		require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
+		require(['vs/editor/editor.main'],()=>{
+			const model=monaco.editor.createModel(atobPro(thisFile.content),undefined,monaco.Uri.file(thisFile.name));
+			editor=monaco.editor.create(gId('fd-text'),monacoOptions);
+			editor.setModel(model);
+
+			gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
+			gId('save-file').onclick=async()=>{
+				let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+				githubCommit([{content:btoaPro(model.getValue()),path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${gId('fd-title').value}`}],'File saved');
+			}
+
+			new MutationObserver((e,o)=>{editor.dispose();model.dispose();o.disconnect()}).observe(gId('file-display'),{attributes:true,childList:true})
+		});
+	}
+}
+var editor;
+const showRelease=assetObj=>{
+	// Get the queen of divs
+	const fileDisplay=gId('file-display');
+
+	// Set navigation functions
+	const prevFile=()=>showRelease(busRoute.at(busRoute.indexOf(assetObj)==0?busRoute.length-1:busRoute.indexOf(assetObj)-1));
+	const nextFile=()=>showRelease(busRoute.at(busRoute.indexOf(assetObj)==busRoute.length-1?0:busRoute.indexOf(assetObj)+1));
+
+	// Show loader spinner while loading file details
+	fileDisplay.innerHTML='<span class="loader"></span>';
+
+	// Builds 2 elements, the first one is the close button, X, and the second one is the name of the file, and also
+	fileDisplay.insertAdjacentHTML('beforeend',`
+		<a id="fd-title" href="${assetObj.browser_download_url}">${assetObj.name}</a>
+		<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+		<div id="fd-nav">
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6a1 1 0 0 1 2 0v4l6.4-4.8A1 1 0 0 1 17 6v12a1 1 0 0 1-1.6.8L9 14v4a1 1 0 1 1-2 0V6Z"></svg>
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z"/></svg>
+		</div>
+	`.trim());
+	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(1)').onclick=()=>prevFile();
+	fileDisplay.querySelector('#fd-nav > svg:nth-child(2)').onclick=()=>nextFile();
+	if(extV.some(v=>assetObj.name.toLowerCase().endsWith(v))){// Video
+		fileDisplay.insertAdjacentHTML('beforeend',`
+			<!--video-js id="release-video" class="video-js" controls preload="auto" poster="" data-setup="{}">
+				<p class="vjs-no-js">
+					To view this video please enable JavaScript, and consider upgrading to a
+					web browser that
+					<a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+				</p>
+			</video-js-->
+			<video id="release-video" controls autoplay preload="auto">
+				<source	src="${assetObj.browser_download_url}" type="${assetObj.content_type}">
+			</video>
+		`);
+		// const palaya=videojs('release-video');
+		// palaya.src({
+		// 	src:assetObj.browser_download_url,//github_token?`https://${github_token}:@${assetObj.url.slice(8)}`:assetObj.browser_download_url,
+		// 	type:assetObj.content_type,
+		// 	withCredentials:true,
+		// 	overrideNative:true
+		// })
+		// // palaya.on('xhr-hooks-ready',()=>{
+		// // 	const playerXhrRequestHook=(options)=>{
+		// // 		options.beforeSend=(xhr)=>{
+		// // 			xhr.setRequestHeader('Authorization', `token ${github_token}`);
+		// // 		};
+		// // 		return options;
+		// // 	};
+		// // 	palaya.tech().vhs.xhr.onRequest(playerXhrRequestHook);
+		// // });
+		// palaya.play();
+		// gId('fd-close').addEventListener('click',()=>palaya.dispose());
+
+		// fetch(`https://corsproxy.io/?${encodeURIComponent(assetObj.url)}`, {headers: {Accept: 'application/octet-stream', Authorization: (github_token)?`token ${github_token}`:``, 'User-Agent': ''}})
+		// .then(r=>r.arrayBuffer())
+		// .then(a=>{
+		// 	console.log(a);
+		// 	const myMediaSource = new MediaSource();
+		// 	gId('release-video').src=URL.createObjectURL(myMediaSource);
+		// 	myMediaSource.onsourceopen=()=>{
+		// 		const videoSourceBuffer = myMediaSource.addSourceBuffer(`${assetObj.content_type}; codecs="avc1.42c01e, mp4a.40.2"`);
+		// 		videoSourceBuffer.appendBuffer(a);
+		// 		gId('release-video').play()
+		// 	}
+		// })
+	}
+}
+const githubCommit=async(listOfFiles,okMessage)=>{
+	let veilStopwatch=0;
+	const [repo,path,refId]=(a=>{const b=a.match(/repos\/([^/]+\/[^/]+)\/contents(?:\/(.*?))?\?ref=(.*)/);return b?b.slice(1).map((a,b)=>1===b&&a?a+"/":a||""):["","",""]})(window.location.hash);
+	const updateProgress=()=>gId('commit-backdrop').textContent=Number(++veilStopwatch/(listOfFiles.length+4)).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2});
+	gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
+	const apiUrl=`https://api.github.com/repos/${repo}/git`;
+	try{
+		const latestCommitSha=await fetch(`${apiUrl}/refs/heads/${refId}`,{cache:'no-store',headers:{Authorization:`token ${github_token}`}}).then(r=>r.json()).then(j=>j.object.sha);updateProgress();
+		console.log(`latestCommitSha: ${JSON.stringify(latestCommitSha)}`);
+		const blobData=await Promise.all(listOfFiles.map(file=>file.content==null?{path:file.path,mode:'100644',sha:null}:fetch(`${apiUrl}/blobs`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({content:file.content.split(';base64,').at(-1),encoding:'base64'})}).then(res=>{updateProgress();return res.json()})));
+		console.log(`blobData: ${JSON.stringify(blobData)}`);
+		const treeData=await fetch(`${apiUrl}/trees`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({base_tree:latestCommitSha,tree:blobData.map((blob,index)=>({path:listOfFiles[index].path,mode:'100644',type:'blob',sha:blob.sha}))})}).then(r=>r.json());updateProgress();
+		console.log(`treeData: ${JSON.stringify(treeData)}`);
+		const commitData=await fetch(`${apiUrl}/commits`,{method:'POST',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({message:`${listOfFiles.length} file(s) added/updated/removed by GitHub API`,tree:treeData.sha,parents:[latestCommitSha]})}).then(r=>r.json());updateProgress();
+		console.log(`commitData: ${JSON.stringify(commitData)}`);
+		const pushData=await fetch(`${apiUrl}/refs/heads/${refId}`,{method:'PATCH',headers:{Authorization:`token ${github_token}`},body:JSON.stringify({sha:commitData.sha})});updateProgress();
+		console.log(`pushData: ${JSON.stringify(pushData)}`);
+		if(pushData.ok){
+			raiseToast(okMessage)
+		}else{
+			raiseToast(`Error:<br>${pushData.status}<br>${pushData.statusText}`)
+		}
+	}catch{
+		raiseToast('Fatal error &#x1F480;')
+	}finally{
+		gId('commit-backdrop').remove();
+	}
+}
+uploadFileInput.onchange=async(e)=>{
+	const [locationId,refId]=window.location.hash.slice(1).split('?ref=');
+	let veilStopwatch=0;
+	let veilMax=e.target.files.length;
+	gId('file-display').insertAdjacentHTML('afterend','<div id="commit-backdrop"></div>');
+
+	// 1. Process picked files
+	let filesToUpload = await Promise.all(Array.from(e.target.files).map(file=>{
+		let reader=new FileReader();
+		return new Promise(resolve=>{
+			reader.onload=()=>{
+				gId('commit-backdrop').textContent=`Processing files: ${Number(++veilStopwatch/veilMax).toLocaleString(undefined,{style:'percent',minimumFractionDigits:2})}`;
+				return resolve({content:reader.result,path:`${decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))}${file.name}`})
+			};
+			reader.readAsDataURL(file)
+		})
+	}))
+	gId('commit-backdrop').remove();
+
+	uploadFileInput.value='';
+	const updateRefResponse=await githubCommit(filesToUpload,`${filesToUpload.length} file(s) has been uploaded`);
+
+	// if(updateRefResponse.ok){
+	// 	raiseToast(`${filesToUpload.length} file(s) has been uploaded`)
+	// }else{
+	// 	raiseToast(`Error:<br>${updateRefResponse.status}<br>${updateRefResponse.statusText}`)
+	// }
+	gId('explore-refresh').onclick();
+}
+gId('delete-item').onclick=async(gitUrl)=>{
+	let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+	const apiUrl = `https://api.github.com/repos/${browsingCurrentRepo}/git`;
+	const currentPath = decodeURIComponent(locationId.slice(16+browsingCurrentRepo.length).replace(/(\S)(\S+)/g,'$2$1'))
+
+	// 1. Gather files via traversing the trees
+	let currentGitUrl={sha:refId}
+	for(let i=0;i<currentPath.split('/').length-1&&currentPath!=''; i++){
+		currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}`,github_api_headers({refresh:true})).then(r=>r.json()).then(j=>j.tree.find(e=>e.path==currentPath.split('/').at(i)))
+	}
+	currentGitUrl=await fetch(`${apiUrl}/trees/${currentGitUrl.sha}?recursive=1`,github_api_headers({refresh:true})).then(r=>r.json()).then(j=>j.tree.filter(e=>e.type=='blob'))
+
+	// 2. Get all files, including those from inside the folder
+	const filesToDelete = [...document.querySelectorAll('#explore-content > .explore-cell:has(input[type="checkbox"]:checked)')].map(e=>
+		e.getAttribute('data-type')=='tree'?currentGitUrl.filter(b=>b.path.startsWith(`${e.getAttribute('data-path')}/`)).map(b=>b.path):e.getAttribute('data-path')
+	).flat().map(e=>{return {content: null, path: currentPath?`${currentPath}${e}`:e}});
+
+	// 3. Confirm deletion
+	if(!confirm(`Delete ${filesToDelete.length} files from "${locationId}" (${refId})?`))return false;
+
+	// 4. Commit
+	const updateRefResponse=await githubCommit(filesToDelete,`${filesToDelete.length} file(s) has been deleted`);
+
+	// 5. Response
+	// if(updateRefResponse.ok){
+	// 	console.log('Commit successful');
+	// 	raiseToast(`${filesToDelete.length} file(s) has been deleted`)
+	// }else{
+	// 	console.error('Error updating ref:', updateRefResponse.status, updateRefResponse.statusText);
+	// 	raiseToast(`Error updating ref`)
+	// }
+	gId('explore-refresh').onclick();
+}
+gId('create-folder').onclick=async()=>{
+	let folderName = prompt('New folder name')
+	if(folderName!=null){
+		let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+		let uploadedFileURL = `https://api.github.com${locationId}/${folderName}/.gitkeep?ref=${refId}`;
+		fetch(
+			uploadedFileURL, {
+			headers: {Authorization: `token ${github_token}`},
+			method: 'PUT',
+			body: JSON.stringify({
+				message: `Create this folder with GitHub API at "${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})}"`,
+				content: ''
+			})
+		})
+		.then(r=>r.json())
+		.then(j=>{
+			gId('explore-refresh').onclick();
+			raiseToast(`"${folderName}" folder has been created`)
+		})
+	}
+}
+createFile=ele=>{
+	const fileDisplay=gId('file-display');
+	fileDisplay.innerHTML='<span class="loader"></span>';
+	fileDisplay.insertAdjacentHTML('beforeend',`
+		<div id="fd-header">
+			<input id="fd-title" type="text" placeholder="Enter name of new file here" />
+			<svg id="fd-close" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 20 20 4m0 16L4 4"/></svg>
+		</div>
+		<div id="fd-nav">
+			<div id="fd-nav-space"></div>
+			<input id="word-wrap-toggle" type="checkbox" style="display:none;" checked><svg id="word-wrap-toggle-icon" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M25 4H5A1 1 0 005 6H25a1 1 0 000-2m0 4H5a1 1 0 000 2H25a1 1 0 000-2M5 12a1 1 0 000 2H21a1 1 0 010 6H19l2-2a.5.5 0 00-1.41-1.41l-3 3c-1 1-1 1.82 0 2.82l3 3A.5.5 0 0021 24l-2-2h2a1 1 0 00.5-10H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m0 4a1 1 0 000 2h8a1 1 0 000-2H5m0 4a1 1 0 000 2H15a1 1 0 000-2H5m19 0a1 1 0 000 2h1a1 1 0 000-2H24"/></svg>
+			<svg id="save-file" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/></svg>
+		</div>
+		<div id="fd-text"></div>
+	`.trim());
+
+	// Set navigation functions
+	gId('fd-close').onclick=()=>fileDisplay.innerHTML='';
+	gId('word-wrap-toggle-icon').onclick=()=>gId('word-wrap-toggle').click();
+
+	// Nav for file-display, fade-in/fade-out
+	let fdNavFade;
+	fileDisplay.onmousemove=e=>{
+		clearTimeout(fdNavFade);
+		if(gId('fd-nav'))gId('fd-nav').style.opacity=1;
+		fdNavFade=setTimeout(()=>{if(gId('fd-nav'))gId('fd-nav').style.opacity=0},1500)
+	};
+	fileDisplay.onmousemove();
+
+	require.config({paths:{vs:'https://unpkg.com/monaco-editor@latest/min/vs'}});
+	require(['vs/editor/editor.main'],()=>{
+		const model=monaco.editor.createModel('',undefined);
+		const editor=monaco.editor.create(gId('fd-text'),monacoOptions);
+		editor.setModel(model);
+
+		gId('word-wrap-toggle').onchange=()=>{editor.updateOptions({wordWrap:gId('word-wrap-toggle').checked?'on':'off'})};
+		gId('save-file').onclick=async()=>{
+			let [locationId, refId] = window.location.hash.slice(1).split('?ref=');
+			githubCommit([{content:btoaPro(model.getValue()),path:`${ele}${gId('fd-title').value}`}],'New file created')
+			.then(r=>{window.onhashchange();showFile(`https://api.github.com${locationId}/${gId('fd-title').value}?ref=${refId}`)})
+		}
+
+		new MutationObserver((e,o)=>{editor.dispose();model.dispose();o.disconnect()}).observe(gId('file-display'),{attributes:true,childList:true})
+	});
+}
+gId('rename-folder').onclick=()=>{
+	alert('rename folder not here yet')
+}
+gId('select-branch').onchange=e=>{
+	browsingTree=browsingTree.map(v=>v.includes('?ref=')?`${v.split('?ref=',1)[0]}?ref=${e.target.value}`:v)
+	window.location.href = `#${browsingTree.pop()}`
+}
+const searchContents=()=>{document.querySelectorAll('.explore-cell').forEach(function(a){a.style.display=(a.getAttribute('data-path').toLowerCase().includes(gId('search-input').value.toLowerCase()))?'':'none'})}
+const github_signin=()=>{localStorage.setItem('github_login_last_page',window.location.href);window.location.href='https://github.com/login/oauth/authorize?client_id=Iv23liaWNIqsLBdsPiAY&redirect_uri=https://arialhamed.github.io/github/callback'}
+const github_logout=()=>{localStorage.removeItem('github_token');window.location.reload()}
+
+// Browsing controls
+gId('back-to-start').onclick=()=>window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`;
+gId('explore-refresh').onclick=()=>window.onhashchange();
+gId('upload-file').onclick=()=>uploadFileInput.click();
+gId('select-all').onclick=e=>{
+	const allSelects=document.querySelectorAll('.explore-cell > input[type="checkbox"]');
+	const allChecked=!Array.from(allSelects).every(f=>f.checked);
+	allSelects.forEach(e=>e.checked=allChecked)
+};
+gId('download-repo').onclick=()=>downloadRepo();
+gId('show-images-in-list-view').onchange=e=>{//false = list
+	Array.from(document.querySelectorAll('.explore-cell > img')).forEach(v=>{
+		if(e.target.checked){
+			v.src=v.dataset.src
+		}else{
+			v.removeAttribute('src')
+		}
+	})
+}
+gId('edit-description').onclick=()=>alert('"Edit description" function not available yet (WIP)');
+
+// Kick off when the page loads, or go straight to a stated url
+// If there is a query named 'url', the page will go to that and extend the browsingTree. fun fact: this is why that's not called browsingHistory :3 that is user dependant now
+const qUrl=window.location.hash.slice(2);
+if(!qUrl){
+	console.log('Resetting to all-repo view');
+	window.location.href=`#/${ghusr}`
+}else{
+	if((qUrl.match(/\//g)||[]).length!=0){
+		browsingTree.unshift(qUrl.split('/',1).at(0))
+	}
+	window.onhashchange()
+}
+// if(!qUrl){
+// 	console.log('Resetting to all-repo view')
+// 	// window.location.href=`#/users/${ghusr}/repos?per_page=100&sort=pushed`
+// 	window.location.href=`#/${ghusr}`
+// }else{
+// 	let tempCurrentRepo = qUrl.slice(7).split('/').slice(0,2).join('/'); // copy of browsingCurrentRepo (not initialized yet)
+// 	if(qUrl.slice(7).split('/').slice(2)=='releases')browsingTree.push(`/users/${ghusr}/repos?per_page=100&sort=pushed`);
+
+// 	// If you landed in the contents of a repository
+// 	if(qUrl.includes('?ref=')){
+// 		// And if you landed beyond the root directory of the contents of the repository
+// 		if(!qUrl.slice(7+tempCurrentRepo.length).startsWith('/contents?ref=')){
+// 			browsingTree.push(`/repos/${tempCurrentRepo}/contents`)
+
+// 			// Take the iterative value at after a number of chars as:
+// 			// '/repos/' = 7 chars
+// 			// '{user}/{repository}' = tempCurrentRepo.length
+// 			// '/contents/' = 10 chars
+// 			let [iterative, refId] = qUrl.slice(17+tempCurrentRepo.length).split('?ref=')
+
+// 			// Takes the last item in browsingTree and add the value that is looping through the iterative
+// 			// Don't include the last item as that will be added in when it loads
+// 			iterative.split('/').slice(0,-1).forEach(s=>{
+// 				browsingTree.push(`${browsingTree.at(-1)}/${s}`)
+// 			})
+
+// 			// Add branch ID to all the links
+// 			browsingTree=browsingTree.map(s=>`${s}?ref=${refId}`)
+// 		}
+
+// 		// Add all-repo view URL to the start of browsingTree for all times you land in the contents of a repository
+// 		browsingTree.unshift(`/users/${ghusr}/repos?per_page=100&sort=pushed`);
+// 	}
+// 	window.onhashchange()
+// }
+</script>
