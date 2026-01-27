@@ -2,6 +2,8 @@
 title: "Arial Hamed"
 layout: default
 permalink: /
+redirect_to:
+ - https://homepage.arialhamed.com
 ---
 
 <!-- h1><span title=":3" class="uwu"></span></h1 -->
