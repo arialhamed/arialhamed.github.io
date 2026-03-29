@@ -19,12 +19,12 @@ This product has lived out many other products I have used in the past, so i'm q
 
 ### Gallery
 
-<video src="https://raw.githubusercontent.com/arialhamed/static/main/video/blogs/reviews/NEXSTAND-K2-Laptop-Stand-03.mp4" class="w-100"></video>
+<video src="https://files.arialhamed.com/static/video/blogs/reviews/NEXSTAND-K2-Laptop-Stand-03.mp4" class="w-100"></video>
 
 <div class="container">
     <div class="row row-cols-2">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/NEXSTAND-K2-Laptop-Stand-01.jpeg"/>
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/NEXSTAND-K2-Laptop-Stand-02.jpeg"/>
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/NEXSTAND-K2-Laptop-Stand-01.jpeg"/>
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/NEXSTAND-K2-Laptop-Stand-02.jpeg"/>
     </div>
 </div>
 

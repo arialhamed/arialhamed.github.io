@@ -18,7 +18,7 @@ tags: advice anxiety business thought tedx author useful achiever overcome fear 
 
 Listen to this article <br>
 <audio controls style="width:100%;">
-    <source src="https://raw.githubusercontent.com/arialhamed/static/main/audio/2023-03-01-how-high-achievers-overcome-their-anxiety.mp3" type="audio/mpeg">
+    <source src="https://files.arialhamed.com/static/audio/2023-03-01-how-high-achievers-overcome-their-anxiety.mp3" type="audio/mpeg">
     but unfortunately, your browser does not support the audio element of HTML5.
 </audio>
 

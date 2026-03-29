@@ -4,6 +4,6 @@ permalink: /resources/logitech-unifying-catalog/:title
 layout: post-sequential
 back: "../../.."
 categories: luc
-thumbnail: https://raw.githubusercontent.com/arialhamed/static/main/images/resources/logitech-unifying-catalog/illuminated-living-room-keyboard-K830.png
-redirect_to: https://raw.githubusercontent.com/arialhamed/static/main/pdf/resources/logitech-unifying-catalog/illuminated-living-room-keyboard-K830.pdf
+thumbnail: https://files.arialhamed.com/static/images/resources/logitech-unifying-catalog/illuminated-living-room-keyboard-K830.png
+redirect_to: https://files.arialhamed.com/static/pdf/resources/logitech-unifying-catalog/illuminated-living-room-keyboard-K830.pdf
 ---

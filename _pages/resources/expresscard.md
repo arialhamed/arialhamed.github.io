@@ -16,7 +16,7 @@ Even though I am a millenial myself (as of <timestamp>Q3 2022</timestamp>), I ha
 
 <div style="text-align:center;">
    <figure>
-      <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/resources/expresscard/800px-PCCard-ExpressCard_ZP.svg.horizontal.png" width="70%" style="-webkit-box-shadow:none;border:none;">
+      <img src="https://files.arialhamed.com/static/images/resources/expresscard/800px-PCCard-ExpressCard_ZP.svg.horizontal.png" width="70%" style="-webkit-box-shadow:none;border:none;">
       <figcaption>taken & edited from <a href="https://en.wikipedia.org/wiki/ExpressCard">Wikipedia</a></figcaption>
    </figure>
 </div>

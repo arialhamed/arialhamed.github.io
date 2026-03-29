@@ -80,7 +80,7 @@ I've collected the data that I could possibly find about all of their devices, s
 
 ### GPD XD
 
-<img src="https://raw.githubusercontent.com/arialhamed/static/main/images/resources/gpd/GPD_XD_running_Virtua_Fighter_2_(uoYabause_emulator).png">
+<img src="https://files.arialhamed.com/static/images/resources/gpd/GPD_XD_running_Virtua_Fighter_2_(uoYabause_emulator).png">
 
 Details & image source: <a href="https://en.wikipedia.org/wiki/GPD_XD">Wikipedia</a>
 

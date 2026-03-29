@@ -24,12 +24,12 @@ However, I found OpenSCAD. I figured that instead of modifying an object, I deci
 
 <div id="scad-container"></div>
 
-GitHub upload: <a href="https://raw.githubusercontent.com/arialhamed/static/main/3d/openscad/X220_ram_lid/X220_ram_lid.scad">Link</a> <br>
+GitHub upload: <a href="https://files.arialhamed.com/static/3d/openscad/X220_ram_lid/X220_ram_lid.scad">Link</a> <br>
 Thingiverse: <a href="https://www.thingiverse.com/thing:6037340">Link</a>
 
 <script>
   // Fetch the OpenSCAD file
-  fetch('https://raw.githubusercontent.com/arialhamed/static/main/3d/openscad/X220_ram_lid/X220_ram_lid.scad')
+  fetch('https://files.arialhamed.com/static/3d/openscad/X220_ram_lid/X220_ram_lid.scad')
     .then(response => response.text())
     .then(scadCode => {
       // Create a new OpenJSCAD processor

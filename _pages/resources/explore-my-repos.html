@@ -303,7 +303,7 @@ body:has(#fd-title,#commit-backdrop){overflow-y:hidden/*Disable the main scroll 
 	font-size:150%;
 	padding:0 1em;
 	flex:1;
-	background-image:url('https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif');
+	background-image:url('https://files.arialhamed.com/static/images/spinner.gif');
 	background-size:auto 100%;
 	background-repeat:no-repeat;
 	background-position:center center;
@@ -744,7 +744,7 @@ const showFile=async(inUrl)=>{
 	}else if(extS.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Audio
 		fileDisplay.insertAdjacentHTML('beforeend',`
 		<div id="fd-audio-1">
-			<!-- img id="fd-audio-thumbnail" src="https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif" -->
+			<!-- img id="fd-audio-thumbnail" src="https://files.arialhamed.com/static/images/spinner.gif" -->
 			<div id="fd-audio-lyrics"></div>
 		</div>
 		<div id="fd-audio-2">

@@ -27,4 +27,4 @@ LATEST UPDATE: I have decided to upload the common APKS file instead, as not onl
 
 Also, i got some more gameplay below. Click to play.
 
-<video controls onclick="this.paused ? this.play() : this.pause();"><source src="https://raw.githubusercontent.com/arialhamed/static/main/webm/resources/apk/My-Time-at-Portia-mines.webm" type="video/webm"></source></video>
+<video controls onclick="this.paused ? this.play() : this.pause();"><source src="https://files.arialhamed.com/static/webm/resources/apk/My-Time-at-Portia-mines.webm" type="video/webm"></source></video>

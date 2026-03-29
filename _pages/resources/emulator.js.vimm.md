@@ -32,7 +32,7 @@ enable_efficient: true
 
 <div style="max-width:100%; max-height:100%;">
   <div id="game"></div>
-  <div id="loading-gif" style="text-align:center;"><img src="https://raw.githubusercontent.com/arialhamed/static/main/images/spinner.gif"></div>
+  <div id="loading-gif" style="text-align:center;"><img src="https://files.arialhamed.com/static/images/spinner.gif"></div>
 </div>
 <br>
 <div class="container">
@@ -98,7 +98,7 @@ $.ajax({
   EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: true, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
   EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
   EJS_gameUrl = deets["url"];
-  EJS_biosUrl = "https://raw.githubusercontent.com/arialhamed/static/main/others/gba_bios.bin";
+  EJS_biosUrl = "https://files.arialhamed.com/static/others/gba_bios.bin";
   EJS_defaultControls = {
     0: {
       0: {'value' : 'j', 'value2' : 'BUTTON_2', 'keycode': '74'}, // B
@@ -141,7 +141,7 @@ $.ajax({
 % EJS_Buttons = { playPause: false, restart: true, mute: false, settings: false, fullscreen: true, saveState: false, loadState: false, screenRecord: false, gamepad: true, cheat: false, volume: true, saveSavFiles: false, loadSavFiles: false, quickSave: false, quickLoad: false, screenshot: false, cacheManager: false };
 % EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
 % EJS_gameUrl = deets["url"];
-% EJS_biosUrl = "https://raw.githubusercontent.com/arialhamed/static/main/others/gba_bios.bin";
+% EJS_biosUrl = "https://files.arialhamed.com/static/others/gba_bios.bin";
 % EJS_defaultControls = {
 %   0: {
 %     0: {'value' : 'j', 'value2' : 'BUTTON_2', 'keycode': '74'}, // B

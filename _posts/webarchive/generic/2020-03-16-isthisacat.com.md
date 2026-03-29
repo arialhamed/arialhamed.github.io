@@ -20,7 +20,7 @@ tags: isthisacat is this a cat yes no
             </div> 
         </section> 
         <section> 
-            <img id="cat" src="https://raw.githubusercontent.com/arialhamed/static/main/images/cat.d8f4b943.jpg" class="h-100 w-100" width="224" height="224"> 
+            <img id="cat" src="https://files.arialhamed.com/static/images/cat.d8f4b943.jpg" class="h-100 w-100" width="224" height="224"> 
             <div id="prediction" style="font-size:500%;">YES</div> 
         </section> 
         <script src="https://arialhamed.github.io/static/js/isthisacat.js"></script> 

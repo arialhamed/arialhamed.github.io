@@ -18,10 +18,10 @@ The most versatile mechanical dock for ThinkPads.
 
 <div class="container">
     <div class="row row-cols-2">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/ThinkPad-Mini-Dock-(Series-3).jpeg">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/ThinkPad-Mini-Dock-(Series-3)-01.jpeg">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/ThinkPad-Mini-Dock-(Series-3)-02.jpeg">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/ThinkPad-Mini-Dock-(Series-3)-03.jpeg">
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/ThinkPad-Mini-Dock-(Series-3).jpeg">
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/ThinkPad-Mini-Dock-(Series-3)-01.jpeg">
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/ThinkPad-Mini-Dock-(Series-3)-02.jpeg">
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/ThinkPad-Mini-Dock-(Series-3)-03.jpeg">
     </div>
 </div>
 

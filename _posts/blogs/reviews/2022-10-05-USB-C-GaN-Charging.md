@@ -35,37 +35,37 @@ I also have one where <a href="https://shopee.sg/Laptop-Power-Adapter-Connector-
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/USB-C-GaN-Charging-01.jpeg" alt="" class="d-block w-100">
+            <img src="https://files.arialhamed.com/static/images/blogs/reviews/USB-C-GaN-Charging-01.jpeg" alt="" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block">
                 <p>Review: <br>USB-C to 7.9-5.5mm Barrel Plug (utilized for X230)</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/USB-C-GaN-Charging.jpeg" alt="" class="d-block w-100">
+            <img src="https://files.arialhamed.com/static/images/blogs/reviews/USB-C-GaN-Charging.jpeg" alt="" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block">
                 <p>Review: <br>USB-C to 7.9-5.5mm Barrel Plug close-up</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/USB-C-GaN-Charging-02.jpeg" alt="" class="d-block w-100">
+            <img src="https://files.arialhamed.com/static/images/blogs/reviews/USB-C-GaN-Charging-02.jpeg" alt="" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block">
                 <p>Review: <br>USB-C to Slim-Tip close-up (utilized for X250)</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/USB-C-GaN-Charging-03.jpeg" alt="" class="d-block w-100">
+            <img src="https://files.arialhamed.com/static/images/blogs/reviews/USB-C-GaN-Charging-03.jpeg" alt="" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block">
                 <p>Review: <br>USB-C to ?? plug + connection selection</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/USB-C-GaN-Charging-04.jpeg" alt="" class="d-block w-100">
+            <img src="https://files.arialhamed.com/static/images/blogs/reviews/USB-C-GaN-Charging-04.jpeg" alt="" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block">
                 <p>Review: <br>USB-C to ?? plug + connection selection top view</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/USB-C-GaN-Charging-05.jpeg" alt="" class="d-block w-100">
+            <img src="https://files.arialhamed.com/static/images/blogs/reviews/USB-C-GaN-Charging-05.jpeg" alt="" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block">
                 <p>Review: <br>USB-C to 4.0-1.7mm Plug (utilized for C640)</p>
             </div>

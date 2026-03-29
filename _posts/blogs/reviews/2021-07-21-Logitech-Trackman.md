@@ -21,8 +21,8 @@ If you want to use a trackball, sure you can get this, from there though, it's t
 
 <div class="container">
     <div class="row row-cols-2">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/Logitech-Trackman-01.jpeg">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/Logitech-Trackman-02.jpeg">        
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/Logitech-Trackman-01.jpeg">
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/Logitech-Trackman-02.jpeg">        
     </div>
 </div>
 

@@ -123,6 +123,6 @@ branch 'main' set up to track 'origin/main'.
 
 Now if you check your remote repository, it would show the latest commit pushed, as shown below in the screenshot:
 
-<img src="https://raw.githubusercontent.com/arialhamed/static/main/images/git-pushed.jpg" class="w-100">
+<img src="https://files.arialhamed.com/static/images/git-pushed.jpg" class="w-100">
 
 _&lt;more details will come later&gt;_

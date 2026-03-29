@@ -18,8 +18,8 @@ A mini-SATA SSD, used in small laptops before the existence of M.2 replaced it. 
 
 <div class="container">
     <div class="row row-cols-2">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/Samsung-SM841N-128GB-mSATA-SSD.jpeg" class="w-100">
-        <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/blogs/reviews/Samsung-SM841N-128GB-mSATA-SSD-01.jpeg" class="w-100">
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/Samsung-SM841N-128GB-mSATA-SSD.jpeg" class="w-100">
+        <img src="https://files.arialhamed.com/static/images/blogs/reviews/Samsung-SM841N-128GB-mSATA-SSD-01.jpeg" class="w-100">
     </div>
 </div>
 

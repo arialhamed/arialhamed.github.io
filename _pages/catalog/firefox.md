@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 <figure style="text-align:center;">
-     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/catalog/firefox.svg" style="width:50%;">
+     <img src="https://files.arialhamed.com/static/images/catalog/firefox.svg" style="width:50%;">
      <figcaption style="margin-top:1rem;"><i>Source: <a href="https://commons.wikimedia.org/wiki/File:Firefox_logo,_2017.svg">Wikimedia Commons</a> and modified with <a href="https://inkscape.org/">Inkscape</a></i></figcaption>
 </figure>
 

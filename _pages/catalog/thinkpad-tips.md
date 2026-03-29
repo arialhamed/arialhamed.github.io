@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 <div style="text-align:center;">
-     <img src="https://raw.githubusercontent.com/arialhamed/static/main/images/2560px-IBM_ThinkPad_logo_askew.svg.png" style="width:50%;">
+     <img src="https://files.arialhamed.com/static/images/2560px-IBM_ThinkPad_logo_askew.svg.png" style="width:50%;">
 </div>
 
 <br><br>
