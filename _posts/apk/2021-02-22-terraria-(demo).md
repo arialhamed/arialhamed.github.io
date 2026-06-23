@@ -30,4 +30,4 @@ Shoutouts to <a href="https://www.drstudios.co.uk/">DR Studios</a> for doing suc
 </div>
 
 Also, i got some more gameplay below.
-<video controls onclick="this.paused ? this.play() : this.pause();"><source src="https://files.arialhamed.com/static/webm/resources/apk/Terraria-alt.webm" type="video/webm"></source></video>
+<video controls onclick="this.paused ? this.play() : this.pause();"><source src="https://cdn.calibri-turtle.pages.dev/webm/resources/apk/Terraria-alt.webm" type="video/webm"></source></video>

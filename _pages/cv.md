@@ -8,7 +8,7 @@ redirect_from:
 
 <div style="display: flex;">
     <figure>
-        <img src="https://files.arialhamed.com/static/images/cv/nasa-t-shirt.jpg" width=160 title=":3">
+        <img src="https://cdn.calibri-turtle.pages.dev/images/cv/nasa-t-shirt.jpg" width=160 title=":3">
         <figcaption><i>Photo taken</i>: 2023 May 5</figcaption>
     </figure>
     &nbsp;&nbsp;&nbsp;&nbsp;

@@ -21,10 +21,10 @@ As of the last update to this review, I am still very satisfied with it. More or
 
 <div class="container">
     <div class="row row-cols-2">
-        <img src="https://files.arialhamed.com/static/images/blogs/reviews/UGREEN-100W-GaN-4-Port-Charger.jpeg">
-        <img src="https://files.arialhamed.com/static/images/blogs/reviews/UGREEN-100W-GaN-4-Port-Charger-01.jpeg">
-        <img src="https://files.arialhamed.com/static/images/blogs/reviews/UGREEN-100W-GaN-4-Port-Charger-02.jpeg">
-        <img src="https://files.arialhamed.com/static/images/blogs/reviews/UGREEN-100W-GaN-4-Port-Charger-03.jpeg">
+        <img src="https://cdn.calibri-turtle.pages.dev/images/blogs/reviews/UGREEN-100W-GaN-4-Port-Charger.jpeg">
+        <img src="https://cdn.calibri-turtle.pages.dev/images/blogs/reviews/UGREEN-100W-GaN-4-Port-Charger-01.jpeg">
+        <img src="https://cdn.calibri-turtle.pages.dev/images/blogs/reviews/UGREEN-100W-GaN-4-Port-Charger-02.jpeg">
+        <img src="https://cdn.calibri-turtle.pages.dev/images/blogs/reviews/UGREEN-100W-GaN-4-Port-Charger-03.jpeg">
     </div>
 </div>
 

@@ -3,3 +3,4 @@
 releases
 automation.py
 *.xyz
+*.log

@@ -7,7 +7,7 @@ redirect_from:
  - /mantanance
 ---
 
-<!-- <img src="https://files.arialhamed.com/static/images/1601902483wrench-gear-silhouette.svg" alt="maintenance" class="w-100 text-center"> -->
+<!-- <img src="https://cdn.calibri-turtle.pages.dev/images/1601902483wrench-gear-silhouette.svg" alt="maintenance" class="w-100 text-center"> -->
 
 <i class="bi bi-wrench-adjustable-circle-fill w-100 text-center" style="font-size:500%;"></i>
 
