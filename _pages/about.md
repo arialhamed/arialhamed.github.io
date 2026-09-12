@@ -9,16 +9,10 @@ about: true
 
 # About me 
 
-A youth multi-disciplinary professional that focuses on **process architecture**, **data analysis**, and **robotic process automation**.<br>
-As a fresh graduate from **NYP**'s <a href="https://www.nyp.edu.sg/schools/sit/full-time-courses/information-technology.html">Diploma of Information Technology</a> course, specializing in **Artificial Intelligence** (with Diploma Plus in _Machine Data Analytics and Operational Intelligence_), i'm also interested in Information Systems & Computer Science, and aiming for  **Machine Learning**, **RPA**, **A.I. R&D**, **Process Architecture** and/or **Digital Transformation** as a career.
+not much. got a dip in it, gonna get a bach in eee in 2027. anyway-
 
-As of now, I decided to upskill myself by learning finacial & market analysis through Bloomberg for Education's course: Bloomberg Market Concepts. 
+i'm already employed, it's aight.
 
-<div class="row row-cols-1 row-cols-md-2">
-    <a class="btn btn-outline-secondary" href="/resume" role="button">Resume (.pdf)</a>
-    <a class="btn btn-outline-secondary" href="/cv" role="button">CV (all details)</a>
-</div>
-<br>
-
+on my spare time, i've been writing stories and practicing drawing.
 
 {% include comments.html url=page.url %}
