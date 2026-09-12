@@ -7,11 +7,11 @@ permalink: /wishlist
 ## Wishlist 
 Strictly in order
 
-1. Hair Removal: Braun IPL Silk Expert Pro 5 
-1. Desktop: [Beelink SER5 5800H](https://www.amazon.sg/Beelink-AMD-Ryzen-5800H-Computer/dp/B0BVRCK2DM/)
-1. Keyboard: Trackpoint Keyboard II OR SK8855 OR Keychron linear
-1. Kensington ProFit Ergo Vertical Trackball Mouse
-1. Phone (only 1, least cuz my current one is )
+1. [x] Hair Removal: Braun IPL Silk Expert Pro 5 
+1. [x] Desktop: [Beelink SER5 5800H](https://www.amazon.sg/Beelink-AMD-Ryzen-5800H-Computer/dp/B0BVRCK2DM/)
+1. [ ] Keyboard: Trackpoint Keyboard II OR SK8855 OR Keychron linear
+1. [x] Kensington ProFit Ergo Vertical Trackball Mouse
+1. [ ] Phone (only 1, least cuz my current one is )
     - Criteria:
         1. Must have NFC
         1. Samsung Dex
