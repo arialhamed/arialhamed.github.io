@@ -3,7 +3,7 @@ title: "Sony PS4 Dualshock 4 Game Controller"
 subtitle: "An iconic video game controller made for the PS4, and we all know it."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://shopee.sg/%E3%80%90Raya-Limited-Shocking-SALE%E3%80%91ONE-YEAR-WARRANTY-PS4-Controller-Sony-Dualshock-4-Controller-Wireless-PS-4-Game-Joystick-Controller-i.139268812.5336176573

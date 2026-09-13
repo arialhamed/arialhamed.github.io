@@ -3,7 +3,7 @@ title: "ThinkPad UltraBase Series 3"
 subtitle: "A well-known accessory to the X220 & X230"
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.carousell.sg/p/100-originial-lenovo-thinkpad-ultrabase-series-3-1112753465

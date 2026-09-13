@@ -17,9 +17,9 @@ redirect_from:
 ---
 
 
-<!-- <link rel="stylesheet" href="https://arialhamed.github.io/static/css/mediafire1.css"> -->
-<script src="https://arialhamed.github.io/static/js/mediafire.js"></script>
-<!-- <link rel="stylesheet" href="https://arialhamed.github.io/static/css/mediafire2.css"> -->
+<!-- <link rel="stylesheet" href="/static/css/mediafire1.css"> -->
+<script src="/static/js/mediafire.js"></script>
+<!-- <link rel="stylesheet" href="/static/css/mediafire2.css"> -->
 
 <h1>Download in progress...</h1>
 <h3>You may need to click the download button again if download doesn't start</h3>

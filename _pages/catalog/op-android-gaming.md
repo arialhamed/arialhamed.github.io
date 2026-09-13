@@ -10,7 +10,7 @@ redirect_from:
 
 Note: This does not include Google Play Store, but rather this guide is meant for WSA Sideloading
 
-DISCLAIMER: <a href="https://arialhamed.github.io/">https://arialhamed.github.io/</a> and any associates, partners & stakeholders do not condone illicit distribution & piracy of Android package files & softwares. **You are required to have legal access to the needed files for this guide**. You can find such files legally via certified distributers such as <a href="https://en.uptodown.com/android">UpToDown</a> & <a href="https://www.apkmirror.com/">APKMirror</a>.
+DISCLAIMER: <a href="/">https://arialhamed.github.io/</a> and any associates, partners & stakeholders do not condone illicit distribution & piracy of Android package files & softwares. **You are required to have legal access to the needed files for this guide**. You can find such files legally via certified distributers such as <a href="https://en.uptodown.com/android">UpToDown</a> & <a href="https://www.apkmirror.com/">APKMirror</a>.
 
 Disclaimers aside, I call this setup overpowered because using a laptop or PC device, which has a laptop or PC CPU, is much more overpowered compared to phone CPU.
 

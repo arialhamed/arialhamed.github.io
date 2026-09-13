@@ -3,7 +3,7 @@ title: "Foldable Laptop Bed Desk"
 subtitle: "A desk for you to use your laptop or whatever it may be on your bed."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://shopee.sg/-SINGAPORE-INSTOCK-Laptop-Desk-Bed-Tray-Foldable-Stand-i.127287522.6947438658

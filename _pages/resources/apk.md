@@ -21,7 +21,7 @@ redirect_from:
 - /resources/APKS
 - /resources/APKS/
 layout: default
-# secret: "https://arialhamed.github.io/resources/apk?key=在他里面，我们借着耶稣的宝血得着救赎，我们的过犯得着赦免，是照着他丰富的恩典"
+# secret: "/resources/apk?key=在他里面，我们借着耶稣的宝血得着救赎，我们的过犯得着赦免，是照着他丰富的恩典"
 secret: javascript:togglePiracy();
 redirect_to: /maintenance
 ---
@@ -50,9 +50,9 @@ redirect_to: /maintenance
     }
     async function getApkJson(n) {
         if (paidflag){
-            const response = await fetch("https://arialhamed.github.io/_pages/resources/apk_search_full.json");
+            const response = await fetch("/_pages/resources/apk_search_full.json");
         } else {
-            const response = await fetch("https://arialhamed.github.io/_pages/resources/apk_search.json");
+            const response = await fetch("/_pages/resources/apk_search.json");
         };
         const all_assets = await response.json();
         // gId('update').innerHTML = "bruh: "+all_assets[4]["title"];

@@ -3,7 +3,7 @@ title: "NEXSTAND K2 Laptop Stand"
 subtitle: "A one-move solution to elevating your laptop."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://shopee.sg/NEXSTAND-K2-Laptop-Stand-Portable-Adjustable-Eye-Level-Ergonomic-Light-Weight-Macbook-Stand-Mount-Holder-i.260164214.7050291316

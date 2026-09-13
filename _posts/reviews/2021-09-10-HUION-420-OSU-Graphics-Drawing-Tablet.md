@@ -3,7 +3,7 @@ title: "HUION 420 OSU Graphics Drawing Tablet"
 subtitle: "Probably the cheapest drawing tablet to be ever commercially available."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://shopee.sg/HUION-OSU-Tablet-Graphics-Drawing-Pen-Tablet-420-(4-x-2.23-)-i.290050563.7545508412

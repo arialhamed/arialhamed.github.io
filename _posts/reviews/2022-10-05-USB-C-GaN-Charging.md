@@ -3,7 +3,7 @@ title: "USB-C GaN Charging"
 subtitle: "With the new existence of GaN technology, eccentric manufacturers have been creating a new breed of cables.."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://shopee.sg/45W-65W-90W-100W-USB-Type-C-PD-Charging-Cable-Cord-USB-C-Plug-Converter-to-Laptop-Power-Adapter-Connector-for-Universal-Laptops-i.268068206.2955272970

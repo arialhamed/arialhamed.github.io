@@ -3,7 +3,7 @@ title: "Samsung SM841N 128GB mSATA SSD"
 subtitle: "A mini-SATA SSD, used in small laptops before the existence of M.2 replaced it"
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.carousell.sg/p/samsung-msata-128-gb-ssd-1175558555/

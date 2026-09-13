@@ -45,4 +45,4 @@ redirect_from:
         </div>
     </div>
 </main>
-<script src="https://arialhamed.github.io/static/js/jscompress.js"></script>
+<script src="/static/js/jscompress.js"></script>

@@ -3,7 +3,7 @@ title: "ORICO NVMe Enclosure"
 subtitle: "A enclosure for M.2 NVMe SSDs, popular among those with M.2 NVMe SSDs."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.carousell.sg/p/orico-nvme-ssd-enclosure-1164960053/

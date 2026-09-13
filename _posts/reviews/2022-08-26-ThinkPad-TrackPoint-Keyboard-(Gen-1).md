@@ -3,7 +3,7 @@ title: "ThinkPad TrackPoint Keyboard (Gen 1)"
 subtitle: "A rare commodity that not a lot of people think of about."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.carousell.sg/p/trackpoint-keyboard-first-gen-1167766553/

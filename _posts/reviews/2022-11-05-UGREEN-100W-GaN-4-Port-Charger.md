@@ -3,7 +3,7 @@ title: "UGREEN 100W GaN 4-Port Charger"
 subtitle: "A compact powerhouse, juicing all your stuff"
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.carousell.sg/p/ugreen-100w-gan-charger-4-port-usb-c-multiport-charger-4-port-usb-fast-charger-power-adapter-1159350339/

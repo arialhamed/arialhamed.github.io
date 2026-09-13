@@ -74,9 +74,9 @@ videojs: true
 
 <!-- <div id="commit-backdrop"></div> -->
 
-<script type="text/javascript" src="https://arialhamed.github.io/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://arialhamed.github.io/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://arialhamed.github.io/static/video-js-8.21.1/video.min.js"></script>
+<script type="text/javascript" src="/static/js/prism.js" integrity="sha384-TkqOrDmcqktJ9KyGrO8dvy+cgNGxL8213a+Gjn9NWdSDFzuO0qXUfUjOQkv+OQHB" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/static/js/remarkable.min.js" integrity="sha384-+mAd+2zwsGbkQclpQUYAzd2sn40qJt1XvZ/y1tb2ff1EP6GEZ77FW1qwSt50qvrs" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/static/video-js-8.21.1/video.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js" integrity="sha256-0SGl1PJNDyJwcV5T+weg2zpEMrh7xvlwO4oXgvZCeZk=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
 <style>
@@ -991,7 +991,7 @@ const showFile=async(inUrl)=>{
 	}else if(extA.some(v=>thisFile.name.toLowerCase().endsWith(v))){// Archive files
 		fileDisplay.insertAdjacentHTML('beforeend',"<p>Contents of this file can not be parsed here.</p>");
 	}else if(thisFile.name.toLowerCase().endsWith(".pdf")){// PDFs
-		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="https://arialhamed.github.io/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}" frameborder="0"></iframe>`);
+		fileDisplay.insertAdjacentHTML('beforeend',`<iframe id="pdf-viewer" style="flex:1;width:100%;" src="/static/pdfjs-5.3.31-dist/web/viewer.html?file=${thisFile.download_url}" frameborder="0"></iframe>`);
 
 		var pdfViewerOnMouseMove = gId('pdf-viewer').contentWindow.onmousemove;
 	    gId('pdf-viewer').contentWindow.onmousemove=e=>{

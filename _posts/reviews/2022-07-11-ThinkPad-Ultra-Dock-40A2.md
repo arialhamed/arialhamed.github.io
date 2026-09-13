@@ -3,7 +3,7 @@ title: "ThinkPad Ultra Dock 40A2"
 subtitle: "One of the best mechanical docks for ThinkPads (i think)."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.carousell.sg/p/thinkpad-ultra-dock-40a2-1165113759/

@@ -3,7 +3,7 @@ title: "HORIPAD PS4 Mini Wired Gamepad"
 subtitle: "A very small wired controller alternative for the PS4"
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.amazon.sg/gp/product/B07XV1GRZX

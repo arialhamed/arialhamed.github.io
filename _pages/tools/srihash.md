@@ -7,8 +7,8 @@ redirect_from:
  - /srihash
  - /srihash/
 ---
-<script src="https://arialhamed.github.io/static/js/clipboard.js" defer=""></script>
-<script src="https://arialhamed.github.io/static/js/srihash.js" defer=""></script>
+<script src="/static/js/clipboard.js" defer=""></script>
+<script src="/static/js/srihash.js" defer=""></script>
 <pre id="for-copy" style="display:none;"></pre>
 <div id="app" class="container">
     <div class="container" id="sriAppContainer">

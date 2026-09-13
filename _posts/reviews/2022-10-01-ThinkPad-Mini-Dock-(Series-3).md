@@ -3,7 +3,7 @@ title: "ThinkPad Mini Dock (Series 3)"
 subtitle: "The most versatile mechanical dock for ThinkPads."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.carousell.sg/p/lenovo-thinkpad-mini-dock-p-n-45n5887-1164809736/

@@ -40,7 +40,7 @@ body {
     flex-direction: column;
 }
 ```
-The above is CSS you can put into your site.css that can apply to all pages (as I also have done <a href="https://arialhamed.github.io/static/css/site.css">here</a>), and the below is an example of what to do in your layouts html files. The effect will, of course, be visible in _vertically smaller pages_. In the example below though, all i did to change to the layout is add in the style attribute to the _main-content-wrap_ division. 
+The above is CSS you can put into your site.css that can apply to all pages (as I also have done <a href="/static/css/site.css">here</a>), and the below is an example of what to do in your layouts html files. The effect will, of course, be visible in _vertically smaller pages_. In the example below though, all i did to change to the layout is add in the style attribute to the _main-content-wrap_ division. 
 ``` html
 <div id="header-wrap" class="outer">
     <!-- HEADER CONTENT -->

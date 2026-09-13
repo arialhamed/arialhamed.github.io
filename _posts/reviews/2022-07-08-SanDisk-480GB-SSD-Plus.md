@@ -3,7 +3,7 @@ title: "SanDisk 480GB SSD Plus"
 subtitle: "A neat little 2.5inch SSD, very useful speeding up an old laptop."
 permalink: /blogs/reviews/:title
 layout: post-reviews
-back: "https://arialhamed.github.io/blogs/reviews"
+back: "/blogs/reviews"
 categories: reviews
 seq_type: review
 source_link: https://www.carousell.sg/p/SanDisk-ssd-plus-480gb-1170889630/

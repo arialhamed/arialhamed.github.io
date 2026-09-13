@@ -3,9 +3,9 @@ title: Mediafire Direct Downloader
 layout: default
 ---
 
-<link rel="stylesheet" href="https://arialhamed.github.io/static/css/mediafire1.css">
-<script src="https://arialhamed.github.io/static/js/mediafire.js"></script>
-<link rel="stylesheet" href="https://arialhamed.github.io/static/css/mediafire2.css">
+<link rel="stylesheet" href="/static/css/mediafire1.css">
+<script src="/static/js/mediafire.js"></script>
+<link rel="stylesheet" href="/static/css/mediafire2.css">
 
 
 <input type="text" id="mediafire-url" autocomplete="off" spellcheck="false" placeholder="https://www.mediafire.com/file/abcde1234567890/file" aria-live="polite">
