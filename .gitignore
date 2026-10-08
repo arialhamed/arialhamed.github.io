@@ -1,0 +1,6 @@
+*.bak
+*.backup
+releases
+automation.py
+*.xyz
+*.log

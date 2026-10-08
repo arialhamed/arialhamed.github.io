@@ -1,0 +1,27 @@
+theme: jekyll-theme-slate # whoa how this deviated so much in 2023 hahaha
+include: ['_pages', '_redirect']
+description: > # this means to ignore newlines until "title:"
+  ari's monochrome asylum.
+title: arialhamed.com
+url: ""
+markdown: kramdown
+timezone: Asia/Singapore
+plugins:
+  - jekyll-gist
+  - jekyll-coffeescript
+  - jekyll-seo-tag
+  - jekyll-redirect-from
+  # - jekyll-multiple-languages-plugin
+  - jekyll-category-post-navigation
+  - jekyll-pdf-embed
+  - directory_tag
+  - jekyll-remote-include
+  # - jekyll-last-modified-at
+# languages: ["sv", "en", "my", "ch", "id"]
+kramdown:
+  syntax_highlighter: coderay
+# exclude_from_localizations: ["javascript", "css", "static", "LICENSE"]
+collections:
+  repos:
+    output: true
+    permalink: /:collection/:path/
